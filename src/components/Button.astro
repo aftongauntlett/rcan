@@ -1,0 +1,76 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type ButtonVariant = "primary" | "secondary" | "ghost";
+type ButtonSize = "sm" | "md" | "lg";
+
+interface Props extends HTMLAttributes<"button">, HTMLAttributes<"a"> {
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  disabled?: boolean;
+  class?: string;
+  ariaLabel?: string;
+}
+
+const {
+  href,
+  type = "button",
+  variant = "primary",
+  size = "md",
+  disabled = false,
+  class: className = "",
+  ariaLabel,
+  ...rest
+} = Astro.props as Props;
+
+const baseClasses =
+  "inline-flex items-center justify-center gap-2 font-medium no-underline transition-colors duration-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default";
+
+const variantClasses: Record<ButtonVariant, string> = {
+  primary:
+    "border border-brand-primary bg-brand-primary text-surface-default hover:border-brand-secondary hover:bg-brand-secondary",
+  secondary: "border border-brand-primary bg-surface-default text-brand-primary hover:bg-surface-subtle",
+  ghost: "border border-transparent bg-transparent text-text-link hover:bg-surface-subtle",
+};
+
+const sizeClasses: Record<ButtonSize, string> = {
+  sm: "rounded-sm px-3 py-2 text-sm",
+  md: "rounded-md px-4 py-2 text-base",
+  lg: "rounded-lg px-5 py-3 text-lg",
+};
+
+const disabledClasses = disabled ? "pointer-events-none opacity-60" : "";
+const classes = [baseClasses, variantClasses[variant], sizeClasses[size], disabledClasses, className]
+  .filter(Boolean)
+  .join(" ");
+
+const anchorProps = rest as HTMLAttributes<"a">;
+const buttonProps = rest as HTMLAttributes<"button">;
+---
+
+{
+  href ? (
+    <a
+      href={disabled ? undefined : href}
+      aria-disabled={disabled ? "true" : undefined}
+      aria-label={ariaLabel}
+      tabindex={disabled ? -1 : undefined}
+      class={classes}
+      {...anchorProps}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button
+      type={type}
+      disabled={disabled}
+      aria-label={ariaLabel}
+      class={classes}
+      {...buttonProps}
+    >
+      <slot />
+    </button>
+  )
+}

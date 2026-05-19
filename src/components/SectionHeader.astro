@@ -1,0 +1,39 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type HeadingLevel = 1 | 2 | 3 | 4;
+
+interface Props extends Omit<HTMLAttributes<"header">, "class"> {
+  heading: string;
+  eyebrow?: string;
+  subheading?: string;
+  level?: HeadingLevel;
+  class?: string;
+}
+
+const {
+  heading,
+  eyebrow,
+  subheading,
+  level = 2,
+  class: className = "",
+  ...rest
+} = Astro.props as Props;
+
+const HeadingTag = `h${level}` as "h1" | "h2" | "h3" | "h4";
+
+const headingSizes: Record<HeadingLevel, string> = {
+  1: "text-4xl",
+  2: "text-3xl",
+  3: "text-2xl",
+  4: "text-xl",
+};
+---
+
+<header class={`space-y-2 ${className}`} {...rest}>
+  {eyebrow && <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">{eyebrow}</p>}
+
+  <HeadingTag class={`${headingSizes[level]} font-semibold text-text-default`}>{heading}</HeadingTag>
+
+  {subheading && <p class="max-w-3xl text-base text-text-subtle">{subheading}</p>}
+</header>

@@ -1,0 +1,42 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends Omit<HTMLAttributes<"a">, "href" | "class" | "rel"> {
+  href: string;
+  class?: string;
+  rel?: string;
+  showExternalIndicator?: boolean;
+  externalIndicatorLabel?: string;
+}
+
+const {
+  href,
+  class: className = "",
+  rel,
+  showExternalIndicator = true,
+  externalIndicatorLabel = "External link",
+  ...rest
+} = Astro.props as Props;
+
+const isExternal = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(href);
+
+const relValues = new Set((rel ?? "").split(" ").filter(Boolean));
+if (isExternal) {
+  relValues.add("noopener");
+  relValues.add("noreferrer");
+}
+const resolvedRel = relValues.size > 0 ? Array.from(relValues).join(" ") : undefined;
+---
+
+<a
+  href={href}
+  rel={resolvedRel}
+  class={`inline-flex items-center gap-1 font-medium text-text-link underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default ${className}`}
+  {...rest}
+>
+  <slot />
+  {isExternal && showExternalIndicator && (
+    <span aria-hidden="true" class="text-sm text-text-subtle">External</span>
+  )}
+  {isExternal && showExternalIndicator && <span class="sr-only">{externalIndicatorLabel}</span>}
+</a>

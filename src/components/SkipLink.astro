@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends Omit<HTMLAttributes<"a">, "href" | "class"> {
+  href?: string;
+  class?: string;
+}
+
+const { href = "#main-content", class: className = "", ...rest } = Astro.props as Props;
+---
+
+<a
+  href={href}
+  class={`sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 rounded-md bg-brand-primary px-4 py-2 font-medium text-surface-default shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default ${className}`}
+  {...rest}
+>
+  Skip to main content
+</a>

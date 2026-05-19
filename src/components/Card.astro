@@ -1,0 +1,38 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends Omit<HTMLAttributes<"article">, "class"> {
+  class?: string;
+  ariaLabel?: string;
+}
+
+const { class: className = "", ariaLabel, ...rest } = Astro.props as Props;
+
+const hasHeader = Astro.slots.has("header");
+const hasBody = Astro.slots.has("body") || Astro.slots.has("default");
+const hasFooter = Astro.slots.has("footer");
+---
+
+<article
+  class={`overflow-hidden rounded-lg border border-border-default bg-surface-default text-text-default shadow-sm ${className}`}
+  aria-label={ariaLabel}
+  {...rest}
+>
+  {hasHeader && (
+    <header class="border-b border-border-default px-4 py-3">
+      <slot name="header" />
+    </header>
+  )}
+
+  {hasBody && (
+    <div class="px-4 py-4">
+      {Astro.slots.has("body") ? <slot name="body" /> : <slot />}
+    </div>
+  )}
+
+  {hasFooter && (
+    <footer class="border-t border-border-default px-4 py-3">
+      <slot name="footer" />
+    </footer>
+  )}
+</article>

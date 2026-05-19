@@ -11,10 +11,12 @@ const { class: className = "", ariaLabel, ...rest } = Astro.props as Props;
 const hasHeader = Astro.slots.has("header");
 const hasBody = Astro.slots.has("body") || Astro.slots.has("default");
 const hasFooter = Astro.slots.has("footer");
+
+const hasCustomBg = /\bbg-\S+/.test(className);
 ---
 
 <article
-  class={`overflow-hidden rounded-lg border border-border-default bg-surface-default text-text-default shadow-sm ${className}`}
+  class={`overflow-hidden rounded-lg border border-border-default ${hasCustomBg ? "" : "bg-surface-default"} text-text-default shadow-sm ${className}`}
   aria-label={ariaLabel}
   {...rest}
 >

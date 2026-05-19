@@ -26,13 +26,14 @@ const {
 } = Astro.props as Props;
 
 const baseClasses =
-  "inline-flex items-center justify-center gap-2 font-medium no-underline transition-colors duration-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default";
+  "inline-flex items-center justify-center gap-2 font-semibold no-underline transition-colors duration-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border border-brand-primary bg-brand-primary text-surface-default hover:border-brand-secondary hover:bg-brand-secondary",
-  secondary: "border border-brand-primary bg-surface-default text-brand-primary hover:bg-surface-subtle",
-  ghost: "border border-transparent bg-transparent text-text-link hover:bg-surface-subtle",
+    "border border-brand-primary bg-brand-primary text-surface-default shadow-sm hover:border-brand-accent hover:bg-brand-accent",
+  secondary:
+    "border border-brand-primary bg-surface-default text-brand-primary shadow-sm hover:border-brand-accent hover:text-brand-accent",
+  ghost: "border border-transparent bg-transparent text-brand-primary hover:bg-surface-subtle",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {

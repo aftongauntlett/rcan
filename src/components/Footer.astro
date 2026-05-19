@@ -1,17 +1,90 @@
 ---
 import Link from "./Link.astro";
+import Icon from "./Icon.astro";
+import logo from "../assets/rcan_logo_final.svg?url";
 
 // New shared site-chrome component for BaseLayout; no reusable footer existed in src/components.
 const year = new Date().getFullYear();
+const footerNavItems = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/how-we-help", label: "How We Help" },
+  { href: "/get-involved", label: "Get Involved" },
+  { href: "/donate", label: "Donate" },
+  { href: "/contact", label: "Contact" },
+];
 ---
 
 <footer class="border-t border-border-default bg-surface-subtle">
-  <div class="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-text-subtle md:flex-row md:items-center md:justify-between">
-    <p>Copyright {year} Returning Citizens Assistance Network</p>
-    <p>
-      <Link href="/contact" class="no-underline text-text-link hover:text-brand-secondary">
-        Contact RCAN
-      </Link>
-    </p>
+  <div class="mx-auto w-full max-w-7xl px-4 py-8">
+    <div class="grid grid-cols-[auto_1fr_auto] items-start gap-3">
+      <div class="flex justify-start pt-1">
+        <img
+          src={logo}
+          alt=""
+          role="presentation"
+          aria-hidden="true"
+          class="block h-12 w-auto md:h-14"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="flex flex-col items-center gap-3 text-center">
+        <nav aria-label="Footer" class="w-full">
+          <ul class="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-sm">
+            {
+              footerNavItems.map((item) => (
+                <li>
+                  <Link
+                    href={item.href}
+                    variant="subtle"
+                    class="rounded-md px-2 py-1 text-text-subtle hover:bg-surface-default hover:text-text-default hover:underline hover:decoration-brand-secondary hover:underline-offset-4"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <div class="h-px w-full max-w-2xl bg-border-default"></div>
+
+        <p class="text-sm text-text-subtle">
+          <Link
+            href="https://nyapc.org/"
+            variant="subtle"
+            showExternalIndicator={false}
+            class="rounded-md px-1 py-1 text-text-link hover:text-brand-secondary"
+          >
+            NYAPC.org
+          </Link>
+        </p>
+
+        <p class="text-center text-xs text-text-subtle">Copyright {year} Returning Citizens Assistance Network</p>
+      </div>
+
+      <div class="flex justify-end pt-1">
+        <button
+          type="button"
+          data-back-to-top
+          aria-label="Back to top"
+          class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-default bg-surface-default text-text-subtle hover:border-brand-secondary hover:bg-brand-secondary/10 hover:text-brand-secondary"
+        >
+          <Icon name="arrow-up-right" size="sm" class="-rotate-45" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
   </div>
 </footer>
+
+<script>
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const scrollBehavior = prefersReducedMotion ? "auto" : "smooth";
+
+  document.querySelectorAll("[data-back-to-top]").forEach((control) => {
+    control.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: scrollBehavior });
+    });
+  });
+</script>

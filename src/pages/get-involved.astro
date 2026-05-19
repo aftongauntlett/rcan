@@ -1,17 +1,108 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
+import Card from "../components/Card.astro";
+import Button from "../components/Button.astro";
+import Icon from "../components/Icon.astro";
+import involvementImage from "../assets/community-is-strength.jpg";
 
 const pageTitle = "Get Involved | RCAN";
 const pageDescription =
   "Find ways to volunteer, partner, and participate in RCAN's work supporting returning citizens.";
+
+const congregationCommitments = [
+  "Receive regular information from the network about specific individuals who need assistance",
+  "Check with members of the congregation to see if anyone can assist with a specific request",
+  "Help to coordinate the efforts of those who want to respond to requests",
+];
+
+const waysToHelp = [
+  "Respond to urgent needs with goods, services, or short-term support",
+  "Coordinate volunteers and local resources within your congregation",
+  "Mentor and encourage returning citizens during key transition periods",
+  "Contribute financially to support emergency requests and stabilization efforts",
+];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <SectionHeader
-    level={1}
-    eyebrow="Action"
-    heading="Get Involved"
-    subheading="This page will describe volunteer opportunities and partnership pathways."
-  />
+  <section class="relative isolate overflow-hidden rounded-lg border border-border-default bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
+    <div aria-hidden="true" class="pointer-events-none absolute -left-10 -top-8 h-40 w-40 rounded-full bg-brand-secondary/10 blur-2xl"></div>
+    <div class="relative grid gap-8 lg:grid-cols-2 lg:items-center">
+      <article class="space-y-6">
+        <SectionHeader
+          level={1}
+          eyebrow="Get Involved"
+          heading="Bring your congregation's strengths to RCAN"
+          subheading="RCAN thrives when communities organize around concrete requests and practical next steps."
+        />
+        <p class="max-w-4xl text-base leading-7 text-text-subtle">
+          Whether your group can provide direct assistance, coordinate volunteers, or contribute
+          funds, your participation helps remove barriers that threaten successful reentry.
+        </p>
+      </article>
+
+      <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
+        <img
+          src={involvementImage.src}
+          width={involvementImage.width}
+          height={involvementImage.height}
+          class="h-full w-full object-cover"
+          alt="Neighbors standing together outdoors with a sign about community strength, symbolizing shared commitment to one another."
+          loading="lazy"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="py-10" aria-labelledby="ways-heading">
+    <h2 id="ways-heading" class="section-title text-2xl font-semibold text-text-default">Ways to help</h2>
+    <ul class="mt-6 grid gap-4 md:grid-cols-2">
+      {
+        waysToHelp.map((item) => (
+          <li>
+            <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+              <p class="flex items-start gap-3 text-base text-text-subtle">
+                <Icon
+                  name="users"
+                  size="sm"
+                  class="mt-1 text-brand-secondary transition-transform duration-base group-hover:scale-110"
+                  aria-hidden="true"
+                />
+                <span>{item}</span>
+              </p>
+            </Card>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="py-10" aria-labelledby="commitments-heading">
+    <h2 id="commitments-heading" class="section-title text-2xl font-semibold text-text-default">
+      Congregation commitments
+    </h2>
+    <ol class="mt-6 grid gap-4 md:grid-cols-3">
+      {
+        congregationCommitments.map((item, index) => (
+          <li>
+            <Card class="h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+              <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Commitment {index + 1}</p>
+              <p class="mt-2 text-base text-text-subtle">{item}</p>
+            </Card>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="rounded-lg border border-border-default bg-surface-subtle px-6 py-6 text-center md:px-8" aria-labelledby="involved-cta-heading">
+    <h2 id="involved-cta-heading" class="section-title text-2xl font-semibold text-text-default">Ready to participate?</h2>
+    <p class="mx-auto mt-3 max-w-3xl text-base leading-7 text-text-subtle">
+      Start by connecting with RCAN, then choose where your congregation can have the most impact.
+    </p>
+    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+      <Button href="/contact" variant="secondary" size="md">Contact RCAN</Button>
+      <Button href="/donate" variant="primary" size="md">Contribute financially</Button>
+    </div>
+  </section>
 </BaseLayout>

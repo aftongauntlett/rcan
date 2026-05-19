@@ -3,6 +3,12 @@ import SkipLink from "../components/SkipLink.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
+import "@fontsource/manrope/400.css";
+import "@fontsource/manrope/500.css";
+import "@fontsource/manrope/700.css";
+import "@fontsource/fraunces/600.css";
+import "@fontsource/fraunces/700.css";
+import "@fontsource/ibm-plex-mono/400.css";
 
 interface Props {
   title: string;
@@ -18,7 +24,7 @@ const resolvedOgImage = ogImage.startsWith("http")
 ---
 
 <!doctype html>
-<html lang="en" class="h-full bg-surface-default text-text-default">
+<html lang="en" class="h-full bg-neutral-50 text-text-default">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,10 +43,10 @@ const resolvedOgImage = ogImage.startsWith("http")
 
     <title>{title}</title>
   </head>
-  <body class="flex min-h-full flex-col bg-surface-default font-sans text-text-default antialiased">
+  <body class="flex min-h-full flex-col bg-gradient-to-b from-neutral-50 to-surface-default font-sans text-text-default antialiased">
     <SkipLink href="#main-content" />
     <Header />
-    <main id="main-content" class="mx-auto w-full max-w-7xl flex-1 px-4 py-8">
+    <main id="main-content" class="mx-auto w-full max-w-7xl flex-1 px-4 py-10 md:px-6">
       <slot />
     </main>
     <Footer />

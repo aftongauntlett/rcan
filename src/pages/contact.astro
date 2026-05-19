@@ -1,6 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
+import Card from "../components/Card.astro";
+import Button from "../components/Button.astro";
+import Icon from "../components/Icon.astro";
+import contactImage from "../assets/gardening-community.jpg";
 
 const pageTitle = "Contact RCAN | Returning Citizens Assistance Network";
 const pageDescription =
@@ -8,10 +12,113 @@ const pageDescription =
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <SectionHeader
-    level={1}
-    eyebrow="Connect"
-    heading="Contact RCAN"
-    subheading="This page will provide contact channels for inquiries and referrals."
-  />
+  <section class="relative isolate overflow-hidden rounded-lg border border-border-default bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
+    <div aria-hidden="true" class="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-brand-secondary/10 blur-2xl"></div>
+    <div class="relative grid gap-8 lg:grid-cols-2 lg:items-center">
+      <article class="space-y-6">
+        <SectionHeader
+          level={1}
+          eyebrow="Contact RCAN"
+          heading="Connect with RCAN for partnership and support"
+          subheading="Reach out to coordinate congregation participation, ask questions, or explore ways to support returning citizens."
+        />
+        <p class="max-w-4xl text-base leading-7 text-text-subtle">
+          RCAN responds through trusted referral and congregation channels, and welcomes collaboration
+          from communities committed to practical, dignity-centered reentry support.
+        </p>
+      </article>
+
+      <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
+        <img
+          src={contactImage.src}
+          width={contactImage.width}
+          height={contactImage.height}
+          class="h-full w-full object-cover"
+          alt="Neighbors gardening together, showing practical collaboration and shared care within the community."
+          loading="lazy"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="py-10" aria-labelledby="contact-pathways-heading">
+    <h2 id="contact-pathways-heading" class="section-title text-2xl font-semibold text-text-default">Contact pathways</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+        <p class="flex items-start gap-3 text-base text-text-subtle">
+          <Icon
+            name="users"
+            size="sm"
+            class="mt-1 text-brand-secondary transition-transform duration-base group-hover:scale-110"
+            aria-hidden="true"
+          />
+          <span>Congregations can connect with RCAN to coordinate volunteer response and resource support.</span>
+        </p>
+      </Card>
+      <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+        <p class="flex items-start gap-3 text-base text-text-subtle">
+          <Icon
+            name="info"
+            size="sm"
+            class="mt-1 text-brand-secondary transition-transform duration-base group-hover:scale-110"
+            aria-hidden="true"
+          />
+          <span>General questions and partnership interest are welcome as RCAN grows its response network.</span>
+        </p>
+      </Card>
+    </div>
+  </section>
+
+  <section class="py-10" aria-labelledby="contact-methods-heading">
+    <h2 id="contact-methods-heading" class="section-title text-2xl font-semibold text-text-default">Contact methods</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+        <p class="flex items-start gap-3 text-base text-text-subtle">
+          <Icon
+            name="map-pin"
+            size="sm"
+            class="mt-1 text-brand-secondary transition-transform duration-base group-hover:scale-110"
+            aria-hidden="true"
+          />
+          <span>
+            New York Avenue Presbyterian Church<br />
+            1313 New York Avenue NW<br />
+            Washington, DC 20005
+          </span>
+        </p>
+      </Card>
+
+      <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+        <p class="flex items-start gap-3 text-base text-text-subtle">
+          <Icon
+            name="mail"
+            size="sm"
+            class="mt-1 text-brand-secondary transition-transform duration-base group-hover:scale-110"
+            aria-hidden="true"
+          />
+          <span class="space-y-3">
+            <span class="block">Email RCAN directly.</span>
+            <a
+              href="mailto:dcrcan2018@gmail.com"
+              class="inline-flex rounded-full border border-border-default bg-surface-subtle px-3 py-1 text-sm font-semibold text-text-link transition-colors duration-base hover:border-brand-secondary hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+            >
+              dcrcan2018@gmail.com .
+            </a>
+          </span>
+        </p>
+      </Card>
+    </div>
+  </section>
+
+  <section class="rounded-lg border border-border-default bg-surface-subtle px-6 py-6 text-center md:px-8" aria-labelledby="contact-cta-heading">
+    <h2 id="contact-cta-heading" class="section-title text-2xl font-semibold text-text-default">Take the next step</h2>
+    <p class="mx-auto mt-3 max-w-3xl text-base leading-7 text-text-subtle">
+      If you are ready to support this work right away, financial giving remains one of the fastest
+      ways to strengthen RCAN's response capacity.
+    </p>
+    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+      <Button href="https://nyapc.org/give/" variant="primary" size="md">Donate through NYAPC Give</Button>
+      <Button href="/get-involved" variant="secondary" size="md">Get involved</Button>
+    </div>
+  </section>
 </BaseLayout>

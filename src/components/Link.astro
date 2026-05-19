@@ -1,12 +1,15 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
+type LinkVariant = "inline" | "subtle";
+
 interface Props extends Omit<HTMLAttributes<"a">, "href" | "class" | "rel"> {
   href: string;
   class?: string;
   rel?: string;
   showExternalIndicator?: boolean;
   externalIndicatorLabel?: string;
+  variant?: LinkVariant;
 }
 
 const {
@@ -15,6 +18,7 @@ const {
   rel,
   showExternalIndicator = true,
   externalIndicatorLabel = "External link",
+  variant = "inline",
   ...rest
 } = Astro.props as Props;
 
@@ -26,12 +30,20 @@ if (isExternal) {
   relValues.add("noreferrer");
 }
 const resolvedRel = relValues.size > 0 ? Array.from(relValues).join(" ") : undefined;
+
+const baseClasses =
+  "inline-flex items-center gap-1 font-medium transition-colors duration-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default";
+
+const variantClasses: Record<LinkVariant, string> = {
+  inline: "text-text-link underline decoration-brand-primary underline-offset-2 hover:text-brand-secondary",
+  subtle: "text-text-default no-underline hover:text-brand-primary",
+};
 ---
 
 <a
   href={href}
   rel={resolvedRel}
-  class={`inline-flex items-center gap-1 font-medium text-text-link underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default ${className}`}
+  class={`${baseClasses} ${variantClasses[variant]} ${className}`}
   {...rest}
 >
   <slot />

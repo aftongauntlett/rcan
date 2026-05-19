@@ -1,6 +1,12 @@
 @config "../../tailwind.config.ts";
 @import "tailwindcss";
 
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 *,
 *::before,
 *::after {
@@ -9,6 +15,15 @@
 
 :focus-visible {
   @apply outline-2 outline-offset-2 outline-brand-primary;
+}
+
+.section-title {
+  @apply relative inline-block pb-2;
+}
+
+.section-title::after {
+  content: "";
+  @apply absolute bottom-0 left-0 h-px w-16 bg-border-strong;
 }
 
 @media (prefers-reduced-motion: reduce) {

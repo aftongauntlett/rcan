@@ -1,17 +1,136 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
+import Card from "../components/Card.astro";
+import Button from "../components/Button.astro";
+import Icon from "../components/Icon.astro";
+import aboutImage from "../assets/faith.jpg";
+import redesignLogo from "../assets/rcan_logo_redesign.svg?url";
 
 const pageTitle = "About RCAN | Returning Citizens Assistance Network";
 const pageDescription =
   "Read about RCAN's mission, history, and community-centered approach to supporting successful re-entry.";
+
+const values = [
+  "Dignity-first support for people returning to society",
+  "Rapid response to urgent short-term needs",
+  "Congregation-led coordination and care",
+  "Practical pathways toward housing, stability, and work",
+];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <SectionHeader
-    level={1}
-    eyebrow="About"
-    heading="About RCAN"
-    subheading="This page will introduce RCAN's story, values, and organizational approach."
-  />
+  <section class="relative isolate overflow-hidden rounded-lg border border-border-default bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
+    <div aria-hidden="true" class="pointer-events-none absolute -left-8 -top-8 h-36 w-36 rounded-full bg-brand-secondary/10 blur-2xl"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute -bottom-10 right-10 h-40 w-40 rounded-full bg-brand-primary/10 blur-2xl"></div>
+
+    <div class="relative grid gap-8 lg:grid-cols-2 lg:items-center">
+      <article class="space-y-6">
+        <SectionHeader
+          level={1}
+          eyebrow="Our story"
+          heading="Community networks changing reentry outcomes"
+          subheading="RCAN responds to requests from the DC Public Defender Service and connects congregations with practical ways to support returning citizens."
+        />
+        <p class="text-base leading-7 text-text-subtle">
+          NYAPC and Metropolitan AME Church helped establish RCAN in 2018 in collaboration with
+          the Public Defender Service. Today, the network includes twenty churches and synagogues
+          working together so urgent needs do not become long-term barriers.
+        </p>
+      </article>
+
+      <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
+        <img
+          src={aboutImage.src}
+          width={aboutImage.width}
+          height={aboutImage.height}
+          class="h-full w-full object-cover"
+          alt="People gathered in a moment of shared reflection and encouragement, representing faith-rooted support for reentry."
+          loading="lazy"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="py-10" aria-labelledby="timeline-heading">
+    <h2 id="timeline-heading" class="section-title text-2xl font-semibold text-text-default">How RCAN came together</h2>
+    <ol class="mt-6 grid gap-4 md:grid-cols-3">
+      <li>
+        <Card class="h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+          <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Step 1</p>
+          <p class="mt-2 text-base text-text-subtle">
+            A partnership formed with the DC Public Defender Service to respond to practical reentry needs.
+          </p>
+        </Card>
+      </li>
+      <li>
+        <Card class="h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+          <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Step 2</p>
+          <p class="mt-2 text-base text-text-subtle">
+            NYAPC and Metropolitan AME Church launched RCAN in 2018 as a congregation network.
+          </p>
+        </Card>
+      </li>
+      <li>
+        <Card class="h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+          <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Step 3</p>
+          <p class="mt-2 text-base text-text-subtle">
+            The network grew to twenty congregations coordinating direct responses to individual requests.
+          </p>
+        </Card>
+      </li>
+    </ol>
+  </section>
+
+  <section class="py-10" aria-labelledby="values-heading">
+    <h2 id="values-heading" class="section-title text-2xl font-semibold text-text-default">Values in action</h2>
+    <ul class="mt-6 grid gap-4 md:grid-cols-2">
+      {
+        values.map((item) => (
+          <li>
+            <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+              <p class="flex items-start gap-3 text-base text-text-subtle">
+                <Icon
+                  name="heart"
+                  size="sm"
+                  class="mt-1 text-status-success transition-transform duration-base group-hover:scale-110"
+                  aria-hidden="true"
+                />
+                <span>{item}</span>
+              </p>
+            </Card>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="rounded-lg border border-border-default bg-surface-subtle px-6 py-6 md:px-8" aria-labelledby="identity-heading">
+    <h2 id="identity-heading" class="section-title text-2xl font-semibold text-text-default">Our shared identity</h2>
+    <div class="mt-6 space-y-6">
+      <p class="max-w-4xl text-base leading-7 text-text-subtle">
+        RCAN is rooted in the conviction that practical support and faithful community can reshape reentry outcomes.
+        This mark reflects the network's full name and shared commitment across congregations.
+      </p>
+      <figure class="mx-auto max-w-3xl overflow-hidden rounded-lg border border-border-default bg-surface-default px-4 py-4 shadow-md">
+        <img
+          src={redesignLogo}
+          alt="Stacked RCAN wordmark spelling Returning Citizens Assistance Network with terracotta divider lines."
+          class="w-full"
+          loading="lazy"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="mt-8 rounded-lg border border-border-default bg-surface-subtle px-6 py-6 text-center md:px-8" aria-labelledby="about-cta-heading">
+    <h2 id="about-cta-heading" class="section-title text-2xl font-semibold text-text-default">Help move this mission forward</h2>
+    <p class="mx-auto mt-3 max-w-3xl text-base leading-7 text-text-subtle">
+      RCAN is sustained by congregations and supporters who believe stable reentry is a shared responsibility.
+    </p>
+    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+      <Button href="/get-involved" variant="secondary" size="md">Get involved</Button>
+      <Button href="/donate" variant="primary" size="md">Donate</Button>
+    </div>
+  </section>
 </BaseLayout>

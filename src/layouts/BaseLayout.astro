@@ -4,12 +4,9 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import defaultOgImage from "../assets/hands-holding.jpg";
 import "../styles/global.css";
-import "@fontsource/manrope/400.css";
-import "@fontsource/manrope/500.css";
-import "@fontsource/manrope/700.css";
-import "@fontsource/fraunces/600.css";
-import "@fontsource/fraunces/700.css";
-import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/manrope/latin-400.css";
+import "@fontsource/manrope/latin-700.css";
+import "@fontsource/fraunces/latin-600.css";
 
 interface Props {
   title: string;
@@ -44,7 +41,7 @@ const resolvedOgImage = ogImage.startsWith("http")
 
     <title>{title}</title>
   </head>
-  <body class="flex min-h-full flex-col bg-gradient-to-b from-neutral-50 to-surface-default font-sans text-text-default antialiased">
+  <body class="flex min-h-full flex-col bg-linear-to-b from-neutral-50 to-surface-default font-sans text-text-default antialiased">
     <SkipLink href="#main-content" />
     <Header />
     <main id="main-content" class="mx-auto w-full max-w-7xl flex-1 px-4 py-10 md:px-6">

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Card from "../components/Card.astro";
 import Button from "../components/Button.astro";
@@ -40,12 +41,15 @@ const assistanceExamples = [
       </article>
 
       <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
-        <img
-          src={supportImage.src}
-          width={supportImage.width}
-          height={supportImage.height}
+        <Image
+          src={supportImage}
           class="h-full w-full object-cover"
           alt="A community mural featuring hands and symbols of shared care, representing collective support for neighbors in transition."
+          width={960}
+          widths={[400, 640, 960, 1280]}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          format="webp"
+          quality={65}
           loading="lazy"
         />
       </figure>

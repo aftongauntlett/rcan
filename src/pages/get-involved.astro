@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Card from "../components/Card.astro";
 import Button from "../components/Button.astro";
@@ -42,12 +43,15 @@ const waysToHelp = [
       </article>
 
       <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
-        <img
-          src={involvementImage.src}
-          width={involvementImage.width}
-          height={involvementImage.height}
+        <Image
+          src={involvementImage}
           class="h-full w-full object-cover"
           alt="Neighbors standing together outdoors with a sign about community strength, symbolizing shared commitment to one another."
+          width={960}
+          widths={[400, 640, 960, 1280]}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          format="webp"
+          quality={65}
           loading="lazy"
         />
       </figure>

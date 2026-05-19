@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Card from "../components/Card.astro";
 import Button from "../components/Button.astro";
@@ -29,12 +30,15 @@ const pageDescription =
       </article>
 
       <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
-        <img
-          src={contactImage.src}
-          width={contactImage.width}
-          height={contactImage.height}
+        <Image
+          src={contactImage}
           class="h-full w-full object-cover"
           alt="Neighbors gardening together, showing practical collaboration and shared care within the community."
+          width={960}
+          widths={[400, 640, 960, 1280]}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          format="webp"
+          quality={65}
           loading="lazy"
         />
       </figure>

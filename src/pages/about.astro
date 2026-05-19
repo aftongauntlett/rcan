@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Card from "../components/Card.astro";
 import Button from "../components/Button.astro";
@@ -40,12 +41,15 @@ const values = [
       </article>
 
       <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
-        <img
-          src={aboutImage.src}
-          width={aboutImage.width}
-          height={aboutImage.height}
+        <Image
+          src={aboutImage}
           class="h-full w-full object-cover"
           alt="People gathered in a moment of shared reflection and encouragement, representing faith-rooted support for reentry."
+          width={960}
+          widths={[400, 640, 960, 1280]}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          format="webp"
+          quality={65}
           loading="lazy"
         />
       </figure>

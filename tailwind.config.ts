@@ -9,7 +9,7 @@ const config: Config = {
         brand: {
           primary: "#1E5B52",
           secondary: "#B14D2A",
-          accent: "#234E70",
+          accent: "#287A6F",
         },
         neutral: {
           50: "#FAFBFA",
@@ -48,7 +48,7 @@ const config: Config = {
         brand: {
           primary: "#1E5B52",
           secondary: "#B14D2A",
-          accent: "#234E70",
+          accent: "#287A6F",
         },
         neutral: {
           50: "#FAFBFA",

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Button from "../components/Button.astro";
 import Card from "../components/Card.astro";
@@ -80,13 +81,17 @@ const impactStats = [
 
 		<div class="flex h-full flex-col">
 			<figure class="h-full overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
-				<img
-					src={heroImage.src}
-					width={heroImage.width}
-					height={heroImage.height}
+				<Image
+					src={heroImage}
 					class="h-full min-h-80 w-full object-cover"
 					alt="A circle of people placing their hands together to show shared support and community solidarity."
+					width={960}
+					widths={[400, 640, 960, 1280]}
+					sizes="(min-width: 1024px) 50vw, 100vw"
+					format="webp"
+					quality={65}
 					loading="eager"
+					priority
 				/>
 			</figure>
 

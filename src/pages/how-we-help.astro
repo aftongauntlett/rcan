@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+const pageTitle = "How We Help | RCAN";
+const pageDescription =
+  "Explore the support pathways and services RCAN coordinates for returning citizens and their families.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <SectionHeader
+    level={1}
+    eyebrow="Programs"
+    heading="How We Help"
+    subheading="This page will outline RCAN's direct and partner-based support services."
+  />
+</BaseLayout>

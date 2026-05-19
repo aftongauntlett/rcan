@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+const pageTitle = "Donate | RCAN";
+const pageDescription =
+  "Support RCAN's mission with financial contributions that expand resources for returning citizens.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <SectionHeader
+    level={1}
+    eyebrow="Support"
+    heading="Donate"
+    subheading="This page will include donation options and stewardship details."
+  />
+</BaseLayout>

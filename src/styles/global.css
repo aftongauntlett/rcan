@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-brand-primary;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

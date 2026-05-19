@@ -1,18 +1,17 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+const pageTitle = "RCAN | Returning Citizens Assistance Network";
+const pageDescription =
+	"Learn about RCAN and its mission to support returning citizens through community partnerships across Washington, DC.";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content="RCAN nonprofit website foundation." />
-		<title>RCAN</title>
-	</head>
-	<body>
-		<main>
-			<h1>Returning Citizens Assistance Network</h1>
-			<p>Astro foundation setup in progress.</p>
-		</main>
-	</body>
-</html>
+<BaseLayout title={pageTitle} description={pageDescription}>
+	<SectionHeader
+		level={1}
+		eyebrow="RCAN"
+		heading="Returning Citizens Assistance Network"
+		subheading="Homepage content is coming soon."
+	/>
+</BaseLayout>

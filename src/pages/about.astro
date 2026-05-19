@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+const pageTitle = "About RCAN | Returning Citizens Assistance Network";
+const pageDescription =
+  "Read about RCAN's mission, history, and community-centered approach to supporting successful re-entry.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <SectionHeader
+    level={1}
+    eyebrow="About"
+    heading="About RCAN"
+    subheading="This page will introduce RCAN's story, values, and organizational approach."
+  />
+</BaseLayout>

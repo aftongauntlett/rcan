@@ -1,9 +1,43 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  ChevronRight,
+  ExternalLink,
+  Globe,
+  Heart,
+  Info,
+  Mail,
+  MapPin,
+  Menu,
+  Phone,
+  User,
+  Users,
+  X,
+} from "@lucide/astro";
 
 type IconSize = "sm" | "md" | "lg";
+type IconName =
+  | "arrow-right"
+  | "arrow-up-right"
+  | "check"
+  | "chevron-right"
+  | "external-link"
+  | "globe"
+  | "heart"
+  | "info"
+  | "mail"
+  | "map-pin"
+  | "menu"
+  | "phone"
+  | "user"
+  | "users"
+  | "x";
 
-interface Props extends Omit<HTMLAttributes<"svg">, "class"> {
+interface Props extends Omit<HTMLAttributes<"svg">, "class" | "name"> {
+  name?: IconName;
   ariaLabel?: string;
   size?: IconSize;
   class?: string;
@@ -11,6 +45,7 @@ interface Props extends Omit<HTMLAttributes<"svg">, "class"> {
 }
 
 const {
+  name,
   ariaLabel,
   size = "md",
   class: className = "",
@@ -20,23 +55,57 @@ const {
 
 const decorative = !ariaLabel;
 
+const iconMap = {
+  "arrow-right": ArrowRight,
+  "arrow-up-right": ArrowUpRight,
+  check: Check,
+  "chevron-right": ChevronRight,
+  "external-link": ExternalLink,
+  globe: Globe,
+  heart: Heart,
+  info: Info,
+  mail: Mail,
+  "map-pin": MapPin,
+  menu: Menu,
+  phone: Phone,
+  user: User,
+  users: Users,
+  x: X,
+} as const;
+
+const IconComponent = name ? iconMap[name] : undefined;
+
 const sizeClasses: Record<IconSize, string> = {
   sm: "h-4 w-4",
   md: "h-5 w-5",
   lg: "h-6 w-6",
 };
+
+const classes = `inline-block shrink-0 align-middle text-current ${sizeClasses[size]} ${className}`;
 ---
 
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox={viewBox}
-  class={`inline-block shrink-0 align-middle text-current ${sizeClasses[size]} ${className}`}
-  aria-hidden={decorative ? "true" : undefined}
-  aria-label={ariaLabel}
-  role={decorative ? "presentation" : "img"}
-  focusable="false"
-  {...rest}
->
-  {ariaLabel && <title>{ariaLabel}</title>}
-  <slot />
-</svg>
+{
+  IconComponent ? (
+    <IconComponent
+      class={classes}
+      aria-hidden={decorative ? "true" : undefined}
+      aria-label={ariaLabel}
+      role={decorative ? "presentation" : "img"}
+      focusable="false"
+    />
+  ) : (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox={viewBox}
+      class={classes}
+      aria-hidden={decorative ? "true" : undefined}
+      aria-label={ariaLabel}
+      role={decorative ? "presentation" : "img"}
+      focusable="false"
+      {...rest}
+    >
+      {ariaLabel && <title>{ariaLabel}</title>}
+      <slot />
+    </svg>
+  )
+}

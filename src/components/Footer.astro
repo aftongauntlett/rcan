@@ -1,0 +1,17 @@
+---
+import Link from "./Link.astro";
+
+// New shared site-chrome component for BaseLayout; no reusable footer existed in src/components.
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border-default bg-surface-subtle">
+  <div class="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-text-subtle md:flex-row md:items-center md:justify-between">
+    <p>Copyright {year} Returning Citizens Assistance Network</p>
+    <p>
+      <Link href="/contact" class="no-underline text-text-link hover:text-brand-secondary">
+        Contact RCAN
+      </Link>
+    </p>
+  </div>
+</footer>

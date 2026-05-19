@@ -1,0 +1,48 @@
+---
+import SkipLink from "../components/SkipLink.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage = "/og-default.png" } = Astro.props as Props;
+
+const resolvedOgImage = ogImage.startsWith("http")
+  ? ogImage
+  : new URL(ogImage, Astro.url).toString();
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-surface-default text-text-default">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url.toString()} />
+    <meta property="og:image" content={resolvedOgImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+
+    <title>{title}</title>
+  </head>
+  <body class="flex min-h-full flex-col bg-surface-default font-sans text-text-default antialiased">
+    <SkipLink href="#main-content" />
+    <Header />
+    <main id="main-content" class="mx-auto w-full max-w-7xl flex-1 px-4 py-8">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

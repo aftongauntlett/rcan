@@ -1,0 +1,55 @@
+---
+// Attach once per page. Animates all [data-count-to] spans on scroll into view.
+// Attributes:
+//   data-count-to       — target integer
+//   data-count-from     — start integer (default 0)
+//   data-count-duration — ms (default 1000)
+//   data-count-locale   — presence flag; formats final value with toLocaleString()
+---
+
+<script>
+  const counters = document.querySelectorAll("[data-count-to]");
+  if (counters.length > 0) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const fmt = (n: number, locale: boolean) => (locale ? n.toLocaleString() : `${n}`);
+
+    const animateCounter = (counter: Element) => {
+      if (!(counter instanceof HTMLElement)) return;
+
+      const target = Number(counter.dataset.countTo ?? "0");
+      const start = Number(counter.dataset.countFrom ?? "0");
+      const duration = Number(counter.dataset.countDuration ?? "1000");
+      const locale = "countLocale" in counter.dataset;
+
+      if (reduceMotion || Number.isNaN(target) || Number.isNaN(start)) {
+        counter.textContent = fmt(target, locale);
+        return;
+      }
+
+      const startTime = performance.now();
+      const tick = (now: number) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - (1 - progress) ** 3;
+        const current = Math.round(start + (target - start) * eased);
+        counter.textContent = fmt(current, locale);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    counters.forEach((counter) => observer.observe(counter));
+  }
+</script>

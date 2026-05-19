@@ -6,6 +6,7 @@ import Button from "../components/Button.astro";
 import Card from "../components/Card.astro";
 import Icon from "../components/Icon.astro";
 import heroImage from "../assets/hands-holding.jpg";
+import CountUpScript from "../components/CountUpScript.astro";
 
 const pageTitle = "RCAN | Returning Citizens Assistance Network";
 const pageDescription =
@@ -188,52 +189,4 @@ const impactStats = [
 	</section>
 </BaseLayout>
 
-<script>
-	const counters = document.querySelectorAll("[data-count-to]");
-	if (counters.length > 0) {
-		const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-		const animateCounter = (counter: Element) => {
-			if (!(counter instanceof HTMLElement)) {
-				return;
-			}
-
-			const target = Number(counter.dataset.countTo ?? "0");
-			const start = Number(counter.dataset.countFrom ?? "0");
-			const duration = Number(counter.dataset.countDuration ?? "1000");
-
-			if (reduceMotion || Number.isNaN(target) || Number.isNaN(start)) {
-				counter.textContent = `${target}`;
-				return;
-			}
-
-			const startTime = performance.now();
-			const tick = (now: number) => {
-				const progress = Math.min((now - startTime) / duration, 1);
-				const eased = 1 - (1 - progress) ** 3;
-				const current = Math.round(start + (target - start) * eased);
-				counter.textContent = `${current}`;
-
-				if (progress < 1) {
-					requestAnimationFrame(tick);
-				}
-			};
-
-			requestAnimationFrame(tick);
-		};
-
-		const observer = new IntersectionObserver(
-			(entries, obs) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						animateCounter(entry.target);
-						obs.unobserve(entry.target);
-					}
-				});
-			},
-			{ threshold: 0.5 },
-		);
-
-		counters.forEach((counter) => observer.observe(counter));
-	}
-</script>
+<CountUpScript />

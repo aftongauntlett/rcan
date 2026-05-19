@@ -48,8 +48,8 @@ const waysToHelp = [
           class="h-full w-full object-cover"
           alt="Neighbors standing together outdoors with a sign about community strength, symbolizing shared commitment to one another."
           width={800}
-          widths={[320, 480, 640, 800]}
-          sizes="(min-width: 1024px) 45vw, 100vw"
+          widths={[320, 480, 568, 640, 720, 800]}
+          sizes="(min-width: 1280px) 568px, (min-width: 1024px) calc((100vw - 9rem) / 2), 100vw"
           format="webp"
           quality={55}
           loading="eager"
@@ -98,6 +98,58 @@ const waysToHelp = [
         ))
       }
     </ol>
+  </section>
+
+  <!-- Prison Friendship Project -->
+  <section id="prison-friendship-project" class="py-10" aria-labelledby="pfp-heading">
+    <h2 id="pfp-heading" class="section-title text-2xl font-semibold text-text-default">Prison Friendship Project</h2>
+    <div class="mt-4 grid gap-8 lg:grid-cols-2 lg:items-start">
+      <div class="space-y-4">
+        <p class="text-base leading-7 text-text-subtle">
+          About 4,000 people from Washington, DC are scattered in federal prisons across the country. Most are incarcerated hundreds of miles from their families, in conditions of isolation and deprivation that are hard to imagine. Many have served long sentences and lost contact with family and friends. A human connection from the outside offers hope, affirms their humanity, and helps set the stage for successful reentry.
+        </p>
+        <p class="text-base leading-7 text-text-subtle">
+          To increase personal connections between RCAN supporters and DC PDS clients who are currently incarcerated, RCAN created the Prison Friendship Project. Any individual — or small group — who would like to become a "Prison Friend" will be matched with a PDS client serving a sentence in the Bureau of Prisons.
+        </p>
+        <p class="text-base leading-7 text-text-subtle">
+          In 2025, the Prison Friendship Project created <strong class="font-semibold text-text-default">23 new pen pal matches</strong>. Currently <strong class="font-semibold text-text-default">40 clients</strong> receive regular communication through the project.
+        </p>
+        <p class="text-base leading-7 text-text-subtle">
+          Anyone who supports RCAN is invited to become a Prison Friend or organize a small Prison Friend group. A group provides more resources, but a single committed person can be just as meaningful.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <h3 class="text-base font-semibold text-text-default">What Prison Friends do</h3>
+        <ul class="grid gap-3">
+          {
+            [
+              "Learn about the background and current situation of the person they are matched with",
+              "Build a relationship through letters and reading materials",
+              "Give gifts on special occasions to the person's commissary account — providing access to food, drinks, toiletries, and personal items",
+              "Provide assistance in any other mutually agreed-upon way as the relationship develops",
+            ].map((item) => (
+              <li>
+                <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+                  <p class="flex items-start gap-3 text-base text-text-subtle">
+                    <Icon
+                      name="heart"
+                      size="sm"
+                      class="mt-1 shrink-0 text-brand-secondary transition-transform duration-base group-hover:scale-110"
+                      aria-hidden="true"
+                    />
+                    <span>{item}</span>
+                  </p>
+                </Card>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="text-sm leading-6 text-text-subtle">
+          RCAN supports Prison Friends with background on the client, access to lawyers and social workers, guidelines for writing letters and sending items, and ideas for correspondence.
+        </p>
+      </div>
+    </div>
   </section>
 
   <section class="rounded-lg border border-border-default bg-surface-subtle px-6 py-6 text-center md:px-8" aria-labelledby="involved-cta-heading">

@@ -46,8 +46,8 @@ const values = [
           class="h-full w-full object-cover"
           alt="People gathered in a moment of shared reflection and encouragement, representing faith-rooted support for reentry."
           width={800}
-          widths={[320, 480, 640, 800]}
-          sizes="(min-width: 1024px) 45vw, 100vw"
+          widths={[320, 480, 568, 640, 720, 800]}
+          sizes="(min-width: 1280px) 568px, (min-width: 1024px) calc((100vw - 9rem) / 2), 100vw"
           format="webp"
           quality={55}
           loading="eager"
@@ -102,6 +102,77 @@ const values = [
                   aria-hidden="true"
                 />
                 <span>{item}</span>
+              </p>
+            </Card>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Board of Directors -->
+  <section class="py-10" aria-labelledby="board-heading">
+    <h2 id="board-heading" class="section-title text-2xl font-semibold text-text-default">Board of Directors</h2>
+    <p class="mt-2 text-sm text-text-subtle">Board member information will be added soon.</p>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label="Board of Directors placeholder cards">
+      {
+        Array.from({ length: 3 }).map((_, i) => (
+          <li>
+            <Card class="h-full">
+              <div class="flex items-center gap-4">
+                <div class="h-16 w-16 shrink-0 rounded-full bg-surface-subtle border border-border-default flex items-center justify-center" aria-hidden="true">
+                  <Icon name="users" size="md" class="text-text-subtle" aria-hidden="true" />
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-text-default">Board Member</p>
+                  <p class="text-xs text-text-subtle">Title / Role</p>
+                </div>
+              </div>
+              <p class="mt-3 text-sm leading-6 text-text-subtle italic">Bio coming soon.</p>
+            </Card>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Participating Congregations -->
+  <section class="py-10" aria-labelledby="congregations-heading">
+    <h2 id="congregations-heading" class="section-title text-2xl font-semibold text-text-default">Participating congregations</h2>
+    <p class="mt-2 text-base leading-7 text-text-subtle">
+      Twenty-two congregations across DC, Maryland, and Virginia have joined RCAN and committed to responding to needs as they arise.
+    </p>
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label="List of participating congregations">
+      {
+        [
+          "Bread of Life Church",
+          "Emory United Methodist Church",
+          "Episcopal Church of the Redeemer",
+          "Foundry United Methodist Church",
+          "Hill Havurah",
+          "Holy Trinity Catholic Church",
+          "Metropolitan AME Church",
+          "Mt. Vernon Place United Methodist Church",
+          "National Community Church",
+          "National Presbyterian Church",
+          "New York Avenue Presbyterian Church",
+          "Ohev Sholom — The National Synagogue",
+          "Pennsylvania Avenue Baptist Church",
+          "Peoples United Church of Christ",
+          "St. Augustine Episcopal Church",
+          "St. Columba's Episcopal Church",
+          "St. Mark's Episcopal Church",
+          "Seekers Church",
+          "Tifereth Israel Congregation",
+          "Warner Memorial Presbyterian Church",
+          "Western Presbyterian Church",
+          "Westminster Presbyterian Church",
+        ].map((name) => (
+          <li>
+            <Card class="h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
+              <p class="flex items-center gap-3 text-sm text-text-default">
+                <Icon name="heart" size="sm" class="shrink-0 text-brand-secondary" aria-hidden="true" />
+                {name}
               </p>
             </Card>
           </li>

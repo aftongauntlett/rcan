@@ -51,7 +51,7 @@ const quoteAccentClass = (accentColor?: "secondary" | "primary") =>
         <blockquote class={`border-l-4 border-brand-accent pl-6 text-base italic leading-8 text-text-invert`}>
           <p>{quote.text}</p>
         </blockquote>
-        <figcaption class="mt-3 pl-6 text-sm text-neutral-300">{quote.attribution}</figcaption>
+        <figcaption class="mt-3 text-right text-sm text-neutral-300">{quote.attribution}</figcaption>
       </figure>
     ))}
   </div>
@@ -79,7 +79,7 @@ const quoteAccentClass = (accentColor?: "secondary" | "primary") =>
             <blockquote class={`border-l-4 ${quoteAccentClass(quote.accentColor)} pl-6 text-base italic leading-8 text-text-default`}>
               <p>{quote.text}</p>
             </blockquote>
-            <figcaption class="mt-3 pl-6 text-sm text-text-subtle">{quote.attribution}</figcaption>
+            <figcaption class="mt-3 text-right text-sm text-text-subtle">{quote.attribution}</figcaption>
           </figure>
         ))}
       </div>
@@ -107,7 +107,7 @@ const quoteAccentClass = (accentColor?: "secondary" | "primary") =>
         <blockquote class={`border-l-4 ${quoteAccentClass(quote.accentColor)} pl-6 text-base italic leading-8 text-text-default`}>
           <p>{quote.text}</p>
         </blockquote>
-        <figcaption class="mt-3 pl-6 text-sm text-text-subtle">{quote.attribution}</figcaption>
+        <figcaption class="mt-3 text-right text-sm text-text-subtle">{quote.attribution}</figcaption>
       </figure>
     ))}
   </div>

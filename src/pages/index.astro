@@ -24,10 +24,10 @@ const assistanceExamples = [
 ];
 
 const impactStats = [
-	{ value: "361", label: "clients helped in 2025" },
-	{ prefix: "$", value: "25,000+", label: "contributed to the RCAN Fund in 2025" },
-	{ value: "20", label: "participating congregations" },
-	{ value: "40", label: "active Prison Friendship matches" },
+	{ value: "361", label: "Clients helped in 2025" },
+	{ prefix: "$", value: "25,000+", label: "Contributed to the RCAN Fund in 2025" },
+	{ value: "20", label: "Participating Congregations" },
+	{ value: "40", label: "Active Prison Friendship matches" },
 ];
 ---
 
@@ -55,22 +55,21 @@ const impactStats = [
 				<SectionHeader
 					level={1}
 					heading="Returning Citizens Assistance Network"
-					subheading="A Washington, DC network of congregations responding to urgent short-term needs for returning citizens and others involved in the criminal justice system."
+					subheading="RCAN responds to urgent needs for returning citizens and others in the criminal justice system - all referred by the DC Public Defender Service. The network focuses on practical barriers to reentry: housing, clothing, food, employment, and ongoing personal support."
 				/>
 				<p class="text-base leading-7 text-text-subtle">
-					Inspired by Bryan Stevenson's call to get proximate to the poor and the incarcerated,
-					New York Avenue Presbyterian Church and Metropolitan AME Church partnered with the
-					DC Public Defender Service in 2018 to establish RCAN — an informal network of
-					congregations committed to social justice and practical support.
+					In 2018, inspired by Bryan Stevenson's call to get proximate to those who are
+					incarcerated, New York Avenue Presbyterian Church and Metropolitan AME Church
+					partnered with the DC Public Defender Service to establish RCAN - an informal
+					network of congregations committed to social justice and practical help.
 				</p>
 				<div class="mt-auto flex flex-wrap items-center justify-end gap-3">
-				<Button href="/donate" variant="primary" size="md">
-					Donate
-					</Button>
-					<Button href="/how-we-help" variant="secondary" size="md">
-						See how RCAN helps
-					</Button>
+					<Button href="/donate" variant="primary" size="md">Donate today</Button>
+					<Button href="/how-we-help" variant="secondary" size="md">How RCAN helps</Button>
 				</div>
+				<p class="mt-4 text-right text-xs italic text-text-subtle" aria-hidden="true">
+					"I was in prison and you came to visit me." - Matthew 25:36
+				</p>
 			</article>
 		</div>
 
@@ -82,9 +81,108 @@ const impactStats = [
 
 	<section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="assistance-heading">
 		<h2 id="assistance-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">How RCAN assists</h2>
-		<BulletList items={assistanceExamples} columns={2} />
-		<div class="mt-6 flex justify-end">
-			<Button href="/how-we-help" variant="secondary" size="md">Learn more</Button>
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+			<div>
+				<BulletList items={assistanceExamples} columns={1} />
+			</div>
+			<div class="h-full rounded-lg bg-surface-default p-6 shadow-sm">
+				<p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">Where do I fit?</p>
+				<div class="mt-3 space-y-3">
+					<p class="text-sm text-text-subtle">
+						<a
+							href="/how-we-help"
+							class="text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+						>
+							Read about the full range of support &rarr;
+						</a>
+					</p>
+					<p class="text-sm text-text-subtle">
+						<a
+							href="/get-involved"
+							class="text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+						>
+							Is your congregation in the DC area? Learn how to join the network &rarr;
+						</a>
+					</p>
+					<p class="text-sm text-text-subtle">
+						<a
+							href="/contact"
+							class="text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+						>
+							Working with a PDS client who needs support? Contact RCAN &rarr;
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section aria-labelledby="engage-heading">
+		<h2 id="engage-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">
+			Get involved
+		</h2>
+		<div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3" data-fade>
+			<article
+				class="rounded-lg bg-surface-subtle px-5 py-6 transition-shadow duration-200 hover:shadow-md"
+				aria-labelledby="engage-donate-heading"
+			>
+				<p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary">Donate</p>
+				<h3 id="engage-donate-heading" class="mt-1 text-base font-semibold text-text-default">
+					Give to the RCAN Fund
+				</h3>
+				<p class="mt-2 text-sm leading-6 text-text-subtle">
+					Every gift goes directly to urgent client needs - housing, food, emergency funds,
+					and more.
+				</p>
+				<a
+					href="/donate"
+					class="mt-4 block text-right text-sm font-medium text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+				>
+					Give now &rarr;
+				</a>
+			</article>
+
+			<article
+				class="rounded-lg bg-surface-subtle px-5 py-6 transition-shadow duration-200 hover:shadow-md"
+				aria-labelledby="engage-volunteer-heading"
+			>
+				<p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary">Volunteer</p>
+				<h3 id="engage-volunteer-heading" class="mt-1 text-base font-semibold text-text-default">
+					Serve a returning citizen
+				</h3>
+				<p class="mt-2 text-sm leading-6 text-text-subtle">
+					Become a Prison Friend or respond to specific client requests through your
+					congregation.
+				</p>
+				<a
+					href="/get-involved"
+					class="mt-4 block text-right text-sm font-medium text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+				>
+					Get involved &rarr;
+				</a>
+			</article>
+
+			<article
+				class="rounded-lg bg-surface-subtle px-5 py-6 transition-shadow duration-200 hover:shadow-md"
+				aria-labelledby="engage-congregation-heading"
+			>
+				<p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary">
+					Congregations
+				</p>
+				<h3 id="engage-congregation-heading" class="mt-1 text-base font-semibold text-text-default">
+					Join the network
+				</h3>
+				<p class="mt-2 text-sm leading-6 text-text-subtle">
+					If your congregation is in the DC, MD, or VA area, RCAN welcomes new partners
+					committed to social justice.
+				</p>
+				<a
+					href="/get-involved"
+					class="mt-4 block text-right text-sm font-medium text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+				>
+					Learn how &rarr;
+				</a>
+			</article>
 		</div>
 	</section>
 
@@ -93,7 +191,7 @@ const impactStats = [
 		<StoryBlock
 			heading="A family reunited"
 			level={3}
-			background="none"
+			background="invert"
 			quotes={[
 				{
 					text: "Thank you all for your help in supporting TW and his family. All of your donations went such a long way to relieving the stress and anxiety of TW. He is safely with his grandparents that love and care for him. Their immediate burdens have been relieved thanks to the assistance of you all. I cannot express to you the joy this has brought to this family. Thank you all again so much!",
@@ -103,25 +201,65 @@ const impactStats = [
 		/>
 	</section>
 
-	<section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="pfp-teaser-heading">
+	<section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="pfp-teaser-heading" data-fade>
 		<h2 id="pfp-teaser-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Prison Friendship Project</h2>
 		<p class="mt-3 text-base leading-7 text-text-subtle">
 			About 4,000 people from Washington, DC are scattered across federal prisons. The Prison
 			Friendship Project matches RCAN supporters with DC clients to build human connection
-			across distance.
+			across distance. RCAN provides match guidance, client background, and access to social
+			workers and attorneys throughout the friendship.
 		</p>
-		<div class="mt-6 flex justify-end">
+		<div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+			<dl class="flex gap-8">
+				<div aria-label="23 new Prison Friendship matches in 2025">
+					<dd class="text-2xl font-bold text-brand-secondary">23</dd>
+					<dt class="mt-0.5 text-xs text-text-subtle">new matches in 2025</dt>
+				</div>
+				<div aria-label="40 active Prison Friendship matches">
+					<dd class="text-2xl font-bold text-brand-secondary">40</dd>
+					<dt class="mt-0.5 text-xs text-text-subtle">active matches</dt>
+				</div>
+			</dl>
 			<Button href="/get-involved#prison-friendship-project" variant="primary" size="md">Become a Prison Friend</Button>
 		</div>
 	</section>
 
 	<CTABlock
-		heading="Support this ministry"
-		body="You can make a direct impact for returning citizens in Washington, DC. Every gift helps RCAN respond quickly to urgent needs."
+		heading="Stand with returning citizens."
+		body="Donations fund emergency needs. Volunteers build connections. Every contribution - of any kind - makes a difference."
 		primaryLabel="Donate"
 		primaryHref="/donate"
 		secondaryLabel="Get involved"
 		secondaryHref="/get-involved"
 		background="subtle"
 	/>
+
+	<script>
+		const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		if (!reduceMotion) {
+			const fadeTargets = document.querySelectorAll("[data-fade]");
+			fadeTargets.forEach((target) => {
+				target.classList.add("opacity-0");
+			});
+
+			const fadeObserver = new IntersectionObserver(
+				(entries, observer) => {
+					entries.forEach((entry) => {
+						if (!entry.isIntersecting) {
+							return;
+						}
+
+						entry.target.classList.remove("opacity-0");
+						entry.target.classList.add("opacity-100", "transition-opacity", "duration-300");
+						observer.unobserve(entry.target);
+					});
+				},
+				{ threshold: 0.1 },
+			);
+
+			fadeTargets.forEach((target) => {
+				fadeObserver.observe(target);
+			});
+		}
+	</script>
 </BaseLayout>

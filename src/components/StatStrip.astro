@@ -16,6 +16,16 @@ const { stats, layout = "strip", background = "none" } = Astro.props;
 
 const isInvert = background === "invert";
 const isSubtle = background === "subtle";
+
+const getTargetNumber = (value: string) => {
+  const digitsOnly = value.replace(/[^\d]/g, "");
+  const parsed = Number.parseInt(digitsOnly || "0", 10);
+  return Number.isNaN(parsed) ? 0 : parsed;
+};
+
+const getSuffix = (value: string) => value.replace(/[\d,]/g, "");
+const usesLocale = (value: string) => value.includes(",");
+const formatNumber = (value: number, locale: boolean) => (locale ? value.toLocaleString() : `${value}`);
 ---
 
 {isInvert ? (
@@ -34,19 +44,31 @@ const isSubtle = background === "subtle";
     </ul>
   </div>
 ) : isSubtle ? (
-  <div class="bg-surface-subtle rounded-lg p-4">
-    <ul
-      class="grid grid-cols-2 sm:grid-cols-4 gap-4 list-none p-0 m-0"
+  <div class="bg-surface-subtle rounded-lg p-4" data-stat-strip>
+    <dl
+      class="grid grid-cols-2 sm:grid-cols-4 gap-4 m-0"
     >
       {stats.map((stat) => (
-        <li class="rounded-lg bg-surface-default px-5 py-4 shadow-sm">
-          <p class={`text-3xl font-bold ${stat.highlight ? "text-brand-secondary" : "text-brand-secondary"}`}>
-            {stat.prefix && <span>{stat.prefix}</span>}{stat.value}
-          </p>
-          <p class="text-sm text-text-subtle mt-1">{stat.label}</p>
-        </li>
+        <div class="rounded-lg bg-surface-default px-5 py-4 shadow-sm">
+          <dd
+            class={`text-3xl font-bold ${stat.highlight ? "text-brand-secondary" : "text-brand-secondary"}`}
+            aria-label={`${stat.prefix ?? ""}${stat.value} ${stat.label}`.trim()}
+          >
+            {stat.prefix && <span>{stat.prefix}</span>}
+            <span
+              class="inline-block min-w-16 tabular-nums"
+              data-count-target={getTargetNumber(stat.value)}
+              data-count-locale={usesLocale(stat.value) ? "true" : undefined}
+              aria-live="off"
+            >
+              {formatNumber(getTargetNumber(stat.value), usesLocale(stat.value))}
+            </span>
+            {getSuffix(stat.value) && <span>{getSuffix(stat.value)}</span>}
+          </dd>
+          <dt class="text-sm text-text-subtle mt-1">{stat.label}</dt>
+        </div>
       ))}
-    </ul>
+    </dl>
   </div>
 ) : layout === "grid" ? (
   <ul
@@ -75,3 +97,70 @@ const isSubtle = background === "subtle";
     ))}
   </ul>
 )}
+
+<script>
+  const strip = document.querySelector("[data-stat-strip]");
+  if (strip instanceof HTMLElement) {
+    const counters = strip.querySelectorAll("[data-count-target]");
+    if (counters.length > 0) {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const duration = 800;
+
+      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+      const formatValue = (value: number, locale: boolean) => (locale ? value.toLocaleString() : `${value}`);
+
+      const setFinalValues = () => {
+        counters.forEach((counter) => {
+          if (!(counter instanceof HTMLElement)) return;
+          const target = Number(counter.dataset.countTarget ?? "0");
+          const locale = counter.dataset.countLocale === "true";
+          counter.textContent = formatValue(target, locale);
+        });
+      };
+
+      const runCountAnimation = () => {
+        const startTime = performance.now();
+
+        const tick = (now: number) => {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const easedProgress = easeOutCubic(progress);
+
+          counters.forEach((counter) => {
+            if (!(counter instanceof HTMLElement)) return;
+            const target = Number(counter.dataset.countTarget ?? "0");
+            const locale = counter.dataset.countLocale === "true";
+            const currentValue = Math.round(target * easedProgress);
+            counter.textContent = formatValue(currentValue, locale);
+          });
+
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          }
+        };
+
+        requestAnimationFrame(tick);
+      };
+
+      if (prefersReducedMotion) {
+        setFinalValues();
+      } else {
+        const observer = new IntersectionObserver(
+          (entries, activeObserver) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting || strip.dataset.counted === "true") {
+                return;
+              }
+
+              strip.dataset.counted = "true";
+              runCountAnimation();
+              activeObserver.disconnect();
+            });
+          },
+          { threshold: 0.25, rootMargin: "0px" },
+        );
+
+        observer.observe(strip);
+      }
+    }
+  }
+</script>

@@ -1,34 +1,6 @@
 # PRD: Home Page Elevation — Phase 3
 
-## Copy/Paste Agent Prompt (Step 1 of 8)
-
-Recommended model: GPT-5.3-Codex
-
-Use this prompt with your coding agent:
-
-```text
-Implement only this PRD: docs/PRD-04-home.md.
-
-Target page and likely touchpoints:
-- src/pages/index.astro
-- src/components/StatStrip.astro (if required by this PRD)
-
-Execution rules:
-1) Read docs/PRD-04-home.md fully before editing.
-2) Treat this PRD as source of truth for scope and copy direction.
-3) Do not implement other PRDs in this run.
-4) Preserve design tokens, accessibility, and motion constraints already used in this repo.
-5) Run validation commands after implementation:
-  - npm run check
-  - npm run lint
-
-Output format:
-- Summary of completed PRD items
-- Files changed
-- Any deviations or blockers
-```
-
-## Status
+## Status - Complete
 
 The current structure is:
 

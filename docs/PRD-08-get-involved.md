@@ -1,6 +1,6 @@
 # PRD: Get Involved Page - Phase 3
 
-> **Note:** Ignore anything about the header/hero area — use the current implementation to stay consistent. Do not add or reinstate any dark (`bg-surface-invert`) CTA block at the bottom of pages; that pattern has been removed. If any remaining task references a dark closing box or `background="invert"` on CTABlock, skip it.
+> **Alignment override:** Read `docs/PRD-12-remaining-pages-alignment.md` before implementation. If this PRD conflicts with PRD-12, PRD-12 wins.
 
 ## Copy/Paste Agent Prompt (Step 5 of 8)
 
@@ -12,6 +12,7 @@ Use this prompt with your coding agent:
 Implement only this PRD: docs/PRD-08-get-involved.md.
 
 Review the copilot-instructions.md and content.md, rules.md in docs/guide
+Read docs/PRD-12-remaining-pages-alignment.md before making changes.
 
 Target page and likely touchpoints:
 - src/pages/get-involved.astro
@@ -19,8 +20,8 @@ Target page and likely touchpoints:
 - src/components/CTABlock.astro (only if required by this PRD)
 
 Execution rules:
-1) Read docs/PRD-08-get-involved.md fully before editing.
-2) Treat this PRD as source of truth for scope and copy direction.
+1) Read docs/PRD-12-remaining-pages-alignment.md, then docs/PRD-08-get-involved.md fully before editing.
+2) Resolve contradictions using this order: copilot-instructions.md -> PRD-12 -> this PRD.
 3) Do not implement other PRDs in this run.
 4) Preserve design tokens, accessibility, and motion constraints already used in this repo.
 5) Run validation commands after implementation:
@@ -57,9 +58,9 @@ All decisions are committed for implementation. Client copy refinements can foll
 
 Current: White -> Subtle -> White -> Subtle
 
-Target: White -> Subtle -> White -> Invert -> Subtle
+Target: White -> Subtle -> White -> Subtle
 
-The Prison Friendship Project becomes the page anchor using invert treatment. The page closes with a subtle CTABlock for consistent site-wide endings.
+The Prison Friendship Project becomes the page anchor through hierarchy and content structure. The page closes with a shared CTABlock pattern.
 
 ---
 
@@ -145,20 +146,20 @@ The page currently feels congregation-heavy until very late. This line improves 
 
 ---
 
-### 4. Prison Friendship Project - promote to anchor section (invert)
+### 4. Prison Friendship Project - promote to anchor section (no invert)
 
 **Decision:**
-Convert the full PFP section to `bg-surface-invert` and simplify internal hierarchy.
+Keep the full PFP section on white/subtle tokenized surfaces and simplify internal hierarchy.
 
 **Changes:**
 
-1. Container: `bg-surface-invert rounded-lg px-6 py-8 md:px-8 md:py-10`.
-2. Remove the top border accent (no `border-t-2`) to avoid decorative redundancy on dark background.
-3. Update text classes for invert contrast:
+1. Container: `rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10`.
+2. Remove the top border accent (no `border-t-2`) to avoid decorative redundancy.
+3. Keep text classes on default/subtle token pairings:
 
-- Section heading and subheads: `text-text-invert`
-- Body: `text-neutral-300`
-- Supporting copy: `text-neutral-300`
+- Section heading and subheads: `text-text-default`
+- Body: `text-text-subtle`
+- Supporting copy: `text-text-subtle`
 
 4. Keep intro + image two-column layout, but shorten paragraph spacing for better density control.
 5. Replace `StatStrip` usage here with a local two-item semantic `<dl>` to ensure correct invert styling and simpler visual integration.
@@ -183,7 +184,7 @@ Add a final shared `CTABlock` section to align with the site pattern that each p
   primaryHref="/contact"
   secondaryLabel="Donate"
   secondaryHref="/donate"
-  background="subtle"
+  variant="outline"
 />
 ```
 
@@ -205,7 +206,7 @@ A shared closing CTA improves consistency and captures visitors who reach the en
 ## Accessibility Checklist
 
 - [ ] All sections retain `aria-labelledby` with visible headings
-- [ ] PFP invert text meets WCAG AA on `#162824`
+- [ ] PFP text and supporting labels meet WCAG AA on chosen white/subtle surfaces
 - [ ] PFP stats use semantic `<dl>` with clear number/label association
 - [ ] All new links include visible `focus-visible` styles
 - [ ] Hero remains H1 and downstream headings remain H2/H3 with no skips
@@ -218,7 +219,7 @@ A shared closing CTA improves consistency and captures visitors who reach the en
 1. Refactor hero to text-first layout and remove image import/figure
 2. Tighten Ways to Help copy and add `/how-we-help` text link
 3. Add transition sentence after Congregation Commitments
-4. Convert PFP section to invert and update typography classes
+4. Normalize PFP section on subtle surfaces and update typography classes
 5. Replace PFP `StatStrip` with local semantic `<dl>` stats
 6. Add final `CTABlock` section
 7. Run `astro check` and `eslint`

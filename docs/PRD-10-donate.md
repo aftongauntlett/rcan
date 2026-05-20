@@ -1,6 +1,6 @@
 # PRD: Donate Page - Phase 3
 
-> **Note:** Ignore anything about the header/hero area — use the current implementation to stay consistent. Do not add or reinstate any dark (`bg-surface-invert`) CTA block at the bottom of pages; that pattern has been removed. If any remaining task references a dark closing box or `background="invert"` on CTABlock, skip it.
+> **Alignment override:** Read `docs/PRD-12-remaining-pages-alignment.md` before implementation. If this PRD conflicts with PRD-12, PRD-12 wins.
 
 ## Copy/Paste Agent Prompt (Step 7 of 8)
 
@@ -12,14 +12,15 @@ Use this prompt with your coding agent:
 Implement only this PRD: docs/PRD-10-donate.md.
 
 Review the copilot-instructions.md and content.md, rules.md in docs/guide
+Read docs/PRD-12-remaining-pages-alignment.md before making changes.
 
 Target page and likely touchpoints:
 - src/pages/donate.astro
 - src/components/CTABlock.astro (only if required by this PRD)
 
 Execution rules:
-1) Read docs/PRD-10-donate.md fully before editing.
-2) Treat this PRD as source of truth for scope and copy direction.
+1) Read docs/PRD-12-remaining-pages-alignment.md, then docs/PRD-10-donate.md fully before editing.
+2) Resolve contradictions using this order: copilot-instructions.md -> PRD-12 -> this PRD.
 3) Do not implement other PRDs in this run.
 4) Preserve design tokens, accessibility, and motion constraints already used in this repo.
 5) Run validation commands after implementation:
@@ -44,12 +45,12 @@ All decisions are committed for implementation. Client copy edits can follow aft
 
 ## Current State
 
-| #   | Section                                               | Background | Status                                                                        |
-| --- | ----------------------------------------------------- | ---------- | ----------------------------------------------------------------------------- |
-| 1   | Hero (text + image + Give now button)                 | White      | Clear headline and CTA, but supporting proof is limited                       |
-| 2   | Give to RCAN (Donorbox placeholder + mailing address) | Subtle     | Functionally correct structure, but placeholder dominates and feels temporary |
-| 3   | What your gift supports                               | White      | Useful but too brief to reinforce confidence                                  |
-| -   | Closing CTA block                                     | -          | Missing                                                                       |
+| #   | Section                                                                   | Background | Status                                                                        |
+| --- | ------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------- |
+| 1   | Page header (SectionHeader + optional supporting image + Give now button) | White      | Clear headline and CTA, but supporting proof is limited                       |
+| 2   | Give to RCAN (Donorbox placeholder + mailing address)                     | Subtle     | Functionally correct structure, but placeholder dominates and feels temporary |
+| 3   | What your gift supports                                                   | White      | Useful but too brief to reinforce confidence                                  |
+| -   | Closing CTA block                                                         | -          | Missing                                                                       |
 
 ### Visual rhythm (current vs target)
 
@@ -63,18 +64,18 @@ The page should end with a subtle CTABlock to match the site pattern and provide
 
 ## Section Specifications
 
-### 1. Hero - keep layout, strengthen proof and urgency
+### 1. Page header - strengthen proof and urgency
 
 **What is working:**
 
 - Heading and subheading are donation-specific.
-- Hero image (`make-change.jpg`) aligns with giving intent.
+- SectionHeader-led opener and direct CTA align with giving intent.
 - Primary CTA to `#donate-form` is appropriate.
 
 **Changes:**
 
-1. Keep two-column layout and image assignment.
-2. Keep heading text.
+1. Keep a shared `SectionHeader`-led opener and heading text.
+2. Keep supporting imagery optional; only keep `make-change.jpg` if it strengthens context.
 3. Replace body paragraph with one concise impact-oriented paragraph:
 
 > Your gift helps RCAN respond quickly to urgent requests for housing, food, transportation, and other barriers that can delay reentry stability.
@@ -156,7 +157,7 @@ Add a closing `CTABlock` section with subtle background.
   primaryHref="/get-involved"
   secondaryLabel="Contact RCAN"
   secondaryHref="/contact"
-  background="subtle"
+  variant="outline"
 />
 ```
 
@@ -167,7 +168,7 @@ Even high-intent donors may also want relational involvement. This closes the pa
 
 ## Content and Component Notes
 
-- Keep hero image assignment: `make-change.jpg` on Donate.
+- Keep hero/supporting image usage optional and content-driven.
 - Keep section anchor `#donate-form` for hero CTA.
 - Keep `BulletList` for support items unless spacing changes require page-local list markup.
 - Use existing `CTABlock` component for the new closing section.

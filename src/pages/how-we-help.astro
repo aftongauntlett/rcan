@@ -2,25 +2,49 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
+import CTABlock from "../components/CTABlock.astro";
 import Button from "../components/Button.astro";
+import Icon from "../components/Icon.astro";
 import supportImage from "../assets/art-community.jpg";
 
 const pageTitle = "How We Help | RCAN";
 const pageDescription =
   "Explore the support pathways and services RCAN coordinates for returning citizens and their families.";
 
-const assistanceExamples = [
-  "Help finding or furnishing an apartment, or paying an application fee or security deposit",
-  "Free food, clothing, and items for personal hygiene",
-  "Transportation assistance — Metro cards, free bicycles, Uber rides",
-  "Funds to avoid eviction or help with other emergency financial needs, including utilities",
-  "Assistance looking for work and/or learning job skills",
-  "Informal life-skills counseling or personal mentoring",
-  "Sending books to incarcerated clients",
-  "Assisting with costs for juveniles to participate in therapeutic programs as part of release conditions",
-  "Court-imposed fees and sanctions that clients cannot afford to pay",
-  "Providing a letter of support for clients seeking release under the Incarceration Reduction Amendment Act",
-  "Green card fees, therapy sessions, and cellphones to keep in contact with attorneys and find work",
+type SupportIconName =
+  | "home"
+  | "heart"
+  | "map-pin"
+  | "dollar-sign"
+  | "users"
+  | "info"
+  | "user"
+  | "phone";
+
+const assistanceExamples: { icon: SupportIconName; text: string }[] = [
+  {
+    icon: "home",
+    text: "Housing support: apartment search, furnishings, application fees, security deposits",
+  },
+  {
+    icon: "dollar-sign",
+    text: "Emergency financial relief: utilities, eviction prevention, and urgent household costs",
+  },
+  { icon: "heart", text: "Food, clothing, and hygiene essentials" },
+  { icon: "users", text: "Employment and life-skills support" },
+  { icon: "map-pin", text: "Transportation support: Metro cards, bicycles, and rides" },
+  {
+    icon: "user",
+    text: "Family and youth supports, including therapeutic program costs",
+  },
+  {
+    icon: "info",
+    text: "Reentry legal support: court fees, sanctions, and release-related letters",
+  },
+  {
+    icon: "phone",
+    text: "Communication and stabilization resources, including phones, books, and therapy support",
+  },
 ];
 
 const pathwaySteps = [
@@ -40,45 +64,29 @@ const pathwaySteps = [
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="py-10 md:py-14" aria-label="How We Help overview">
-    <div class="grid gap-10 lg:grid-cols-2 lg:items-stretch">
-      <article class="flex h-full flex-col gap-6">
-        <SectionHeader
-          level={1}
-          heading="Practical support when timing matters most"
-          subheading="RCAN coordinates short-term, high-impact support that helps returning citizens stabilize and move forward."
-        />
-        <p class="text-base leading-7 text-text-subtle">
-          Requests come through the DC Public Defender Service, and congregations in the RCAN
-          network mobilize quickly to respond with direct support, coordination, and follow-through.
-        </p>
-      </article>
-
-      <figure class="overflow-hidden rounded-lg shadow-lg">
-        <Image
-          src={supportImage}
-          class="h-full min-h-80 w-full object-cover"
-          alt="A community mural featuring hands and symbols of shared care, representing collective support for neighbors in transition."
-          width={900}
-          widths={[360, 540, 720, 900]}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          format="webp"
-          quality={60}
-          loading="eager"
-          priority
-        />
-      </figure>
-    </div>
+  <section class="border-b border-border-default pb-10 pt-10 md:pt-14" aria-label="How We Help overview">
+    <SectionHeader
+      level={1}
+      heading="Practical support when timing matters most"
+      subheading="RCAN coordinates short-term, high-impact support that helps returning citizens stabilize and move forward."
+    />
+    <p class="mt-6 text-base leading-7 text-text-subtle">
+      Requests come through the DC Public Defender Service. RCAN congregations then coordinate
+      practical, short-term support that helps people stabilize quickly and move toward
+      longer-term reentry goals.
+    </p>
   </section>
 
   <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="help-types-heading">
     <h2 id="help-types-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Types of support</h2>
-    <ul class="mt-6 columns-1 gap-x-12 sm:columns-2" aria-label="Types of assistance RCAN provides">
+    <ul class="mt-6 grid grid-cols-1 gap-x-12 gap-y-2 sm:grid-cols-2" aria-label="Types of assistance RCAN provides">
       {
         assistanceExamples.map((item) => (
-          <li class="flex items-start gap-3 break-inside-avoid py-2 text-base leading-7 text-text-subtle">
-            <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
-            <span>{item}</span>
+          <li class="group flex items-center gap-3 rounded-md px-3 py-2 text-base leading-7 text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:bg-surface-default">
+            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-accent text-surface-default motion-safe:transition-colors motion-safe:duration-200 group-hover:bg-brand-secondary" aria-hidden="true">
+              <Icon name={item.icon as SupportIconName} size="sm" aria-hidden="true" />
+            </span>
+            <span class="flex min-h-14 items-center">{item.text}</span>
           </li>
         ))
       }
@@ -86,27 +94,50 @@ const pathwaySteps = [
   </section>
 
   <section class="py-10" aria-labelledby="pathway-heading">
-    <h2 id="pathway-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Support pathway</h2>
-    <ol class="mt-6 space-y-6 border-l-2 border-border-default pl-6">
-      {
-        pathwaySteps.map((step) => (
-          <li>
-            <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">{step.label}</p>
-            <p class="mt-1 text-base leading-7 text-text-subtle">{step.body}</p>
-          </li>
-        ))
-      }
-    </ol>
-  </section>
+    <div class="grid gap-6 lg:grid-cols-[2fr_3fr] lg:items-stretch">
+      <figure class="overflow-hidden rounded-lg shadow-md">
+        <Image
+          src={supportImage}
+          class="h-full w-full object-cover"
+          alt="A community mural featuring hands and symbols of shared care, representing collective support for neighbors in transition."
+          width={900}
+          widths={[360, 540, 720, 900]}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          format="webp"
+          quality={60}
+          loading="lazy"
+        />
+      </figure>
 
-  <section class="rounded-lg bg-surface-subtle px-6 py-8 text-center md:px-8 md:py-10" aria-labelledby="help-cta-heading">
-    <h2 id="help-cta-heading" class="text-xl font-semibold text-text-default">Join this response network</h2>
-    <p class="mx-auto mt-3 max-w-3xl text-base leading-7 text-text-subtle">
-      RCAN's impact depends on congregations and supporters who can respond to urgent needs.
-    </p>
-    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-      <Button href="/get-involved" variant="secondary" size="md">Get involved</Button>
-      <Button href="/donate" variant="primary" size="md">Support RCAN</Button>
+      <div class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
+        <h2 id="pathway-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Support pathway</h2>
+        <ol class="mt-6 space-y-6 border-l-2 border-border-default pl-6">
+          {
+            pathwaySteps.map((step) => (
+              <li>
+                <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">{step.label}</p>
+                <p class="mt-1 text-base leading-7 text-text-subtle">{step.body}</p>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="mt-6 text-sm text-text-subtle">
+          Most weeks, RCAN coordinates one to two urgent requests through the network.
+        </p>
+        <div class="mt-5 flex justify-end">
+          <Button href="/impact" variant="secondary" size="sm">Our Impact</Button>
+        </div>
+      </div>
     </div>
   </section>
+
+  <CTABlock
+    heading="Join this response network"
+    body="RCAN depends on congregations and supporters who can respond when urgent needs arise."
+    primaryLabel="Get involved"
+    primaryHref="/get-involved"
+    secondaryLabel="Support RCAN"
+    secondaryHref="/donate"
+    variant="outline"
+  />
 </BaseLayout>

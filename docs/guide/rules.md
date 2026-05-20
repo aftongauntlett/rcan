@@ -14,12 +14,13 @@ Run page PRDs in this order:
 
 1. `docs/PRD-04-home.md`
 2. `docs/PRD-05-about.md`
-3. `docs/PRD-06-how-we-help.md`
-4. `docs/PRD-07-impact.md`
-5. `docs/PRD-08-get-involved.md`
-6. `docs/PRD-09-contact.md`
-7. `docs/PRD-10-donate.md`
-8. `docs/PRD-11-final-audit.md` (release gate)
+3. `docs/PRD-12-remaining-pages-alignment.md` (required override baseline for PRD-06 through PRD-11)
+4. `docs/PRD-06-how-we-help.md`
+5. `docs/PRD-07-impact.md`
+6. `docs/PRD-08-get-involved.md`
+7. `docs/PRD-09-contact.md`
+8. `docs/PRD-10-donate.md`
+9. `docs/PRD-11-final-audit.md` (release gate)
 
 Do not run all page PRDs in one implementation pass.
 
@@ -40,6 +41,7 @@ Do not run all page PRDs in one implementation pass.
 ## Cross-PRD Dependencies
 
 - `docs/PRD-05-about.md` references home-page copy consistency from `docs/PRD-04-home.md`.
+- `docs/PRD-12-remaining-pages-alignment.md` must be read before `docs/PRD-06-how-we-help.md` through `docs/PRD-11-final-audit.md` and overrides those PRDs when conflicts exist.
 - `docs/PRD-11-final-audit.md` must run only after all page PRDs are implemented.
 
 ---
@@ -48,6 +50,7 @@ Do not run all page PRDs in one implementation pass.
 
 - Home: `docs/PRD-04-home.md`
 - About: `docs/PRD-05-about.md`
+- Remaining pages alignment override: `docs/PRD-12-remaining-pages-alignment.md`
 - How We Help: `docs/PRD-06-how-we-help.md`
 - Impact: `docs/PRD-07-impact.md`
 - Get Involved: `docs/PRD-08-get-involved.md`

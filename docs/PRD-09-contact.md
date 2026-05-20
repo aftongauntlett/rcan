@@ -1,6 +1,6 @@
 # PRD: Contact Page - Phase 3
 
-> **Note:** Ignore anything about the header/hero area — use the current implementation to stay consistent. Do not add or reinstate any dark (`bg-surface-invert`) CTA block at the bottom of pages; that pattern has been removed. If any remaining task references a dark closing box or `background="invert"` on CTABlock, skip it.
+> **Alignment override:** Read `docs/PRD-12-remaining-pages-alignment.md` before implementation. If this PRD conflicts with PRD-12, PRD-12 wins.
 
 ## Copy/Paste Agent Prompt (Step 6 of 8)
 
@@ -12,6 +12,7 @@ Use this prompt with your coding agent:
 Implement only this PRD: docs/PRD-09-contact.md.
 
 Review the copilot-instructions.md and content.md, rules.md in docs/guide
+Read docs/PRD-12-remaining-pages-alignment.md before making changes.
 
 Target page and likely touchpoints:
 - src/pages/contact.astro
@@ -19,8 +20,8 @@ Target page and likely touchpoints:
 - src/components/CTABlock.astro (only if required by this PRD)
 
 Execution rules:
-1) Read docs/PRD-09-contact.md fully before editing.
-2) Treat this PRD as source of truth for scope and copy direction.
+1) Read docs/PRD-12-remaining-pages-alignment.md, then docs/PRD-09-contact.md fully before editing.
+2) Resolve contradictions using this order: copilot-instructions.md -> PRD-12 -> this PRD.
 3) Do not implement other PRDs in this run.
 4) Preserve design tokens, accessibility, and motion constraints already used in this repo.
 5) Run validation commands after implementation:
@@ -43,12 +44,12 @@ All decisions in this PRD are committed for implementation. Client copy edits ca
 
 ## Current State
 
-| #   | Section                              | Background                          | Status                                                                     |
-| --- | ------------------------------------ | ----------------------------------- | -------------------------------------------------------------------------- |
-| 1   | Hero (text + image)                  | White                               | Clear intent, but intro copy is longer than needed                         |
-| 2   | Get in touch cards (mailing + email) | Mixed subtle cards in white section | Useful contact info, but no response expectation guidance                  |
-| 3   | Contact form                         | White with border                   | Functionally strong, visually dense and form-first readability can improve |
-| 4   | Bottom CTA area (custom markup)      | Subtle                              | Works, but not standardized with `CTABlock`                                |
+| #   | Section                                                 | Background                          | Status                                                                     |
+| --- | ------------------------------------------------------- | ----------------------------------- | -------------------------------------------------------------------------- |
+| 1   | Page header (SectionHeader + optional supporting image) | White                               | Clear intent, but intro copy is longer than needed                         |
+| 2   | Get in touch cards (mailing + email)                    | Mixed subtle cards in white section | Useful contact info, but no response expectation guidance                  |
+| 3   | Contact form                                            | White with border                   | Functionally strong, visually dense and form-first readability can improve |
+| 4   | Bottom CTA area (custom markup)                         | Subtle                              | Works, but not standardized with `CTABlock`                                |
 
 ### Visual rhythm (current vs target)
 
@@ -62,22 +63,23 @@ The contact-methods area becomes a clean subtle section. The form remains on whi
 
 ## Section Specifications
 
-### 1. Hero - simplify to one supporting paragraph
+### 1. Page header - simplify to one supporting paragraph
 
 **What is working:**
 
 - Heading is direct and audience-appropriate.
-- Hero image supports the idea of community collaboration.
+- SectionHeader-based opener is direct and audience-appropriate.
 
 **Changes:**
 
-1. Keep the two-column hero layout and current image assignment (`gardening-community.jpg`).
-2. Keep `SectionHeader` heading and subheading.
-3. Reduce body copy from two paragraphs to one concise support paragraph:
+1. Keep a shared `SectionHeader`-led opener.
+2. Keep supporting imagery optional; only keep `gardening-community.jpg` if it still adds clear context.
+3. Keep `SectionHeader` heading and subheading.
+4. Reduce body copy from two paragraphs to one concise support paragraph:
 
 > RCAN responds through trusted referral and congregation channels and welcomes partnership from communities committed to practical, dignity-centered reentry support.
 
-4. Remove repetitive wording about both congregation and general questions (covered in form intro and topic selector).
+5. Remove repetitive wording about both congregation and general questions (covered in form intro and topic selector).
 
 **Rationale:**
 The contact page should move visitors to action quickly. One support paragraph reduces friction.
@@ -161,7 +163,7 @@ Current custom CTA should be replaced by `CTABlock`.
   primaryHref="/donate"
   secondaryLabel="Get involved"
   secondaryHref="/get-involved"
-  background="subtle"
+  variant="outline"
 />
 ```
 
@@ -172,7 +174,7 @@ This aligns Contact with Home/About/Get Involved consistency goals and reduces p
 
 ## Content and Component Notes
 
-- Keep hero image assignment: `gardening-community.jpg` on Contact.
+- Keep hero/supporting image usage optional and content-driven.
 - Keep existing `CustomDropdown` component for topic selection.
 - Keep Formspree integration and current hidden spam field strategy.
 - Replace only the bottom custom CTA section with `CTABlock`.

@@ -1,199 +1,234 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
-import Card from "../components/Card.astro";
-import Button from "../components/Button.astro";
-import Icon from "../components/Icon.astro";
-import CountUpScript from "../components/CountUpScript.astro";
+import CTABlock from "../components/CTABlock.astro";
+import StoryBlock from "../components/StoryBlock.astro";
+import impactHeroImage from "../assets/faith.jpg";
+import beautyBehindBarsImage from "../assets/beauty-behind-bars.jpg";
+import paintingImage from "../assets/painting.jpg";
+import cakeGiftImage from "../assets/cake-gift.jpg";
+import bikeBagsGiftImage from "../assets/bike-bags-gift.jpg";
 
 const pageTitle = "Impact | RCAN";
 const pageDescription =
   "2025 highlights showing the range of support RCAN provides — stories, quotes, and program updates from the Returning Citizens Assistance Network.";
-
-const stats = [
-  { prefix: "$", count: 25000, suffix: "+", locale: true, label: "contributed to the RCAN Fund in 2025", start: 0 },
-  { count: 361, label: "clients helped in 2025", start: 0 },
-  { count: 10, suffix: " families", label: "received holiday gift baskets (51 adults and children)", start: 0 },
-  { count: 40, suffix: " clients", label: "currently receiving correspondence through the Prison Friendship Project", start: 0 },
-];
-
-const stories = [
-  {
-    id: "tw-family",
-    heading: "TW and His Family",
-    quote:
-      "Thank you all for your help in supporting TW and his family. All of your donations went such a long way to relieving the stress and anxiety of TW. He is safely with his grandparents that love and care for him. Their immediate burdens have been relieved thanks to the assistance of you all. I cannot express to you the joy this has brought to this family. Thank you all again so much!",
-    attribution: "PDS Lawyer",
-  },
-  {
-    id: "mr-e",
-    heading: "Mr. E.",
-    quote:
-      "His time at the hotel has been invaluable. It has allowed him to experience the dignity of getting back on his feet with a hot shower, clean bed, and free coffee in the morning — something he has not had for months. For his team, it has allowed us to focus on all the collateral needs he has, which would otherwise be barriers to housing: things like getting him connected with a core services agency, obtaining copies of his birth certificate, and tracking down verification of disability benefit. He walks with a cane and despite an extraordinarily difficult life fraught with poverty, addiction, and homelessness, Mr. E is the most joyful man to be around.",
-    attribution: "PDS Lawyer",
-  },
-];
-
-const highlights = [
-  {
-    heading: "Beauty Behind Bars: The Transformative Power of Arts in Confinement",
-    body: "RCAN partnered with DC PDS to host a gallery exhibition featuring work by more than a dozen currently and formerly incarcerated artists at The Studio Gallery. Two RCAN churches — St. Mark's and St. Columba's — later hosted the exhibition in April and September respectively. The exhibit was successfully used by PDS attorneys to win the freedom of artist clients seeking release after decades of incarceration under the Incarceration Reduction Amendment Act.",
-  },
-  {
-    heading: "Bike Ministry",
-    body: "Manuel Vera has supplied a bicycle to PDS clients whenever there is a request. Since starting his bike repair project in 2000, he serviced his 1,000th bike in 2025 — given to a PDS client in need of transportation.",
-  },
-  {
-    heading: "Second Chance Event",
-    body: "DC PDS held a community event in April and RCAN donated funds and staffed a table to recruit new pen pals for the Prison Friendship Project.",
-  },
-  {
-    heading: "Gift Cards — $15,325",
-    body: "RCAN provided PDS clients with gift cards for Metro transportation, groceries, Target, and CVS, allowing clients to meet immediate needs with dignity.",
-  },
-  {
-    heading: "Material Support",
-    body: "RCAN met the needs of clients facing food insecurity, eviction risk, outstanding utility bills, clothing needs, funeral costs, car repairs, restitution, and professional fees.",
-  },
-];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
+
   <!-- Hero -->
-  <section class="relative isolate overflow-hidden rounded-lg border border-border-default bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
-    <div aria-hidden="true" class="pointer-events-none absolute -left-8 -top-8 h-36 w-36 rounded-full bg-brand-secondary/10 blur-2xl"></div>
-    <div aria-hidden="true" class="pointer-events-none absolute -bottom-10 right-10 h-40 w-40 rounded-full bg-brand-primary/10 blur-2xl"></div>
-    <div class="relative max-w-3xl space-y-4">
-      <SectionHeader
-        level={1}
-        eyebrow="2025 Highlights"
-        heading="The network in action"
-        subheading="These highlights from 2025 show the range of support RCAN provides. Whether through monetary or household donations, the gift of time, or sustained personal relationships with PDS clients, the network continues to help more people than ever before."
+  <section class="py-10 md:py-14" aria-labelledby="impact-heading">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-stretch">
+      <article class="flex h-full flex-col gap-6">
+        <SectionHeader
+          level={1}
+          heading="2025 Impact Highlights"
+          subheading="These highlights show the range of support RCAN provides — stories, program updates, and results from the past year."
+        />
+        <p class="text-base leading-7 text-text-subtle">
+          Whether through monetary or household donations, the gift of time, or sustained personal
+          relationships with PDS clients, the network continues to help more people than ever before.
+        </p>
+        <p class="text-base leading-7 text-text-subtle">
+          In 2025, RCAN helped <strong class="font-semibold text-text-default">361 clients</strong> and contributed <strong class="font-semibold text-text-default">$25,000+</strong> to the RCAN Fund.
+        </p>
+      </article>
+
+      <figure class="relative min-h-72 overflow-hidden rounded-lg shadow-lg">
+        <Image
+          src={impactHeroImage}
+          class="absolute inset-0 h-full w-full object-cover object-bottom"
+          alt="Faith communities gathered in shared purpose, reflecting RCAN's congregation-led approach to supporting returning citizens."
+          width={900}
+          widths={[360, 540, 720, 900]}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          format="webp"
+          quality={60}
+          loading="eager"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <!-- Stories -->
+  <section aria-labelledby="stories-heading">
+    <h2 id="stories-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">
+      Stories
+    </h2>
+
+    <div class="mt-10 space-y-10">
+      <StoryBlock
+        heading="TW and His Family"
+        level={3}
+        background="none"
+        quotes={[
+          {
+            text: "Thank you all for your help in supporting TW and his family. All of your donations went such a long way to relieving the stress and anxiety of TW. He is safely with his grandparents that love and care for him. Their immediate burdens have been relieved thanks to the assistance of you all. I cannot express to you the joy this has brought to this family. Thank you all again so much!",
+            attribution: "— PDS Lawyer",
+          },
+        ]}
+      />
+
+      <StoryBlock
+        heading="Mr. E."
+        level={3}
+        quotes={[
+          {
+            text: "His time at the hotel has been invaluable. It has allowed him to experience the dignity of getting back on his feet with a hot shower, clean bed, and free coffee in the morning — something he has not had for months. For his team, it has allowed us to focus on all the collateral needs he has, which would otherwise be barriers to housing: things like getting him connected with a core services agency, obtaining copies of his birth certificate, and tracking down verification of disability benefit. He walks with a cane and despite an extraordinarily difficult life fraught with poverty, addiction, and homelessness, Mr. E is the most joyful man to be around.",
+            attribution: "— PDS Lawyer",
+          },
+        ]}
+      />
+
+      <StoryBlock
+        heading="Ms. Davenport's Birthday"
+        level={3}
+        intro="An RCAN volunteer delivered a birthday cake to a PDS client. What followed was this exchange:"
+        quotes={[
+          {
+            text: "This is so wonderful! Thank you, Kay! I spoke with Ms. Davenport today, and I can tell how much your friendship and support mean to her. And that birthday cake both looked and sounded amazing!",
+            attribution: "— Florence Bryan, PDS Lawyer",
+            accentColor: "secondary",
+          },
+          {
+            text: "Florence, it is my pleasure to be a friend of Ms. Davenport. I enjoy my time with her. They are wonderful people. Ms. Davenport is very grateful for what you do for her and her family.",
+            attribution: "— Kay Tatum, RCAN Member",
+            accentColor: "primary",
+          },
+        ]}
+        image={{
+          src: cakeGiftImage,
+          alt: "An RCAN volunteer holds a purple birthday cake shaped like a hat, made for a PDS client.",
+        }}
+        imagePosition="right"
+      />
+
+      <StoryBlock
+        heading="Holiday Gifts at the Youth Services Center"
+        level={3}
+        intro="RCAN-supported attorney Kayla Wyatt gave small Christmas gifts to 120 detained juveniles at the Youth Services Center."
+        quotes={[
+          {
+            text: "A lot of the kids at YSC have been away from their families for a long time and, some, are away for the first time during the holiday. I cannot imagine how awful that is. But Kayla found a way to make their holiday season just a little better by making every kid at YSC feel loved and cared for.",
+            attribution: "— DC PDS",
+          },
+        ]}
       />
     </div>
   </section>
 
-  <!-- Stats -->
-  <section class="py-10" aria-labelledby="stats-heading">
-    <h2 id="stats-heading" class="sr-only">2025 by the numbers</h2>
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        stats.map((stat) => (
-          <li>
-            <Card class="h-full text-center transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-              <p class="text-2xl font-bold text-brand-secondary">
-                {stat.prefix}
-                <span
-                  data-count-to={stat.count}
-                  data-count-from={stat.start}
-                  data-count-duration="1000"
-                  data-count-locale={stat.locale ? "" : undefined}
-                  class="tabular-nums"
-                >
-                  {stat.locale ? stat.count.toLocaleString() : stat.count}
-                </span>
-                {stat.suffix}
-              </p>
-              <p class="mt-2 text-sm leading-6 text-text-subtle">{stat.label}</p>
-            </Card>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <!-- Stories & Quotes -->
-  <section class="py-10" aria-labelledby="stories-heading">
-    <h2 id="stories-heading" class="section-title text-2xl font-semibold text-text-default">Stories</h2>
-    <div class="mt-6 grid gap-6 lg:grid-cols-2">
-      {
-        stories.map((story) => (
-          <article id={story.id} class="flex flex-col gap-4 rounded-lg border border-border-default bg-surface-default p-6 shadow-sm">
-            <h3 class="text-lg font-semibold text-text-default">{story.heading}</h3>
-            <blockquote class="flex-1 border-l-4 border-brand-secondary pl-4">
-              <p class="text-base italic leading-7 text-text-subtle">{story.quote}</p>
-              <footer class="mt-3 text-sm font-medium text-text-default">— {story.attribution}</footer>
-            </blockquote>
-          </article>
-        ))
-      }
-    </div>
-
-    <!-- Ms. Davenport exchange — two-voice quote -->
-    <article id="davenport-birthday" class="mt-6 rounded-lg border border-border-default bg-surface-default p-6 shadow-sm">
-      <h3 class="text-lg font-semibold text-text-default">Ms. Davenport's Birthday</h3>
-      <p class="mt-3 text-base leading-7 text-text-subtle">
-        An RCAN volunteer delivered a birthday cake to a PDS client. What followed was this exchange:
-      </p>
-      <div class="mt-4 space-y-4">
-        <blockquote class="border-l-4 border-brand-secondary pl-4">
-          <p class="text-base italic leading-7 text-text-subtle">
-            "This is so wonderful! Thank you, Kay! I spoke with Ms. Davenport today, and I can tell how much your friendship and support mean to her. And that birthday cake both looked and sounded amazing!"
-          </p>
-          <footer class="mt-2 text-sm font-medium text-text-default">— Florence Bryan, PDS Lawyer</footer>
-        </blockquote>
-        <blockquote class="border-l-4 border-brand-primary pl-4">
-          <p class="text-base italic leading-7 text-text-subtle">
-            "Florence, it is my pleasure to be a friend of Ms. Davenport. I enjoy my time with her. They are wonderful people. Ms. Davenport is very grateful for what you do for her and her family."
-          </p>
-          <footer class="mt-2 text-sm font-medium text-text-default">— Kay Tatum, RCAN Member</footer>
-        </blockquote>
-      </div>
-    </article>
-
-    <!-- YSC gift story -->
-    <article id="ysc-gifts" class="mt-6 rounded-lg border border-border-default bg-surface-default p-6 shadow-sm">
-      <h3 class="text-lg font-semibold text-text-default">Holiday Gifts at the Youth Services Center</h3>
-      <p class="mt-3 text-base leading-7 text-text-subtle">
-        RCAN-supported attorney Kayla Wyatt gave small Christmas gifts to 120 detained juveniles at the Youth Services Center.
-      </p>
-      <blockquote class="mt-4 border-l-4 border-brand-secondary pl-4">
-        <p class="text-base italic leading-7 text-text-subtle">
-          "A lot of the kids at YSC have been away from their families for a long time and, some, are away for the first time during the holiday. I cannot imagine how awful that is. But Kayla found a way to make their holiday season just a little better by making every kid at YSC feel loved and cared for."
-        </p>
-        <footer class="mt-2 text-sm font-medium text-text-default">— DC PDS</footer>
-      </blockquote>
-    </article>
-  </section>
-
   <!-- Program Highlights -->
-  <section class="py-10" aria-labelledby="highlights-heading">
-    <h2 id="highlights-heading" class="section-title text-2xl font-semibold text-text-default">Program highlights</h2>
-    <ul class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {
-        highlights.map((item) => (
-          <li>
-            <Card class="h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-              <p class="flex items-start gap-3">
-                <Icon
-                  name="check"
-                  size="sm"
-                  class="mt-1 shrink-0 text-status-success"
-                  aria-hidden="true"
-                />
-                <span class="space-y-1">
-                  <strong class="block text-sm font-semibold text-text-default">{item.heading}</strong>
-                  <span class="block text-sm leading-6 text-text-subtle">{item.body}</span>
-                </span>
-              </p>
-            </Card>
-          </li>
-        ))
-      }
-    </ul>
+  <section aria-labelledby="highlights-heading">
+    <h2 id="highlights-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">
+      Program highlights
+    </h2>
+
+    <!-- Beauty Behind Bars -->
+    <section class="mt-10" aria-labelledby="beauty-behind-bars-heading">
+      <h3 id="beauty-behind-bars-heading" class="text-lg font-semibold text-text-default">
+        Beauty Behind Bars: The Transformative Power of Arts in Confinement
+      </h3>
+      <p class="mt-3 text-base leading-7 text-text-subtle">
+        RCAN partnered with DC PDS to host a gallery exhibition featuring work by more than a dozen
+        currently and formerly incarcerated artists at The Studio Gallery. Two RCAN churches —
+        St. Mark's and St. Columba's — later hosted the exhibition in April and September
+        respectively. The exhibit was successfully used by PDS attorneys to win the freedom of
+        artist clients seeking release after decades of incarceration under the Incarceration
+        Reduction Amendment Act.
+      </p>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <figure class="aspect-4/3 overflow-hidden rounded-lg shadow-md">
+          <Image
+            src={beautyBehindBarsImage}
+            class="h-full w-full object-cover object-top"
+            alt="PDS staff, RCAN volunteers, and recently returned clients show their artwork at the Beauty Behind Bars event at St. Columba's Episcopal Church."
+            width={600}
+            widths={[320, 480, 600]}
+            sizes="(min-width: 640px) 50vw, 100vw"
+            format="webp"
+            quality={65}
+            loading="lazy"
+          />
+        </figure>
+        <figure class="aspect-4/3 overflow-hidden rounded-lg shadow-md">
+          <Image
+            src={paintingImage}
+            class="h-full w-full object-cover"
+            alt="A recently returned PDS client stands beside his large mural on display at the Beauty Behind Bars exhibition."
+            width={600}
+            widths={[320, 480, 600]}
+            sizes="(min-width: 640px) 50vw, 100vw"
+            format="webp"
+            quality={65}
+            loading="lazy"
+          />
+        </figure>
+      </div>
+    </section>
+
+    <!-- Bike Ministry -->
+    <section class="mt-10" aria-labelledby="bike-ministry-heading">
+      <h3 id="bike-ministry-heading" class="text-lg font-semibold text-text-default">Bike Ministry</h3>
+      <div class="mt-3 grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-start">
+        <figure class="relative min-h-56 overflow-hidden rounded-lg shadow-md">
+          <Image
+            src={bikeBagsGiftImage}
+            class="absolute inset-0 h-full w-full object-cover"
+            alt="A pink children's bicycle sits among wrapped holiday gift bags, donated by RCAN supporters for PDS client families."
+            width={480}
+            widths={[320, 480]}
+            sizes="(min-width: 1024px) 33vw, 100vw"
+            format="webp"
+            quality={65}
+            loading="lazy"
+          />
+        </figure>
+        <p class="text-base leading-7 text-text-subtle">
+          Manuel Vera has supplied a bicycle to PDS clients whenever there is a request. Since
+          starting his bike repair project in 2000, he serviced his 1,000th bike in 2025 — given
+          to a PDS client in need of transportation.
+        </p>
+      </div>
+    </section>
+
+    <!-- Additional highlights -->
+    <section class="mt-10" aria-label="Additional highlights">
+      <div class="grid gap-8 md:grid-cols-3">
+        <div>
+          <h3 class="text-base font-semibold text-text-default">Second Chance Event</h3>
+          <p class="mt-2 text-sm leading-6 text-text-subtle">
+            DC PDS held a community event in April and RCAN donated funds and staffed a table to
+            recruit new pen pals for the Prison Friendship Project.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-base font-semibold text-text-default">Gift Cards — $15,325</h3>
+          <p class="mt-2 text-sm leading-6 text-text-subtle">
+            RCAN provided PDS clients with gift cards for Metro transportation, groceries, Target,
+            and CVS, allowing clients to meet immediate needs with dignity.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-base font-semibold text-text-default">Material Support</h3>
+          <p class="mt-2 text-sm leading-6 text-text-subtle">
+            RCAN met the needs of clients facing food insecurity, eviction risk, outstanding utility
+            bills, clothing needs, funeral costs, car repairs, restitution, and professional fees.
+          </p>
+        </div>
+      </div>
+    </section>
   </section>
 
   <!-- CTA -->
-  <section class="rounded-lg border border-border-default bg-surface-subtle px-6 py-6 text-center md:px-8" aria-labelledby="impact-cta-heading">
-    <h2 id="impact-cta-heading" class="section-title text-2xl font-semibold text-text-default">Be part of the next chapter</h2>
-    <p class="mx-auto mt-3 max-w-3xl text-base leading-7 text-text-subtle">
-      The work continues because of congregations, volunteers, and donors who show up. Find your place in the network.
-    </p>
-    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-      <Button href="/get-involved" variant="secondary" size="md">Get involved</Button>
-      <Button href="/donate" variant="primary" size="md">Donate</Button>
-    </div>
-  </section>
-</BaseLayout>
+  <CTABlock
+    heading="Be part of the next chapter"
+    body="The work continues because of congregations, volunteers, and donors who show up. Find your place in the network."
+    primaryLabel="Donate"
+    primaryHref="/donate"
+    secondaryLabel="Become a Prison Friend"
+    secondaryHref="/get-involved#prison-friendship-project"
+    background="subtle"
+  />
 
-<CountUpScript />
+</BaseLayout>

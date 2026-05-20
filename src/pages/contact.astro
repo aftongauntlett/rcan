@@ -2,41 +2,54 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
-import Card from "../components/Card.astro";
 import Button from "../components/Button.astro";
-import Icon from "../components/Icon.astro";
+import CustomDropdown from "../components/CustomDropdown.astro";
 import contactImage from "../assets/gardening-community.jpg";
 
 const pageTitle = "Contact RCAN | Returning Citizens Assistance Network";
 const pageDescription =
   "Get in touch with RCAN for questions, referrals, partnerships, and community collaboration opportunities.";
+const topicOptions = [
+  { value: "Congregation partnership", label: "Congregation partnership" },
+  { value: "Volunteer interest", label: "Volunteer interest" },
+  { value: "Referral question", label: "Referral question" },
+  { value: "General question", label: "General question" },
+];
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const isLocalDev = import.meta.env.DEV;
+const turnstileEnabled = !isLocalDev && Boolean(turnstileSiteKey);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="relative isolate overflow-hidden rounded-lg border border-border-default bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
-    <div aria-hidden="true" class="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-brand-secondary/10 blur-2xl"></div>
-    <div class="relative grid gap-8 lg:grid-cols-2 lg:items-center">
-      <article class="space-y-6">
+  <section class="py-10 md:py-14" aria-label="Contact overview">
+    <div class="grid gap-8 lg:grid-cols-2 lg:items-start">
+      <article class="flex flex-col gap-8">
         <SectionHeader
           level={1}
-          eyebrow="Contact RCAN"
           heading="Connect with RCAN for partnership and support"
           subheading="Reach out to coordinate congregation participation, ask questions, or explore ways to support returning citizens."
         />
-        <p class="max-w-4xl text-base leading-7 text-text-subtle">
-          RCAN responds through trusted referral and congregation channels, and welcomes collaboration
-          from communities committed to practical, dignity-centered reentry support.
-        </p>
+        <div class="space-y-5">
+          <p class="text-base leading-7 text-text-subtle">
+            RCAN responds through trusted referral and congregation channels, and welcomes collaboration
+            from communities committed to practical, dignity-centered reentry support.
+          </p>
+          <p class="text-base leading-7 text-text-subtle">
+            Congregations are welcome to connect with RCAN to coordinate volunteer response and resource
+            support. General questions and partnership interest are also welcome as the network continues
+            to grow.
+          </p>
+        </div>
       </article>
 
-      <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
+      <figure class="overflow-hidden rounded-lg shadow-lg">
         <Image
           src={contactImage}
           class="h-full w-full object-cover"
           alt="Neighbors gardening together, showing practical collaboration and shared care within the community."
           width={800}
           widths={[320, 480, 568, 640, 720, 800]}
-          sizes="(min-width: 1280px) 568px, (min-width: 1024px) calc((100vw - 9rem) / 2), 100vw"
+          sizes="(min-width: 1024px) 50vw, 100vw"
           format="webp"
           quality={55}
           loading="eager"
@@ -46,83 +59,172 @@ const pageDescription =
     </div>
   </section>
 
-  <section class="py-10" aria-labelledby="contact-pathways-heading">
-    <h2 id="contact-pathways-heading" class="section-title text-2xl font-semibold text-text-default">Contact pathways</h2>
-    <div class="mt-6 grid gap-4 md:grid-cols-2">
-      <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-        <p class="flex items-start gap-3 text-base text-text-subtle">
-          <Icon
-            name="users"
-            size="sm"
-            class="mt-1 text-brand-secondary transition-transform duration-base group-hover:scale-110"
-            aria-hidden="true"
-          />
-          <span>Congregations can connect with RCAN to coordinate volunteer response and resource support.</span>
-        </p>
-      </Card>
-      <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-        <p class="flex items-start gap-3 text-base text-text-subtle">
-          <Icon
-            name="info"
-            size="sm"
-            class="mt-1 text-brand-secondary transition-transform duration-base group-hover:scale-110"
-            aria-hidden="true"
-          />
-          <span>General questions and partnership interest are welcome as RCAN grows its response network.</span>
-        </p>
-      </Card>
-    </div>
-  </section>
-
   <section class="py-10" aria-labelledby="contact-methods-heading">
-    <h2 id="contact-methods-heading" class="section-title text-2xl font-semibold text-text-default">Contact methods</h2>
-    <div class="mt-6 grid gap-4 md:grid-cols-2">
-      <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-        <p class="flex items-start gap-3 text-base text-text-subtle">
-          <Icon
-            name="map-pin"
-            size="sm"
-            class="mt-1 text-brand-secondary transition-transform duration-base group-hover:scale-110"
-            aria-hidden="true"
-          />
-          <span>
-            New York Avenue Presbyterian Church<br />
-            1313 New York Avenue NW<br />
-            Washington, DC 20005
-          </span>
+    <h2 id="contact-methods-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Get in touch</h2>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <div class="rounded-lg border border-border-default bg-surface-subtle p-5">
+        <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Mailing address</p>
+        <address class="mt-3 not-italic text-base leading-7 text-text-subtle">
+          New York Avenue Presbyterian Church<br />
+          1313 New York Avenue NW<br />
+          Washington, DC 20005
+        </address>
+      </div>
+      <div class="rounded-lg border border-border-default bg-surface-subtle p-5">
+        <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Email</p>
+        <p class="mt-3 text-base leading-7 text-text-subtle">
+          <a
+            href="mailto:dcrcan2018@gmail.com"
+            class="text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          >
+            dcrcan2018@gmail.com
+          </a>
         </p>
-      </Card>
-
-      <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-        <p class="flex items-start gap-3 text-base text-text-subtle">
-          <Icon
-            name="mail"
-            size="sm"
-            class="mt-1 text-brand-secondary transition-transform duration-base group-hover:scale-110"
-            aria-hidden="true"
-          />
-          <span class="space-y-3">
-            <span class="block">Email RCAN directly.</span>
-            <a
-              href="mailto:dcrcan2018@gmail.com"
-              class="inline-flex rounded-full border border-border-default bg-surface-subtle px-3 py-1 text-sm font-semibold text-text-link transition-colors duration-base hover:border-brand-secondary hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
-            >
-              dcrcan2018@gmail.com .
-            </a>
-          </span>
-        </p>
-      </Card>
+      </div>
     </div>
   </section>
 
-  <section class="rounded-lg border border-border-default bg-surface-subtle px-6 py-6 text-center md:px-8" aria-labelledby="contact-cta-heading">
-    <h2 id="contact-cta-heading" class="section-title text-2xl font-semibold text-text-default">Take the next step</h2>
+  <section class="rounded-lg border border-border-default bg-surface-default px-6 py-8 md:px-8 md:py-10" aria-labelledby="contact-form-heading">
+    <h2 id="contact-form-heading" class="section-title text-xl font-semibold text-text-default">Send a message to RCAN</h2>
+    <p class="mt-3 max-w-3xl text-base leading-7 text-text-subtle">
+      Use this form for congregation partnership requests, volunteer interest, or general questions.
+      RCAN reviews each message and follows up through trusted referral and congregation channels.
+    </p>
+
+    <div data-fs-success role="status" aria-live="polite" class="text-sm font-semibold text-status-success"></div>
+    <div data-fs-error role="alert" aria-live="assertive" class="mt-2 text-sm font-semibold text-status-error"></div>
+
+    <form id="contact-form" action="https://formspree.io/f/mdajaprb" method="POST" class="mt-6 space-y-5">
+      <input type="hidden" name="_subject" value="RCAN website contact request" />
+      <input type="hidden" name="source" value="contact-page" />
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+      <div class="grid gap-5 md:grid-cols-2">
+        <div class="space-y-2">
+          <label for="name" class="text-sm font-semibold text-text-default">Full name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            autocomplete="name"
+            required
+            data-fs-field
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+          <span data-fs-error="name" class="block text-sm text-status-error"></span>
+        </div>
+
+        <div class="space-y-2">
+          <label for="email" class="text-sm font-semibold text-text-default">Email address</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            data-fs-field
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+          <span data-fs-error="email" class="block text-sm text-status-error"></span>
+        </div>
+
+        <div class="space-y-2">
+          <label for="organization" class="text-sm font-semibold text-text-default">Congregation or organization (optional)</label>
+          <input
+            id="organization"
+            name="organization"
+            type="text"
+            autocomplete="organization"
+            data-fs-field
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+          <span data-fs-error="organization" class="block text-sm text-status-error"></span>
+        </div>
+
+        <div class="space-y-2">
+          <label for="phone" class="text-sm font-semibold text-text-default">Phone number (optional)</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            data-fs-field
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+          <span data-fs-error="phone" class="block text-sm text-status-error"></span>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <label id="topic-label" for="topic-trigger" class="text-sm font-semibold text-text-default">What are you reaching out about?</label>
+        <CustomDropdown
+          id="topic"
+          name="topic"
+          labelledBy="topic-label"
+          options={topicOptions}
+          required
+          class="w-full"
+        />
+        <span data-fs-error="topic" class="block text-sm text-status-error"></span>
+      </div>
+
+      <div class="space-y-2">
+        <label for="message" class="text-sm font-semibold text-text-default">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows={5}
+          required
+          data-fs-field
+          class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+        ></textarea>
+        <span data-fs-error="message" class="block text-sm text-status-error"></span>
+      </div>
+
+      <div class="flex flex-wrap items-start justify-between gap-3">
+        {
+          turnstileEnabled ? (
+            <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
+          ) : isLocalDev ? (
+            <div class="rounded-md border border-border-default bg-surface-subtle px-4 py-3 text-sm text-text-subtle">
+              CAPTCHA preview is shown in local dev and activated on deployed environments.
+            </div>
+          ) : (
+            <div class="rounded-md border border-border-default bg-surface-subtle px-4 py-3 text-sm text-status-warning">
+              CAPTCHA is not configured yet. Add PUBLIC_TURNSTILE_SITE_KEY to enable submissions.
+            </div>
+          )
+        }
+
+        <Button
+          type="submit"
+          variant="primary"
+          size="md"
+          data-fs-submit-btn
+          disabled={!turnstileEnabled}
+        >
+          Send message
+        </Button>
+      </div>
+      <span data-fs-error="cf-turnstile-response" class="block text-sm text-status-error"></span>
+    </form>
+  </section>
+
+  <script type="module">
+    import { initForm } from "@formspree/ajax";
+
+    initForm({ formElement: "#contact-form", formId: "mdajaprb" });
+  </script>
+  {turnstileEnabled && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+  <section class="mt-6 rounded-lg bg-surface-subtle px-6 py-8 text-center md:px-8 md:py-10" aria-labelledby="contact-cta-heading">
+    <h2 id="contact-cta-heading" class="text-xl font-semibold text-text-default">Take the next step</h2>
     <p class="mx-auto mt-3 max-w-3xl text-base leading-7 text-text-subtle">
       If you are ready to support this work right away, financial giving remains one of the fastest
       ways to strengthen RCAN's response capacity.
     </p>
     <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-      <Button href="https://nyapc.org/give/" variant="primary" size="md">Donate through NYAPC Give</Button>
+      <Button href="/donate" variant="primary" size="md">Donate</Button>
       <Button href="/get-involved" variant="secondary" size="md">Get involved</Button>
     </div>
   </section>

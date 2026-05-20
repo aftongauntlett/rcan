@@ -18,7 +18,7 @@ const currentPath = normalizePath(Astro.url.pathname);
 const isDonateActive = currentPath === "/donate";
 ---
 
-<header id="top" class="sticky top-0 z-50 border-b border-border-default bg-surface-default/95 backdrop-blur">
+<header id="top" class="sticky top-0 z-50 border-b border-border-default bg-surface-default">
   <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3">
     <Link href="/" variant="subtle" class="rounded-md" aria-label="Returning Citizens Assistance Network home">
       <img
@@ -43,7 +43,7 @@ const isDonateActive = currentPath === "/donate";
                   class={`rounded-md px-3 py-2 ${
                     isActive
                       ? "bg-surface-subtle text-text-default"
-                      : "text-text-subtle hover:bg-surface-subtle hover:text-text-default"
+                      : "text-text-subtle hover:bg-neutral-200 hover:text-text-default"
                   }`}
                 >
                   {item.label}

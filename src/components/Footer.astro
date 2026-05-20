@@ -1,7 +1,7 @@
 ---
 import Link from "./Link.astro";
 import Icon from "./Icon.astro";
-import logo from "../assets/rcan_logo_final.svg?url";
+import logo from "../assets/rcan-logo.svg?url";
 
 // New shared site-chrome component for BaseLayout; no reusable footer existed in src/components.
 const year = new Date().getFullYear();
@@ -12,23 +12,25 @@ const footerNavItems = [
   { href: "/get-involved", label: "Get Involved" },
   { href: "/donate", label: "Donate" },
   { href: "/contact", label: "Contact" },
+  { href: "https://nyapc.org/", label: "NYAPC.org", external: true },
 ];
 ---
 
 <footer class="border-t border-border-default bg-surface-subtle">
   <div class="mx-auto w-full max-w-7xl px-4 py-8">
-    <div class="grid grid-cols-[auto_1fr_auto] items-start gap-3">
-      <div class="flex justify-start pt-1">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-[180px_1fr_180px] md:items-center">
+
+      <!-- Logo -->
+      <div class="flex justify-center md:justify-start">
         <img
           src={logo}
-          alt=""
-          role="presentation"
-          aria-hidden="true"
-          class="block h-12 w-auto md:h-14"
+          alt="RCAN — Returning Citizens Assistance Network"
+          class="h-8 w-auto max-w-45 object-left"
           loading="lazy"
         />
       </div>
 
+      <!-- Nav + copyright -->
       <div class="flex flex-col items-center gap-3 text-center">
         <nav aria-label="Footer" class="w-full">
           <ul class="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-sm">
@@ -38,7 +40,8 @@ const footerNavItems = [
                   <Link
                     href={item.href}
                     variant="subtle"
-                    class="rounded-md px-2 py-1 text-text-subtle hover:bg-surface-default hover:text-text-default hover:underline hover:decoration-brand-secondary hover:underline-offset-4"
+                    showExternalIndicator={false}
+                    class="rounded-md px-2 py-1 text-text-subtle hover:text-text-default hover:underline hover:decoration-brand-secondary hover:underline-offset-4"
                   >
                     {item.label}
                   </Link>
@@ -48,23 +51,13 @@ const footerNavItems = [
           </ul>
         </nav>
 
-        <div class="h-px w-full max-w-2xl bg-border-default"></div>
-
-        <p class="text-sm text-text-subtle">
-          <Link
-            href="https://nyapc.org/"
-            variant="subtle"
-            showExternalIndicator={false}
-            class="rounded-md px-1 py-1 text-text-link hover:text-brand-secondary"
-          >
-            NYAPC.org
-          </Link>
-        </p>
+        <div class="h-px w-full max-w-xs bg-border-default"></div>
 
         <p class="text-center text-xs text-text-subtle">Copyright {year} Returning Citizens Assistance Network</p>
       </div>
 
-      <div class="flex justify-end pt-1">
+      <!-- Back to top -->
+      <div class="flex justify-center md:justify-end">
         <button
           type="button"
           data-back-to-top
@@ -74,6 +67,7 @@ const footerNavItems = [
           <Icon name="arrow-up-right" size="sm" class="-rotate-45" aria-hidden="true" />
         </button>
       </div>
+
     </div>
   </div>
 </footer>

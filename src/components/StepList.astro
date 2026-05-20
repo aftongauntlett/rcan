@@ -1,0 +1,27 @@
+---
+interface StepItem {
+  label?: string;
+  description: string;
+}
+
+interface Props {
+  steps: StepItem[];
+  accentColor?: "secondary" | "primary";
+}
+
+const { steps, accentColor = "secondary" } = Astro.props;
+
+const borderClass = accentColor === "primary" ? "border-brand-primary" : "border-brand-secondary";
+const labelClass = accentColor === "primary" ? "text-brand-primary" : "text-brand-secondary";
+---
+
+<ol class={`mt-6 space-y-6 border-l-2 ${borderClass} pl-6`}>
+  {steps.map((step, index) => (
+    <li>
+      <p class={`text-sm font-semibold uppercase tracking-wide ${labelClass}`}>
+        {step.label ?? `Step ${index + 1}`}
+      </p>
+      <p class="mt-1 text-base leading-7 text-text-subtle">{step.description}</p>
+    </li>
+  ))}
+</ol>

@@ -2,9 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
-import Card from "../components/Card.astro";
 import Button from "../components/Button.astro";
-import Icon from "../components/Icon.astro";
+import BulletList from "../components/BulletList.astro";
 import donateImage from "../assets/make-change.jpg";
 
 const pageTitle = "Donate | RCAN";
@@ -13,35 +12,33 @@ const pageDescription =
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="relative isolate overflow-hidden rounded-lg border border-border-default bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
-    <div aria-hidden="true" class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-primary/10 blur-2xl"></div>
-    <div class="relative grid gap-8 lg:grid-cols-2 lg:items-center">
-      <article class="space-y-6">
+  <section class="py-10 md:py-14" aria-label="Donate">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-stretch">
+      <article class="flex h-full flex-col gap-6">
         <SectionHeader
           level={1}
-          eyebrow="Donate"
           heading="Fuel practical support for returning citizens"
           subheading="RCAN's ministry is sustained entirely through the generosity of dedicated members and friends."
         />
-        <p class="max-w-4xl text-base leading-7 text-text-subtle">
+        <p class="text-base leading-7 text-text-subtle">
           Through your support, congregations can respond quickly to urgent needs and help make
           pathways to stability more attainable.
         </p>
-        <div class="flex flex-wrap items-center gap-3 md:justify-start">
-          <Button href="https://nyapc.org/give/" variant="primary" size="lg">Give online now</Button>
+        <div class="flex flex-wrap items-center gap-3">
+          <Button href="#donate-form" variant="primary" size="lg">Give now</Button>
         </div>
       </article>
 
-      <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
+      <figure class="overflow-hidden rounded-lg shadow-lg">
         <Image
           src={donateImage}
-          class="h-full w-full object-cover"
+          class="h-full min-h-80 w-full object-cover"
           alt="Hands holding coins and a note reading Make a change, representing direct financial support for community impact."
-          width={800}
-          widths={[320, 480, 568, 640, 720, 800]}
-          sizes="(min-width: 1280px) 568px, (min-width: 1024px) calc((100vw - 9rem) / 2), 100vw"
+          width={900}
+          widths={[360, 540, 720, 900]}
+          sizes="(min-width: 1024px) 50vw, 100vw"
           format="webp"
-          quality={55}
+          quality={60}
           loading="eager"
           priority
         />
@@ -49,73 +46,45 @@ const pageDescription =
     </div>
   </section>
 
-  <section class="py-10" aria-labelledby="ways-to-give-heading">
-    <h2 id="ways-to-give-heading" class="section-title text-2xl font-semibold text-text-default">Ways to give</h2>
-    <div class="mt-6 grid gap-4 md:grid-cols-2">
-      <Card class="h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-        <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Online</p>
-        <p class="mt-2 text-base leading-7 text-text-subtle">
-          Visit the give page and select RCAN Returning Citizens from the dropdown menu.
-        </p>
-        <div class="mt-4">
-          <Button href="https://nyapc.org/give/" variant="primary" size="md">Donate through NYAPC Give</Button>
-        </div>
-      </Card>
+  <section id="donate-form" class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="give-heading">
+    <h2 id="give-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Give to RCAN</h2>
+    <p class="mt-2 text-base leading-7 text-text-subtle">Support is processed securely through Donorbox.</p>
 
-      <Card class="h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-        <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">By mail</p>
-        <p class="mt-2 text-base leading-7 text-text-subtle">Send your contribution to:</p>
-        <address class="mt-2 not-italic text-base leading-7 text-text-subtle">
-          New York Avenue Presbyterian Church<br />
-          1313 New York Avenue NW<br />
-          Washington, DC 20005
-        </address>
-      </Card>
+    <div class="mt-6">
+      <!-- PLACEHOLDER: Replace with your live Donorbox campaign embed code once configured. -->
+      <!-- Example: <iframe src="https://donorbox.org/embed/rcan-returning-citizens" ... /> -->
+      <div class="flex min-h-96 items-center justify-center rounded-lg border-2 border-dashed border-border-default bg-surface-default">
+        <div class="space-y-3 px-6 py-10 text-center">
+          <p class="text-sm font-semibold uppercase tracking-wide text-text-subtle">Donorbox Embed</p>
+          <p class="mx-auto max-w-sm text-base text-text-subtle">
+            The donation form will appear here once the Donorbox campaign is configured. Replace this
+            block with the Donorbox iframe embed code.
+          </p>
+          <p class="text-xs text-text-subtle italic">
+            Placeholder — not visible in production once embed is added.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 border-t border-border-default pt-6">
+      <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Prefer to give by mail?</p>
+      <address class="mt-2 not-italic text-base leading-7 text-text-subtle">
+        New York Avenue Presbyterian Church<br />
+        1313 New York Avenue NW<br />
+        Washington, DC 20005
+      </address>
     </div>
   </section>
 
   <section class="py-10" aria-labelledby="impact-heading">
-    <h2 id="impact-heading" class="section-title text-2xl font-semibold text-text-default">What your gift supports</h2>
-    <ul class="mt-6 grid gap-4 md:grid-cols-3">
-      <li>
-        <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-          <p class="flex items-start gap-3 text-base text-text-subtle">
-            <Icon
-              name="heart"
-              size="sm"
-              class="mt-1 text-status-success transition-transform duration-base group-hover:scale-110"
-              aria-hidden="true"
-            />
-            <span>Emergency support to prevent avoidable setbacks during reentry.</span>
-          </p>
-        </Card>
-      </li>
-      <li>
-        <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-          <p class="flex items-start gap-3 text-base text-text-subtle">
-            <Icon
-              name="home"
-              size="sm"
-              class="mt-1 text-status-success transition-transform duration-base group-hover:scale-110"
-              aria-hidden="true"
-            />
-            <span>Housing-related costs that improve stability and continuity.</span>
-          </p>
-        </Card>
-      </li>
-      <li>
-        <Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-          <p class="flex items-start gap-3 text-base text-text-subtle">
-            <Icon
-              name="users"
-              size="sm"
-              class="mt-1 text-status-success transition-transform duration-base group-hover:scale-110"
-              aria-hidden="true"
-            />
-            <span>Coordinated congregation response across the RCAN network.</span>
-          </p>
-        </Card>
-      </li>
-    </ul>
+    <h2 id="impact-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">What your gift supports</h2>
+    <BulletList
+      items={[
+        "Emergency support to prevent avoidable setbacks during reentry.",
+        "Housing-related costs that improve stability and continuity.",
+        "Coordinated congregation response across the RCAN network.",
+      ]}
+    />
   </section>
 </BaseLayout>

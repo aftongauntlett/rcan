@@ -1,0 +1,405 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Icon from "./Icon.astro";
+import { resolveInitialOption, type DropdownOption } from "../utils/dropdown";
+
+interface Props extends Omit<HTMLAttributes<"div">, "class"> {
+  id: string;
+  name: string;
+  labelledBy: string;
+  options: DropdownOption[];
+  defaultValue?: string;
+  required?: boolean;
+  disabled?: boolean;
+  class?: string;
+  dataFsField?: boolean;
+}
+
+const {
+  id,
+  name,
+  labelledBy,
+  options,
+  defaultValue,
+  required = false,
+  disabled = false,
+  class: className = "",
+  dataFsField = true,
+  ...rest
+} = Astro.props as Props;
+
+const selectedOption = resolveInitialOption(options, defaultValue);
+const menuId = `${id}-menu`;
+const triggerId = `${id}-trigger`;
+---
+
+<div class={`relative ${className}`} data-custom-dropdown data-dropdown-open="false" {...rest}>
+  <input
+    type="hidden"
+    name={name}
+    value={selectedOption.value}
+    required={required}
+    data-dropdown-input
+    data-fs-field={dataFsField ? "" : undefined}
+  />
+
+  <button
+    id={triggerId}
+    type="button"
+    aria-haspopup="menu"
+    aria-expanded="false"
+    aria-controls={menuId}
+    aria-labelledby={`${labelledBy} ${id}-value`}
+    disabled={disabled}
+    data-dropdown-trigger
+    class="flex w-full items-center justify-between gap-3 rounded-md border border-border-default bg-surface-default px-3 py-2 text-left text-base text-text-default shadow-sm transition-colors duration-base hover:border-border-strong hover:bg-surface-subtle disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+  >
+    <span id={`${id}-value`} data-dropdown-label class="truncate">
+      {selectedOption.label}
+    </span>
+    <Icon
+      name="chevron-right"
+      size="sm"
+      aria-hidden="true"
+      data-dropdown-chevron
+      class="rotate-90 text-text-subtle transition-transform duration-base"
+    />
+  </button>
+
+  <div
+    id={menuId}
+    role="menu"
+    aria-labelledby={labelledBy}
+    tabindex={-1}
+    hidden
+    data-dropdown-menu
+    class="absolute z-20 mt-2 max-h-64 w-full overflow-auto rounded-md border border-border-default bg-surface-default shadow-md"
+  >
+    <ul role="none" class="py-1">
+      {
+        options.map((option) => {
+          const isSelected = option.value === selectedOption.value;
+
+          return (
+            <li role="none">
+              <button
+                type="button"
+                role="menuitemradio"
+                aria-checked={isSelected ? "true" : "false"}
+                aria-disabled={option.disabled ? "true" : undefined}
+                disabled={option.disabled}
+                tabindex={-1}
+                data-dropdown-option
+                data-value={option.value}
+                data-label={option.label}
+                class={`flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-base transition-colors duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-inset disabled:cursor-not-allowed disabled:opacity-60 ${
+                  isSelected
+                    ? "bg-surface-subtle text-brand-primary"
+                    : "text-text-default hover:bg-surface-subtle"
+                }`}
+              >
+                <span>{option.label}</span>
+                <Icon
+                  name="check"
+                  size="sm"
+                  aria-hidden="true"
+                  data-dropdown-check
+                  class={`text-brand-primary transition-opacity duration-fast ${
+                    isSelected ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              </button>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</div>
+
+<script>
+  interface DropdownInstance {
+    root: HTMLElement;
+    trigger: HTMLButtonElement;
+    menu: HTMLElement;
+    input: HTMLInputElement;
+    label: HTMLElement;
+    chevron: HTMLElement | null;
+    options: HTMLButtonElement[];
+  }
+
+  type DropdownWindow = Window & {
+    __rcanDropdownBootstrapped?: boolean;
+  };
+
+  let openInstance: DropdownInstance | null = null;
+
+  const getEnabledOptions = (instance: DropdownInstance): HTMLButtonElement[] =>
+    instance.options.filter((option) => !option.disabled && option.getAttribute("aria-disabled") !== "true");
+
+  const getSelectedOption = (instance: DropdownInstance): HTMLButtonElement | null => {
+    const checkedOption = instance.options.find((option) => option.getAttribute("aria-checked") === "true");
+    if (checkedOption && !checkedOption.disabled) {
+      return checkedOption;
+    }
+
+    const [firstEnabledOption] = getEnabledOptions(instance);
+    return firstEnabledOption ?? null;
+  };
+
+  const setChevronState = (instance: DropdownInstance, isOpen: boolean): void => {
+    instance.chevron?.classList.toggle("rotate-90", !isOpen);
+    instance.chevron?.classList.toggle("-rotate-90", isOpen);
+  };
+
+  const setOptionSelectedStyles = (option: HTMLButtonElement, isSelected: boolean): void => {
+    option.classList.toggle("bg-surface-subtle", isSelected);
+    option.classList.toggle("text-brand-primary", isSelected);
+    option.classList.toggle("text-text-default", !isSelected);
+
+    const checkIcon = option.querySelector<HTMLElement>("[data-dropdown-check]");
+    if (checkIcon) {
+      checkIcon.classList.toggle("opacity-100", isSelected);
+      checkIcon.classList.toggle("opacity-0", !isSelected);
+    }
+  };
+
+  const setSelectedOption = (instance: DropdownInstance, selected: HTMLButtonElement): void => {
+    instance.options.forEach((option) => {
+      const isSelected = option === selected;
+      option.setAttribute("aria-checked", isSelected ? "true" : "false");
+      setOptionSelectedStyles(option, isSelected);
+    });
+
+    const selectedValue = selected.dataset.value ?? "";
+    const selectedLabel = selected.dataset.label ?? "";
+
+    instance.input.value = selectedValue;
+    instance.label.textContent = selectedLabel;
+
+    instance.input.dispatchEvent(new Event("input", { bubbles: true }));
+    instance.input.dispatchEvent(new Event("change", { bubbles: true }));
+  };
+
+  const closeDropdown = (instance: DropdownInstance, focusTrigger: boolean): void => {
+    instance.root.dataset.dropdownOpen = "false";
+    instance.trigger.setAttribute("aria-expanded", "false");
+    instance.menu.hidden = true;
+    setChevronState(instance, false);
+
+    if (focusTrigger) {
+      instance.trigger.focus();
+    }
+
+    if (openInstance?.root === instance.root) {
+      openInstance = null;
+    }
+  };
+
+  const openDropdown = (instance: DropdownInstance, focusSelected: boolean): void => {
+    if (openInstance && openInstance.root !== instance.root) {
+      closeDropdown(openInstance, false);
+    }
+
+    instance.root.dataset.dropdownOpen = "true";
+    instance.trigger.setAttribute("aria-expanded", "true");
+    instance.menu.hidden = false;
+    setChevronState(instance, true);
+    openInstance = instance;
+
+    if (focusSelected) {
+      getSelectedOption(instance)?.focus();
+    }
+  };
+
+  const moveOptionFocus = (instance: DropdownInstance, direction: 1 | -1): void => {
+    const enabledOptions = getEnabledOptions(instance);
+    if (enabledOptions.length === 0) {
+      return;
+    }
+
+    const activeElement = document.activeElement;
+    const currentIndex =
+      activeElement instanceof HTMLButtonElement ? enabledOptions.indexOf(activeElement) : -1;
+
+    const startIndex = currentIndex >= 0 ? currentIndex : enabledOptions.indexOf(getSelectedOption(instance) as HTMLButtonElement);
+    const nextIndex = (startIndex + direction + enabledOptions.length) % enabledOptions.length;
+
+    enabledOptions[nextIndex]?.focus();
+  };
+
+  const getOptionFromEventTarget = (target: EventTarget | null): HTMLButtonElement | null => {
+    if (!(target instanceof HTMLElement)) {
+      return null;
+    }
+
+    const optionButton = target.closest<HTMLButtonElement>("[data-dropdown-option]");
+    return optionButton && !optionButton.disabled ? optionButton : null;
+  };
+
+  const initDropdown = (root: HTMLElement): void => {
+    if (root.dataset.dropdownInitialized === "true") {
+      return;
+    }
+
+    const trigger = root.querySelector<HTMLButtonElement>("[data-dropdown-trigger]");
+    const menu = root.querySelector<HTMLElement>("[data-dropdown-menu]");
+    const input = root.querySelector<HTMLInputElement>("[data-dropdown-input]");
+    const label = root.querySelector<HTMLElement>("[data-dropdown-label]");
+    const chevron = root.querySelector<HTMLElement>("[data-dropdown-chevron]");
+    const options = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-dropdown-option]"));
+
+    if (!trigger || !menu || !input || !label || options.length === 0) {
+      return;
+    }
+
+    const instance: DropdownInstance = {
+      root,
+      trigger,
+      menu,
+      input,
+      label,
+      chevron,
+      options,
+    };
+
+    root.dataset.dropdownInitialized = "true";
+
+    const matchingOption = options.find((option) => option.dataset.value === input.value && !option.disabled);
+    const selectedOption = matchingOption ?? getEnabledOptions(instance)[0] ?? null;
+    if (selectedOption) {
+      setSelectedOption(instance, selectedOption);
+    }
+
+    closeDropdown(instance, false);
+
+    trigger.addEventListener("click", () => {
+      if (trigger.getAttribute("aria-expanded") === "true") {
+        closeDropdown(instance, false);
+      } else {
+        openDropdown(instance, false);
+      }
+    });
+
+    trigger.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        openDropdown(instance, true);
+        moveOptionFocus(instance, 1);
+      }
+
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        openDropdown(instance, true);
+        moveOptionFocus(instance, -1);
+      }
+
+      if (event.key === " " || event.key === "Enter") {
+        event.preventDefault();
+        if (trigger.getAttribute("aria-expanded") === "true") {
+          closeDropdown(instance, false);
+        } else {
+          openDropdown(instance, true);
+        }
+      }
+
+      if (event.key === "Escape") {
+        closeDropdown(instance, false);
+      }
+    });
+
+    menu.addEventListener("click", (event) => {
+      const optionButton = getOptionFromEventTarget(event.target);
+      if (!optionButton) {
+        return;
+      }
+
+      setSelectedOption(instance, optionButton);
+      closeDropdown(instance, true);
+    });
+
+    menu.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        moveOptionFocus(instance, 1);
+      }
+
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        moveOptionFocus(instance, -1);
+      }
+
+      if (event.key === "Home") {
+        event.preventDefault();
+        getEnabledOptions(instance)[0]?.focus();
+      }
+
+      if (event.key === "End") {
+        event.preventDefault();
+        const enabledOptions = getEnabledOptions(instance);
+        enabledOptions[enabledOptions.length - 1]?.focus();
+      }
+
+      if (event.key === "Enter" || event.key === " ") {
+        const optionButton = getOptionFromEventTarget(event.target);
+        if (optionButton) {
+          event.preventDefault();
+          setSelectedOption(instance, optionButton);
+          closeDropdown(instance, true);
+        }
+      }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeDropdown(instance, true);
+      }
+    });
+
+    root.addEventListener("focusout", (event) => {
+      const nextFocusedElement = event.relatedTarget;
+
+      if (nextFocusedElement instanceof Node && root.contains(nextFocusedElement)) {
+        return;
+      }
+
+      closeDropdown(instance, false);
+    });
+  };
+
+  const initAllDropdowns = (): void => {
+    if (openInstance && !document.body.contains(openInstance.root)) {
+      openInstance = null;
+    }
+
+    document.querySelectorAll<HTMLElement>("[data-custom-dropdown]").forEach((root) => {
+      initDropdown(root);
+    });
+  };
+
+  const handleDocumentPointerDown = (event: PointerEvent): void => {
+    if (!openInstance) {
+      return;
+    }
+
+    const target = event.target;
+    if (!(target instanceof Node)) {
+      return;
+    }
+
+    if (!openInstance.root.contains(target)) {
+      closeDropdown(openInstance, false);
+    }
+  };
+
+  const dropdownWindow = window as DropdownWindow;
+
+  // Register global listeners once so Astro client navigations do not duplicate handlers.
+  if (!dropdownWindow.__rcanDropdownBootstrapped) {
+    document.addEventListener("DOMContentLoaded", initAllDropdowns);
+    document.addEventListener("astro:page-load", initAllDropdowns);
+    document.addEventListener("pointerdown", handleDocumentPointerDown);
+    dropdownWindow.__rcanDropdownBootstrapped = true;
+  }
+
+  initAllDropdowns();
+</script>

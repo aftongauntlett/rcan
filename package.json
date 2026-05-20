@@ -23,6 +23,7 @@
     "@fontsource/fraunces": "^5.2.9",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/manrope": "^5.2.8",
+    "@formspree/ajax": "^1.1.5",
     "@lucide/astro": "^1.16.0",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.5",

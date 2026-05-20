@@ -1,0 +1,59 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  heading: string;
+  body?: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  background?: "subtle" | "invert";
+}
+
+const {
+  heading,
+  body,
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
+  background = "subtle",
+} = Astro.props;
+
+const isInvert = background === "invert";
+---
+
+{isInvert ? (
+  <section class="bg-surface-invert px-6 py-10 text-center md:px-8 md:py-12">
+    <h2 class="text-xl font-semibold text-text-invert">{heading}</h2>
+    {body && (
+      <p class="mx-auto mt-3 max-w-2xl text-base leading-7 text-neutral-300">{body}</p>
+    )}
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+      <Button href={primaryHref} variant="primary">{primaryLabel}</Button>
+      {secondaryLabel && secondaryHref && (
+        <Button
+          href={secondaryHref}
+          variant="secondary"
+          class="border-neutral-400 text-text-invert hover:bg-neutral-800"
+        >
+          {secondaryLabel}
+        </Button>
+      )}
+    </div>
+  </section>
+) : (
+  <section class="rounded-lg bg-surface-subtle px-6 py-10 text-center md:px-8 md:py-12">
+    <h2 class="text-xl font-semibold text-text-default">{heading}</h2>
+    {body && (
+      <p class="mx-auto mt-3 max-w-2xl text-base leading-7 text-text-subtle">{body}</p>
+    )}
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+      <Button href={primaryHref} variant="primary">{primaryLabel}</Button>
+      {secondaryLabel && secondaryHref && (
+        <Button href={secondaryHref} variant="secondary">{secondaryLabel}</Button>
+      )}
+    </div>
+  </section>
+)}

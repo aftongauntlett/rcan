@@ -23,7 +23,7 @@ html {
 
 .section-title::after {
   content: "";
-  @apply absolute bottom-0 left-0 h-px w-16 bg-border-strong;
+  @apply absolute bottom-0 left-0 h-0.5 w-16 bg-brand-secondary;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,0 +1,77 @@
+---
+interface StatItem {
+  prefix?: string;
+  value: string;
+  label: string;
+  highlight?: boolean;
+}
+
+interface Props {
+  stats: StatItem[];
+  layout?: "strip" | "grid";
+  background?: "none" | "subtle" | "invert";
+}
+
+const { stats, layout = "strip", background = "none" } = Astro.props;
+
+const isInvert = background === "invert";
+const isSubtle = background === "subtle";
+---
+
+{isInvert ? (
+  <div class="bg-surface-invert py-10 px-6">
+    <ul
+      class="flex flex-wrap justify-center gap-x-12 gap-y-6 list-none p-0 m-0"
+    >
+      {stats.map((stat) => (
+        <li class="text-center">
+          <p class="text-3xl font-bold text-text-invert">
+            {stat.prefix && <span>{stat.prefix}</span>}{stat.value}
+          </p>
+          <p class="text-sm text-neutral-300 mt-1 max-w-[12rem]">{stat.label}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : isSubtle ? (
+  <div class="bg-surface-subtle rounded-lg p-4">
+    <ul
+      class="grid grid-cols-2 sm:grid-cols-4 gap-4 list-none p-0 m-0"
+    >
+      {stats.map((stat) => (
+        <li class="rounded-lg bg-surface-default px-5 py-4 shadow-sm">
+          <p class={`text-3xl font-bold ${stat.highlight ? "text-brand-secondary" : "text-brand-secondary"}`}>
+            {stat.prefix && <span>{stat.prefix}</span>}{stat.value}
+          </p>
+          <p class="text-sm text-text-subtle mt-1">{stat.label}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : layout === "grid" ? (
+  <ul
+    class="grid grid-cols-2 sm:grid-cols-4 gap-4 list-none p-0 m-0"
+  >
+    {stats.map((stat) => (
+      <li class="text-center">
+        <p class={`text-3xl font-bold ${stat.highlight ? "text-brand-secondary" : "text-text-default"}`}>
+          {stat.prefix && <span>{stat.prefix}</span>}{stat.value}
+        </p>
+        <p class="text-sm text-text-subtle mt-1">{stat.label}</p>
+      </li>
+    ))}
+  </ul>
+) : (
+  <ul
+    class="flex flex-wrap justify-center gap-x-12 gap-y-6 list-none p-0 m-0"
+  >
+    {stats.map((stat) => (
+      <li class="text-center">
+        <p class={`text-3xl font-bold ${stat.highlight ? "text-brand-secondary" : "text-text-default"}`}>
+          {stat.prefix && <span>{stat.prefix}</span>}{stat.value}
+        </p>
+        <p class="text-sm text-text-subtle mt-1 max-w-[12rem]">{stat.label}</p>
+      </li>
+    ))}
+  </ul>
+)}

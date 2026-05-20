@@ -3,86 +3,39 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Button from "../components/Button.astro";
-import Card from "../components/Card.astro";
-import Icon from "../components/Icon.astro";
+import StatStrip from "../components/StatStrip.astro";
+import CTABlock from "../components/CTABlock.astro";
+import StoryBlock from "../components/StoryBlock.astro";
+import BulletList from "../components/BulletList.astro";
+
 import heroImage from "../assets/hands-holding.jpg";
-import CountUpScript from "../components/CountUpScript.astro";
 
 const pageTitle = "RCAN | Returning Citizens Assistance Network";
 const pageDescription =
 	"RCAN is a Washington, DC network of congregations that responds to urgent short-term needs for returning citizens through direct community support.";
 
 const assistanceExamples = [
-	"Providing clothes and food for those just out of prison",
-	"Giving informal life-skills counseling or short-term mentoring",
-	"Helping to find an apartment or paying an application fee or security deposit",
-	"Writing and sending books to those who are still incarcerated",
-	"Collecting donated furniture to help furnish apartments for returning citizens",
-	"Providing funds to avoid eviction or helping with other emergency needs",
-	"Helping with official documents or, under power of attorney, doing other tasks",
-	"Assisting efforts to find work by navigating applications or connecting with prospective employers",
+	"Providing clothing, food, and personal essentials to people newly released",
+	"Offering life-skills counseling and short-term mentoring relationships",
+	"Helping secure housing — application fees, security deposits, and furnishings",
+	"Collecting and delivering donated furniture for newly housed clients",
+	"Providing emergency funds to prevent eviction or meet urgent financial needs",
+	"Connecting clients to employers and navigating job applications together",
 ];
-
-const congregationCommitments = [
-	"Receive regular information from the network about specific individuals who need assistance",
-	"Check with members of the congregation to see if anyone can assist with a specific request",
-	"Help to coordinate the efforts of those who want to respond to requests",
-];
-
-const commitmentIcons: Array<"info" | "users" | "arrow-right"> = ["info", "users", "arrow-right"];
 
 const impactStats = [
-	{ label: "Founded", value: 2018, start: 2000 },
-	{ label: "Congregations", value: 20, start: 1 },
+	{ value: "361", label: "clients helped in 2025" },
+	{ prefix: "$", value: "25,000+", label: "contributed to the RCAN Fund in 2025" },
+	{ value: "20", label: "participating congregations" },
+	{ value: "40", label: "active Prison Friendship matches" },
 ];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-	<section class="relative isolate overflow-hidden rounded-lg border border-border-default bg-surface-subtle px-6 py-8 shadow-md md:px-8 md:py-10">
-		<div aria-hidden="true" class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-primary/15 blur-2xl"></div>
-		<div aria-hidden="true" class="pointer-events-none absolute -bottom-12 left-10 h-44 w-44 rounded-full bg-brand-secondary/10 blur-2xl"></div>
-
-		<div class="relative grid gap-10 lg:grid-cols-2 lg:items-stretch">
-		<article class="flex h-full flex-col gap-6">
-			<SectionHeader
-				level={1}
-				eyebrow="RCAN"
-				heading="Returning Citizens Assistance Network"
-				subheading="A Washington, DC network of congregations responding to urgent short-term needs for returning citizens and others involved in the criminal justice system."
-			/>
-			<p class="text-base leading-7 text-text-subtle">
-				NYAPC and Metropolitan AME Church worked with the Public Defender Service to establish
-				RCAN in 2018. The network now includes twenty churches and synagogues committed to
-				helping people transition back into society with dignity and practical support.
-			</p>
-
-			<ul class="grid gap-2 text-sm text-text-subtle sm:grid-cols-3" aria-label="RCAN highlights">
-				{
-					impactStats.map((stat) => (
-						<li class="rounded-md border border-border-default bg-surface-default px-3 py-2 transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-							<p class="text-xs uppercase tracking-wide text-text-subtle">{stat.label}</p>
-							<p class="text-base font-semibold text-brand-secondary">
-								{typeof stat.value === "number" ? (
-									<span
-										data-count-to={stat.value}
-										data-count-from={stat.start}
-										data-count-duration="1000"
-										class="inline-block min-w-6 text-right tabular-nums"
-									>
-										{stat.value}
-									</span>
-								) : (
-									stat.value
-								)}
-							</p>
-						</li>
-					))
-				}
-			</ul>
-		</article>
-
-		<div class="flex h-full flex-col">
-			<figure class="h-full overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-lg">
+	<section class="py-10 md:py-14" aria-label="About RCAN">
+		<div class="grid gap-10 lg:grid-cols-2 lg:items-stretch">
+			<!-- Image LEFT -->
+			<figure class="overflow-hidden rounded-lg shadow-lg">
 				<Image
 					src={heroImage}
 					class="h-full min-h-80 w-full object-cover"
@@ -97,96 +50,78 @@ const impactStats = [
 				/>
 			</figure>
 
-			<div class="mt-5 flex flex-wrap items-center justify-end gap-3">
-				<Button href="https://nyapc.org/give/" variant="primary" size="md">
-					Donate through NYAPC
-				</Button>
-				<Button href="/how-we-help" variant="secondary" size="md">
-					See how RCAN helps
-				</Button>
-			</div>
+			<!-- Text + buttons RIGHT -->
+			<article class="flex h-full flex-col gap-6">
+				<SectionHeader
+					level={1}
+					heading="Returning Citizens Assistance Network"
+					subheading="A Washington, DC network of congregations responding to urgent short-term needs for returning citizens and others involved in the criminal justice system."
+				/>
+				<p class="text-base leading-7 text-text-subtle">
+					Inspired by Bryan Stevenson's call to get proximate to the poor and the incarcerated,
+					New York Avenue Presbyterian Church and Metropolitan AME Church partnered with the
+					DC Public Defender Service in 2018 to establish RCAN — an informal network of
+					congregations committed to social justice and practical support.
+				</p>
+				<div class="mt-auto flex flex-wrap items-center justify-end gap-3">
+				<Button href="/donate" variant="primary" size="md">
+					Donate
+					</Button>
+					<Button href="/how-we-help" variant="secondary" size="md">
+						See how RCAN helps
+					</Button>
+				</div>
+			</article>
 		</div>
+
+		<!-- Stats row below hero -->
+		<div class="mt-10">
+			<StatStrip stats={impactStats} layout="grid" background="subtle" />
 		</div>
 	</section>
 
-	<section class="py-10" aria-labelledby="assistance-heading">
-		<h2 id="assistance-heading" class="section-title text-2xl font-semibold text-text-default">How RCAN assists</h2>
-		<ul class="mt-6 grid gap-4 text-base text-text-subtle md:grid-cols-2">
-			{
-				assistanceExamples.map((item) => (
-					<li>
-						<Card class="group h-full bg-neutral-100 transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-							<p class="flex items-start gap-3 text-base text-text-subtle">
-								<span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-status-success/15">
-									<Icon
-										name="check"
-										size="md"
-										class="text-status-success transition-transform duration-base group-hover:scale-110"
-										aria-hidden="true"
-									/>
-								</span>
-								<span>{item}</span>
-							</p>
-						</Card>
-					</li>
-				))
-			}
-		</ul>
+	<section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="assistance-heading">
+		<h2 id="assistance-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">How RCAN assists</h2>
+		<BulletList items={assistanceExamples} columns={2} />
+		<div class="mt-6 flex justify-end">
+			<Button href="/how-we-help" variant="secondary" size="md">Learn more</Button>
+		</div>
 	</section>
 
-	<section class="py-10" aria-labelledby="commitments-heading">
-		<h2 id="commitments-heading" class="section-title text-2xl font-semibold text-text-default">
-			How congregations participate
-		</h2>
-		<ol class="mt-6 grid gap-4 md:grid-cols-3">
-			{
-				congregationCommitments.map((item, index) => (
-					<li>
-						<Card class="group h-full transition-transform duration-base hover:-translate-y-1 hover:shadow-md">
-							<div class="flex items-center justify-between">
-								<p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">
-									Step {index + 1}
-								</p>
-								<span class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-default bg-surface-subtle transition-colors duration-base group-hover:bg-surface-default">
-									<Icon
-										name={commitmentIcons[index]}
-										size="md"
-										class="text-brand-secondary transition-transform duration-base group-hover:scale-110"
-										aria-hidden="true"
-									/>
-								</span>
-							</div>
-							<p class="mt-2 text-base text-text-subtle">{item}</p>
-						</Card>
-					</li>
-				))
-			}
-		</ol>
+	<section aria-labelledby="impact-quote-heading">
+		<h2 id="impact-quote-heading" class="sr-only">A recent impact</h2>
+		<StoryBlock
+			heading="A family reunited"
+			level={3}
+			background="none"
+			quotes={[
+				{
+					text: "Thank you all for your help in supporting TW and his family. All of your donations went such a long way to relieving the stress and anxiety of TW. He is safely with his grandparents that love and care for him. Their immediate burdens have been relieved thanks to the assistance of you all. I cannot express to you the joy this has brought to this family. Thank you all again so much!",
+					attribution: "— PDS Lawyer, on behalf of a client's family",
+				},
+			]}
+		/>
 	</section>
 
-	<section class="rounded-lg border border-border-default bg-surface-subtle px-6 py-6 text-center md:px-8" aria-labelledby="support-heading">
-		<h2 id="support-heading" class="section-title text-2xl font-semibold text-text-default">Support this ministry</h2>
-		<p class="mx-auto mt-3 max-w-3xl text-base leading-7 text-text-subtle">
-			You can donate through NYAPC by visiting the give page and selecting RCAN Returning
-			Citizens from the dropdown menu.
+	<section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="pfp-teaser-heading">
+		<h2 id="pfp-teaser-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Prison Friendship Project</h2>
+		<p class="mt-3 text-base leading-7 text-text-subtle">
+			About 4,000 people from Washington, DC are scattered across federal prisons. The Prison
+			Friendship Project matches RCAN supporters with DC clients to build human connection
+			across distance.
 		</p>
-		<div class="mx-auto mt-4 max-w-3xl rounded-md border border-border-default bg-surface-default px-4 py-4">
-			<p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Mail contributions to</p>
-			<address class="mt-2 not-italic text-base leading-7 text-text-subtle">
-				New York Avenue Presbyterian Church<br />
-				1313 New York Avenue NW<br />
-				Washington, DC 20005
-			</address>
-		</div>
-		<div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-			<Button href="https://nyapc.org/give/" variant="primary" size="md">
-				Donate through NYAPC Give
-			</Button>
-			<Button href="/contact" variant="secondary" size="md">
-				Need to connect first?
-			</Button>
+		<div class="mt-6 flex justify-end">
+			<Button href="/get-involved#prison-friendship-project" variant="primary" size="md">Become a Prison Friend</Button>
 		</div>
 	</section>
-</BaseLayout>
 
-<CountUpScript />
+	<CTABlock
+		heading="Support this ministry"
+		body="You can make a direct impact for returning citizens in Washington, DC. Every gift helps RCAN respond quickly to urgent needs."
+		primaryLabel="Donate"
+		primaryHref="/donate"
+		secondaryLabel="Get involved"
+		secondaryHref="/get-involved"
+		background="subtle"
+	/>
+</BaseLayout>

@@ -1,34 +1,8 @@
 # PRD: About Page — Phase 3
 
-## Copy/Paste Agent Prompt (Step 2 of 8)
+> **Note:** Ignore anything about the header/hero area — use the current implementation to stay consistent. Do not add or reinstate any dark (`bg-surface-invert`) CTA block at the bottom of pages; that pattern has been removed. If any remaining task references a dark closing box or `background="invert"` on CTABlock, skip it.
 
-Recommended model: GPT-5.3-Codex
-
-Use this prompt with your coding agent:
-
-```text
-Implement only this PRD: docs/PRD-05-about.md.
-
-Target page and likely touchpoints:
-- src/pages/about.astro
-- src/components/StoryBlock.astro (only if required by this PRD)
-
-Execution rules:
-1) Read docs/PRD-05-about.md fully before editing.
-2) Treat this PRD as source of truth for scope and copy direction.
-3) Do not implement other PRDs in this run.
-4) Preserve design tokens, accessibility, and motion constraints already used in this repo.
-5) Run validation commands after implementation:
-  - npm run check
-  - npm run lint
-
-Output format:
-- Summary of completed PRD items
-- Files changed
-- Any deviations or blockers
-```
-
-## Status
+## Status - Complete
 
 The About page is functionally complete and structurally sound. This PRD addresses visual rhythm, a pair of content conflicts introduced during previous rounds, an accessibility bug in the congregations list, and the missing page-closing CTA.
 
@@ -180,6 +154,8 @@ Place stat and image in the right column. On mobile, stack below the text paragr
 
 This is a 4-character change to the class attributes — no structural impact.
 
+**Note:** This is a raw `<blockquote>` element inline in `about.astro`, not a `StoryBlock` component. Do not confuse it with `StoryBlock.astro`'s `<figcaption>` attribution, which was updated to `text-right` during PRD-04 and should remain right-aligned. These are two different elements with intentionally different treatments.
+
 **Updated blockquote:**
 
 ```html
@@ -234,7 +210,7 @@ External link icons are accessibility affordances, not decoration. They tell use
 
 **Fix — update icon class:**
 
-Remove `opacity-0`. Replace with a always-visible base state:
+Remove `opacity-0`. Replace with an always-visible base state. This follows the same principle applied in PRD-04: never use CSS to permanently hide an accessibility affordance. CSS reduced-motion override strips `transition`, leaving `opacity-0` elements invisible forever for those users.
 
 ```html
 <!-- Before -->
@@ -340,11 +316,11 @@ The two dark sections bracket the content without clustering. No two sections of
 
 ## Cross-Page Updates Required
 
-| File                                                   | Change                                                                                             |
-| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| `docs/PRD-04-home.md`                                  | Replace Micah 6:8 faith anchor with Matthew 25:36                                                  |
-| `docs/archived/PRD-02-design-polish-content-layout.md` | Update image assignment table: `community-is-strength.jpg` → About hero; Get Involved → prose-only |
-| `src/pages/index.astro`                                | Update faith anchor quote (when home page PRD is implemented)                                      |
+| File                                                   | Change                                                                                                             |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `docs/PRD-04-home.md`                                  | Replace Micah 6:8 faith anchor with Matthew 25:36                                                                  |
+| `docs/archived/PRD-02-design-polish-content-layout.md` | Update image assignment table: `community-is-strength.jpg` → About hero; Get Involved → prose-only                 |
+| `src/pages/index.astro`                                | ~~Update faith anchor quote~~ **Already done — Matthew 25:36 is live in PRD-04 implementation. No action needed.** |
 
 ---
 

@@ -1,5 +1,7 @@
 # PRD: How We Help Page - Phase 3
 
+> **Note:** Ignore anything about the header/hero area — use the current implementation to stay consistent. Do not add or reinstate any dark (`bg-surface-invert`) CTA block at the bottom of pages; that pattern has been removed. If any remaining task references a dark closing box or `background="invert"` on CTABlock, skip it.
+
 ## Copy/Paste Agent Prompt (Step 3 of 8)
 
 Recommended model: GPT-5.3-Codex
@@ -8,6 +10,7 @@ Use this prompt with your coding agent:
 
 ```text
 Implement only this PRD: docs/PRD-06-how-we-help.md.
+Review the copilot-instructions.md and content.md, rules.md in docs/guide
 
 Target page and likely touchpoints:
 - src/pages/how-we-help.astro

@@ -38,7 +38,7 @@ const formatNumber = (value: number, locale: boolean) => (locale ? value.toLocal
           <p class="text-3xl font-bold text-text-invert">
             {stat.prefix && <span>{stat.prefix}</span>}{stat.value}
           </p>
-          <p class="text-sm text-neutral-300 mt-1 max-w-[12rem]">{stat.label}</p>
+          <p class="text-sm text-neutral-300 mt-1 max-w-48">{stat.label}</p>
         </li>
       ))}
     </ul>
@@ -92,7 +92,7 @@ const formatNumber = (value: number, locale: boolean) => (locale ? value.toLocal
         <p class={`text-3xl font-bold ${stat.highlight ? "text-brand-secondary" : "text-text-default"}`}>
           {stat.prefix && <span>{stat.prefix}</span>}{stat.value}
         </p>
-        <p class="text-sm text-text-subtle mt-1 max-w-[12rem]">{stat.label}</p>
+        <p class="text-sm text-text-subtle mt-1 max-w-48">{stat.label}</p>
       </li>
     ))}
   </ul>

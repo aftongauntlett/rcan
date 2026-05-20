@@ -4,9 +4,12 @@ import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Card from "../components/Card.astro";
 import Icon from "../components/Icon.astro";
+import CTABlock from "../components/CTABlock.astro";
 import holdingHandsImage from "../assets/holding-hands.jpg";
 import communityHeroImage from "../assets/community-is-strength.jpg";
 import handShakeLogoImage from "../assets/hand-shake-logo.jpg";
+import aftonHeadshot from "../assets/afton-headshot-compressed.jpg";
+import { Calendar } from "@lucide/astro";
 
 const pageTitle = "About RCAN | Returning Citizens Assistance Network";
 const pageDescription =
@@ -46,79 +49,66 @@ const congregations: { name: string; url?: string }[] = [
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="py-10 md:py-14" aria-labelledby="about-heading">
-    <div class="grid gap-10 lg:grid-cols-2 lg:items-stretch">
-      <article class="flex h-full flex-col gap-8">
-        <SectionHeader
-          level={1}
-          heading="Community networks changing reentry outcomes"
-          subheading="RCAN responds to requests from the DC Public Defender Service and connects congregations with practical ways to support returning citizens."
-        />
-        <div class="space-y-5">
-          <p class="text-base leading-7 text-text-subtle">
-            In 2018, New York Avenue Presbyterian Church and Metropolitan AME Church worked with the
-            Public Defender Service of the District of Columbia to establish the Returning Citizens
-            Assistance Network (RCAN). This informal network is composed of twenty congregations that
-            agree to assist returning citizens and others in the criminal justice system who face
-            specific short-term needs.
-          </p>
-          <p class="text-base leading-7 text-text-subtle">
-            RCAN generally engages with one or two cases each week, with that number growing as more
-            congregations and individuals join. RCAN shares information about each case with the full
-            network; each congregation then determines for itself whether it is able to help with a
-            particular case.
-          </p>
-        </div>
-      </article>
-
-      <figure class="overflow-hidden rounded-lg shadow-lg">
-        <Image
-          src={communityHeroImage}
-          class="h-full min-h-80 w-full object-cover"
-          alt="Community members gather together, showing the collective strength and care that defines RCAN's network."
-          width={900}
-          widths={[360, 540, 720, 900]}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          format="webp"
-          quality={60}
-          loading="eager"
-          priority
-        />
-      </figure>
-    </div>
-  </section>
-
-  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="history-heading">
-    <h2 id="history-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">How RCAN came together</h2>
-    <p class="mt-2 text-sm uppercase tracking-wide text-text-subtle">Founded 2018 · 22 congregations · DC, Maryland, and Virginia</p>
-    <p class="mt-4 max-w-3xl text-base leading-7 text-text-subtle">
-      Inspired by Bryan Stevenson's call to get proximate to the poor and the incarcerated, a
-      partnership formed with the DC Public Defender Service to respond to practical reentry needs.
-      In 2018, NYAPC and Metropolitan AME Church launched RCAN as a congregation network. It has
-      since grown to twenty congregations coordinating direct responses to individual requests —
-      making practical help available quickly and without bureaucracy.
+  <section class="border-b border-border-default pb-10 pt-10 md:pt-14">
+    <SectionHeader
+      level={1}
+      heading="Community networks changing reentry outcomes"
+      subheading="RCAN responds to requests from the DC Public Defender Service and connects congregations with practical ways to support returning citizens."
+    />
+    <p class="mt-6 text-base leading-7 text-text-subtle">
+      In 2018, New York Avenue Presbyterian Church and Metropolitan AME Church worked with the
+      Public Defender Service of the District of Columbia to establish the Returning Citizens
+      Assistance Network (RCAN). This informal network is composed of twenty congregations that
+      agree to assist returning citizens and others in the criminal justice system who face
+      specific short-term needs.
     </p>
   </section>
 
-  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="gift-program-heading">
-    <div class="flex flex-wrap items-start gap-8">
-      <div class="flex-1 min-w-0">
-        <h2 id="gift-program-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Holiday Gift Program</h2>
-        <p class="mt-4 text-base leading-7 text-text-subtle">
-          In December 2020, RCAN began a gift drive gathering gifts for select families of
-          justice-impacted clients and delivering them by Christmas. RCAN continues to prepare
-          holiday gift baskets each year for PDS-selected families and individuals.
+  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="history-heading">
+    <div class="grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-center">
+      <div>
+        <h2 id="history-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">How RCAN came together</h2>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-border-default bg-surface-default px-3 py-1 text-sm font-medium text-text-default">
+            <Calendar size={14} aria-hidden="true" class="shrink-0 text-brand-secondary" />
+            Founded 2018
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-border-default bg-surface-default px-3 py-1 text-sm font-medium text-text-default">
+            <Icon name="users" size="sm" class="text-brand-secondary" aria-hidden="true" />
+            22 congregations
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-border-default bg-surface-default px-3 py-1 text-sm font-medium text-text-default">
+            <Icon name="map-pin" size="sm" class="text-brand-secondary" aria-hidden="true" />
+            DC, Maryland &amp; Virginia
+          </span>
+        </div>
+        <p class="mt-4 max-w-3xl text-base leading-7 text-text-subtle">
+          Inspired by Bryan Stevenson's call to get proximate to the poor and the incarcerated, a
+          partnership formed with the DC Public Defender Service to respond to practical reentry needs.
+          In 2018, NYAPC and Metropolitan AME Church launched RCAN as a congregation network. It has
+          since grown to twenty congregations coordinating direct responses to individual requests —
+          making practical help available quickly and without bureaucracy.
         </p>
-        <p class="mt-3 text-base leading-7 text-text-subtle">
-          In 2025, ten families received holiday gift baskets through this program.
+        <p class="mt-4 max-w-3xl text-base leading-7 text-text-subtle">
+          RCAN generally engages with one or two cases each week, with that number growing as more
+          congregations and individuals join. RCAN shares information about each case with the full
+          network; each congregation then determines for itself whether it is able to help with a
+          particular case.
         </p>
       </div>
-      <div class="shrink-0 text-center">
-        <dl>
-          <dd class="text-5xl font-bold text-brand-secondary">51</dd>
-          <dt class="mt-1 text-sm text-text-subtle">adults and children<br />received gifts in 2025</dt>
-        </dl>
-      </div>
+      <figure class="hidden overflow-hidden rounded-lg shadow-md lg:block">
+        <Image
+          src={communityHeroImage}
+          alt="Community members gather together, showing the collective strength and care that defines RCAN's network."
+          class="h-full w-full object-cover"
+          width={600}
+          widths={[400, 600]}
+          sizes="40vw"
+          format="webp"
+          quality={65}
+          loading="lazy"
+        />
+      </figure>
     </div>
   </section>
 
@@ -147,36 +137,105 @@ const congregations: { name: string; url?: string }[] = [
           each received $50 in commissary funds.
         </p>
         <p class="mt-3 text-base leading-7 text-text-subtle">
+          Each December since 2020, RCAN has prepared holiday gift baskets for PDS-selected families
+          and individuals. In 2025, ten families — 51 adults and children — received gifts by Christmas.
+        </p>
+        <p class="mt-3 text-base leading-7 text-text-subtle">
           To donate online, visit <a href="/donate" class="text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">RCAN's donate page</a>. To give by mail, send contributions to New York Avenue Presbyterian
           Church, 1313 New York Avenue NW, Washington, DC 20005.
         </p>
-        <blockquote class="mt-4 border-r-4 border-brand-secondary pr-6 text-right text-base italic leading-8 text-text-default">
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Shared Identity -->
+  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="identity-heading">
+    <div class="grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-start">
+      <div>
+        <h2 id="identity-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Our shared identity</h2>
+        <p class="mt-4 text-base leading-7 text-text-subtle">
+          RCAN is rooted in the conviction that practical support and faithful community can reshape reentry outcomes.
+          Twenty-two congregations across DC, Maryland, and Virginia share this commitment — different in tradition,
+          united in purpose.
+        </p>
+        <ul class="mt-6 space-y-3" aria-label="RCAN core values">
+          {
+            values.map((item) => (
+              <li class="flex items-start gap-3 text-base leading-7 text-text-subtle">
+                <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="flex flex-col items-center gap-5">
+        <figure class="w-full max-w-56 overflow-hidden rounded-lg shadow-md">
+          <Image
+            src={handShakeLogoImage}
+            alt="Two hands clasped in a handshake — the RCAN network mark."
+            class="w-full object-cover"
+            width={282}
+            widths={[141, 282]}
+            sizes="14rem"
+            format="webp"
+            quality={70}
+            loading="lazy"
+          />
+        </figure>
+        <blockquote class="pr-5 text-right text-base italic leading-8 text-text-default">
           "Act justly, love mercy, and walk humbly."
         </blockquote>
-        <p class="mt-2 pr-6 text-right text-sm text-text-subtle">— Micah 6:8</p>
+        <p class="-mt-3 pr-5 text-right text-sm text-text-subtle">— Micah 6:8</p>
       </div>
     </div>
   </section>
 
   <!-- Board of Directors -->
-  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="board-heading">
+  <section class="py-8 md:py-10" aria-labelledby="board-heading">
     <h2 id="board-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Board of Directors</h2>
     <p class="mt-2 text-sm text-text-subtle">Board member information will be added soon.</p>
     <ul class="mt-6 grid gap-4 sm:grid-cols-2" aria-label="Board of Directors placeholder cards">
       {
         Array.from({ length: 4 }).map(() => (
           <li>
-            <Card class="h-full">
-              <div class="flex items-center gap-4">
-                <div class="h-16 w-16 shrink-0 rounded-full bg-surface-subtle border border-border-default flex items-center justify-center" aria-hidden="true">
-                  <Icon name="users" size="md" class="text-text-subtle" aria-hidden="true" />
+            <Card class="h-full border-l-4 border-l-border-default group motion-safe:transition-colors motion-safe:duration-200 hover:border-l-brand-secondary" data-board-card>
+              <div class="flex gap-4">
+                <div class="h-28 w-20 shrink-0 overflow-hidden rounded-md border border-border-default bg-surface-subtle">
+                  <Image
+                    src={aftonHeadshot}
+                    alt=""
+                    role="presentation"
+                    width={80}
+                    height={112}
+                    class="h-full w-full object-cover object-top grayscale group-hover:grayscale-0 motion-safe:transition-[filter] motion-safe:duration-300"
+                    loading="lazy"
+                    format="webp"
+                  />
                 </div>
-                <div>
-                  <p class="text-sm font-semibold text-text-default">Board Member</p>
-                  <p class="text-xs text-text-subtle">Title / Role</p>
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-start justify-between gap-2">
+                    <div>
+                      <p class="text-sm font-semibold text-text-default">Board Member</p>
+                      <p class="mt-0.5 text-xs text-text-subtle">Title / Role</p>
+                    </div>
+                    <button type="button" disabled class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-subtle text-text-subtle motion-safe:transition-colors hover:bg-[#0077b5] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2" aria-label="LinkedIn profile (placeholder)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                        <rect x="2" y="9" width="4" height="12"/>
+                        <circle cx="4" cy="4" r="2"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <p class="mt-3 text-sm leading-6 text-text-subtle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec commodo quam ac nisl vehicula, eget faucibus odio volutpat. Praesent elementum nunc sed felis tincidunt.</p>
+                  <div class="hidden" data-bio-extra>
+                    <p class="mt-2 text-sm leading-6 text-text-subtle">Sed euismod diam in mi lacinia, id faucibus felis imperdiet. Pellentesque habitant morbi tristique senectus et malesuada fames ac turpis egestas.</p>
+                  </div>
+                  <div class="mt-2 flex justify-end">
+                    <button data-read-more aria-expanded="false" class="text-xs text-brand-primary underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">Read more</button>
+                  </div>
                 </div>
               </div>
-              <p class="mt-3 text-sm leading-6 text-text-subtle italic">Bio coming soon.</p>
             </Card>
           </li>
         ))
@@ -185,22 +244,24 @@ const congregations: { name: string; url?: string }[] = [
   </section>
 
   <!-- Participating Congregations -->
-  <section class="py-10" aria-labelledby="congregations-heading">
+  <section class="rounded-lg bg-white px-6 py-8 md:px-8 md:py-10" aria-labelledby="congregations-heading">
     <h2 id="congregations-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Participating congregations</h2>
     <p class="mt-2 text-base leading-7 text-text-subtle">
       Twenty-two congregations across DC, Maryland, and Virginia have joined RCAN and committed
       to responding to needs as they arise.
     </p>
-    <ul class="mt-6 columns-2 gap-x-8 md:columns-3" aria-label="List of participating congregations">
+    <div class="mt-6 rounded-lg bg-surface-subtle px-6 py-6">
+    <ul class="columns-2 gap-x-8 text-center md:columns-3" aria-label="List of participating congregations">
       {
         congregations.map(({ name, url }) => (
-          <li class="break-inside-avoid py-1 text-sm text-text-subtle">
+          <li class="break-inside-avoid py-1.5 text-sm font-medium text-text-default">
             {url ? (
               <a
                 href={url}
-                class="group inline-flex items-center gap-1 hover:underline hover:text-text-default"
+                class="group inline-flex items-center gap-1 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${name} (opens in a new tab)`}
               >
                 {name}
                 <svg
@@ -214,7 +275,7 @@ const congregations: { name: string; url?: string }[] = [
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   aria-hidden="true"
-                  class="opacity-0 transition-opacity group-hover:opacity-100"
+                  class="opacity-50 transition-opacity group-hover:opacity-100"
                 >
                   <path d="M15 3h6v6" />
                   <path d="M10 14 21 3" />
@@ -228,40 +289,30 @@ const congregations: { name: string; url?: string }[] = [
         ))
       }
     </ul>
-  </section>
-
-  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="identity-heading">
-    <div class="grid gap-8 lg:grid-cols-2 lg:items-start">
-      <div>
-        <h2 id="identity-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Our shared identity</h2>
-        <p class="mt-4 text-base leading-7 text-text-subtle">
-          RCAN is rooted in the conviction that practical support and faithful community can reshape reentry outcomes.
-          This mark reflects the network's full name and shared commitment across congregations.
-        </p>
-        <ul class="mt-6 space-y-3" aria-label="RCAN core values">
-          {
-            values.map((item) => (
-              <li class="flex items-start gap-3 text-base leading-7 text-text-subtle">
-                <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
-                <span>{item}</span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-      <figure class="overflow-hidden rounded-lg shadow-md mx-auto max-w-xs lg:mx-0">
-        <Image
-          src={handShakeLogoImage}
-          alt="Two hands clasped in a handshake, representing the partnership and mutual trust at the heart of RCAN's network."
-          class="w-full object-cover"
-          width={600}
-          widths={[300, 450, 600]}
-          sizes="(min-width: 1024px) 25vw, 20rem"
-          format="webp"
-          quality={70}
-          loading="lazy"
-        />
-      </figure>
     </div>
   </section>
+
+  <CTABlock
+    variant="outline"
+    heading="Ready to be part of this?"
+    body="Whether you want to join as a congregation, volunteer your time, or support the work with a gift — RCAN welcomes new partners."
+    primaryLabel="Get involved"
+    primaryHref="/get-involved"
+    secondaryLabel="Donate"
+    secondaryHref="/donate"
+  />
+
+  <script>
+    document.querySelectorAll<HTMLButtonElement>('[data-read-more]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('[data-board-card]');
+        const extra = card?.querySelector('[data-bio-extra]');
+        if (!extra) return;
+        const isHidden = extra.classList.contains('hidden');
+        extra.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', String(isHidden));
+        btn.textContent = isHidden ? 'Show less' : 'Read more';
+      });
+    });
+  </script>
 </BaseLayout>

@@ -1,5 +1,7 @@
 # PRD: Final Pre-Production Audit
 
+> **Note:** Ignore anything about the header/hero area — use the current implementation to stay consistent. Do not add or reinstate any dark (`bg-surface-invert`) CTA block at the bottom of pages; that pattern has been removed. If any remaining task references a dark closing box or `background="invert"` on CTABlock, skip it.
+
 ## Copy/Paste Agent Prompt (Step 8 of 8)
 
 Recommended model: GPT-5.3-Codex
@@ -8,6 +10,8 @@ Use this prompt with your coding agent:
 
 ```text
 Run only this audit PRD: docs/PRD-11-final-audit.md.
+
+Review the copilot-instructions.md and content.md, rules.md in docs/guide
 
 Scope:
 - Entire repository (full audit, no partial pass)

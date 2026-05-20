@@ -1,26 +1,34 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type BadgeVariant = "brand" | "neutral" | "success" | "warning" | "error";
+type BadgeVariant = "brand" | "secondary" | "neutral" | "success" | "warning" | "error";
+type BadgeShape = "pill" | "chip";
 
 interface Props extends Omit<HTMLAttributes<"span">, "class"> {
   variant?: BadgeVariant;
+  shape?: BadgeShape;
   class?: string;
 }
 
-const { variant = "neutral", class: className = "", ...rest } = Astro.props as Props;
+const { variant = "neutral", shape = "pill", class: className = "", ...rest } = Astro.props as Props;
 
 const variantClasses: Record<BadgeVariant, string> = {
   brand: "border border-brand-primary bg-surface-default text-brand-primary",
+  secondary: "border border-brand-secondary bg-surface-default text-brand-secondary",
   neutral: "border border-border-default bg-surface-subtle text-text-subtle",
   success: "border border-status-success bg-surface-default text-status-success",
   warning: "border border-status-warning bg-surface-default text-status-warning",
   error: "border border-status-error bg-surface-default text-status-error",
 };
+
+const shapeClasses: Record<BadgeShape, string> = {
+  pill: "rounded-full",
+  chip: "rounded",
+};
 ---
 
 <span
-  class={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${variantClasses[variant]} ${className}`}
+  class={`inline-flex items-center ${shapeClasses[shape]} px-3 py-1 text-sm font-medium ${variantClasses[variant]} ${className}`}
   {...rest}
 >
   <slot />

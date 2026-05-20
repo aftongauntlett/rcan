@@ -3,6 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 import {
   ArrowRight,
   ArrowUpRight,
+  BookOpen,
   Check,
   ChevronRight,
   DollarSign,
@@ -24,6 +25,7 @@ type IconSize = "sm" | "md" | "lg";
 type IconName =
   | "arrow-right"
   | "arrow-up-right"
+  | "book-open"
   | "check"
   | "chevron-right"
   | "dollar-sign"
@@ -62,6 +64,7 @@ const decorative = !ariaLabel;
 const iconMap = {
   "arrow-right": ArrowRight,
   "arrow-up-right": ArrowUpRight,
+  "book-open": BookOpen,
   check: Check,
   "chevron-right": ChevronRight,
   "dollar-sign": DollarSign,

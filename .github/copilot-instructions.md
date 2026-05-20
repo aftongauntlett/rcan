@@ -13,3 +13,6 @@ Follow these project rules for every task in this repository:
 9. Write Vitest unit tests for any utility functions or data-transform logic. Component tests are required for interactive components.
 10. Every page must score 100 on Lighthouse accessibility, best practices, and SEO. Performance target is 95+.
 11. Use astro check and eslint clean runs as gates before considering any task done.
+12. All animations and transitions must respect `prefers-reduced-motion`. Any JS-driven animation must check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` before running. Any CSS transition/animation must be wrapped in `@media (prefers-reduced-motion: no-preference)` or reset inside `@media (prefers-reduced-motion: reduce)`.
+13. Permitted motion effects: `transition-opacity` for scroll-based reveals, `transition-shadow` and `transition-colors` for hover states. Forbidden: `transform: translate`, slide-in from any direction, parallax, bounce, float, or any motion that shifts layout. Vestibular sensitivity is a real accessibility concern — opacity transitions are safe; movement is not.
+14. Scroll-reveal animations must have a no-JS fallback: apply the hidden state via JavaScript (not a Tailwind class in markup) so elements remain visible when JS is disabled or blocked.

@@ -79,7 +79,7 @@ Each congregation that joins RCAN agrees to:
 - Check with congregation members to see if anyone can assist with a request
 - Help coordinate efforts with persons who request assistance
 
-Any congregation that wishes to join RCAN or has questions should contact **dcrcan2018@gmail.com** or call Theo Brown at **240-393-7246**.
+Any congregation that wishes to join RCAN or has questions should contact **dcrcan2018@gmail.com**.
 
 ### Board of Directors
 

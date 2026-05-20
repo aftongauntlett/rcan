@@ -16,7 +16,10 @@ This repository currently contains the Astro foundation and tooling baseline:
 
 ## Product and planning docs
 
-Implementation instructions and phased build requirements live in `prd-01.md`.
+Current product requirements and page planning docs live in `docs/`.
+
+- Active PRDs: `docs/PRD-04-home.md`, `docs/PRD-05-about.md`, `docs/PRD-06-how-we-help.md`, `docs/PRD-07-impact.md`, `docs/PRD-08-get-involved.md`, `docs/PRD-09-contact.md`, `docs/PRD-10-donate.md`, `docs/PRD-11-final-audit.md`, `docs/guide/rules.md`
+- Archived PRDs and legacy notes: `docs/archived/`
 
 ## Tech stack
 
@@ -67,7 +70,17 @@ npm run format
 
 ```text
 .
-├── prd-01.md
+├── docs/
+│   ├── PRD-04-home.md
+│   ├── PRD-05-about.md
+│   ├── PRD-06-how-we-help.md
+│   ├── PRD-07-impact.md
+│   ├── PRD-08-get-involved.md
+│   ├── PRD-09-contact.md
+│   ├── PRD-10-donate.md
+│   ├── PRD-11-final-audit.md
+│   ├── guide/rules.md
+│   └── archived/
 ├── tailwind.config.ts
 ├── src/
 │   ├── pages/

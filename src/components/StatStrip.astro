@@ -64,7 +64,7 @@ const formatNumber = (value: number, locale: boolean) => (locale ? value.toLocal
       class="grid grid-cols-2 sm:grid-cols-4 gap-4 m-0"
     >
       {stats.map((stat) => (
-        <div class="group rounded-lg bg-surface-default px-5 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
+        <div class="group rounded-lg bg-surface-default px-5 py-4 text-center shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
           <dd
             class={`text-3xl font-bold ${accentTextClass} ${hoverAccentClass} motion-safe:transition-colors motion-safe:duration-200`}
             aria-label={`${stat.prefix ?? ""}${stat.value} ${stat.label}`.trim()}
@@ -80,7 +80,7 @@ const formatNumber = (value: number, locale: boolean) => (locale ? value.toLocal
             </span>
             {getSuffix(stat.value) && <span>{getSuffix(stat.value)}</span>}
           </dd>
-          <dt class="text-sm text-text-subtle mt-1">{stat.label}</dt>
+          <dt class="mt-1 text-sm text-text-subtle">{stat.label}</dt>
         </div>
       ))}
     </dl>

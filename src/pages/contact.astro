@@ -293,6 +293,11 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
 
   <script>
     import { initForm } from "@formspree/ajax";
+    import {
+      getCongregationFieldState,
+      resolveCopyValue,
+      shouldResetSubmitState,
+    } from "../utils/contactInteractions";
 
     const initContactForm = () => {
       const form = document.querySelector("#contact-form");
@@ -330,12 +335,10 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
           };
 
           const resetFromMessage = () => {
-            const hasSuccess =
-              successMessage instanceof HTMLElement && successMessage.textContent?.trim();
-            const hasError =
-              errorMessage instanceof HTMLElement && errorMessage.textContent?.trim();
+            const successText = successMessage instanceof HTMLElement ? successMessage.textContent : "";
+            const errorText = errorMessage instanceof HTMLElement ? errorMessage.textContent : "";
 
-            if (hasSuccess || hasError) {
+            if (shouldResetSubmitState(successText, errorText)) {
               setSubmitState(false);
             }
           };
@@ -388,16 +391,16 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
         return;
       }
 
-      const congregationSelected = topicInput.value === "Congregation partnership";
+      const fieldState = getCongregationFieldState(topicInput.value);
 
       if (congregationFieldWrap instanceof HTMLElement) {
-        congregationFieldWrap.classList.toggle("hidden", !congregationSelected);
+        congregationFieldWrap.classList.toggle("hidden", !fieldState.showField);
       }
 
       if (congregationInput instanceof HTMLInputElement) {
-        congregationInput.required = congregationSelected;
+        congregationInput.required = fieldState.required;
 
-        if (!congregationSelected) {
+        if (fieldState.shouldClearInput) {
           congregationInput.value = "";
           congregationInput.dispatchEvent(new Event("input", { bubbles: true }));
           congregationInput.dispatchEvent(new Event("change", { bubbles: true }));
@@ -490,7 +493,7 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
         const row = button.closest("[data-copy-row]");
         const copyTextElement = row?.querySelector("[data-copy-text]");
         const valueFromRow = copyTextElement instanceof HTMLElement ? copyTextElement.innerText.trim() : "";
-        const value = valueFromRow || button.dataset.copyValue || "";
+        const value = resolveCopyValue(valueFromRow, button.dataset.copyValue ?? "");
         const feedbackId = button.dataset.copyFeedbackId ?? "";
         if (!value || !feedbackId) {
           return;

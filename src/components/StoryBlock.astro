@@ -16,6 +16,7 @@ interface Props {
     src: ImageMetadata;
     alt: string;
   };
+  imageClass?: string;
   imagePosition?: "left" | "right";
   background?: "none" | "subtle" | "invert";
   level?: 2 | 3 | 4;
@@ -26,6 +27,7 @@ const {
   intro,
   quotes,
   image,
+  imageClass,
   imagePosition = "right",
   background = "none",
   level = 3,
@@ -35,9 +37,22 @@ const HeadingTag = `h${level}` as "h2" | "h3" | "h4";
 
 const isInvert = background === "invert";
 const isSubtle = background === "subtle";
+const hasMultipleQuotes = quotes.length > 1;
 
 const quoteAccentClass = (accentColor?: "secondary" | "primary") =>
   accentColor === "primary" ? "border-brand-primary" : "border-brand-secondary";
+
+const quoteSpacingClass = (index: number, withImage: boolean) => {
+  if (index === 0) {
+    return "mt-4";
+  }
+
+  if (withImage && hasMultipleQuotes && index === quotes.length - 1) {
+    return "mt-10 lg:mt-auto";
+  }
+
+  return "mt-8";
+};
 ---
 
 {isInvert ? (
@@ -57,25 +72,25 @@ const quoteAccentClass = (accentColor?: "secondary" | "primary") =>
   </div>
 ) : image ? (
   <div class={`${isSubtle ? "bg-surface-subtle rounded-lg px-6 py-8" : ""}`}>
-    <div class={`grid gap-8 lg:items-start ${imagePosition === "left" ? "lg:grid-cols-[2fr_3fr]" : "lg:grid-cols-[3fr_2fr]"}`}>
+    <div class={`grid gap-8 lg:items-stretch ${imagePosition === "left" ? "lg:grid-cols-[2fr_3fr]" : "lg:grid-cols-[3fr_2fr]"}`}>
       {imagePosition === "left" && (
-        <div class="relative min-h-60 overflow-hidden rounded-lg shadow-md">
+        <div class="relative h-full min-h-60 overflow-hidden rounded-lg shadow-md">
           <Image
             src={image.src}
             alt={image.alt}
-            class="h-full w-full object-cover"
+            class={`h-full w-full object-cover ${imageClass ?? ""}`}
             widths={[400, 800]}
             sizes="(min-width: 1024px) 40vw, 100vw"
           />
         </div>
       )}
-      <div>
+      <div class="flex h-full flex-col">
         <HeadingTag class="text-lg font-semibold text-text-default">{heading}</HeadingTag>
         {intro && (
           <p class="mt-3 text-base leading-7 text-text-subtle">{intro}</p>
         )}
-        {quotes.map((quote) => (
-          <figure class="mt-4">
+        {quotes.map((quote, index) => (
+          <figure class={quoteSpacingClass(index, true)}>
             <blockquote class={`border-l-4 ${quoteAccentClass(quote.accentColor)} pl-6 text-base italic leading-8 text-text-default`}>
               <p>{quote.text}</p>
             </blockquote>
@@ -84,11 +99,11 @@ const quoteAccentClass = (accentColor?: "secondary" | "primary") =>
         ))}
       </div>
       {imagePosition === "right" && (
-        <div class="relative min-h-60 overflow-hidden rounded-lg shadow-md">
+        <div class="relative h-full min-h-60 overflow-hidden rounded-lg shadow-md">
           <Image
             src={image.src}
             alt={image.alt}
-            class="h-full w-full object-cover"
+            class={`h-full w-full object-cover ${imageClass ?? ""}`}
             widths={[400, 800]}
             sizes="(min-width: 1024px) 40vw, 100vw"
           />
@@ -102,8 +117,8 @@ const quoteAccentClass = (accentColor?: "secondary" | "primary") =>
     {intro && (
       <p class="mt-3 text-base leading-7 text-text-subtle">{intro}</p>
     )}
-    {quotes.map((quote) => (
-      <figure class="mt-4">
+    {quotes.map((quote, index) => (
+      <figure class={quoteSpacingClass(index, false)}>
         <blockquote class={`border-l-4 ${quoteAccentClass(quote.accentColor)} pl-6 text-base italic leading-8 text-text-default`}>
           <p>{quote.text}</p>
         </blockquote>

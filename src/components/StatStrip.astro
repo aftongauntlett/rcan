@@ -10,12 +10,27 @@ interface Props {
   stats: StatItem[];
   layout?: "strip" | "grid";
   background?: "none" | "subtle" | "invert";
+  accentColor?: "primary" | "secondary";
+  hoverSwapAccent?: boolean;
 }
 
-const { stats, layout = "strip", background = "none" } = Astro.props;
+const {
+  stats,
+  layout = "strip",
+  background = "none",
+  accentColor = "secondary",
+  hoverSwapAccent = false,
+} = Astro.props;
 
 const isInvert = background === "invert";
 const isSubtle = background === "subtle";
+const accentTextClass = accentColor === "primary" ? "text-brand-primary" : "text-brand-secondary";
+const hoverAccentClass =
+  hoverSwapAccent
+    ? accentColor === "primary"
+      ? "group-hover:text-brand-secondary"
+      : "group-hover:text-brand-primary"
+    : "";
 
 const getTargetNumber = (value: string) => {
   const digitsOnly = value.replace(/[^\d]/g, "");
@@ -49,9 +64,9 @@ const formatNumber = (value: number, locale: boolean) => (locale ? value.toLocal
       class="grid grid-cols-2 sm:grid-cols-4 gap-4 m-0"
     >
       {stats.map((stat) => (
-        <div class="rounded-lg bg-surface-default px-5 py-4 shadow-sm">
+        <div class="group rounded-lg bg-surface-default px-5 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
           <dd
-            class={`text-3xl font-bold ${stat.highlight ? "text-brand-secondary" : "text-brand-secondary"}`}
+            class={`text-3xl font-bold ${accentTextClass} ${hoverAccentClass} motion-safe:transition-colors motion-safe:duration-200`}
             aria-label={`${stat.prefix ?? ""}${stat.value} ${stat.label}`.trim()}
           >
             {stat.prefix && <span>{stat.prefix}</span>}
@@ -76,7 +91,7 @@ const formatNumber = (value: number, locale: boolean) => (locale ? value.toLocal
   >
     {stats.map((stat) => (
       <li class="text-center">
-        <p class={`text-3xl font-bold ${stat.highlight ? "text-brand-secondary" : "text-text-default"}`}>
+        <p class={`text-3xl font-bold ${stat.highlight ? accentTextClass : "text-text-default"}`}>
           {stat.prefix && <span>{stat.prefix}</span>}{stat.value}
         </p>
         <p class="text-sm text-text-subtle mt-1">{stat.label}</p>
@@ -89,7 +104,7 @@ const formatNumber = (value: number, locale: boolean) => (locale ? value.toLocal
   >
     {stats.map((stat) => (
       <li class="text-center">
-        <p class={`text-3xl font-bold ${stat.highlight ? "text-brand-secondary" : "text-text-default"}`}>
+        <p class={`text-3xl font-bold ${stat.highlight ? accentTextClass : "text-text-default"}`}>
           {stat.prefix && <span>{stat.prefix}</span>}{stat.value}
         </p>
         <p class="text-sm text-text-subtle mt-1 max-w-48">{stat.label}</p>

@@ -8,7 +8,10 @@ import CTABlock from "../components/CTABlock.astro";
 import holdingHandsImage from "../assets/holding-hands.jpg";
 import communityHeroImage from "../assets/community-is-strength.jpg";
 import handShakeLogoImage from "../assets/hand-shake-logo.jpg";
-import aftonHeadshot from "../assets/afton-headshot-compressed.jpg";
+import boardPlaceholder1 from "../assets/board-placeholder-1.png";
+import boardPlaceholder2 from "../assets/board-placeholder-2.png";
+import boardPlaceholder3 from "../assets/board-placeholder-3.png";
+import boardPlaceholder4 from "../assets/board-placeholder-4.png";
 import { Calendar } from "@lucide/astro";
 
 const pageTitle = "About RCAN | Returning Citizens Assistance Network";
@@ -46,6 +49,8 @@ const congregations: { name: string; url?: string }[] = [
   { name: "Western Presbyterian Church", url: "https://westernpres.org" },
   { name: "Westminster Presbyterian Church", url: "https://westminsterdc.org" },
 ];
+
+const boardPlaceholderPhotos = [boardPlaceholder1, boardPlaceholder2, boardPlaceholder3, boardPlaceholder4];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -197,13 +202,13 @@ const congregations: { name: string; url?: string }[] = [
     <p class="mt-2 text-sm text-text-subtle">Board member information will be added soon.</p>
     <ul class="mt-6 grid gap-4 sm:grid-cols-2" aria-label="Board of Directors placeholder cards">
       {
-        Array.from({ length: 4 }).map(() => (
+        boardPlaceholderPhotos.map((photo) => (
           <li>
             <Card class="h-full border-l-4 border-l-border-default group motion-safe:transition-colors motion-safe:duration-200 hover:border-l-brand-secondary" data-board-card>
               <div class="flex gap-4">
                 <div class="h-28 w-20 shrink-0 overflow-hidden rounded-md border border-border-default bg-surface-subtle">
                   <Image
-                    src={aftonHeadshot}
+                    src={photo}
                     alt=""
                     role="presentation"
                     width={80}

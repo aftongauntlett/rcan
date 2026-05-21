@@ -51,7 +51,7 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
 
       <div class="mt-8 grid gap-6 md:mt-10 md:grid-cols-[3fr_2fr] md:items-stretch">
         <article class="order-2 h-full md:order-1">
-          <div class="h-full rounded-lg border border-border-default bg-surface-default px-6 py-6 md:px-7 md:py-6">
+          <div class="flex h-full flex-col rounded-lg border border-border-default bg-surface-default px-6 py-6 md:justify-center md:px-7 md:py-6">
             <div data-fs-success role="status" aria-live="polite" class="text-sm font-semibold text-status-success"></div>
             <div data-fs-error role="alert" aria-live="assertive" class="text-sm font-semibold text-status-error"></div>
 
@@ -172,7 +172,7 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
                   data-fs-submit-btn
                   disabled={!turnstileEnabled}
                 >
-                  Send message
+                  <span data-fs-submit-label>Send message</span>
                 </Button>
               </div>
               <span data-fs-error="cf-turnstile-response" class="text-sm text-status-error"></span>
@@ -298,6 +298,72 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
       const form = document.querySelector("#contact-form");
       if (!(form instanceof HTMLFormElement)) {
         return;
+      }
+
+      const submitButton = form.querySelector("[data-fs-submit-btn]");
+      const submitLabel = form.querySelector("[data-fs-submit-label]");
+      const successMessage = document.querySelector("[data-fs-success]");
+      const errorMessage = document.querySelector("[data-fs-error]");
+
+      if (submitButton instanceof HTMLButtonElement) {
+        if (submitButton.dataset.submitStateBound !== "true") {
+          const initialDisabledState = submitButton.disabled;
+          const defaultLabel =
+            submitLabel instanceof HTMLElement
+              ? submitLabel.textContent?.trim() || "Send message"
+              : submitButton.textContent?.trim() || "Send message";
+
+          const setSubmitState = (isSubmitting: boolean) => {
+            submitButton.disabled = isSubmitting || initialDisabledState;
+
+            if (submitLabel instanceof HTMLElement) {
+              submitLabel.textContent = isSubmitting ? "Sending" : defaultLabel;
+            } else {
+              submitButton.textContent = isSubmitting ? "Sending" : defaultLabel;
+            }
+
+            if (isSubmitting) {
+              form.setAttribute("aria-busy", "true");
+            } else {
+              form.removeAttribute("aria-busy");
+            }
+          };
+
+          const resetFromMessage = () => {
+            const hasSuccess =
+              successMessage instanceof HTMLElement && successMessage.textContent?.trim();
+            const hasError =
+              errorMessage instanceof HTMLElement && errorMessage.textContent?.trim();
+
+            if (hasSuccess || hasError) {
+              setSubmitState(false);
+            }
+          };
+
+          form.addEventListener("submit", () => {
+            setSubmitState(true);
+          });
+
+          if (successMessage instanceof HTMLElement) {
+            const observer = new MutationObserver(resetFromMessage);
+            observer.observe(successMessage, {
+              childList: true,
+              characterData: true,
+              subtree: true,
+            });
+          }
+
+          if (errorMessage instanceof HTMLElement) {
+            const observer = new MutationObserver(resetFromMessage);
+            observer.observe(errorMessage, {
+              childList: true,
+              characterData: true,
+              subtree: true,
+            });
+          }
+
+          submitButton.dataset.submitStateBound = "true";
+        }
       }
 
       if (form.dataset.formspreeBound === "true") {

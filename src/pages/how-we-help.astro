@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import CTABlock from "../components/CTABlock.astro";
 import Button from "../components/Button.astro";
-import Icon from "../components/Icon.astro";
+import IconSupportList from "../components/IconSupportList.astro";
 import supportImage from "../assets/art-community.jpg";
 
 const pageTitle = "How We Help | RCAN";
@@ -16,6 +16,8 @@ type SupportIconName =
   | "heart"
   | "map-pin"
   | "dollar-sign"
+  | "mail"
+  | "book-open"
   | "users"
   | "info"
   | "user"
@@ -31,14 +33,14 @@ const assistanceExamples: { icon: SupportIconName; text: string }[] = [
     text: "Emergency financial relief: utilities, eviction prevention, and urgent household costs",
   },
   { icon: "heart", text: "Food, clothing, and hygiene essentials" },
-  { icon: "users", text: "Employment and life-skills support" },
+  { icon: "book-open", text: "Employment and life-skills support" },
   { icon: "map-pin", text: "Transportation support: Metro cards, bicycles, and rides" },
   {
-    icon: "user",
+    icon: "users",
     text: "Family and youth supports, including therapeutic program costs",
   },
   {
-    icon: "info",
+    icon: "mail",
     text: "Reentry legal support: court fees, sanctions, and release-related letters",
   },
   {
@@ -79,18 +81,7 @@ const pathwaySteps = [
 
   <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="help-types-heading">
     <h2 id="help-types-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Types of support</h2>
-    <ul class="mt-6 grid grid-cols-1 gap-x-12 gap-y-2 sm:grid-cols-2" aria-label="Types of assistance RCAN provides">
-      {
-        assistanceExamples.map((item) => (
-          <li class="group flex items-center gap-3 rounded-md px-3 py-2 text-base leading-7 text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:bg-surface-default">
-            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-accent text-surface-default motion-safe:transition-colors motion-safe:duration-200 group-hover:bg-brand-secondary" aria-hidden="true">
-              <Icon name={item.icon as SupportIconName} size="sm" aria-hidden="true" />
-            </span>
-            <span class="flex min-h-14 items-center">{item.text}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <IconSupportList items={assistanceExamples} ariaLabel="Types of assistance RCAN provides" />
   </section>
 
   <section class="py-10" aria-labelledby="pathway-heading">

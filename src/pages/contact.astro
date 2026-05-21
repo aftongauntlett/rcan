@@ -10,6 +10,7 @@ const pageTitle = "Contact RCAN | Returning Citizens Assistance Network";
 const pageDescription =
   "Get in touch with RCAN for questions, referrals, partnerships, and community collaboration opportunities.";
 const topicOptions = [
+  { value: "Become a Prison Friend", label: "Become a Prison Friend" },
   { value: "Congregation partnership", label: "Congregation partnership" },
   { value: "Volunteer interest", label: "Volunteer interest" },
   { value: "Referral question", label: "Referral question" },
@@ -162,6 +163,7 @@ const turnstileEnabled = !isLocalDev && Boolean(turnstileSiteKey);
           name="topic"
           labelledBy="topic-label"
           options={topicOptions}
+          defaultValue="General question"
           required
           class="w-full"
         />
@@ -214,6 +216,56 @@ const turnstileEnabled = !isLocalDev && Boolean(turnstileSiteKey);
     import { initForm } from "@formspree/ajax";
 
     initForm({ formElement: "#contact-form", formId: "mdajaprb" });
+
+    const topicFromQuery = new URLSearchParams(window.location.search).get("topic");
+
+    if (topicFromQuery) {
+      const dropdownRoot = document.querySelector("[data-custom-dropdown]");
+      if (dropdownRoot instanceof HTMLElement) {
+        const input = dropdownRoot.querySelector("[data-dropdown-input]");
+        const label = dropdownRoot.querySelector("[data-dropdown-label]");
+        const options = Array.from(dropdownRoot.querySelectorAll("[data-dropdown-option]"));
+
+        if (
+          input instanceof HTMLInputElement
+          && label instanceof HTMLElement
+          && options.length > 0
+        ) {
+          const matchedOption = options.find((option) => {
+            if (!(option instanceof HTMLButtonElement)) {
+              return false;
+            }
+
+            return option.dataset.value === topicFromQuery;
+          });
+
+          if (matchedOption instanceof HTMLButtonElement) {
+            options.forEach((option) => {
+              if (!(option instanceof HTMLButtonElement)) {
+                return;
+              }
+
+              const isSelected = option === matchedOption;
+              option.setAttribute("aria-checked", isSelected ? "true" : "false");
+              option.classList.toggle("bg-surface-subtle", isSelected);
+              option.classList.toggle("text-brand-primary", isSelected);
+              option.classList.toggle("text-text-default", !isSelected);
+
+              const checkIcon = option.querySelector("[data-dropdown-check]");
+              if (checkIcon instanceof HTMLElement) {
+                checkIcon.classList.toggle("opacity-100", isSelected);
+                checkIcon.classList.toggle("opacity-0", !isSelected);
+              }
+            });
+
+            input.value = matchedOption.dataset.value ?? "";
+            label.textContent = matchedOption.dataset.label ?? "";
+            input.dispatchEvent(new Event("input", { bubbles: true }));
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+        }
+      }
+    }
   </script>
   {turnstileEnabled && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
 

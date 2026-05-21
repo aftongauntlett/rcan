@@ -2,107 +2,148 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
-import Button from "../components/Button.astro";
-import Icon from "../components/Icon.astro";
-import StatStrip from "../components/StatStrip.astro";
-import StepList from "../components/StepList.astro";
-import holdingHandsImage from "../assets/holding-hands.jpg";
-import giveImage from "../assets/give.jpg";
+import CTABlock from "../components/CTABlock.astro";
+import CountUpScript from "../components/CountUpScript.astro";
+import IconSupportList from "../components/IconSupportList.astro";
+import mailboxImage from "../assets/mailbox.jpg";
+import faithImage from "../assets/faith.jpg";
 
 const pageTitle = "Get Involved | RCAN";
 const pageDescription =
   "Find ways to volunteer, partner, and participate in RCAN's work supporting returning citizens.";
 
 const congregationCommitments = [
-  { description: "Receive regular information from the network about specific individuals who need assistance" },
-  { description: "Check with members of the congregation to see if anyone can assist with a specific request" },
-  { description: "Help to coordinate the efforts of those who want to respond to requests" },
-];
+  {
+    icon: "check",
+    label: "Step 1",
+    text: "Receive regular information from the network about specific individuals who need assistance",
+  },
+  {
+    icon: "check",
+    label: "Step 2",
+    text: "Check with members of the congregation to see if anyone can assist with a specific request",
+  },
+  {
+    icon: "check",
+    label: "Step 3",
+    text: "Help to coordinate the efforts of those who want to respond to requests",
+  },
+] as const;
 
 const waysToHelp = [
-  { icon: "heart", title: "Direct Support", description: "Respond to urgent needs with goods, services, or short-term financial help." },
-  { icon: "users", title: "Coordinate Volunteers", description: "Mobilize volunteers and local resources within your congregation." },
-  { icon: "user", title: "Mentor & Encourage", description: "Build ongoing relationships with returning citizens during key transition periods." },
-  { icon: "dollar-sign", title: "Give Financially", description: "Contribute funds to support emergency requests and remove concrete barriers to reentry." },
+  {
+    icon: "heart",
+    text: "Directly support urgent requests with goods, services, or short-term financial help for people in transition.",
+  },
+  {
+    icon: "users",
+    text: "Coordinate volunteers through your congregation to organize practical responses to specific needs.",
+  },
+  {
+    icon: "user",
+    text: "Build one-to-one encouragement and mentoring relationships that support stability during reentry.",
+  },
+  {
+    icon: "dollar-sign",
+    text: "Give financially for urgent needs and remove barriers to reentry, including transit, housing, and essentials.",
+  },
+  {
+    icon: "mail",
+    text: "Become a Prison Friend and build consistent encouragement through letters and shared reading materials.",
+  },
+  {
+    icon: "book-open",
+    text: "Share practical resources with RCAN and help connect your community to meaningful opportunities to respond.",
+  },
 ] as const;
 
 const prisonFriendsDo = [
-  "Learn about the background and current situation of the person they are matched with",
-  "Build a relationship through letters and reading materials",
-  "Give gifts on special occasions to the person's commissary account — providing access to food, drinks, toiletries, and personal items",
-  "Provide assistance in any other mutually agreed-upon way as the relationship develops",
-];
-const pfpStats = [
-  { value: "23", label: "new pen pal matches in 2025" },
-  { value: "40", label: "clients currently receiving correspondence" },
-];
+  {
+    icon: "check",
+    text: "Learn about the background and current situation of the person they are matched with",
+  },
+  {
+    icon: "check",
+    text: "Build a relationship through letters and reading materials",
+  },
+  {
+    icon: "check",
+    text: "Give gifts on special occasions to the person's commissary account — providing access to food, drinks, toiletries, and personal items",
+  },
+  {
+    icon: "check",
+    text: "Provide assistance in any other mutually agreed-upon way as the relationship develops",
+  },
+  {
+    icon: "check",
+    text: "A single committed person can be just as meaningful as a group.",
+  },
+] as const;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="py-10 md:py-14" aria-labelledby="get-involved-heading">
-    <div class="grid gap-10 lg:grid-cols-2 lg:items-stretch">
-      <article class="flex h-full flex-col gap-8">
-        <SectionHeader
-          level={1}
-          heading="Bring your congregation's strengths to RCAN"
-          subheading="RCAN thrives when communities organize around concrete requests and practical next steps."
-        />
-        <p class="text-base leading-7 text-text-subtle">
-          Whether your group can provide direct assistance, coordinate volunteers, or contribute
-          funds, your participation helps remove barriers that threaten successful reentry. RCAN
-          generally engages with one or two cases each week — when communities are ready to respond,
-          that number can grow.
-        </p>
-      </article>
-
-      <figure class="overflow-hidden rounded-lg shadow-lg">
-        <Image
-          src={giveImage}
-          class="h-full min-h-80 w-full object-cover"
-          alt="Community members coming together to give and support returning citizens."
-          width={900}
-          widths={[360, 540, 720, 900]}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          format="webp"
-          quality={60}
-          loading="eager"
-        />
-      </figure>
-    </div>
+  <section class="border-b border-border-default pb-10 pt-10 md:pt-14" aria-labelledby="get-involved-heading">
+    <SectionHeader
+      id="get-involved-heading"
+      level={1}
+      heading="Bring your strengths to RCAN."
+      subheading="RCAN brings together individuals, small groups, and congregations to respond to urgent needs that can otherwise derail successful reentry. Whether support comes through direct help, coordinated volunteers, sustained friendship, or financial giving, every pathway strengthens stability and dignity for people returning home."
+    />
+    <p class="mt-6 text-base leading-7 text-text-subtle">
+      RCAN welcomes individuals, small groups, and congregations who are ready to respond to
+      practical needs with care, consistency, and dignity.
+    </p>
+    <p class="mt-4 text-base leading-7 text-text-subtle">
+      You can volunteer, join as a congregation partner, become a Prison Friend, or donate to help
+      remove barriers that threaten successful reentry.
+    </p>
   </section>
 
   <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="ways-heading">
     <h2 id="ways-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Ways to help</h2>
-    <ul class="mt-6 grid gap-6 sm:grid-cols-2" aria-label="Ways to get involved with RCAN">
-      {
-        waysToHelp.map((item) => (
-          <li class="flex gap-4">
-            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary">
-              <Icon name={item.icon} size="sm" aria-hidden="true" />
-            </span>
-            <div>
-              <p class="text-base font-semibold text-text-default">{item.title}</p>
-              <p class="mt-1 text-sm leading-6 text-text-subtle">{item.description}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
+    <p class="mt-2 text-sm leading-6 text-text-subtle">
+      These pathways are open to anyone who wants to support returning citizens, whether you are
+      participating individually or through a congregation.
+    </p>
+    <IconSupportList items={waysToHelp} ariaLabel="Ways to get involved with RCAN" />
   </section>
 
-  <section aria-labelledby="commitments-heading">
-    <h2 id="commitments-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Congregation commitments</h2>
-    <p class="mt-2 text-sm leading-6 text-text-subtle">Any congregation that joins RCAN agrees to three commitments:</p>
-    <StepList steps={congregationCommitments} />
+  <section class="py-10" aria-labelledby="commitments-heading">
+    <div class="grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
+      <figure class="overflow-hidden rounded-lg shadow-md">
+        <Image
+          src={faithImage}
+          class="h-full w-full object-cover"
+          alt="Members gathered in faith community, representing congregation partnership and coordinated support."
+          width={900}
+          widths={[360, 540, 720, 900]}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          format="webp"
+          quality={60}
+          loading="lazy"
+        />
+      </figure>
+
+      <div>
+        <h2 id="commitments-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Congregation commitments</h2>
+        <p class="mt-2 max-w-2xl text-sm leading-6 text-text-subtle">Any congregation that joins RCAN agrees to three commitments:</p>
+        <IconSupportList
+          items={congregationCommitments}
+          ordered
+          columns={1}
+          ariaLabel="Congregation commitments"
+          class="max-w-2xl"
+        />
+      </div>
+    </div>
   </section>
 
   <!-- Prison Friendship Project -->
-  <section id="prison-friendship-project" class="rounded-lg bg-surface-subtle border-t-2 border-brand-secondary px-6 py-8 md:px-8 md:py-10" aria-labelledby="pfp-heading">
-    <h2 id="pfp-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Prison Friendship Project</h2>
+  <section id="prison-friendship-project" class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="pfp-heading">
+    <h2 id="pfp-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-default">Prison Friendship Project</h2>
 
-    <!-- Intro + image -->
-    <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-start">
-      <div class="space-y-4">
+    <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-stretch">
+      <div class="space-y-3">
         <p class="text-base leading-7 text-text-subtle">
           About 4,000 people from Washington, DC are scattered in federal prisons across the
           country. Most are incarcerated hundreds of miles from their families, in conditions of
@@ -116,61 +157,62 @@ const pfpStats = [
           small group — who would like to become a "Prison Friend" will be matched with a PDS
           client serving a sentence in the Bureau of Prisons.
         </p>
+
+        <span class="mx-auto mt-2 block h-px w-24 bg-brand-secondary" aria-hidden="true"></span>
+        <h3 class="pt-2 text-sm font-semibold uppercase tracking-wide text-text-default">What Prison Friends do</h3>
+        <IconSupportList
+          items={prisonFriendsDo}
+          columns={1}
+          ariaLabel="What Prison Friends do"
+          class="!mt-2"
+        />
       </div>
 
-      <figure class="overflow-hidden rounded-lg shadow-md">
-        <Image
-          src={holdingHandsImage}
-          class="w-full object-cover"
-          alt="Hands clasped together, representing the human connection at the heart of the Prison Friendship Project."
-          width={480}
-          widths={[320, 480]}
-          sizes="(min-width: 1024px) 33vw, 100vw"
-          format="webp"
-          quality={60}
-          loading="lazy"
-        />
-      </figure>
-    </div>
-
-    <div class="mt-6">
-      <StatStrip stats={pfpStats} layout="strip" background="none" />
-    </div>
-
-    <!-- What Prison Friends do + callout side by side -->
-    <div class="mt-8 grid gap-8 border-t border-border-default pt-8 lg:grid-cols-[3fr_2fr] lg:items-start">
-      <div>
-        <h3 class="text-sm font-semibold uppercase tracking-wide text-text-subtle">What Prison Friends do</h3>
-        <ul class="mt-4 space-y-3">
-          {
-            prisonFriendsDo.map((item) => (
-              <li class="flex items-start gap-3 text-sm leading-6 text-text-subtle">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
-                <span>{item}</span>
-              </li>
-            ))
-          }
-        </ul>
-        <p class="mt-4 text-sm leading-6 text-text-subtle">
+      <aside class="flex h-full flex-col gap-4" aria-label="Prison Friendship Project highlights">
+        <figure class="overflow-hidden rounded-lg shadow-md">
+          <Image
+            src={mailboxImage}
+            class="w-full object-cover"
+            alt="A mailbox, representing the letters exchanged through the Prison Friendship Project."
+            width={480}
+            widths={[320, 480]}
+            sizes="(min-width: 1024px) 33vw, 100vw"
+            format="webp"
+            quality={60}
+            loading="lazy"
+          />
+        </figure>
+        <dl class="grid grid-cols-2 gap-3">
+          <div class="group rounded-lg bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
+            <dt class="text-xs leading-5 text-text-subtle">New pen pal matches in 2025</dt>
+            <dd class="mt-1 text-3xl font-bold text-brand-primary motion-safe:transition-colors motion-safe:duration-200 group-hover:text-brand-secondary">
+              <span class="inline-block min-w-12 tabular-nums" data-count-to="23" data-count-duration="800">23</span>
+            </dd>
+          </div>
+          <div class="group rounded-lg bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
+            <dt class="text-xs leading-5 text-text-subtle">Letters being sent now</dt>
+            <dd class="mt-1 text-3xl font-bold text-brand-primary motion-safe:transition-colors motion-safe:duration-200 group-hover:text-brand-secondary">
+              <span class="inline-block min-w-12 tabular-nums" data-count-to="40" data-count-duration="800">40</span>
+            </dd>
+          </div>
+        </dl>
+        <p class="text-sm leading-6 text-text-subtle italic">
           RCAN supports Prison Friends with background on the client, access to lawyers and social
           workers, guidelines for writing letters and sending items, and ideas for correspondence.
         </p>
-      </div>
-
-      <div class="flex flex-col gap-6">
-        <div class="border-l-2 border-brand-secondary pl-5">
-          <p class="flex items-start gap-3 text-sm leading-6 text-text-subtle">
-            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
-            <span>A single committed person can be just as meaningful as a group.</span>
-          </p>
-        </div>
-        <p class="text-sm leading-6 text-text-subtle">
-          RCAN provides support materials, client background, and correspondence guidance.
-        </p>
-        <div class="flex justify-end">
-          <Button href="/contact" variant="primary" size="md">Become a Prison Friend</Button>
-        </div>
-      </div>
+      </aside>
     </div>
   </section>
+
+  <CTABlock
+    heading="Ready to help in a way that fits you?"
+    body="If you want to volunteer, partner through your congregation, become a Prison Friend, or support urgent needs financially, RCAN can help you take the next step. You can donate now or contact us to get involved."
+    primaryLabel="Donate"
+    primaryHref="/donate"
+    secondaryLabel="Contact"
+    secondaryHref="/contact"
+    variant="outline"
+  />
+
+  <CountUpScript />
 </BaseLayout>

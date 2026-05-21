@@ -2,37 +2,6 @@
 
 > **Note:** Ignore anything about the header/hero area — use the current implementation to stay consistent. Do not add or reinstate any dark (`bg-surface-invert`) CTA block at the bottom of pages; that pattern has been removed. If any remaining task references a dark closing box or `background="invert"` on CTABlock, skip it.
 
-## Copy/Paste Agent Prompt (Step 8 of 8)
-
-Recommended model: GPT-5.3-Codex
-
-Use this prompt with your coding agent:
-
-```text
-Run only this audit PRD: docs/PRD-11-final-audit.md.
-
-Review the copilot-instructions.md and content.md, rules.md in docs/guide
-
-Scope:
-- Entire repository (full audit, no partial pass)
-- Read/analyze only unless explicitly asked to fix findings
-
-Execution rules:
-1) Follow docs/PRD-11-final-audit.md exactly, including required commands and output format.
-2) Run baseline commands and continue auditing even if one fails.
-3) Provide severity-tagged findings with file/line evidence where possible.
-4) Provide a clear release decision (ready, ready with exceptions, or not ready).
-5) Do not implement fixes in this run unless explicitly requested.
-
-Output format:
-- Executive summary
-- Findings by severity
-- Coverage map
-- Test gap summary
-- Release decision
-- Other concerns
-```
-
 ## Purpose
 
 Run one comprehensive, repo-wide pre-production audit after all page PRDs are implemented and before deployment. This audit is a release gate.

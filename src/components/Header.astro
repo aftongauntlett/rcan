@@ -1,6 +1,7 @@
 ---
 import Link from "./Link.astro";
 import Button from "./Button.astro";
+import Icon from "./Icon.astro";
 import logo from "../assets/rcan_logo_final.svg?url";
 
 // New shared site-chrome component for BaseLayout; no reusable header existed in src/components.
@@ -29,7 +30,18 @@ const isDonateActive = currentPath === "/donate";
       />
     </Link>
 
-    <nav aria-label="Primary" class="flex flex-1 items-center justify-end">
+    <nav aria-label="Primary" class="flex flex-1 items-center justify-end gap-2">
+      <button
+        type="button"
+        data-mobile-nav-open
+        aria-controls="mobile-nav-dialog"
+        aria-haspopup="dialog"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border-default bg-surface-default text-text-subtle hover:border-border-strong hover:text-text-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 md:hidden"
+      >
+        <span class="sr-only">Open navigation menu</span>
+        <Icon name="menu" aria-hidden="true" />
+      </button>
+
       <ul class="hidden flex-wrap items-center justify-end gap-1 text-sm md:flex">
         {
           navItems.map((item) => {
@@ -54,7 +66,7 @@ const isDonateActive = currentPath === "/donate";
         }
       </ul>
 
-      <div class="ml-3">
+      <div class="ml-1 md:ml-3">
         <Button
           href="/donate"
           size="sm"
@@ -67,4 +79,125 @@ const isDonateActive = currentPath === "/donate";
       </div>
     </nav>
   </div>
+
+  <dialog
+    id="mobile-nav-dialog"
+    data-mobile-nav-dialog
+    aria-label="Mobile navigation"
+    class="fixed inset-y-0 right-0 m-0 h-full w-full max-w-sm border-0 bg-transparent p-0 text-text-default backdrop:bg-surface-invert/70 md:hidden"
+  >
+    <div class="ml-auto flex h-full w-full max-w-sm flex-col border-l border-border-default bg-surface-default shadow-lg">
+      <div class="flex items-center justify-between border-b border-border-default px-4 py-3">
+        <p class="text-sm font-semibold uppercase tracking-wide text-text-subtle">Menu</p>
+        <button
+          type="button"
+          data-mobile-nav-close
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border-default bg-surface-default text-text-subtle hover:border-border-strong hover:text-text-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+        >
+          <span class="sr-only">Close navigation menu</span>
+          <Icon name="x" aria-hidden="true" />
+        </button>
+      </div>
+
+      <nav aria-label="Mobile Primary" class="flex-1 overflow-y-auto px-4 py-4">
+        <ul class="space-y-1">
+          {
+            navItems.map((item) => {
+              const isActive = currentPath === normalizePath(item.href);
+              return (
+                <li>
+                  <Link
+                    href={item.href}
+                    variant="subtle"
+                    aria-current={isActive ? "page" : undefined}
+                    class={`w-full rounded-md px-3 py-2 text-base ${
+                      isActive
+                        ? "bg-surface-subtle text-text-default"
+                        : "text-text-subtle hover:bg-neutral-200 hover:text-text-default"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })
+          }
+        </ul>
+
+        <div class="mt-5 border-t border-border-default pt-5">
+          <Button href="/donate" variant="primary" size="md" class="w-full justify-center">Donate</Button>
+        </div>
+      </nav>
+    </div>
+  </dialog>
 </header>
+
+<script>
+  const initMobileNavDialog = () => {
+    const openButton = document.querySelector("[data-mobile-nav-open]");
+    const dialog = document.querySelector("[data-mobile-nav-dialog]");
+
+    if (!(openButton instanceof HTMLButtonElement) || !(dialog instanceof HTMLDialogElement)) {
+      return;
+    }
+
+    if (openButton.dataset.mobileNavBound === "true") {
+      return;
+    }
+
+    const closeButton = dialog.querySelector("[data-mobile-nav-close]");
+    const dialogContent = dialog.firstElementChild;
+    let returnFocusEl: HTMLElement | null = null;
+
+    const closeDialog = () => {
+      if (dialog.open) {
+        dialog.close();
+      }
+    };
+
+    openButton.addEventListener("click", () => {
+      returnFocusEl = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      dialog.showModal();
+
+      const firstInteractive = dialog.querySelector("a[href], button:not([disabled])");
+      if (firstInteractive instanceof HTMLElement) {
+        firstInteractive.focus();
+      }
+    });
+
+    if (closeButton instanceof HTMLButtonElement) {
+      closeButton.addEventListener("click", closeDialog);
+    }
+
+    dialog.addEventListener("click", (event) => {
+      if (!(dialogContent instanceof HTMLElement)) {
+        return;
+      }
+
+      if (!(event.target instanceof Node)) {
+        return;
+      }
+
+      if (!dialogContent.contains(event.target)) {
+        closeDialog();
+      }
+    });
+
+    dialog.querySelectorAll("a[href]").forEach((link) => {
+      if (link instanceof HTMLAnchorElement) {
+        link.addEventListener("click", closeDialog);
+      }
+    });
+
+    dialog.addEventListener("close", () => {
+      if (returnFocusEl instanceof HTMLElement) {
+        returnFocusEl.focus();
+      }
+    });
+
+    openButton.dataset.mobileNavBound = "true";
+  };
+
+  initMobileNavDialog();
+  document.addEventListener("astro:page-load", initMobileNavDialog);
+</script>

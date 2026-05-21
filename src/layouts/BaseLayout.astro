@@ -16,9 +16,12 @@ interface Props {
 
 const { title, description, ogImage = defaultOgImage.src } = Astro.props as Props;
 
+const resolvedSite = Astro.site ?? new URL("https://rcan.example");
+const canonicalUrl = new URL(Astro.url.pathname, resolvedSite).toString();
+
 const resolvedOgImage = ogImage.startsWith("http")
   ? ogImage
-  : new URL(ogImage, Astro.url).toString();
+  : new URL(ogImage, resolvedSite).toString();
 ---
 
 <!doctype html>
@@ -27,11 +30,12 @@ const resolvedOgImage = ogImage.startsWith("http")
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={Astro.url.toString()} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={resolvedOgImage} />
 
     <meta name="twitter:card" content="summary_large_image" />

@@ -3,13 +3,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Button from "../components/Button.astro";
+import CTABlock from "../components/CTABlock.astro";
 import CustomDropdown from "../components/CustomDropdown.astro";
-import contactImage from "../assets/gardening-community.jpg";
+import Icon from "../components/Icon.astro";
+import postImage from "../assets/post.jpg";
 
 const pageTitle = "Contact RCAN | Returning Citizens Assistance Network";
 const pageDescription =
   "Get in touch with RCAN for questions, referrals, partnerships, and community collaboration opportunities.";
 const topicOptions = [
+  { value: "", label: "Select a topic" },
   { value: "Become a Prison Friend", label: "Become a Prison Friend" },
   { value: "Congregation partnership", label: "Congregation partnership" },
   { value: "Volunteer interest", label: "Volunteer interest" },
@@ -19,205 +22,455 @@ const topicOptions = [
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const isLocalDev = import.meta.env.DEV;
 const turnstileEnabled = !isLocalDev && Boolean(turnstileSiteKey);
+const localTurnstilePreviewSiteKey = "1x00000000000000000000AA";
+const showTurnstileWidget = turnstileEnabled || isLocalDev;
+const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnstilePreviewSiteKey;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="py-10 md:py-14" aria-label="Contact overview">
-    <div class="grid gap-8 lg:grid-cols-2 lg:items-start">
-      <article class="flex flex-col gap-8">
-        <SectionHeader
-          level={1}
-          heading="Connect with RCAN for partnership and support"
-          subheading="Reach out to coordinate congregation participation, ask questions, or explore ways to support returning citizens."
-        />
-        <div class="space-y-5">
-          <p class="text-base leading-7 text-text-subtle">
-            RCAN responds through trusted referral and congregation channels, and welcomes collaboration
-            from communities committed to practical, dignity-centered reentry support.
-          </p>
-          <p class="text-base leading-7 text-text-subtle">
-            Congregations are welcome to connect with RCAN to coordinate volunteer response and resource
-            support. General questions and partnership interest are also welcome as the network continues
-            to grow.
-          </p>
+  <section class="border-b border-border-default pb-10 pt-6 md:pt-8" aria-label="Contact overview">
+    <SectionHeader
+      level={1}
+      heading="Connect with RCAN for partnership and support"
+      subheading="Reach out to coordinate congregation participation, ask questions, or explore ways to support returning citizens."
+    />
+    <p class="mt-6 text-base leading-7 text-text-subtle">
+      RCAN collaborates with referral partners and congregations and welcomes partnership from
+      communities committed to practical, dignity-centered reentry support.
+    </p>
+  </section>
+
+  <section class="pb-10" aria-labelledby="contact-methods-heading">
+    <div class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
+      <h2 id="contact-methods-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Get in touch</h2>
+      <p class="mt-4 text-base leading-7 text-text-subtle">
+        We read every message that comes in and do our best to reply as quickly as possible, usually by email.
+        Whether you have a question, a partnership idea, or are not sure where to start, please reach out and we
+        will be in touch.
+      </p>
+
+      <div class="mt-8 grid gap-6 md:mt-10 md:grid-cols-[3fr_2fr] md:items-stretch">
+        <article class="order-2 h-full md:order-1">
+          <div class="h-full rounded-lg border border-border-default bg-surface-default px-6 py-6 md:px-7 md:py-6">
+            <div data-fs-success role="status" aria-live="polite" class="text-sm font-semibold text-status-success"></div>
+            <div data-fs-error role="alert" aria-live="assertive" class="text-sm font-semibold text-status-error"></div>
+
+            <form id="contact-form" action="https://formspree.io/f/mdajaprb" method="POST" class="space-y-5 pt-1">
+              <input type="hidden" name="_subject" value="RCAN website contact request" />
+              <input type="hidden" name="source" value="contact-page" />
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+              <div class="grid gap-5 md:grid-cols-2">
+                <div class="space-y-2">
+                  <label for="first-name" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">First name</label>
+                  <input
+                    id="first-name"
+                    name="firstName"
+                    type="text"
+                    autocomplete="given-name"
+                    data-fs-field
+                    class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  />
+                  <span data-fs-error="firstName" class="block text-sm text-status-error"></span>
+                </div>
+
+                <div class="space-y-2">
+                  <label for="last-name" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Last name</label>
+                  <input
+                    id="last-name"
+                    name="lastName"
+                    type="text"
+                    autocomplete="family-name"
+                    data-fs-field
+                    class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  />
+                  <span data-fs-error="lastName" class="block text-sm text-status-error"></span>
+                </div>
+
+                <div class="space-y-2">
+                  <label for="phone" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Phone number</label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    autocomplete="tel"
+                    data-fs-field
+                    class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  />
+                  <span data-fs-error="phone" class="block text-sm text-status-error"></span>
+                </div>
+
+                <div class="space-y-2">
+                  <label for="email" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Email address</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                    data-fs-field
+                    class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  />
+                  <span data-fs-error="email" class="block text-sm text-status-error"></span>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label id="topic-label" for="topic-trigger" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">What are you reaching out about?</label>
+                <CustomDropdown
+                  id="topic"
+                  name="topic"
+                  labelledBy="topic-label"
+                  options={topicOptions}
+                  required
+                  class="w-full"
+                />
+                <span data-fs-error="topic" class="block text-sm text-status-error"></span>
+              </div>
+
+              <div id="congregation-field-wrap" class="hidden space-y-2" data-congregation-field>
+                <label for="congregation" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Congregation name</label>
+                <input
+                  id="congregation"
+                  name="congregation"
+                  type="text"
+                  autocomplete="organization"
+                  data-fs-field
+                  class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                />
+                <span data-fs-error="congregation" class="block text-sm text-status-error"></span>
+              </div>
+
+              <div class="mt-2 space-y-2">
+                <label for="message" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  required
+                  data-fs-field
+                  class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                ></textarea>
+                <span data-fs-error="message" class="block text-sm text-status-error"></span>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                {
+                  showTurnstileWidget ? (
+                    <div class="cf-turnstile" data-sitekey={activeTurnstileSiteKey}></div>
+                  ) : (
+                    <div class="rounded-md border border-border-default bg-surface-subtle px-4 py-3 text-sm text-status-warning">
+                      CAPTCHA is not configured yet. Add PUBLIC_TURNSTILE_SITE_KEY to enable submissions.
+                    </div>
+                  )
+                }
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="md"
+                  data-fs-submit-btn
+                  disabled={!turnstileEnabled}
+                >
+                  Send message
+                </Button>
+              </div>
+              <span data-fs-error="cf-turnstile-response" class="text-sm text-status-error"></span>
+            </form>
+          </div>
+        </article>
+
+        <aside class="order-1 h-full md:order-2">
+          <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default">
+            <Image
+              src={postImage}
+              class="h-auto w-full object-cover"
+              alt="A post-mounted mailbox representing direct communication and follow-up with RCAN."
+              width={900}
+              widths={[360, 540, 720, 900]}
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              format="webp"
+              quality={60}
+              loading="lazy"
+            />
+          </figure>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-10" aria-labelledby="direct-contact-heading">
+    <h2 id="direct-contact-heading" class="sr-only">Direct contact details</h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <article class="group flex h-full flex-col rounded-lg border border-border-default bg-surface-default px-5 py-6 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md" aria-labelledby="find-us-heading">
+        <h3 id="find-us-heading" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Find Us</h3>
+        <div class="mt-4 flex flex-1 items-center justify-center rounded-md border border-border-default bg-surface-subtle px-4 py-6 text-sm leading-6 text-text-subtle">
+          <div class="flex max-w-sm flex-col items-center gap-3 text-center">
+            <Icon name="map-pin" class="h-6 w-6 text-brand-secondary" aria-hidden="true" />
+            <p>Map preview can be added once the address is finalized and API setup is complete.</p>
+          </div>
         </div>
       </article>
 
-      <figure class="overflow-hidden rounded-lg shadow-lg">
-        <Image
-          src={contactImage}
-          class="h-full w-full object-cover"
-          alt="Neighbors gardening together, showing practical collaboration and shared care within the community."
-          width={800}
-          widths={[320, 480, 568, 640, 720, 800]}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          format="webp"
-          quality={55}
-          loading="eager"
-          priority
-        />
-      </figure>
+      <article class="group rounded-lg border border-border-default bg-surface-default px-5 py-6 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md" aria-labelledby="email-phone-heading">
+        <h3 id="email-phone-heading" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Reach Out</h3>
+        <div class="mt-3 space-y-3">
+          <div data-copy-row class="group/row flex items-center justify-between gap-3 rounded-md border border-border-default bg-surface-default px-3 py-3 motion-safe:transition-colors motion-safe:duration-200 hover:border-brand-secondary hover:bg-surface-subtle">
+            <div class="flex min-w-0 items-center gap-3 text-text-subtle">
+              <Icon name="mail" class="h-4 w-4 text-brand-secondary motion-safe:transition-colors motion-safe:duration-200 group-hover/row:text-brand-primary" aria-hidden="true" />
+              <p data-copy-text class="truncate text-sm font-medium">dcrcan2018@gmail.com</p>
+            </div>
+            <button
+              type="button"
+              data-copy-button
+              data-copy-value="dcrcan2018@gmail.com"
+              data-copy-feedback-id="email-copy-feedback"
+              aria-label="Copy email address"
+              class="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+            >
+              <span data-copy-icon class="inline-flex">
+                <Icon name="copy" class="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span data-copied-icon class="inline-flex" style="display:none">
+                <Icon name="check" class="h-4 w-4" aria-hidden="true" />
+              </span>
+            </button>
+          </div>
+
+          <div data-copy-row class="group/row flex items-center justify-between gap-3 rounded-md border border-border-default bg-surface-default px-3 py-3 motion-safe:transition-colors motion-safe:duration-200 hover:border-brand-secondary hover:bg-surface-subtle">
+            <div class="flex min-w-0 items-center gap-3 text-text-subtle">
+              <Icon name="phone" class="h-4 w-4 text-brand-secondary motion-safe:transition-colors motion-safe:duration-200 group-hover/row:text-brand-primary" aria-hidden="true" />
+              <p data-copy-text class="truncate text-sm font-medium">555-555-5555</p>
+            </div>
+            <button
+              type="button"
+              data-copy-button
+              data-copy-value="555-555-5555"
+              data-copy-feedback-id="phone-copy-feedback"
+              aria-label="Copy phone number"
+              class="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+            >
+              <span data-copy-icon class="inline-flex">
+                <Icon name="copy" class="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span data-copied-icon class="inline-flex" style="display:none">
+                <Icon name="check" class="h-4 w-4" aria-hidden="true" />
+              </span>
+            </button>
+          </div>
+
+          <div data-copy-row class="group/row flex items-center justify-between gap-3 rounded-md border border-border-default bg-surface-default px-3 py-3 motion-safe:transition-colors motion-safe:duration-200 hover:border-brand-secondary hover:bg-surface-subtle">
+            <div class="flex min-w-0 items-center gap-3 text-text-subtle">
+              <Icon name="map-pin" class="h-4 w-4 text-brand-secondary motion-safe:transition-colors motion-safe:duration-200 group-hover/row:text-brand-primary" aria-hidden="true" />
+              <p data-copy-text class="text-sm font-medium leading-6">
+                New York Avenue Presbyterian Church<br />
+                1313 New York Avenue NW
+              </p>
+            </div>
+            <button
+              type="button"
+              data-copy-button
+              data-copy-value="New York Avenue Presbyterian Church, 1313 New York Avenue NW, Washington, DC 20005"
+              data-copy-feedback-id="address-copy-feedback"
+              aria-label="Copy mailing address"
+              class="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+            >
+              <span data-copy-icon class="inline-flex">
+                <Icon name="copy" class="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span data-copied-icon class="inline-flex" style="display:none">
+                <Icon name="check" class="h-4 w-4" aria-hidden="true" />
+              </span>
+            </button>
+          </div>
+        </div>
+        <p id="email-copy-feedback" class="sr-only" aria-live="polite"></p>
+        <p id="phone-copy-feedback" class="sr-only" aria-live="polite"></p>
+        <p id="address-copy-feedback" class="sr-only" aria-live="polite"></p>
+      </article>
     </div>
   </section>
 
-  <section class="py-10" aria-labelledby="contact-methods-heading">
-    <h2 id="contact-methods-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Get in touch</h2>
-    <div class="mt-6 grid gap-4 sm:grid-cols-2">
-      <div class="rounded-lg border border-border-default bg-surface-subtle p-5">
-        <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Mailing address</p>
-        <address class="mt-3 not-italic text-base leading-7 text-text-subtle">
-          New York Avenue Presbyterian Church<br />
-          1313 New York Avenue NW<br />
-          Washington, DC 20005
-        </address>
-      </div>
-      <div class="rounded-lg border border-border-default bg-surface-subtle p-5">
-        <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Email</p>
-        <p class="mt-3 text-base leading-7 text-text-subtle">
-          <a
-            href="mailto:dcrcan2018@gmail.com"
-            class="text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-          >
-            dcrcan2018@gmail.com
-          </a>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="rounded-lg border border-border-default bg-surface-default px-6 py-8 md:px-8 md:py-10" aria-labelledby="contact-form-heading">
-    <h2 id="contact-form-heading" class="section-title text-xl font-semibold text-text-default">Send a message to RCAN</h2>
-    <p class="mt-3 max-w-3xl text-base leading-7 text-text-subtle">
-      Use this form for congregation partnership requests, volunteer interest, or general questions.
-      RCAN reviews each message and follows up through trusted referral and congregation channels.
-    </p>
-
-    <div data-fs-success role="status" aria-live="polite" class="text-sm font-semibold text-status-success"></div>
-    <div data-fs-error role="alert" aria-live="assertive" class="mt-2 text-sm font-semibold text-status-error"></div>
-
-    <form id="contact-form" action="https://formspree.io/f/mdajaprb" method="POST" class="mt-6 space-y-5">
-      <input type="hidden" name="_subject" value="RCAN website contact request" />
-      <input type="hidden" name="source" value="contact-page" />
-      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-
-      <div class="grid gap-5 md:grid-cols-2">
-        <div class="space-y-2">
-          <label for="name" class="text-sm font-semibold text-text-default">Full name</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            autocomplete="name"
-            required
-            data-fs-field
-            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-          />
-          <span data-fs-error="name" class="block text-sm text-status-error"></span>
-        </div>
-
-        <div class="space-y-2">
-          <label for="email" class="text-sm font-semibold text-text-default">Email address</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            required
-            data-fs-field
-            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-          />
-          <span data-fs-error="email" class="block text-sm text-status-error"></span>
-        </div>
-
-        <div class="space-y-2">
-          <label for="organization" class="text-sm font-semibold text-text-default">Congregation or organization (optional)</label>
-          <input
-            id="organization"
-            name="organization"
-            type="text"
-            autocomplete="organization"
-            data-fs-field
-            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-          />
-          <span data-fs-error="organization" class="block text-sm text-status-error"></span>
-        </div>
-
-        <div class="space-y-2">
-          <label for="phone" class="text-sm font-semibold text-text-default">Phone number (optional)</label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            autocomplete="tel"
-            data-fs-field
-            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-          />
-          <span data-fs-error="phone" class="block text-sm text-status-error"></span>
-        </div>
-      </div>
-
-      <div class="space-y-2">
-        <label id="topic-label" for="topic-trigger" class="text-sm font-semibold text-text-default">What are you reaching out about?</label>
-        <CustomDropdown
-          id="topic"
-          name="topic"
-          labelledBy="topic-label"
-          options={topicOptions}
-          defaultValue="General question"
-          required
-          class="w-full"
-        />
-        <span data-fs-error="topic" class="block text-sm text-status-error"></span>
-      </div>
-
-      <div class="space-y-2">
-        <label for="message" class="text-sm font-semibold text-text-default">Message</label>
-        <textarea
-          id="message"
-          name="message"
-          rows={5}
-          required
-          data-fs-field
-          class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-        ></textarea>
-        <span data-fs-error="message" class="block text-sm text-status-error"></span>
-      </div>
-
-      <div class="flex flex-wrap items-start justify-between gap-3">
-        {
-          turnstileEnabled ? (
-            <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
-          ) : isLocalDev ? (
-            <div class="rounded-md border border-border-default bg-surface-subtle px-4 py-3 text-sm text-text-subtle">
-              CAPTCHA preview is shown in local dev and activated on deployed environments.
-            </div>
-          ) : (
-            <div class="rounded-md border border-border-default bg-surface-subtle px-4 py-3 text-sm text-status-warning">
-              CAPTCHA is not configured yet. Add PUBLIC_TURNSTILE_SITE_KEY to enable submissions.
-            </div>
-          )
-        }
-
-        <Button
-          type="submit"
-          variant="primary"
-          size="md"
-          data-fs-submit-btn
-          disabled={!turnstileEnabled}
-        >
-          Send message
-        </Button>
-      </div>
-      <span data-fs-error="cf-turnstile-response" class="block text-sm text-status-error"></span>
-    </form>
-  </section>
-
-  <script type="module">
+  <script>
     import { initForm } from "@formspree/ajax";
 
-    initForm({ formElement: "#contact-form", formId: "mdajaprb" });
+    const initContactForm = () => {
+      const form = document.querySelector("#contact-form");
+      if (!(form instanceof HTMLFormElement)) {
+        return;
+      }
+
+      if (form.dataset.formspreeBound === "true") {
+        return;
+      }
+
+      try {
+        initForm({ formElement: "#contact-form", formId: "mdajaprb" });
+        form.dataset.formspreeBound = "true";
+      } catch (error) {
+        console.error("Formspree init failed", error);
+      }
+    };
 
     const topicFromQuery = new URLSearchParams(window.location.search).get("topic");
+    const topicInput = document.querySelector("[data-dropdown-input][name='topic']");
+    const congregationFieldWrap = document.querySelector("[data-congregation-field]");
+    const congregationInput = document.querySelector("#congregation");
+
+    const syncCongregationField = () => {
+      if (!(topicInput instanceof HTMLInputElement)) {
+        return;
+      }
+
+      const congregationSelected = topicInput.value === "Congregation partnership";
+
+      if (congregationFieldWrap instanceof HTMLElement) {
+        congregationFieldWrap.classList.toggle("hidden", !congregationSelected);
+      }
+
+      if (congregationInput instanceof HTMLInputElement) {
+        congregationInput.required = congregationSelected;
+
+        if (!congregationSelected) {
+          congregationInput.value = "";
+          congregationInput.dispatchEvent(new Event("input", { bubbles: true }));
+          congregationInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      }
+    };
+
+    const bindTopicListeners = () => {
+      if (!(topicInput instanceof HTMLInputElement)) {
+        return;
+      }
+
+      if (topicInput.dataset.contactTopicBound === "true") {
+        return;
+      }
+
+      topicInput.addEventListener("change", syncCongregationField);
+      topicInput.addEventListener("input", syncCongregationField);
+      topicInput.dataset.contactTopicBound = "true";
+    };
+
+    const copyButtons = Array.from(document.querySelectorAll("[data-copy-button]"));
+
+    const setCopyFeedback = (feedbackId: string, message: string) => {
+      const feedback = document.getElementById(feedbackId);
+      if (!(feedback instanceof HTMLElement)) {
+        return;
+      }
+
+      feedback.textContent = message;
+
+      window.setTimeout(() => {
+        if (feedback.textContent === message) {
+          feedback.textContent = "";
+        }
+      }, 2000);
+    };
+
+    const fallbackCopyText = (value: string): boolean => {
+      const textarea = document.createElement("textarea");
+      textarea.value = value;
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length);
+
+      let copied = false;
+      try {
+        copied = document.execCommand("copy");
+      } catch {
+        copied = false;
+      }
+
+      document.body.removeChild(textarea);
+      return copied;
+    };
+
+    const copyResetTimers = new WeakMap();
+
+    const setCopyIconState = (button: HTMLButtonElement, copied: boolean) => {
+      const copyIcon = button.querySelector("[data-copy-icon]");
+      const copiedIcon = button.querySelector("[data-copied-icon]");
+
+      if (!(copyIcon instanceof HTMLElement) || !(copiedIcon instanceof HTMLElement)) {
+        return;
+      }
+
+      copyIcon.style.display = copied ? "none" : "inline-block";
+      copiedIcon.style.display = copied ? "inline-block" : "none";
+    };
+
+    const bindCopyButtons = () => {
+      copyButtons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      if (button.dataset.copyBound === "true") {
+        return;
+      }
+
+      button.dataset.copyBound = "true";
+
+      setCopyIconState(button, false);
+
+      button.addEventListener("click", async () => {
+        const row = button.closest("[data-copy-row]");
+        const copyTextElement = row?.querySelector("[data-copy-text]");
+        const valueFromRow = copyTextElement instanceof HTMLElement ? copyTextElement.innerText.trim() : "";
+        const value = valueFromRow || button.dataset.copyValue || "";
+        const feedbackId = button.dataset.copyFeedbackId ?? "";
+        if (!value || !feedbackId) {
+          return;
+        }
+
+        let copied = false;
+
+        if (navigator.clipboard?.writeText) {
+          try {
+            await navigator.clipboard.writeText(value);
+            copied = true;
+          } catch {
+            copied = fallbackCopyText(value);
+          }
+        } else {
+          copied = fallbackCopyText(value);
+        }
+
+        const existingReset = copyResetTimers.get(button);
+        if (existingReset) {
+          window.clearTimeout(existingReset);
+        }
+
+        setCopyIconState(button, copied);
+        if (copied) {
+          const resetHandle = window.setTimeout(() => {
+            setCopyIconState(button, false);
+            copyResetTimers.delete(button);
+          }, 1500);
+          copyResetTimers.set(button, resetHandle);
+        }
+
+        setCopyFeedback(feedbackId, copied ? "Copied" : "Unable to copy");
+      });
+    });
+    };
+
+    const initContactInteractions = () => {
+      initContactForm();
+      bindTopicListeners();
+      bindCopyButtons();
+      syncCongregationField();
+    };
+
+    initContactInteractions();
+    document.addEventListener("astro:page-load", initContactInteractions);
 
     if (topicFromQuery) {
       const dropdownRoot = document.querySelector("[data-custom-dropdown]");
@@ -266,18 +519,18 @@ const turnstileEnabled = !isLocalDev && Boolean(turnstileSiteKey);
         }
       }
     }
-  </script>
-  {turnstileEnabled && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
 
-  <section class="mt-6 rounded-lg bg-surface-subtle px-6 py-8 text-center md:px-8 md:py-10" aria-labelledby="contact-cta-heading">
-    <h2 id="contact-cta-heading" class="text-xl font-semibold text-text-default">Take the next step</h2>
-    <p class="mx-auto mt-3 max-w-3xl text-base leading-7 text-text-subtle">
-      If you are ready to support this work right away, financial giving remains one of the fastest
-      ways to strengthen RCAN's response capacity.
-    </p>
-    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-      <Button href="/donate" variant="primary" size="md">Donate</Button>
-      <Button href="/get-involved" variant="secondary" size="md">Get involved</Button>
-    </div>
+  </script>
+  {showTurnstileWidget && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+  <section class="mt-6" aria-label="Next steps">
+    <CTABlock
+      heading="Take the next step"
+      body="If you are ready to support this work right away, financial giving remains one of the fastest ways to strengthen RCAN's response capacity."
+      primaryLabel="Donate"
+      primaryHref="/donate"
+      secondaryLabel="Get involved"
+      secondaryHref="/get-involved"
+    />
   </section>
 </BaseLayout>

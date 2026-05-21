@@ -26,6 +26,12 @@ html {
   @apply absolute bottom-0 left-0 h-0.5 w-16 bg-brand-secondary;
 }
 
+@media (width >= 48rem) and (width < 64rem) {
+  main figure img.object-cover:not(.absolute) {
+    @apply max-h-96;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

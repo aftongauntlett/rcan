@@ -2,39 +2,7 @@
 
 > **Alignment override:** Read `docs/PRD-12-remaining-pages-alignment.md` before implementation. If this PRD conflicts with PRD-12, PRD-12 wins.
 
-## Copy/Paste Agent Prompt (Step 6 of 8)
-
-Recommended model: GPT-5.3-Codex
-
-Use this prompt with your coding agent:
-
-```text
-Implement only this PRD: docs/PRD-09-contact.md.
-
-Review the copilot-instructions.md and content.md, rules.md in docs/guide
-Read docs/PRD-12-remaining-pages-alignment.md before making changes.
-
-Target page and likely touchpoints:
-- src/pages/contact.astro
-- src/components/CustomDropdown.astro (only if required by this PRD)
-- src/components/CTABlock.astro (only if required by this PRD)
-
-Execution rules:
-1) Read docs/PRD-12-remaining-pages-alignment.md, then docs/PRD-09-contact.md fully before editing.
-2) Resolve contradictions using this order: copilot-instructions.md -> PRD-12 -> this PRD.
-3) Do not implement other PRDs in this run.
-4) Preserve design tokens, accessibility, and motion constraints already used in this repo.
-5) Run validation commands after implementation:
-  - npm run check
-  - npm run lint
-
-Output format:
-- Summary of completed PRD items
-- Files changed
-- Any deviations or blockers
-```
-
-## Status
+## Status - Complete
 
 The Contact page is functional and already includes meaningful form validation, referral-oriented messaging, and anti-spam protection. The remaining work is primarily design and conversion polish: improve first-screen clarity, reduce visual heaviness in the form section, and standardize the page close with the shared CTA pattern.
 

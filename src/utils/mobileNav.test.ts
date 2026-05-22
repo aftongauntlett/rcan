@@ -99,4 +99,19 @@ describe("initMobileNavDialog", () => {
 
     expect(dialog.open).toBe(false);
   });
+
+  it("closes when dialog backdrop is clicked", () => {
+    const openButton = document.querySelector("[data-mobile-nav-open]");
+    const dialog = document.querySelector("[data-mobile-nav-dialog]");
+
+    if (!(openButton instanceof HTMLButtonElement) || !(dialog instanceof HTMLDialogElement)) {
+      throw new Error("Fixture setup failed");
+    }
+
+    initMobileNavDialog(document);
+    openButton.click();
+    dialog.click();
+
+    expect(dialog.open).toBe(false);
+  });
 });

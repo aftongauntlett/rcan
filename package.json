@@ -11,11 +11,17 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "npm run build && playwright test",
+    "test:a11y": "npm run build && playwright test tests/e2e/accessibility.spec.ts",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
     "prebuild": "astro check",
     "build": "astro build",
     "preview": "astro preview",
+    "lighthouse:mobile": "lhci autorun --config=.lighthouserc.mobile.json",
+    "lighthouse:desktop": "lhci autorun --config=.lighthouserc.desktop.json",
+    "lighthouse:ci": "npm run build && npm run lighthouse:mobile && npm run lighthouse:desktop",
+    "audit:deps": "npm audit --json | node scripts/audit-high-only.mjs",
     "astro": "astro"
   },
   "dependencies": {
@@ -31,7 +37,10 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
     "@eslint/js": "^9.39.1",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.19",
     "@typescript-eslint/eslint-plugin": "^8.59.4",
     "@typescript-eslint/parser": "^8.59.4",

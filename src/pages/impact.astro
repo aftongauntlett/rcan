@@ -129,7 +129,7 @@ const impactStats = [
             </a>
           </h3>
           <p class="mt-3 text-base leading-7 text-text-subtle">
-            Hosted at Studio Gallery in January 2025 and curated by Anokhi Shah and LaVander Williams, Beauty Behind Bars featured visual art and poetry by PDS clients, including Fernard Strowbridge, Arlis Hicks-Bey, Curtis Dickson, David Watkins, Harry Ellis, Keith Starr, and others.
+            Hosted at Studio Gallery in January 2025 and curated by Anokhi Shah and LaVander Williams, Beauty Behind Bars featured art and poetry by PDS clients, including Fernard Strowbridge, Arlis Hicks-Bey, Curtis Dickson, David Watkins, Harry Ellis, Keith Starr, and others.
           </p>
           <p class="mt-3 text-base leading-7 text-text-subtle">
             The exhibit invited audiences to see resilience and humanity beyond incarceration. RCAN churches later hosted the collection locally, and PDS attorneys used this context in advocacy tied to release efforts under the Incarceration Reduction Amendment Act.
@@ -147,7 +147,7 @@ const impactStats = [
         </div>
 
         <div class="flex h-full flex-col" data-carousel aria-label="Beauty Behind Bars images">
-          <div id="beauty-carousel-track" class="group relative h-80 overflow-hidden rounded-lg shadow-sm md:h-96">
+          <div id="beauty-carousel-track" class="group relative h-80 overflow-hidden rounded-lg shadow-sm md:h-96 lg:h-full">
             <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
               <Image
                 src={beautyBehindBarsImage}
@@ -174,14 +174,14 @@ const impactStats = [
                 loading="lazy"
               />
             </figure>
-            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/80 px-3 py-2 motion-safe:transition-opacity motion-safe:duration-500 motion-safe:ease-out md:pointer-events-none md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:opacity-100">
+            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/80 px-3 py-2 motion-safe:transition-opacity motion-safe:duration-500 motion-safe:ease-out">
               <div class="flex items-center justify-between gap-3">
                 <button
                   type="button"
                   data-carousel-prev
                   aria-label="Previous Beauty Behind Bars image"
                   aria-controls="beauty-carousel-track"
-                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent cursor-pointer text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +204,7 @@ const impactStats = [
                   data-carousel-next
                   aria-label="Next Beauty Behind Bars image"
                   aria-controls="beauty-carousel-track"
-                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent cursor-pointer text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -231,7 +231,7 @@ const impactStats = [
     <section class="py-10" aria-labelledby="bike-ministry-heading">
       <div class="grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
         <div class="flex h-full flex-col" data-carousel aria-label="Bike Ministry images">
-          <div id="bike-carousel-track" class="group relative h-80 overflow-hidden rounded-lg shadow-sm md:h-96">
+          <div id="bike-carousel-track" class="group relative h-80 overflow-hidden rounded-lg shadow-sm md:h-96 lg:h-full">
             <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
               <Image
                 src={bikeGiftsImage}
@@ -258,14 +258,14 @@ const impactStats = [
                 loading="lazy"
               />
             </figure>
-            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/80 px-3 py-2 motion-safe:transition-opacity motion-safe:duration-500 motion-safe:ease-out md:pointer-events-none md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:opacity-100">
+            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/80 px-3 py-2 motion-safe:transition-opacity motion-safe:duration-500 motion-safe:ease-out">
               <div class="flex items-center justify-between gap-3">
                 <button
                   type="button"
                   data-carousel-prev
                   aria-label="Previous Bike Ministry image"
                   aria-controls="bike-carousel-track"
-                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent cursor-pointer text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -288,7 +288,7 @@ const impactStats = [
                   data-carousel-next
                   aria-label="Next Bike Ministry image"
                   aria-controls="bike-carousel-track"
-                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
+                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent cursor-pointer text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

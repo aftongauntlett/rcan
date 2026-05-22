@@ -42,7 +42,11 @@ const sizeClasses: Record<ButtonSize, string> = {
   lg: "rounded-lg px-5 py-3 text-lg",
 };
 
-const disabledClasses = disabled ? "pointer-events-none opacity-60" : "";
+const disabledClasses = disabled
+  ? variant === "primary"
+    ? "pointer-events-none !border-border-default !bg-surface-subtle !text-text-default"
+    : "pointer-events-none !border-border-default !bg-surface-subtle !text-text-subtle"
+  : "";
 const classes = [baseClasses, variantClasses[variant], sizeClasses[size], disabledClasses, className]
   .filter(Boolean)
   .join(" ");

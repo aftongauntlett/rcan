@@ -5,45 +5,6 @@ const config: Config = {
   content: ["./src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}"],
   theme: {
     extend: {
-      color: {
-        brand: {
-          primary: "#1E5B52",
-          secondary: "#B14D2A",
-          accent: "#287A6F",
-        },
-        neutral: {
-          50: "#FAFBFA",
-          100: "#F3F5F4",
-          200: "#E5E9E7",
-          300: "#D2DAD6",
-          400: "#AAB8B2",
-          500: "#7C8F88",
-          600: "#5F726C",
-          700: "#455A54",
-          800: "#2D413B",
-          900: "#1B2B27",
-        },
-        surface: {
-          default: "#FFFFFF",
-          subtle: "#F5F7F6",
-          invert: "#162824",
-        },
-        text: {
-          default: "#13211E",
-          subtle: "#2F4A44",
-          invert: "#F7FAF9",
-          link: "#1E5B52",
-        },
-        border: {
-          default: "#C8D1CD",
-          strong: "#4C5D57",
-        },
-        status: {
-          success: "#166534",
-          warning: "#92400E",
-          error: "#B91C1C",
-        },
-      },
       colors: {
         brand: {
           primary: "#1E5B52",
@@ -83,25 +44,10 @@ const config: Config = {
           error: "#B91C1C",
         },
       },
-      font: {
-        sans: ["Manrope", "Avenir Next", "Segoe UI", "sans-serif"],
-        serif: ["Fraunces", "Georgia", "serif"],
-        mono: ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "monospace"],
-      },
       fontFamily: {
         sans: ["Manrope", "Avenir Next", "Segoe UI", "sans-serif"],
         serif: ["Fraunces", "Georgia", "serif"],
         mono: ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "monospace"],
-      },
-      text: {
-        xs: ["0.75rem", { lineHeight: "1.125rem", letterSpacing: "0.01em" }],
-        sm: ["0.875rem", { lineHeight: "1.25rem", letterSpacing: "0.005em" }],
-        base: ["1rem", { lineHeight: "1.5rem", letterSpacing: "0em" }],
-        lg: ["1.125rem", { lineHeight: "1.75rem", letterSpacing: "-0.005em" }],
-        xl: ["1.25rem", { lineHeight: "1.875rem", letterSpacing: "-0.01em" }],
-        "2xl": ["1.5rem", { lineHeight: "2rem", letterSpacing: "-0.015em" }],
-        "3xl": ["1.875rem", { lineHeight: "2.375rem", letterSpacing: "-0.02em" }],
-        "4xl": ["2.25rem", { lineHeight: "2.75rem", letterSpacing: "-0.025em" }],
       },
       fontSize: {
         xs: ["0.75rem", { lineHeight: "1.125rem", letterSpacing: "0.01em" }],
@@ -147,32 +93,16 @@ const config: Config = {
         31: "7.75rem",
         32: "8rem",
       },
-      radius: {
-        sm: "0.25rem",
-        md: "0.5rem",
-        lg: "0.75rem",
-        full: "9999px",
-      },
       borderRadius: {
         sm: "0.25rem",
         md: "0.5rem",
         lg: "0.75rem",
         full: "9999px",
       },
-      shadow: {
-        sm: "0 1px 2px 0 rgb(15 23 42 / 0.08)",
-        md: "0 4px 8px -2px rgb(15 23 42 / 0.12), 0 2px 4px -2px rgb(15 23 42 / 0.08)",
-        lg: "0 12px 24px -8px rgb(15 23 42 / 0.18), 0 4px 8px -4px rgb(15 23 42 / 0.1)",
-      },
       boxShadow: {
         sm: "0 1px 2px 0 rgb(15 23 42 / 0.08)",
         md: "0 4px 8px -2px rgb(15 23 42 / 0.12), 0 2px 4px -2px rgb(15 23 42 / 0.08)",
         lg: "0 12px 24px -8px rgb(15 23 42 / 0.18), 0 4px 8px -4px rgb(15 23 42 / 0.1)",
-      },
-      transition: {
-        fast: "150ms",
-        base: "250ms",
-        slow: "400ms",
       },
       transitionDuration: {
         fast: "150ms",

@@ -1,6 +1,5 @@
 ---
 import Link from "./Link.astro";
-import Button from "./Button.astro";
 import Icon from "./Icon.astro";
 import logo from "../assets/rcan_logo_final.svg?url";
 
@@ -12,11 +11,11 @@ const navItems = [
   { href: "/impact", label: "Impact" },
   { href: "/get-involved", label: "Get Involved" },
   { href: "/contact", label: "Contact" },
+  { href: "/donate", label: "Donate" },
 ];
 
 const normalizePath = (path: string) => (path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path);
 const currentPath = normalizePath(Astro.url.pathname);
-const isDonateActive = currentPath === "/donate";
 ---
 
 <header id="top" class="sticky top-0 z-50 border-b border-border-default bg-surface-default">
@@ -65,18 +64,6 @@ const isDonateActive = currentPath === "/donate";
           })
         }
       </ul>
-
-      <div class="ml-1 md:ml-3">
-        <Button
-          href="/donate"
-          size="sm"
-          variant={isDonateActive ? "secondary" : "primary"}
-          aria-current={isDonateActive ? "page" : undefined}
-          class={isDonateActive ? "border-border-default bg-surface-subtle text-text-default" : ""}
-        >
-          Donate
-        </Button>
-      </div>
     </nav>
   </div>
 
@@ -123,10 +110,6 @@ const isDonateActive = currentPath === "/donate";
             })
           }
         </ul>
-
-        <div class="mt-5 border-t border-border-default pt-5">
-          <Button href="/donate" variant="primary" size="md" class="w-full justify-center">Donate</Button>
-        </div>
       </nav>
     </div>
   </dialog>

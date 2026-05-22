@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-const siteRoutes = [
+export const SITE_ROUTES = [
   "/",
   "/about",
   "/how-we-help",
@@ -10,19 +10,20 @@ const siteRoutes = [
   "/donate",
 ] as const;
 
-const fallbackSite = new URL("https://rcan.example");
+export const FALLBACK_SITE = new URL("https://rcan.example");
+
+export const buildSitemapXml = (baseSite: URL): string => {
+  const urls = SITE_ROUTES.map((route) => {
+    const loc = new URL(route, baseSite).toString();
+    return `  <url>\n    <loc>${loc}</loc>\n  </url>`;
+  }).join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+};
 
 export const GET: APIRoute = ({ site }) => {
-  const baseSite = site ?? fallbackSite;
-
-  const urls = siteRoutes
-    .map((route) => {
-      const loc = new URL(route, baseSite).toString();
-      return `  <url>\n    <loc>${loc}</loc>\n  </url>`;
-    })
-    .join("\n");
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+  const baseSite = site ?? FALLBACK_SITE;
+  const xml = buildSitemapXml(baseSite);
 
   return new Response(xml, {
     headers: {

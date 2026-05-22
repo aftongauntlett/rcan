@@ -462,53 +462,10 @@ const impactStats = [
   />
 
   <script>
-    const carousels = document.querySelectorAll("[data-carousel]");
+    import { initCarousels } from "../utils/carousel";
 
-    carousels.forEach((carousel) => {
-      const slides = Array.from(carousel.querySelectorAll("[data-carousel-slide]"));
-      const prevButton = carousel.querySelector("[data-carousel-prev]");
-      const nextButton = carousel.querySelector("[data-carousel-next]");
-      const status = carousel.querySelector("[data-carousel-status]");
-
-      if (
-        !(prevButton instanceof HTMLButtonElement) ||
-        !(nextButton instanceof HTMLButtonElement) ||
-        !(status instanceof HTMLElement) ||
-        slides.length === 0
-      ) {
-        return;
-      }
-
-      let currentIndex = 0;
-
-      const render = () => {
-        slides.forEach((slide, index) => {
-          if (!(slide instanceof HTMLElement)) {
-            return;
-          }
-
-          const isActive = index === currentIndex;
-          slide.classList.toggle("opacity-100", isActive);
-          slide.classList.toggle("opacity-0", !isActive);
-          slide.classList.toggle("pointer-events-none", !isActive);
-          slide.setAttribute("aria-hidden", String(!isActive));
-        });
-
-        status.textContent = `${currentIndex + 1} / ${slides.length}`;
-      };
-
-      prevButton.addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-        render();
-      });
-
-      nextButton.addEventListener("click", () => {
-        currentIndex = (currentIndex + 1) % slides.length;
-        render();
-      });
-
-      render();
-    });
+    initCarousels();
+    document.addEventListener("astro:page-load", () => initCarousels());
   </script>
 
 </BaseLayout>

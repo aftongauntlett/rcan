@@ -5,10 +5,8 @@ import SectionHeader from "../components/SectionHeader.astro";
 import Button from "../components/Button.astro";
 import StatStrip from "../components/StatStrip.astro";
 import CTABlock from "../components/CTABlock.astro";
-import BulletList from "../components/BulletList.astro";
-import Icon from "../components/Icon.astro";
-import gardeningCommunityImage from "../assets/gardening-community.jpg";
-
+import IconSupportList from "../components/IconSupportList.astro";
+import { Heart } from "@lucide/astro";
 import heroImage from "../assets/hands-holding.jpg";
 
 const pageTitle = "RCAN | Returning Citizens Assistance Network";
@@ -16,13 +14,19 @@ const pageDescription =
 	"RCAN is a Washington, DC network of congregations that responds to urgent short-term needs for returning citizens through direct community support.";
 
 const assistanceExamples = [
-	"Providing clothing, food, and personal essentials to people newly released",
-	"Offering life-skills counseling and short-term mentoring relationships",
-	"Helping secure housing — application fees, security deposits, and furnishings",
-	"Collecting and delivering donated furniture for newly housed clients",
-	"Providing emergency funds to prevent eviction or meet urgent financial needs",
-	"Connecting clients to employers and navigating job applications together",
-];
+	{ icon: "heart" as const, text: "Providing clothing, food, and personal essentials to people newly released" },
+	{ icon: "users" as const, text: "Offering life-skills counseling and short-term mentoring relationships" },
+	{ icon: "home" as const, text: "Helping secure housing — application fees, security deposits, and furnishings" },
+	{ icon: "map-pin" as const, text: "Collecting and delivering donated furniture for newly housed clients" },
+	{ icon: "dollar-sign" as const, text: "Providing emergency funds to prevent eviction or meet urgent financial needs" },
+	{ icon: "book-open" as const, text: "Connecting clients to employers and navigating job applications together" },
+] as const;
+
+const actionItems = [
+	{ icon: "check" as const, label: "Fund urgent needs", text: "Every gift goes directly to urgent client needs — housing, food, emergency funds, and more.", cta: { label: "Donate", href: "/donate" } },
+	{ icon: "check" as const, label: "Serve in person", text: "Respond to specific client requests with goods, services, or time. Open to all — no congregation required.", cta: { label: "Support", href: "/get-involved" } },
+	{ icon: "check" as const, label: "Bring your congregation", text: "If your congregation is in the DC, MD, or VA area, RCAN welcomes new partners committed to social justice.", cta: { label: "Partner", href: "/get-involved" } },
+] as const;
 
 const impactStats = [
 	{ value: "361", label: "Clients helped in 2025" },
@@ -33,7 +37,7 @@ const impactStats = [
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-	<section class="pb-10 pt-6 md:pb-14 md:pt-8" aria-label="About RCAN">
+	<section class="pt-6 md:pt-8" aria-label="About RCAN">
 		<div class="grid gap-10 lg:grid-cols-2 lg:items-stretch">
 			<!-- Image LEFT -->
 			<figure class="overflow-hidden rounded-lg shadow-lg">
@@ -80,90 +84,30 @@ const impactStats = [
 		</div>
 	</section>
 
-	<section aria-labelledby="assistance-heading">
+	<section class="mt-6! rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="assistance-heading">
 		<h2 id="assistance-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">How RCAN assists</h2>
 		<p class="mt-6 text-base leading-7 text-text-subtle">
 			RCAN responds to urgent reentry needs through direct referrals and coordinated support from partner congregations.
 			The examples below show how assistance is delivered and where people can step in to help.
 		</p>
 
-		<div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 md:items-stretch">
-			<div class="flex min-h-0 flex-col md:h-full">
-				<BulletList items={assistanceExamples} columns={1} />
-				<div class="relative mt-8 flex-1 overflow-hidden rounded-lg md:mt-10">
-					<Image
-						src={gardeningCommunityImage}
-						alt="Community members gardening together in a shared green space."
-						class="absolute inset-0 h-full w-full object-cover"
-						width={600}
-						format="webp"
-						quality={70}
-					/>
-				</div>
-			</div>
+		<IconSupportList items={assistanceExamples} ariaLabel="Ways RCAN assists returning citizens" columns={2} />
+	</section>
 
-			<div class="flex min-h-0 flex-col gap-4 md:h-full">
-				<article class="group flex min-h-0 flex-1 gap-4 rounded-lg bg-surface-subtle px-5 py-6 md:transition-shadow md:hover:shadow-md">
-					<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-surface-default text-brand-secondary md:transition-colors group-hover:bg-brand-secondary group-hover:text-surface-default">
-						<Icon name="heart" class="h-7 w-7" />
-					</div>
-					<div class="flex min-h-0 flex-1 flex-col">
-						<div class="flex flex-wrap items-start justify-between gap-3">
-							<p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary">Donate</p>
-						</div>
-						<div class="mt-1">
-							<h3 class="text-base font-semibold text-text-default">Give to the RCAN Fund</h3>
-						</div>
-						<p class="mt-2 text-sm leading-6 text-text-subtle">Every gift goes directly to urgent client needs — housing, food, emergency funds, and more.</p>
-						<div class="mt-auto flex justify-end pt-4">
-							<Button href="/donate" variant="secondary" size="sm">Give now &rarr;</Button>
-						</div>
-					</div>
-				</article>
-				<article class="group flex min-h-0 flex-1 gap-4 rounded-lg bg-surface-subtle px-5 py-6 md:transition-shadow md:hover:shadow-md">
-					<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-surface-default text-brand-secondary md:transition-colors group-hover:bg-brand-secondary group-hover:text-surface-default">
-						<Icon name="users" class="h-7 w-7" />
-					</div>
-					<div class="flex min-h-0 flex-1 flex-col">
-						<div class="flex flex-wrap items-start justify-between gap-3">
-							<p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary">Volunteer</p>
-						</div>
-						<div class="mt-1">
-							<h3 class="text-base font-semibold text-text-default">Serve a returning citizen</h3>
-						</div>
-						<p class="mt-2 text-sm leading-6 text-text-subtle">Become a Prison Friend or respond to specific client requests through your congregation.</p>
-						<div class="mt-auto flex justify-end pt-4">
-							<Button href="/get-involved" variant="secondary" size="sm">Get involved &rarr;</Button>
-						</div>
-					</div>
-				</article>
-				<article class="group flex min-h-0 flex-1 gap-4 rounded-lg bg-surface-subtle px-5 py-6 md:transition-shadow md:hover:shadow-md">
-					<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-surface-default text-brand-secondary md:transition-colors group-hover:bg-brand-secondary group-hover:text-surface-default">
-						<Icon name="book-open" class="h-7 w-7" />
-					</div>
-					<div class="flex min-h-0 flex-1 flex-col">
-						<div class="flex flex-wrap items-start justify-between gap-3">
-							<p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary">Congregations</p>
-						</div>
-						<div class="mt-1">
-							<h3 class="text-base font-semibold text-text-default">Join the network</h3>
-						</div>
-						<p class="mt-2 text-sm leading-6 text-text-subtle">If your congregation is in the DC, MD, or VA area, RCAN welcomes new partners committed to social justice.</p>
-						<div class="mt-auto flex justify-end pt-4">
-							<Button href="/get-involved" variant="secondary" size="sm">Learn how &rarr;</Button>
-						</div>
-					</div>
-				</article>
+	<section class="group grid gap-6 lg:grid-cols-[1fr_280px] lg:items-center" aria-labelledby="how-to-help-heading">
+		<div>
+			<h2 id="how-to-help-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">How you can help</h2>
+			<p class="mt-2 text-sm leading-6 text-text-subtle">Donate, volunteer, or join as a congregation partner in the DC area.</p>
+			<IconSupportList items={actionItems} ordered columns={1} ariaLabel="Ways to help RCAN" ctaButton />
+		</div>
+		<div class="hidden lg:flex items-center justify-center" aria-hidden="true">
+			<div class="relative flex h-48 w-48 items-center justify-center">
+				<span class="ring-outer absolute inset-0 rounded-full border border-brand-secondary"></span>
+				<span class="ring-middle absolute inset-8 rounded-full border border-brand-secondary"></span>
+				<span class="ring-inner absolute inset-16 rounded-full bg-brand-secondary"></span>
+				<Heart class="icon-heart relative z-10 h-10 w-10 text-brand-secondary" aria-hidden="true" role="presentation" focusable="false" />
 			</div>
 		</div>
-
-		<p class="mt-10 text-xs font-semibold uppercase tracking-widest text-brand-secondary">Client story</p>
-		<figure class="group mt-3 rounded-lg bg-surface-subtle px-5 py-5 motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
-			<blockquote class="border-l-4 border-brand-secondary pl-6 motion-safe:transition-colors motion-safe:duration-200 group-hover:border-brand-primary">
-				<p class="text-base italic leading-8 text-text-default">Thank you all for your help in supporting TW and his family. All of your donations went such a long way to relieving the stress and anxiety of TW. He is safely with his grandparents that love and care for him. Their immediate burdens have been relieved thanks to the assistance of you all. I cannot express to you the joy this has brought to this family. Thank you all again so much!</p>
-			</blockquote>
-			<figcaption class="mt-3 text-right text-sm text-text-subtle">&mdash; PDS Lawyer</figcaption>
-		</figure>
 	</section>
 
 	<section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="pfp-teaser-heading" data-fade>
@@ -227,4 +171,30 @@ const impactStats = [
 			});
 		}
 	</script>
+
+	<style>
+		/* Fallback opacity — applies in all motion contexts */
+		.ring-outer { opacity: 0.1; }
+		.ring-middle { opacity: 0.2; }
+		.ring-inner { opacity: 0.1; }
+		.icon-heart { opacity: 0.35; }
+
+		/* Breathing animation — disabled automatically by global.css when prefers-reduced-motion: reduce */
+		@media (prefers-reduced-motion: no-preference) {
+			@keyframes breathe-outer  { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.4; } }
+			@keyframes breathe-middle { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.6; } }
+			@keyframes breathe-inner  { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.3; } }
+			@keyframes breathe-heart  { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.85; } }
+
+			.ring-outer  { animation: breathe-outer  3s ease-in-out          infinite; animation-play-state: paused; }
+			.ring-middle { animation: breathe-middle 3s ease-in-out 0.7s      infinite; animation-play-state: paused; }
+			.ring-inner  { animation: breathe-inner  3s ease-in-out 1.4s      infinite; animation-play-state: paused; }
+			.icon-heart  { animation: breathe-heart  3s ease-in-out 0.35s     infinite; animation-play-state: paused; }
+
+			.group:hover .ring-outer,
+			.group:hover .ring-middle,
+			.group:hover .ring-inner,
+			.group:hover .icon-heart { animation-play-state: running; }
+		}
+	</style>
 </BaseLayout>

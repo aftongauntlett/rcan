@@ -6,8 +6,8 @@ import Button from "../components/Button.astro";
 import StatStrip from "../components/StatStrip.astro";
 import CTABlock from "../components/CTABlock.astro";
 import IconSupportList from "../components/IconSupportList.astro";
-import { Heart } from "@lucide/astro";
 import heroImage from "../assets/hands-holding.jpg";
+import brickHeartImage from "../assets/brick-heart.jpg";
 
 const pageTitle = "RCAN | Returning Citizens Assistance Network";
 const pageDescription =
@@ -23,9 +23,9 @@ const assistanceExamples = [
 ] as const;
 
 const actionItems = [
-	{ icon: "check" as const, label: "Fund urgent needs", text: "Every gift goes directly to urgent client needs — housing, food, emergency funds, and more.", cta: { label: "Donate", href: "/donate" } },
-	{ icon: "check" as const, label: "Serve in person", text: "Respond to specific client requests with goods, services, or time. Open to all — no congregation required.", cta: { label: "Support", href: "/get-involved" } },
-	{ icon: "check" as const, label: "Bring your congregation", text: "If your congregation is in the DC, MD, or VA area, RCAN welcomes new partners committed to social justice.", cta: { label: "Partner", href: "/get-involved" } },
+	{ icon: "gift" as const, label: "Fund urgent needs", text: "Every gift goes directly to urgent client needs — housing, food, emergency funds, and more.", cta: { label: "Donate", href: "/donate" } },
+	{ icon: "hand-heart" as const, label: "Serve in person", text: "Respond to specific client requests with goods, services, or time. Open to all — no congregation required.", cta: { label: "Support", href: "/get-involved" } },
+	{ icon: "landmark" as const, label: "Bring your congregation", text: "If your congregation is in the DC, MD, or VA area, RCAN welcomes new partners committed to social justice.", cta: { label: "Partner", href: "/get-involved" } },
 ] as const;
 
 const impactStats = [
@@ -94,19 +94,26 @@ const impactStats = [
 		<IconSupportList items={assistanceExamples} ariaLabel="Ways RCAN assists returning citizens" columns={2} />
 	</section>
 
-	<section class="group grid gap-6 lg:grid-cols-[1fr_280px] lg:items-center" aria-labelledby="how-to-help-heading">
+	<section class="group grid gap-6 lg:grid-cols-[1fr_280px] lg:items-stretch" aria-labelledby="how-to-help-heading">
 		<div>
 			<h2 id="how-to-help-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">How you can help</h2>
 			<p class="mt-2 text-sm leading-6 text-text-subtle">Donate, volunteer, or join as a congregation partner in the DC area.</p>
-			<IconSupportList items={actionItems} ordered columns={1} ariaLabel="Ways to help RCAN" ctaButton />
+			<IconSupportList items={actionItems} ordered columns={1} ariaLabel="Ways to help RCAN" hideIcon sentenceEndCta hoverTitleColor noRowPadding />
 		</div>
-		<div class="hidden lg:flex items-center justify-center" aria-hidden="true">
-			<div class="relative flex h-48 w-48 items-center justify-center">
-				<span class="ring-outer absolute inset-0 rounded-full border border-brand-secondary"></span>
-				<span class="ring-middle absolute inset-8 rounded-full border border-brand-secondary"></span>
-				<span class="ring-inner absolute inset-16 rounded-full bg-brand-secondary"></span>
-				<Heart class="icon-heart relative z-10 h-10 w-10 text-brand-secondary" aria-hidden="true" role="presentation" focusable="false" />
-			</div>
+		<div class="hidden lg:flex h-full" aria-hidden="true">
+			<figure class="h-full w-full overflow-hidden rounded-lg shadow-lg">
+				<Image
+					src={brickHeartImage}
+					class="h-full w-full object-cover"
+					alt=""
+					role="presentation"
+					width={384}
+					height={384}
+					format="webp"
+					quality={60}
+					loading="lazy"
+				/>
+			</figure>
 		</div>
 	</section>
 
@@ -172,29 +179,4 @@ const impactStats = [
 		}
 	</script>
 
-	<style>
-		/* Fallback opacity — applies in all motion contexts */
-		.ring-outer { opacity: 0.1; }
-		.ring-middle { opacity: 0.2; }
-		.ring-inner { opacity: 0.1; }
-		.icon-heart { opacity: 0.35; }
-
-		/* Breathing animation — disabled automatically by global.css when prefers-reduced-motion: reduce */
-		@media (prefers-reduced-motion: no-preference) {
-			@keyframes breathe-outer  { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.4; } }
-			@keyframes breathe-middle { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.6; } }
-			@keyframes breathe-inner  { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.3; } }
-			@keyframes breathe-heart  { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.85; } }
-
-			.ring-outer  { animation: breathe-outer  3s ease-in-out          infinite; animation-play-state: paused; }
-			.ring-middle { animation: breathe-middle 3s ease-in-out 0.7s      infinite; animation-play-state: paused; }
-			.ring-inner  { animation: breathe-inner  3s ease-in-out 1.4s      infinite; animation-play-state: paused; }
-			.icon-heart  { animation: breathe-heart  3s ease-in-out 0.35s     infinite; animation-play-state: paused; }
-
-			.group:hover .ring-outer,
-			.group:hover .ring-middle,
-			.group:hover .ring-inner,
-			.group:hover .icon-heart { animation-play-state: running; }
-		}
-	</style>
 </BaseLayout>

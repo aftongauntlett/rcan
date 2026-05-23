@@ -10,10 +10,13 @@ type IconName =
   | "chevron-right"
   | "dollar-sign"
   | "external-link"
+  | "gift"
   | "globe"
+  | "hand-heart"
   | "home"
   | "heart"
   | "info"
+  | "landmark"
   | "mail"
   | "map-pin"
   | "menu"
@@ -37,6 +40,10 @@ interface Props {
   class?: string;
   inlineCta?: boolean;
   ctaButton?: boolean;
+  hideIcon?: boolean;
+  sentenceEndCta?: boolean;
+  hoverTitleColor?: boolean;
+  noRowPadding?: boolean;
 }
 
 const {
@@ -47,6 +54,10 @@ const {
   class: className = "",
   inlineCta = false,
   ctaButton = false,
+  hideIcon = false,
+  sentenceEndCta = false,
+  hoverTitleColor = false,
+  noRowPadding = false,
 } = Astro.props;
 
 const ListTag = ordered ? "ol" : "ul";
@@ -56,26 +67,40 @@ const columnsClass = columns === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2
 <ListTag class={`mt-6 grid ${columnsClass} gap-x-12 gap-y-2 ${className}`} aria-label={ariaLabel}>
   {
     items.map((item) => (
-      <li class={`group flex ${(item.label && !inlineCta) ? "items-start" : "items-center"} gap-3 rounded-md px-3 py-2 text-base leading-7 text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:bg-surface-default`}>
-        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-accent text-surface-default motion-safe:transition-colors motion-safe:duration-200 group-hover:bg-brand-secondary" aria-hidden="true">
-          <Icon name={item.icon} size="sm" aria-hidden="true" />
-        </span>
+      <li class={`group/item flex ${(item.label && !inlineCta) ? "items-start" : "items-center"} gap-3 rounded-md ${noRowPadding ? "px-0" : "px-3"} py-2 text-base leading-7 text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:bg-surface-default`}>
+        {!hideIcon && (
+          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-accent text-surface-default motion-safe:transition-colors motion-safe:duration-200 group-hover/item:bg-brand-secondary" aria-hidden="true">
+            <Icon name={item.icon} size="sm" aria-hidden="true" />
+          </span>
+        )}
         <div class={ctaButton ? "flex flex-1 flex-col min-w-0" : inlineCta ? "flex-1 min-w-0" : "flex min-h-14 flex-1 flex-col justify-center"}>
-          {item.label && <span class="whitespace-nowrap text-sm font-semibold uppercase tracking-wide text-brand-secondary">{item.label}</span>}
-          <span class={item.label ? "mt-0.5" : ""}>{item.text}</span>
-          {item.cta && !inlineCta && !ctaButton && (
+          {item.label && <span class={`whitespace-nowrap text-sm font-semibold uppercase tracking-wide text-brand-secondary motion-safe:transition-colors motion-safe:duration-200 ${hoverTitleColor ? "group-hover/item:text-brand-primary" : ""}`}>{item.label}</span>}
+          {item.cta && sentenceEndCta ? (
+            <p class={item.label ? "mt-0.5" : ""}>
+              {item.text}{" "}
+              <a
+                href={item.cta.href}
+                class="inline-flex items-center gap-1 text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
+              >
+                {item.cta.label} <Icon name="arrow-right" size="sm" aria-hidden="true" />
+              </a>
+            </p>
+          ) : (
+            <span class={item.label ? "mt-0.5" : ""}>{item.text}</span>
+          )}
+          {item.cta && !inlineCta && !ctaButton && !sentenceEndCta && (
             <a
               href={item.cta.href}
-              class="mt-2 inline-flex items-center gap-1 self-start text-sm font-semibold text-brand-secondary underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
+              class="mt-2 inline-flex items-center gap-1 self-start text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
             >
               {item.cta.label} <Icon name="arrow-right" size="sm" aria-hidden="true" />
             </a>
           )}
         </div>
-        {item.cta && inlineCta && (
+        {item.cta && inlineCta && !sentenceEndCta && (
           <a
             href={item.cta.href}
-            class="ml-auto shrink-0 inline-flex items-center gap-1 text-sm font-semibold text-brand-secondary underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
+            class="ml-auto shrink-0 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
           >
             {item.cta.label} <Icon name="arrow-right" size="sm" aria-hidden="true" />
           </a>

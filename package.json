@@ -32,7 +32,7 @@
     "@formspree/ajax": "^1.1.5",
     "@lucide/astro": "^1.16.0",
     "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.3.5",
+    "astro": "^6.3.7",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },
@@ -51,6 +51,6 @@
     "globals": "^17.6.0",
     "jsdom": "^29.1.1",
     "prettier": "^3.8.3",
-    "vitest": "^4.1.6"
+    "vitest": "^4.1.7"
   }
 }

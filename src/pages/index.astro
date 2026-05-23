@@ -7,7 +7,6 @@ import StatStrip from "../components/StatStrip.astro";
 import CTABlock from "../components/CTABlock.astro";
 import IconSupportList from "../components/IconSupportList.astro";
 import heroImage from "../assets/hands-holding.jpg";
-import brickHeartImage from "../assets/brick-heart.jpg";
 
 const pageTitle = "RCAN | Returning Citizens Assistance Network";
 const pageDescription =
@@ -23,9 +22,9 @@ const assistanceExamples = [
 ] as const;
 
 const actionItems = [
-	{ icon: "gift" as const, label: "Fund urgent needs", text: "Every gift goes directly to urgent client needs — housing, food, emergency funds, and more.", cta: { label: "Donate", href: "/donate" } },
-	{ icon: "hand-heart" as const, label: "Serve in person", text: "Respond to specific client requests with goods, services, or time. Open to all — no congregation required.", cta: { label: "Support", href: "/get-involved" } },
-	{ icon: "landmark" as const, label: "Bring your congregation", text: "If your congregation is in the DC, MD, or VA area, RCAN welcomes new partners committed to social justice.", cta: { label: "Partner", href: "/get-involved" } },
+	{ icon: "check" as const, label: "Fund urgent needs", text: "Every gift directly supports urgent client needs, including stable housing, grocery support, emergency financial assistance, transportation costs, and other immediate essentials during reentry." },
+	{ icon: "check" as const, label: "Serve in person", text: "Respond to specific client requests by offering goods, services, skills, or time, and help meet practical needs quickly — open to everyone, no congregation required." },
+	{ icon: "check" as const, label: "Bring your congregation", text: "If your congregation serves in DC, Maryland, or Virginia, RCAN welcomes new partner communities ready to advance social justice through direct, practical reentry support." },
 ] as const;
 
 const impactStats = [
@@ -94,27 +93,17 @@ const impactStats = [
 		<IconSupportList items={assistanceExamples} ariaLabel="Ways RCAN assists returning citizens" columns={2} />
 	</section>
 
-	<section class="group grid gap-6 lg:grid-cols-[1fr_280px] lg:items-stretch" aria-labelledby="how-to-help-heading">
+	<section class="grid gap-6 lg:grid-cols-[1fr_280px] lg:items-stretch" aria-labelledby="how-to-help-heading">
 		<div>
 			<h2 id="how-to-help-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">How you can help</h2>
 			<p class="mt-2 text-sm leading-6 text-text-subtle">Donate, volunteer, or join as a congregation partner in the DC area.</p>
-			<IconSupportList items={actionItems} ordered columns={1} ariaLabel="Ways to help RCAN" hideIcon sentenceEndCta hoverTitleColor noRowPadding />
+			<IconSupportList items={actionItems} ordered columns={1} ariaLabel="Ways to help RCAN" noRowPadding rowHover={false} />
 		</div>
-		<div class="hidden lg:flex h-full" aria-hidden="true">
-			<figure class="h-full w-full overflow-hidden rounded-lg shadow-lg">
-				<Image
-					src={brickHeartImage}
-					class="h-full w-full object-cover"
-					alt=""
-					role="presentation"
-					width={384}
-					height={384}
-					format="webp"
-					quality={60}
-					loading="lazy"
-				/>
-			</figure>
-		</div>
+		<aside class="flex flex-col gap-3 lg:justify-center" aria-label="How you can help quick actions">
+			<Button href="/donate" variant="primary" size="md" class="w-full">Donate</Button>
+			<Button href="/get-involved" variant="secondary" size="md" class="w-full">Support</Button>
+			<Button href="/get-involved" variant="secondary" size="md" class="w-full">Partner</Button>
+		</aside>
 	</section>
 
 	<section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="pfp-teaser-heading" data-fade>

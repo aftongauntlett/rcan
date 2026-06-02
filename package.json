@@ -30,9 +30,9 @@
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/manrope": "^5.2.8",
     "@formspree/ajax": "^1.1.5",
-    "@lucide/astro": "^1.16.0",
+    "@lucide/astro": "^1.17.0",
     "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.3.5",
+    "astro": "^6.4.2",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },
@@ -42,7 +42,7 @@
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.19",
-    "@typescript-eslint/eslint-plugin": "^8.59.4",
+    "@typescript-eslint/eslint-plugin": "^8.60.1",
     "@typescript-eslint/parser": "^8.59.4",
     "astro-eslint-parser": "^1.4.0",
     "eslint": "^9.39.1",
@@ -51,6 +51,6 @@
     "globals": "^17.6.0",
     "jsdom": "^29.1.1",
     "prettier": "^3.8.3",
-    "vitest": "^4.1.6"
+    "vitest": "^4.1.8"
   }
 }

@@ -2,16 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
-import Card from "../components/Card.astro";
 import Icon from "../components/Icon.astro";
 import CTABlock from "../components/CTABlock.astro";
 import holdingHandsImage from "../assets/holding-hands.jpg";
 import communityHeroImage from "../assets/community-is-strength.jpg";
 import handShakeLogoImage from "../assets/hand-shake-logo.jpg";
-import boardPlaceholder1 from "../assets/board-placeholder-1.png";
-import boardPlaceholder2 from "../assets/board-placeholder-2.png";
-import boardPlaceholder3 from "../assets/board-placeholder-3.png";
-import boardPlaceholder4 from "../assets/board-placeholder-4.png";
 import { Calendar } from "@lucide/astro";
 
 const pageTitle = "About RCAN | Returning Citizens Assistance Network";
@@ -24,33 +19,6 @@ const values = [
   "Congregation-led coordination and care",
   "Practical pathways toward housing, stability, and work",
 ];
-
-const congregations: { name: string; url?: string }[] = [
-  { name: "Bread of Life Church", url: "https://breadoflifechurchdc.org" },
-  { name: "Emory United Methodist Church", url: "https://www.emoryumc.com" },
-  { name: "Episcopal Church of the Redeemer", url: "https://www.redeemerdc.org" },
-  { name: "Foundry United Methodist Church", url: "https://foundryumc.org" },
-  { name: "Hill Havurah", url: "https://hillhavurah.org" },
-  { name: "Holy Trinity Catholic Church", url: "https://holytrinitydc.org" },
-  { name: "Metropolitan AME Church", url: "https://www.metropolitaname.org" },
-  { name: "Mt. Vernon Place United Methodist Church", url: "https://mvpumc.org" },
-  { name: "National Community Church", url: "https://national.cc" },
-  { name: "National Presbyterian Church", url: "https://nationalpres.org" },
-  { name: "New York Avenue Presbyterian Church", url: "https://nyapc.org" },
-  { name: "Ohev Sholom — The National Synagogue", url: "https://ohevsholom.org" },
-  { name: "Pennsylvania Avenue Baptist Church", url: "https://pabcdc.org" },
-  { name: "Peoples United Church of Christ", url: "https://peoplesucc.org" },
-  { name: "St. Augustine Episcopal Church", url: "https://www.staugustinedc.org" },
-  { name: "St. Columba's Episcopal Church", url: "https://stcolumbas.org" },
-  { name: "St. Mark's Episcopal Church", url: "https://stmarksdc.org" },
-  { name: "Seekers Church", url: "https://www.seekerschurch.org" },
-  { name: "Tifereth Israel Congregation", url: "https://tiferethisrael.org" },
-  { name: "Warner Memorial Presbyterian Church", url: "https://warnerpres.org" },
-  { name: "Western Presbyterian Church", url: "https://westernpres.org" },
-  { name: "Westminster Presbyterian Church", url: "https://westminsterdc.org" },
-];
-
-const boardPlaceholderPhotos = [boardPlaceholder1, boardPlaceholder2, boardPlaceholder3, boardPlaceholder4];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -196,107 +164,6 @@ const boardPlaceholderPhotos = [boardPlaceholder1, boardPlaceholder2, boardPlace
     </div>
   </section>
 
-  <!-- Board of Directors -->
-  <section class="py-8 md:py-10" aria-labelledby="board-heading">
-    <h2 id="board-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Board of Directors</h2>
-    <p class="mt-2 text-sm text-text-subtle">Board member information will be added soon.</p>
-    <ul class="mt-6 grid gap-4 sm:grid-cols-2" aria-label="Board of Directors placeholder cards">
-      {
-        boardPlaceholderPhotos.map((photo) => (
-          <li>
-            <Card class="h-full border-l-4 border-l-border-default group motion-safe:transition-colors motion-safe:duration-200 hover:border-l-brand-secondary" data-board-card>
-              <div class="flex gap-4">
-                <div class="h-28 w-20 shrink-0 overflow-hidden rounded-md border border-border-default bg-surface-subtle">
-                  <Image
-                    src={photo}
-                    alt=""
-                    role="presentation"
-                    width={80}
-                    height={112}
-                    class="h-full w-full object-cover object-top grayscale group-hover:grayscale-0 motion-safe:transition-[filter] motion-safe:duration-300"
-                    loading="lazy"
-                    format="webp"
-                  />
-                </div>
-                <div class="min-w-0 flex-1">
-                  <div class="flex items-start justify-between gap-2">
-                    <div>
-                      <p class="text-sm font-semibold text-text-default">Board Member</p>
-                      <p class="mt-0.5 text-xs text-text-subtle">Title / Role</p>
-                    </div>
-                    <button type="button" disabled class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-subtle text-text-subtle motion-safe:transition-colors hover:bg-brand-primary hover:text-surface-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2" aria-label="LinkedIn profile (placeholder)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                        <rect x="2" y="9" width="4" height="12"/>
-                        <circle cx="4" cy="4" r="2"/>
-                      </svg>
-                    </button>
-                  </div>
-                  <p class="mt-3 text-sm leading-6 text-text-subtle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec commodo quam ac nisl vehicula, eget faucibus odio volutpat. Praesent elementum nunc sed felis tincidunt.</p>
-                  <div class="hidden" data-bio-extra>
-                    <p class="mt-2 text-sm leading-6 text-text-subtle">Sed euismod diam in mi lacinia, id faucibus felis imperdiet. Pellentesque habitant morbi tristique senectus et malesuada fames ac turpis egestas.</p>
-                  </div>
-                  <div class="mt-2 flex justify-end">
-                    <button data-read-more aria-expanded="false" class="text-xs text-brand-primary underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">Read more</button>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <!-- Participating Congregations -->
-  <section class="rounded-lg bg-white px-6 py-8 md:px-8 md:py-10" aria-labelledby="congregations-heading">
-    <h2 id="congregations-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Participating congregations</h2>
-    <p class="mt-2 text-base leading-7 text-text-subtle">
-      Twenty-two congregations across DC, Maryland, and Virginia have joined RCAN and committed
-      to responding to needs as they arise.
-    </p>
-    <div class="mt-6 rounded-lg bg-surface-subtle px-6 py-6">
-    <ul class="columns-2 gap-x-8 text-center md:columns-3" aria-label="List of participating congregations">
-      {
-        congregations.map(({ name, url }) => (
-          <li class="break-inside-avoid py-1.5 text-sm font-medium text-text-default">
-            {url ? (
-              <a
-                href={url}
-                class="group inline-flex items-center gap-1 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${name} (opens in a new tab)`}
-              >
-                {name}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                  class="opacity-50 transition-opacity group-hover:opacity-100"
-                >
-                  <path d="M15 3h6v6" />
-                  <path d="M10 14 21 3" />
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                </svg>
-              </a>
-            ) : (
-              name
-            )}
-          </li>
-        ))
-      }
-    </ul>
-    </div>
-  </section>
-
   <CTABlock
     variant="outline"
     heading="Ready to be part of this?"
@@ -306,18 +173,4 @@ const boardPlaceholderPhotos = [boardPlaceholder1, boardPlaceholder2, boardPlace
     secondaryLabel="Donate"
     secondaryHref="/donate"
   />
-
-  <script>
-    document.querySelectorAll<HTMLButtonElement>('[data-read-more]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('[data-board-card]');
-        const extra = card?.querySelector('[data-bio-extra]');
-        if (!extra) return;
-        const isHidden = extra.classList.contains('hidden');
-        extra.classList.toggle('hidden');
-        btn.setAttribute('aria-expanded', String(isHidden));
-        btn.textContent = isHidden ? 'Show less' : 'Read more';
-      });
-    });
-  </script>
 </BaseLayout>

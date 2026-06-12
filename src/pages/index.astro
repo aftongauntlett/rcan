@@ -59,6 +59,8 @@ const impactStats = [
 				<SectionHeader
 					level={1}
 					heading="Returning Citizens Assistance Network"
+					headingClass="text-4xl md:text-5xl text-brand-primary"
+					divider
 					subheading="RCAN responds to urgent needs for returning citizens and others in the criminal justice system - all referred by the DC Public Defender Service. The network focuses on practical barriers to reentry: housing, clothing, food, employment, and ongoing personal support."
 				/>
 				<p class="text-base leading-7 text-text-subtle">
@@ -106,31 +108,7 @@ const impactStats = [
 		</aside>
 	</section>
 
-	<section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="pfp-teaser-heading" data-fade>
-		<h2 id="pfp-teaser-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Prison Friendship Project</h2>
-		<p class="mt-3 text-base leading-7 text-text-subtle">
-			About 4,000 people from Washington, DC are scattered across federal prisons. The Prison
-			Friendship Project matches RCAN supporters with DC clients to build human connection
-			across distance. RCAN provides match guidance, client background, and access to social
-			workers and attorneys throughout the friendship.
-		</p>
-		<div class="mt-6 flex flex-wrap items-center justify-between gap-4">
-			<dl class="flex gap-8">
-				<div aria-label="23 new Prison Friendship matches in 2025">
-					<dd class="text-2xl font-bold text-brand-secondary">23</dd>
-					<dt class="mt-0.5 text-xs text-text-subtle">new matches in 2025</dt>
-				</div>
-				<div aria-label="40 active Prison Friendship matches">
-					<dd class="text-2xl font-bold text-brand-secondary">40</dd>
-					<dt class="mt-0.5 text-xs text-text-subtle">active matches</dt>
-				</div>
-			</dl>
-			<Button href="/get-involved#prison-friendship-project" variant="primary" size="md">Become a Prison Friend</Button>
-		</div>
-	</section>
-
 	<CTABlock
-		variant="outline"
 		heading="Stand with returning citizens."
 		body="Donations fund emergency needs. Volunteers build connections. Every contribution - of any kind - makes a difference."
 		primaryLabel="Donate"
@@ -138,34 +116,5 @@ const impactStats = [
 		secondaryLabel="Get involved"
 		secondaryHref="/get-involved"
 	/>
-
-	<script>
-		const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-		if (!reduceMotion) {
-			const fadeTargets = document.querySelectorAll("[data-fade]");
-			fadeTargets.forEach((target) => {
-				target.classList.add("opacity-0");
-			});
-
-			const fadeObserver = new IntersectionObserver(
-				(entries, observer) => {
-					entries.forEach((entry) => {
-						if (!entry.isIntersecting) {
-							return;
-						}
-
-						entry.target.classList.remove("opacity-0");
-						entry.target.classList.add("opacity-100", "transition-opacity", "duration-300");
-						observer.unobserve(entry.target);
-					});
-				},
-				{ threshold: 0.1 },
-			);
-
-			fadeTargets.forEach((target) => {
-				fadeObserver.observe(target);
-			});
-		}
-	</script>
 
 </BaseLayout>

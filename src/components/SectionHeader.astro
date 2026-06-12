@@ -9,6 +9,8 @@ interface Props extends Omit<HTMLAttributes<"header">, "class"> {
   subheading?: string;
   level?: HeadingLevel;
   class?: string;
+  headingClass?: string;
+  divider?: boolean;
 }
 
 const {
@@ -17,6 +19,8 @@ const {
   subheading,
   level = 2,
   class: className = "",
+  headingClass,
+  divider = false,
   ...rest
 } = Astro.props as Props;
 
@@ -28,14 +32,18 @@ const headingSizes: Record<HeadingLevel, string> = {
   3: "text-2xl",
   4: "text-xl",
 };
+
+const headingColorAndSize = headingClass ?? `${headingSizes[level]} text-text-default`;
 ---
 
 <header class={`space-y-5 ${className}`} {...rest}>
   {eyebrow && <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">{eyebrow}</p>}
 
-  <HeadingTag class={`${headingSizes[level]} font-serif font-semibold leading-tight text-text-default`}>
+  <HeadingTag class={`font-serif font-semibold leading-tight ${headingColorAndSize}`}>
     {heading}
   </HeadingTag>
+
+  {divider && <div class="h-1.5 w-20 rounded-full bg-brand-secondary" aria-hidden="true"></div>}
 
   {subheading && <p class="text-base text-text-subtle">{subheading}</p>}
 </header>

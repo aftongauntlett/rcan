@@ -4,6 +4,7 @@ const routes = [
   "/",
   "/about",
   "/how-we-help",
+  "/who-we-are",
   "/impact",
   "/get-involved",
   "/contact",

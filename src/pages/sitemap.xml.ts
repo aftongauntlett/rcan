@@ -4,6 +4,7 @@ export const SITE_ROUTES = [
   "/",
   "/about",
   "/how-we-help",
+  "/who-we-are",
   "/impact",
   "/get-involved",
   "/contact",

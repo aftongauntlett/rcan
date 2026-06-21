@@ -18,7 +18,7 @@ html {
 }
 
 .section-title {
-  @apply relative inline-block pb-2;
+  @apply relative inline-block pb-2 text-lg font-semibold uppercase tracking-widest md:text-xl;
 }
 
 .section-title::after {

@@ -1,7 +1,6 @@
 ---
 import Link from "./Link.astro";
 import Icon from "./Icon.astro";
-import logo from "../assets/rcan-logo.svg?url";
 
 // New shared site-chrome component for BaseLayout; no reusable footer existed in src/components.
 const year = new Date().getFullYear();
@@ -22,13 +21,9 @@ const footerNavItems = [
     <div class="grid grid-cols-1 gap-6 md:grid-cols-[180px_1fr_180px] md:items-center">
 
       <!-- Logo -->
-      <div class="flex justify-center md:justify-start">
-        <img
-          src={logo}
-          alt="RCAN — Returning Citizens Assistance Network"
-          class="h-8 w-auto max-w-45 object-left"
-          loading="lazy"
-        />
+      <div class="flex items-stretch justify-center gap-2 md:justify-start">
+        <span class="w-1 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
+        <span class="font-serif text-xl font-bold tracking-wide text-text-default" aria-label="Returning Citizens Assistance Network">RCAN</span>
       </div>
 
       <!-- Nav + copyright -->

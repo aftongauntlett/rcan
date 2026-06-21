@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Card from "../components/Card.astro";
 import CTABlock from "../components/CTABlock.astro";
+import Icon from "../components/Icon.astro";
 import boardPlaceholder1 from "../assets/board-placeholder-1.png";
 import boardPlaceholder2 from "../assets/board-placeholder-2.png";
 import boardPlaceholder3 from "../assets/board-placeholder-3.png";
@@ -11,30 +12,29 @@ import boardPlaceholder4 from "../assets/board-placeholder-4.png";
 
 const pageTitle = "Who We Are | RCAN";
 const pageDescription =
-  "Meet the RCAN Board of Directors and the congregations across DC, Maryland, and Virginia that power the network.";
+  "Meet the RCAN Board of Directors and the congregations across the Washington, DC area that power the network.";
 
 const congregations: { name: string; url?: string }[] = [
-  { name: "Bread of Life Church", url: "https://breadoflifechurchdc.org" },
-  { name: "Emory United Methodist Church", url: "https://www.emoryumc.com" },
-  { name: "Episcopal Church of the Redeemer", url: "https://www.redeemerdc.org" },
+  { name: "Emory United Methodist Church", url: "https://emoryfellowship.org/" },
+  { name: "Episcopal Church of the Redeemer", url: "https://www.redeemerbethesda.org" },
   { name: "Foundry United Methodist Church", url: "https://foundryumc.org" },
   { name: "Hill Havurah", url: "https://hillhavurah.org" },
-  { name: "Holy Trinity Catholic Church", url: "https://holytrinitydc.org" },
+  { name: "Holy Trinity Catholic Church", url: "https://trinity.org/" },
   { name: "Metropolitan AME Church", url: "https://www.metropolitaname.org" },
   { name: "Mt. Vernon Place United Methodist Church", url: "https://mvpumc.org" },
   { name: "National Community Church", url: "https://national.cc" },
   { name: "National Presbyterian Church", url: "https://nationalpres.org" },
   { name: "New York Avenue Presbyterian Church", url: "https://nyapc.org" },
-  { name: "Ohev Sholom — The National Synagogue", url: "https://ohevsholom.org" },
-  { name: "Pennsylvania Avenue Baptist Church", url: "https://pabcdc.org" },
-  { name: "Peoples United Church of Christ", url: "https://peoplesucc.org" },
-  { name: "St. Augustine Episcopal Church", url: "https://www.staugustinedc.org" },
-  { name: "St. Columba's Episcopal Church", url: "https://stcolumbas.org" },
-  { name: "St. Mark's Episcopal Church", url: "https://stmarksdc.org" },
+  { name: "Ohev Sholom — The National Synagogue", url: "https://www.ohevdc.org/" },
+  { name: "Pennsylvania Avenue Baptist Church", url: "https://www.pabc-dc.org/" },
+  { name: "Peoples United Church of Christ", url: "https://peopleschurchucc.org/" },
+  { name: "St. Augustine Episcopal Church", url: "https://www.staugustinesdc.org/" },
+  { name: "St. Columba's Episcopal Church", url: "https://www.columba.org/" },
+  { name: "St. Mark's Episcopal Church", url: "https://www.stmarks.net/" },
   { name: "Seekers Church", url: "https://www.seekerschurch.org" },
-  { name: "Tifereth Israel Congregation", url: "https://tiferethisrael.org" },
-  { name: "Warner Memorial Presbyterian Church", url: "https://warnerpres.org" },
-  { name: "Western Presbyterian Church", url: "https://westernpres.org" },
+  { name: "Tifereth Israel Congregation", url: "https://www.tifereth-israel.org/" },
+  { name: "Warner Memorial Presbyterian Church", url: "https://warnermemorial.org/" },
+  { name: "Western Presbyterian Church", url: "https://www.westernpresbyterian.org/" },
   { name: "Westminster Presbyterian Church", url: "https://westminsterdc.org" },
 ];
 
@@ -46,13 +46,13 @@ const boardPlaceholderPhotos = [boardPlaceholder1, boardPlaceholder2, boardPlace
     <SectionHeader
       level={1}
       heading="Who We Are"
-      subheading="RCAN is powered by a volunteer board and a growing network of congregations across DC, Maryland, and Virginia, all committed to supporting returning citizens."
+      subheading="RCAN is powered by a volunteer board and a growing network of congregations across the Washington, DC area, all committed to supporting returning citizens."
     />
   </section>
 
   <!-- Board of Directors -->
   <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="board-heading">
-    <h2 id="board-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Board of Directors</h2>
+    <h2 id="board-heading" class="section-title text-text-subtle">Board of Directors</h2>
     <p class="mt-2 text-sm text-text-subtle">Board member information will be added soon.</p>
     <ul class="mt-6 grid gap-4 sm:grid-cols-2" aria-label="Board of Directors placeholder cards">
       {
@@ -104,44 +104,40 @@ const boardPlaceholderPhotos = [boardPlaceholder1, boardPlaceholder2, boardPlace
 
   <!-- Participating Congregations -->
   <section class="py-8 md:py-10" aria-labelledby="congregations-heading">
-    <h2 id="congregations-heading" class="section-title text-base font-semibold uppercase tracking-widest text-text-subtle">Participating congregations</h2>
+    <h2 id="congregations-heading" class="section-title text-text-subtle">Participating congregations</h2>
     <p class="mt-2 text-base leading-7 text-text-subtle">
-      Twenty-two congregations across DC, Maryland, and Virginia have joined RCAN and committed
+      {congregations.length} congregations across the Washington, DC area have joined RCAN and committed
       to responding to needs as they arise.
     </p>
-    <ul class="mt-6 columns-2 gap-x-8 text-left md:columns-3" aria-label="List of participating congregations">
+
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label="List of participating congregations">
       {
         congregations.map(({ name, url }) => (
-          <li class="break-inside-avoid py-1.5 text-sm font-medium text-text-default">
+          <li>
             {url ? (
               <a
                 href={url}
-                class="group inline-flex items-center gap-1 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${name} (opens in a new tab)`}
+                class="group flex items-center justify-between gap-2 rounded-lg border border-border-default bg-surface-default px-4 py-3 text-sm font-medium text-text-default shadow-sm motion-safe:transition-colors motion-safe:duration-200 visited:text-neutral-600 hover:border-brand-secondary hover:bg-surface-subtle"
               >
-                {name}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                <span class="flex min-w-0 items-center gap-2">
+                  <Icon name="landmark" size="sm" class="shrink-0 text-brand-secondary group-visited:text-neutral-400" aria-hidden="true" />
+                  <span class="truncate">{name}</span>
+                </span>
+                <Icon
+                  name="external-link"
+                  size="sm"
+                  class="shrink-0 opacity-0 transition-opacity group-hover:opacity-60"
                   aria-hidden="true"
-                  class="opacity-50 transition-opacity group-hover:opacity-100"
-                >
-                  <path d="M15 3h6v6" />
-                  <path d="M10 14 21 3" />
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                </svg>
+                />
               </a>
             ) : (
-              name
+              <div class="flex items-center gap-2 rounded-lg border border-border-default bg-surface-default px-4 py-3 text-sm font-medium text-text-default">
+                <Icon name="landmark" size="sm" class="shrink-0 text-text-subtle" aria-hidden="true" />
+                <span class="truncate">{name}</span>
+              </div>
             )}
           </li>
         ))
@@ -151,7 +147,7 @@ const boardPlaceholderPhotos = [boardPlaceholder1, boardPlaceholder2, boardPlace
 
   <CTABlock
     heading="Is your congregation ready to join RCAN?"
-    body="RCAN welcomes new partner congregations across DC, Maryland, and Virginia ready to respond to urgent reentry needs."
+    body="RCAN welcomes new partner congregations across the Washington, DC area ready to respond to urgent reentry needs."
     primaryLabel="Get involved"
     primaryHref="/get-involved"
     secondaryLabel="Contact us"

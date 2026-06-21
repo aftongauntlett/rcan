@@ -1,7 +1,6 @@
 ---
 import Link from "./Link.astro";
 import Icon from "./Icon.astro";
-import logo from "../assets/rcan_logo_final.svg?url";
 
 // New shared site-chrome component for BaseLayout; no reusable header existed in src/components.
 const navItems = [
@@ -22,12 +21,13 @@ const currentPath = normalizePath(Astro.url.pathname);
 <header id="top" class="sticky top-0 z-50 border-b border-border-default bg-surface-default">
   <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3">
     <Link href="/" variant="subtle" class="rounded-md" aria-label="Returning Citizens Assistance Network home">
-      <img
-        src={logo}
-        alt="RCAN"
-        class="h-12 w-auto md:h-14"
-        loading="eager"
-      />
+      <span class="flex items-stretch gap-3">
+        <span class="w-1 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
+        <span class="flex flex-col leading-none">
+          <span class="font-serif text-2xl font-bold tracking-wide text-text-default md:text-3xl">RCAN</span>
+          <span class="mt-1 text-[11px] font-semibold uppercase tracking-wider text-brand-secondary md:text-xs">Returning Citizens Assistance Network</span>
+        </span>
+      </span>
     </Link>
 
     <nav aria-label="Primary" class="flex flex-1 items-center justify-end gap-2">

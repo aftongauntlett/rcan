@@ -1,0 +1,19 @@
+---
+interface Props {
+  id?: string;
+  text: string;
+  level?: 2 | 3;
+  class?: string;
+}
+
+const { id, text, level = 2, class: className = "" } = Astro.props as Props;
+
+const HeadingTag = `h${level}` as "h2" | "h3";
+---
+
+<div class={`text-center ${className}`}>
+  <HeadingTag id={id} class="text-lg font-semibold uppercase tracking-widest text-text-subtle md:text-xl">
+    {text}
+  </HeadingTag>
+  <div class="mx-auto mt-2 h-0.5 w-12 rounded-full bg-brand-secondary" aria-hidden="true"></div>
+</div>

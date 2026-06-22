@@ -2,10 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
+import SectionTitle from "../components/SectionTitle.astro";
 import Button from "../components/Button.astro";
 import StatStrip from "../components/StatStrip.astro";
 import CTABlock from "../components/CTABlock.astro";
-import IconSupportList from "../components/IconSupportList.astro";
+import IconCardGrid from "../components/IconCardGrid.astro";
 import heroImage from "../assets/hands-holding.jpg";
 
 const pageTitle = "RCAN | Returning Citizens Assistance Network";
@@ -13,18 +14,33 @@ const pageDescription =
 	"RCAN is a Washington, DC network of congregations that responds to urgent short-term needs for returning citizens through direct community support.";
 
 const assistanceExamples = [
-	{ icon: "heart" as const, text: "Providing clothing, food, and personal essentials to people newly released" },
-	{ icon: "users" as const, text: "Offering life-skills counseling and short-term mentoring relationships" },
-	{ icon: "home" as const, text: "Helping secure housing — application fees, security deposits, and furnishings" },
-	{ icon: "map-pin" as const, text: "Collecting and delivering donated furniture for newly housed clients" },
-	{ icon: "dollar-sign" as const, text: "Providing emergency funds to prevent eviction or meet urgent financial needs" },
-	{ icon: "book-open" as const, text: "Connecting clients to employers and navigating job applications together" },
+	{ icon: "heart" as const, label: "Providing clothing, food, and personal essentials to people newly released" },
+	{ icon: "users" as const, label: "Offering life-skills counseling and short-term mentoring relationships" },
+	{ icon: "home" as const, label: "Helping secure housing — application fees, security deposits, and furnishings" },
+	{ icon: "map-pin" as const, label: "Collecting and delivering donated furniture for newly housed clients" },
+	{ icon: "dollar-sign" as const, label: "Providing emergency funds to prevent eviction or meet urgent financial needs" },
+	{ icon: "book-open" as const, label: "Connecting clients to employers and navigating job applications together" },
 ] as const;
 
 const actionItems = [
-	{ icon: "check" as const, label: "Fund urgent needs", text: "Every gift directly supports urgent client needs, including stable housing, grocery support, emergency financial assistance, transportation costs, and other immediate essentials during reentry." },
-	{ icon: "check" as const, label: "Serve in person", text: "Respond to specific client requests by offering goods, services, skills, or time, and help meet practical needs quickly — open to everyone, no congregation required." },
-	{ icon: "check" as const, label: "Bring your congregation", text: "If your congregation serves in DC, Maryland, or Virginia, RCAN welcomes new partner communities ready to advance social justice through direct, practical reentry support." },
+	{
+		icon: "check" as const,
+		label: "Fund urgent needs",
+		description: "Every gift directly supports urgent client needs, including stable housing, grocery support, emergency financial assistance, transportation costs, and other immediate essentials during reentry.",
+		cta: { label: "Donate", href: "/donate", variant: "primary" as const },
+	},
+	{
+		icon: "check" as const,
+		label: "Serve in person",
+		description: "Respond to specific client requests by offering goods, services, skills, or time, and help meet practical needs quickly — open to everyone, no congregation required.",
+		cta: { label: "Support", href: "/get-involved", variant: "secondary" as const },
+	},
+	{
+		icon: "check" as const,
+		label: "Bring your congregation",
+		description: "If your congregation serves in Washington, DC, RCAN welcomes new partner communities ready to advance social justice through direct, practical reentry support.",
+		cta: { label: "Partner", href: "/get-involved", variant: "secondary" as const },
+	},
 ] as const;
 
 const impactStats = [
@@ -60,6 +76,7 @@ const impactStats = [
 					level={1}
 					heading="Returning Citizens Assistance Network"
 					headingClass="text-4xl md:text-5xl text-brand-primary"
+					tagline="Giving a helping hand to those returning from incarceration."
 					divider
 					subheading="RCAN responds to urgent needs for returning citizens and others in the criminal justice system - all referred by the DC Public Defender Service. The network focuses on practical barriers to reentry: housing, clothing, food, employment, and ongoing personal support."
 				/>
@@ -85,27 +102,22 @@ const impactStats = [
 		</div>
 	</section>
 
-	<section class="mt-6! rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="assistance-heading">
-		<h2 id="assistance-heading" class="section-title text-text-subtle">How RCAN assists</h2>
-		<p class="mt-6 text-base leading-7 text-text-subtle">
+	<section aria-labelledby="assistance-heading">
+		<SectionTitle id="assistance-heading" text="How RCAN assists" />
+		<p class="mx-auto mt-6 max-w-3xl text-base leading-7 text-text-subtle">
 			RCAN responds to urgent reentry needs through direct referrals and coordinated support from partner congregations.
 			The examples below show how assistance is delivered and where people can step in to help.
 		</p>
 
-		<IconSupportList items={assistanceExamples} ariaLabel="Ways RCAN assists returning citizens" columns={2} />
+		<IconCardGrid items={assistanceExamples} ariaLabel="Ways RCAN assists returning citizens" columns={3} />
 	</section>
 
-	<section class="grid gap-6 lg:grid-cols-[1fr_280px] lg:items-stretch" aria-labelledby="how-to-help-heading">
-		<div>
-			<h2 id="how-to-help-heading" class="section-title text-text-subtle">How you can help</h2>
-			<p class="mt-2 text-sm leading-6 text-text-subtle">Donate, volunteer, or join as a congregation partner in the DC area.</p>
-			<IconSupportList items={actionItems} ordered columns={1} ariaLabel="Ways to help RCAN" noRowPadding rowHover={false} />
-		</div>
-		<aside class="flex flex-col gap-3 lg:justify-center" aria-label="How you can help quick actions">
-			<Button href="/donate" variant="primary" size="md" class="w-full">Donate</Button>
-			<Button href="/get-involved" variant="secondary" size="md" class="w-full">Support</Button>
-			<Button href="/get-involved" variant="secondary" size="md" class="w-full">Partner</Button>
-		</aside>
+	<section aria-labelledby="how-to-help-heading">
+		<SectionTitle id="how-to-help-heading" text="How you can help" />
+		<p class="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-text-subtle">
+			Donate, volunteer, or join as a congregation partner in the DC area.
+		</p>
+		<IconCardGrid items={actionItems} ariaLabel="Ways to help RCAN" columns={3} />
 	</section>
 
 	<CTABlock

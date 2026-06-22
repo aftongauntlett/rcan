@@ -27,6 +27,6 @@ describe("resolveInitialOption", () => {
         { value: "a", label: "A", disabled: true },
         { value: "b", label: "B", disabled: true },
       ]),
-    ).toThrowError("CustomDropdown requires at least one enabled option.");
+    ).toThrow("CustomDropdown requires at least one enabled option.");
   });
 });

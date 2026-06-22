@@ -1,0 +1,77 @@
+---
+import Icon from "./Icon.astro";
+import Button from "./Button.astro";
+
+type IconName =
+  | "arrow-right"
+  | "arrow-up-right"
+  | "book-open"
+  | "check"
+  | "chevron-right"
+  | "dollar-sign"
+  | "external-link"
+  | "gift"
+  | "globe"
+  | "hand-heart"
+  | "home"
+  | "heart"
+  | "info"
+  | "landmark"
+  | "mail"
+  | "map-pin"
+  | "menu"
+  | "phone"
+  | "user"
+  | "users"
+  | "x";
+
+interface IconCardItem {
+  icon: IconName;
+  label: string;
+  description?: string;
+  cta?: { label: string; href: string; variant?: "primary" | "secondary" };
+}
+
+interface Props {
+  items: readonly IconCardItem[];
+  ariaLabel: string;
+  columns?: 2 | 3 | 4;
+  class?: string;
+}
+
+const { items, ariaLabel, columns = 4, class: className = "" } = Astro.props as Props;
+
+const columnsClasses: Record<2 | 3 | 4, string> = {
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-2 lg:grid-cols-3",
+  4: "sm:grid-cols-2 lg:grid-cols-4",
+};
+---
+
+<ul class={`mt-8 grid gap-4 ${columnsClasses[columns]} ${className}`} aria-label={ariaLabel}>
+  {
+    items.map((item) => (
+      <li class="flex flex-col items-center gap-3 rounded-xl border border-border-default/60 bg-surface-default px-5 py-6 text-center shadow-sm">
+        <span
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary"
+          aria-hidden="true"
+        >
+          <Icon name={item.icon} />
+        </span>
+        {item.description ? (
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">{item.label}</p>
+            <p class="mt-1 text-sm leading-6 text-text-subtle">{item.description}</p>
+          </div>
+        ) : (
+          <p class="text-sm leading-6 text-text-subtle">{item.label}</p>
+        )}
+        {item.cta && (
+          <Button href={item.cta.href} variant={item.cta.variant ?? "secondary"} size="sm" class="mt-1">
+            {item.cta.label}
+          </Button>
+        )}
+      </li>
+    ))
+  }
+</ul>

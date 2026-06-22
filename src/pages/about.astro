@@ -1,176 +1,160 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
-import SectionHeader from "../components/SectionHeader.astro";
-import Icon from "../components/Icon.astro";
-import CTABlock from "../components/CTABlock.astro";
-import holdingHandsImage from "../assets/holding-hands.jpg";
-import communityHeroImage from "../assets/community-is-strength.jpg";
-import handShakeLogoImage from "../assets/hand-shake-logo.jpg";
-import { Calendar } from "@lucide/astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import IconCardGrid from "../components/IconCardGrid.astro";
 
 const pageTitle = "About RCAN | Returning Citizens Assistance Network";
 const pageDescription =
   "Read about RCAN's mission, history, and community-centered approach to supporting successful re-entry.";
 
-const values = [
-  "Dignity-first support for people returning to society",
-  "Rapid response to urgent short-term needs",
-  "Congregation-led coordination and care",
-  "Practical pathways toward housing, stability, and work",
+const motivationScriptures = [
+  {
+    text: `Continue to remember those in prison as if you were together with them in prison, and those who are mistreated as if you yourselves were suffering.`,
+    reference: "Hebrews 13:3",
+  },
+  {
+    text: `Suppose a brother or sister is without clothes and daily food. If one of you says to them, "Go in peace; keep warm and well fed," but does nothing about their physical needs, what good is it?`,
+    reference: "James 2:14–16",
+  },
+  {
+    text: `Whoever oppresses the poor shows contempt for their Maker, but whoever is kind to the needy honors God.`,
+    reference: "Proverbs 14:31",
+  },
+  {
+    text: `And what does the Lord require of you? To act justly and to love mercy and to walk humbly with your God.`,
+    reference: "Micah 6:8",
+  },
+  {
+    text: `Each of you should use whatever gift you have received to serve others, as faithful stewards of God's grace in its various forms.`,
+    reference: "1 Peter 4:10",
+  },
 ];
+
+const values = [
+  { icon: "hand-heart", label: "Dignity-first support for people returning to society" },
+  { icon: "gift", label: "Rapid response to urgent short-term needs" },
+  { icon: "users", label: "Congregation-led coordination and care" },
+  { icon: "home", label: "Practical pathways toward housing, stability, and work" },
+] as const;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="border-b border-border-default pb-10 pt-6 md:pt-8">
-    <SectionHeader
-      level={1}
-      heading="Community networks changing reentry outcomes"
-      subheading="RCAN responds to requests from the DC Public Defender Service and connects congregations with practical ways to support returning citizens."
-    />
-    <p class="mt-6 text-base leading-7 text-text-subtle">
-      In 2018, New York Avenue Presbyterian Church and Metropolitan AME Church worked with the
-      Public Defender Service of the District of Columbia to establish the Returning Citizens
-      Assistance Network (RCAN). This informal network is composed of twenty congregations that
-      agree to assist returning citizens and others in the criminal justice system who face
-      specific short-term needs.
+  <section aria-labelledby="about-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-brand-secondary">About RCAN</p>
+      <h1
+        id="about-heading"
+        class="mt-4 text-balance font-serif text-4xl font-semibold leading-tight text-text-default md:text-5xl"
+      >
+        Community networks changing reentry outcomes
+      </h1>
+      <div class="mx-auto mt-6 h-1.5 w-20 rounded-full bg-brand-secondary" aria-hidden="true"></div>
+      <p class="mx-auto mt-6 max-w-md text-lg leading-7 text-text-subtle">
+        Congregations across Washington, DC uniting to support returning citizens.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="history-heading" class="mx-auto max-w-3xl">
+    <SectionTitle id="history-heading" text="Our History" />
+    <div class="mt-6 space-y-6 text-base leading-7 text-text-subtle">
+      <p>
+        RCAN traces its origins to 2015 and a presentation Bryan Stevenson of the Equal Justice
+        Initiative gave at New York Avenue Presbyterian Church (NYAPC) in downtown Washington, DC.
+        During his talk, Bryan urged the 750 people in attendance to "get proximate" to those who
+        are or were incarcerated and become involved in their lives. Shortly after, Theo Brown, who
+        had organized the program with Bryan, began meeting with other NYAPC members to discuss how
+        they might respond to that challenge.
+      </p>
+      <div class="flex items-center justify-center gap-2" aria-hidden="true">
+        <span class="h-px w-10 bg-border-default"></span>
+        <span class="h-1 w-1 rounded-full bg-brand-secondary/60"></span>
+        <span class="h-px w-10 bg-border-default"></span>
+      </div>
+      <p>
+        As the group looked into ways they could help, Rob Hornstein of the DC Public Defender
+        Service — who had also attended the talk — reached out to Theo with a proposal: PDS
+        regularly worked with clients returning from incarceration who had almost no resources and
+        needed help building a stable life in the community. NYAPC and PDS agreed to work together,
+        and a partnership was born.
+      </p>
+      <div class="flex items-center justify-center gap-2" aria-hidden="true">
+        <span class="h-px w-10 bg-border-default"></span>
+        <span class="h-1 w-1 rounded-full bg-brand-secondary/60"></span>
+        <span class="h-px w-10 bg-border-default"></span>
+      </div>
+      <p>
+        At first, NYAPC fielded only one or two requests a month — furniture for an apartment, help
+        with transportation, emergency food, or simply a friend. As referrals grew beyond what NYAPC
+        could handle alone, Theo invited Don Craig and other leaders at nearby Metropolitan AME
+        Church to help. After months of the two congregations working together, they decided to
+        invite others to join. In 2018, NYAPC and Metropolitan AME wrote to about 20 congregations,
+        inviting them to form the Returning Citizens Assistance Network. About a dozen signed on as
+        founding members, and RCAN has grown steadily since — today, 21 churches and synagogues
+        across Washington, DC work together to assist PDS clients who are returning from
+        incarceration or still in prison.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="motivation-heading" class="mx-auto max-w-3xl">
+    <SectionTitle id="motivation-heading" text="Our Motivation" />
+    <div class="mt-6 space-y-6 text-base leading-7 text-text-subtle">
+      <p>
+        The congregations that are part of RCAN are motivated by their shared spiritual conviction
+        that each person is a child of God and deserves to be treated with respect and dignity.
+        They are further motivated by commands from their faith traditions that urge followers to
+        show particular concern for the needs of those who are marginalized in our society — the
+        poor, the downtrodden, the despised, and those who are in prison.
+      </p>
+      <div class="flex items-center justify-center gap-2" aria-hidden="true">
+        <span class="h-px w-10 bg-border-default"></span>
+        <span class="h-1 w-1 rounded-full bg-brand-secondary/60"></span>
+        <span class="h-px w-10 bg-border-default"></span>
+      </div>
+      <p>
+        Scripture is filled with the admonition to treat others as we would like to be treated, and
+        to take specific action to alleviate the suffering of those in physical and mental pain.
+        Some of the passages that inspire RCAN members:
+      </p>
+    </div>
+
+    <div class="mt-10 rounded-2xl border border-border-default/60 bg-surface-subtle px-6 py-8 md:px-10 md:py-10">
+      <ul aria-label="Scriptures that inspire RCAN">
+        {
+          motivationScriptures.map((verse, index) => (
+            <li class={index > 0 ? "mt-8" : ""}>
+              {index > 0 && (
+                <div class="mb-8 flex items-center justify-center gap-3" aria-hidden="true">
+                  <span class="h-px w-16 bg-brand-secondary/25"></span>
+                  <span class="h-2 w-2 rotate-45 bg-brand-secondary/60"></span>
+                  <span class="h-px w-16 bg-brand-secondary/25"></span>
+                </div>
+              )}
+              <figure>
+                <blockquote class="font-serif text-lg italic leading-relaxed text-text-subtle">
+                  <span aria-hidden="true" class="text-brand-secondary/50">&ldquo;</span>
+                  {verse.text}
+                  <span aria-hidden="true" class="text-brand-secondary/50">&rdquo;</span>
+                </blockquote>
+                <figcaption class="mt-2 text-right text-sm font-semibold uppercase tracking-wide text-brand-secondary/80">
+                  {verse.reference}
+                </figcaption>
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="approach-heading" class="mx-auto max-w-3xl">
+    <SectionTitle id="approach-heading" text="Our Approach" />
+    <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-text-subtle">
+      RCAN is rooted in the conviction that practical support and faithful community can reshape
+      reentry outcomes. Twenty-one congregations across Washington, DC share this commitment —
+      different in tradition, united in purpose.
     </p>
+    <IconCardGrid items={values} ariaLabel="RCAN core values" columns={4} />
   </section>
-
-  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="history-heading">
-    <div class="grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-center">
-      <div>
-        <h2 id="history-heading" class="section-title text-text-subtle">How RCAN came together</h2>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="inline-flex items-center gap-1.5 rounded-full border border-border-default bg-surface-default px-3 py-1 text-sm font-medium text-text-default">
-            <Calendar size={14} aria-hidden="true" class="shrink-0 text-brand-secondary" />
-            Founded 2018
-          </span>
-          <span class="inline-flex items-center gap-1.5 rounded-full border border-border-default bg-surface-default px-3 py-1 text-sm font-medium text-text-default">
-            <Icon name="users" size="sm" class="text-brand-secondary" aria-hidden="true" />
-            22 congregations
-          </span>
-          <span class="inline-flex items-center gap-1.5 rounded-full border border-border-default bg-surface-default px-3 py-1 text-sm font-medium text-text-default">
-            <Icon name="map-pin" size="sm" class="text-brand-secondary" aria-hidden="true" />
-            DC, Maryland &amp; Virginia
-          </span>
-        </div>
-        <p class="mt-4 max-w-3xl text-base leading-7 text-text-subtle">
-          Inspired by Bryan Stevenson's call to get proximate to the poor and the incarcerated, a
-          partnership formed with the DC Public Defender Service to respond to practical reentry needs.
-          In 2018, NYAPC and Metropolitan AME Church launched RCAN as a congregation network. It has
-          since grown to twenty congregations coordinating direct responses to individual requests —
-          making practical help available quickly and without bureaucracy.
-        </p>
-        <p class="mt-4 max-w-3xl text-base leading-7 text-text-subtle">
-          RCAN generally engages with one or two cases each week, with that number growing as more
-          congregations and individuals join. RCAN shares information about each case with the full
-          network; each congregation then determines for itself whether it is able to help with a
-          particular case.
-        </p>
-      </div>
-      <figure class="hidden overflow-hidden rounded-lg shadow-md lg:block">
-        <Image
-          src={communityHeroImage}
-          alt="Community members gather together, showing the collective strength and care that defines RCAN's network."
-          class="h-full w-full object-cover"
-          width={600}
-          widths={[400, 600]}
-          sizes="40vw"
-          format="webp"
-          quality={65}
-          loading="lazy"
-        />
-      </figure>
-    </div>
-  </section>
-
-  <section class="py-10" aria-labelledby="rcan-fund-heading">
-    <div class="grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-start">
-      <figure class="overflow-hidden rounded-lg shadow-md">
-        <Image
-          src={holdingHandsImage}
-          class="w-full object-cover"
-          alt="Two people holding hands, representing the mutual support at the heart of RCAN's mission."
-          width={480}
-          widths={[320, 480]}
-          sizes="(min-width: 1024px) 33vw, 100vw"
-          format="webp"
-          quality={60}
-          loading="lazy"
-        />
-      </figure>
-      <div>
-        <h2 id="rcan-fund-heading" class="section-title text-text-subtle">The RCAN Fund</h2>
-        <p class="mt-4 text-base leading-7 text-text-subtle">
-          The RCAN Fund was established through New York Avenue Presbyterian Church in January 2021
-          to facilitate online donations supporting client requests from the DC PDS. In 2025,
-          contributions helped 361 clients — including 10 families (51 adults and children) who
-          received holiday gift baskets, and 36 incarcerated clients without external support who
-          each received $50 in commissary funds.
-        </p>
-        <p class="mt-3 text-base leading-7 text-text-subtle">
-          Each December since 2020, RCAN has prepared holiday gift baskets for PDS-selected families
-          and individuals. In 2025, ten families — 51 adults and children — received gifts by Christmas.
-        </p>
-        <p class="mt-3 text-base leading-7 text-text-subtle">
-          To donate online, visit <a href="/donate" class="text-text-link underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">RCAN's donate page</a>. To give by mail, send contributions to New York Avenue Presbyterian
-          Church at Placeholder Mailing Address, Washington, DC 00000.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Our Shared Identity -->
-  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="identity-heading">
-    <div class="grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-start">
-      <div>
-        <h2 id="identity-heading" class="section-title text-text-subtle">Our shared identity</h2>
-        <p class="mt-4 text-base leading-7 text-text-subtle">
-          RCAN is rooted in the conviction that practical support and faithful community can reshape reentry outcomes.
-          Twenty-two congregations across DC, Maryland, and Virginia share this commitment — different in tradition,
-          united in purpose.
-        </p>
-        <ul class="mt-6 space-y-3" aria-label="RCAN core values">
-          {
-            values.map((item) => (
-              <li class="flex items-start gap-3 text-base leading-7 text-text-subtle">
-                <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
-                <span>{item}</span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-      <div class="flex flex-col items-center gap-5">
-        <figure class="w-full max-w-56 overflow-hidden rounded-lg shadow-md">
-          <Image
-            src={handShakeLogoImage}
-            alt="Two hands clasped in a handshake — the RCAN network mark."
-            class="w-full object-cover"
-            width={282}
-            widths={[141, 282]}
-            sizes="14rem"
-            format="webp"
-            quality={70}
-            loading="lazy"
-          />
-        </figure>
-        <blockquote class="pr-5 text-right text-base italic leading-8 text-text-default">
-          "Act justly, love mercy, and walk humbly."
-        </blockquote>
-        <p class="-mt-3 pr-5 text-right text-sm text-text-subtle">— Micah 6:8</p>
-      </div>
-    </div>
-  </section>
-
-  <CTABlock
-    variant="outline"
-    heading="Ready to be part of this?"
-    body="Whether you want to join as a congregation, volunteer your time, or support the work with a gift — RCAN welcomes new partners."
-    primaryLabel="Get involved"
-    primaryHref="/get-involved"
-    secondaryLabel="Donate"
-    secondaryHref="/donate"
-  />
 </BaseLayout>

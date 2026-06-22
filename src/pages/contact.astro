@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Button from "../components/Button.astro";
-import CTABlock from "../components/CTABlock.astro";
 import CustomDropdown from "../components/CustomDropdown.astro";
 import Icon from "../components/Icon.astro";
 import postImage from "../assets/post.jpg";
@@ -450,9 +449,14 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
       textarea.select();
       textarea.setSelectionRange(0, textarea.value.length);
 
+      // execCommand is deprecated but still the only copy path for browsers/contexts
+      // without navigator.clipboard; cast to a plain signature to avoid the deprecation
+      // diagnostic on an intentional fallback.
+      const execCommandCopy = document.execCommand.bind(document) as (commandId: string) => boolean;
+
       let copied = false;
       try {
-        copied = document.execCommand("copy");
+        copied = execCommandCopy("copy");
       } catch {
         copied = false;
       }
@@ -590,16 +594,5 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
     }
 
   </script>
-  {showTurnstileWidget && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
-
-  <section class="mt-6" aria-label="Next steps">
-    <CTABlock
-      heading="Take the next step"
-      body="If you are ready to support this work right away, financial giving remains one of the fastest ways to strengthen RCAN's response capacity."
-      primaryLabel="Donate"
-      primaryHref="/donate"
-      secondaryLabel="Get involved"
-      secondaryHref="/get-involved"
-    />
-  </section>
+  {showTurnstileWidget && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
 </BaseLayout>

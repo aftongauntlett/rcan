@@ -6,6 +6,7 @@ import defaultOgImage from "../assets/hands-holding.jpg";
 import "../styles/global.css";
 import "@fontsource/manrope/latin-400.css";
 import "@fontsource/manrope/latin-700.css";
+import "@fontsource/fraunces/latin-400-italic.css";
 import "@fontsource/fraunces/latin-600.css";
 
 interface Props {
@@ -25,7 +26,7 @@ const resolvedOgImage = ogImage.startsWith("http")
 ---
 
 <!doctype html>
-<html lang="en" class="h-full bg-neutral-50 text-text-default">
+<html lang="en" class="h-full bg-surface-default text-text-default">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,7 +46,7 @@ const resolvedOgImage = ogImage.startsWith("http")
 
     <title>{title}</title>
   </head>
-  <body class="flex min-h-full flex-col bg-linear-to-b from-neutral-50 to-surface-default font-sans text-text-default antialiased">
+  <body class="flex min-h-full flex-col bg-surface-default font-sans text-text-default antialiased">
     <SkipLink href="#main-content" />
     <Header />
     <main id="main-content" class="mx-auto w-full max-w-7xl flex-1 px-4 pt-4 pb-10 md:px-6 space-y-12 md:space-y-16">

@@ -4,7 +4,6 @@ import { Image } from "astro:assets";
 import SectionHeader from "../components/SectionHeader.astro";
 import Button from "../components/Button.astro";
 import BulletList from "../components/BulletList.astro";
-import CTABlock from "../components/CTABlock.astro";
 import donateImage from "../assets/make-change.jpg";
 
 const pageTitle = "Donate | RCAN";
@@ -25,6 +24,14 @@ const donorboxFrameHeight = 720;
       subheading="RCAN's ministry is sustained through the generosity of dedicated members and friends. Your gift helps RCAN respond quickly to urgent requests for housing, food, transportation, and other practical barriers that can delay reentry stability."
     />
     <p class="mt-6 text-base leading-7 text-text-subtle">
+      The RCAN Fund was established through New York Avenue Presbyterian Church in January 2021 to
+      facilitate online donations supporting client requests from the DC Public Defender Service.
+      Each December since 2020, RCAN has prepared holiday gift baskets for PDS-selected families and
+      individuals — in 2025, ten families (51 adults and children) received gifts by Christmas, and
+      36 incarcerated clients without outside support each received $50 in commissary funds. In all,
+      2025 contributions helped 361 clients.
+    </p>
+    <p class="mt-3 text-base leading-7 text-text-subtle">
       Every contribution supports practical, short-term needs identified through RCAN's
       referral channels.
     </p>
@@ -82,6 +89,9 @@ const donorboxFrameHeight = 720;
 
       <aside id="mail-giving" class="h-full rounded-lg border border-border-default bg-surface-default px-6 py-8" aria-labelledby="mail-giving-heading">
         <h3 id="mail-giving-heading" class="text-sm font-semibold uppercase tracking-wide text-text-default">Prefer to give by mail?</h3>
+        <p class="mt-3 text-base leading-7 text-text-subtle">
+          Make checks payable to New York Avenue Presbyterian Church and mail to:
+        </p>
         <address class="mt-3 not-italic text-base leading-7 text-text-subtle">
           Placeholder Mailing Address<br />
           Washington, DC 00000
@@ -146,13 +156,4 @@ const donorboxFrameHeight = 720;
       </article>
     </div>
   </section>
-
-  <CTABlock
-    heading="Want to support in more than one way?"
-    body="Financial gifts fund urgent needs. Congregation and volunteer support expands RCAN's response capacity across the network."
-    primaryLabel="Get involved"
-    primaryHref="/get-involved"
-    secondaryLabel="Contact RCAN"
-    secondaryHref="/contact"
-  />
 </BaseLayout>

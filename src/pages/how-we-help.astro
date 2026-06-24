@@ -1,8 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import SectionHeader from "../components/SectionHeader.astro";
+import PageHeader from "../components/PageHeader.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import IconSupportList from "../components/IconSupportList.astro";
 import CTABlock from "../components/CTABlock.astro";
+import CountUpScript from "../components/CountUpScript.astro";
 import Button from "../components/Button.astro";
 import supportImage from "../assets/art-community.jpg";
 import bagOfGiftsImage from "../assets/bag-of-gifts.jpg";
@@ -11,6 +14,7 @@ import beautyBehindBarsImage from "../assets/beauty-behind-bars.jpg";
 import paintingImage from "../assets/painting.jpg";
 import bikeGiftsImage from "../assets/bike-gifts.jpg";
 import bikeBagsGiftImage from "../assets/bike-bags-gift.jpg";
+import mailboxImage from "../assets/mailbox.jpg";
 
 const pageTitle = "How We Help | RCAN";
 const pageDescription =
@@ -30,16 +34,57 @@ const pathwaySteps = [
     body: "Immediate barriers are reduced so individuals can focus on longer-term reentry goals — housing, employment, and community.",
   },
 ];
+
+const prisonFriendsDo = [
+  {
+    icon: "check",
+    text: "Learn about the background and current situation of the person they are matched with",
+  },
+  {
+    icon: "check",
+    text: "Build a relationship through letters and reading materials",
+  },
+  {
+    icon: "check",
+    text: "Give gifts on special occasions to the person's commissary account — providing access to food, drinks, toiletries, and personal items",
+  },
+  {
+    icon: "check",
+    text: "Provide assistance in any other mutually agreed-upon way as the relationship develops",
+  },
+  {
+    icon: "check",
+    text: "A single committed person can be just as meaningful as a group.",
+  },
+] as const;
+
+const rcanFunPhotos = [
+  {
+    image: bagOfGiftsImage,
+    alt: "Holiday gift bags prepared for detained youth at the Youth Services Center.",
+    caption: "Gift bags ready for delivery at the holidays.",
+  },
+  {
+    image: bikeGiftsImage,
+    alt: "A restored bicycle prepared for delivery to a returning citizen.",
+    caption: "A freshly restored bike, ready for its new rider.",
+  },
+  {
+    image: bikeBagsGiftImage,
+    alt: "A restored bicycle displayed with gift bags prepared by RCAN supporters.",
+    caption: "Bikes and gift bags, prepped together for delivery day.",
+  },
+] as const;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="border-b border-border-default pb-10 pt-6 md:pt-8" aria-label="How We Help overview">
-    <SectionHeader
-      level={1}
+    <PageHeader
+      eyebrow="How We Help"
       heading="Practical support when timing matters most"
       subheading="RCAN coordinates short-term, high-impact support that helps returning citizens stabilize and move forward."
     />
-    <p class="mt-6 text-base leading-7 text-text-subtle">
+    <p class="mx-auto mt-6 max-w-3xl text-base leading-7 text-text-subtle">
       Requests come through the DC Public Defender Service. RCAN congregations then coordinate
       practical, short-term support that helps people stabilize quickly and move toward
       longer-term reentry goals.
@@ -373,6 +418,103 @@ const pathwaySteps = [
         </div>
       </div>
     </section>
+
+    <!-- Prison Friendship Project -->
+    <section id="prison-friendship-project" class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="prison-friendship-heading">
+      <h3 id="prison-friendship-heading" class="section-title text-text-subtle">Prison Friendship Project</h3>
+
+      <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-stretch">
+        <div class="space-y-3">
+          <p class="text-base leading-7 text-text-subtle">
+            About 4,000 people from Washington, DC are scattered in federal prisons across the
+            country. Most are incarcerated hundreds of miles from their families, in conditions of
+            isolation and deprivation that are hard to imagine. Many have served long sentences and
+            lost contact with family and friends. A human connection from the outside offers hope,
+            affirms their humanity, and helps set the stage for successful reentry.
+          </p>
+          <p class="text-base leading-7 text-text-subtle">
+            To increase personal connections between RCAN supporters and DC PDS clients who are
+            currently incarcerated, RCAN created the Prison Friendship Project. Any individual — or
+            small group — who would like to become a "Prison Friend" will be matched with a PDS
+            client serving a sentence in the Bureau of Prisons.
+          </p>
+
+          <span class="mx-auto mt-2 block h-px w-24 bg-brand-secondary" aria-hidden="true"></span>
+          <h4 class="pt-2 text-sm font-semibold uppercase tracking-wide text-text-default">What Prison Friends do</h4>
+          <IconSupportList
+            items={prisonFriendsDo}
+            columns={1}
+            ariaLabel="What Prison Friends do"
+            class="mt-2!"
+          />
+        </div>
+
+        <aside class="flex h-full flex-col gap-4" aria-label="Prison Friendship Project highlights">
+          <figure class="overflow-hidden rounded-lg shadow-md">
+            <Image
+              src={mailboxImage}
+              class="w-full object-cover"
+              alt="A mailbox, representing the letters exchanged through the Prison Friendship Project."
+              width={480}
+              widths={[320, 480]}
+              sizes="(min-width: 1024px) 33vw, 100vw"
+              format="webp"
+              quality={60}
+              loading="lazy"
+            />
+          </figure>
+          <dl class="grid grid-cols-2 gap-3">
+            <div class="group rounded-lg bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
+              <dt class="text-xs leading-5 text-text-subtle">New pen pal matches in 2025</dt>
+              <dd class="mt-1 text-3xl font-bold text-brand-primary motion-safe:transition-colors motion-safe:duration-200 group-hover:text-brand-secondary">
+                <span class="inline-block min-w-12 tabular-nums" data-count-to="23" data-count-duration="800">23</span>
+              </dd>
+            </div>
+            <div class="group rounded-lg bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
+              <dt class="text-xs leading-5 text-text-subtle">Letters being sent now</dt>
+              <dd class="mt-1 text-3xl font-bold text-brand-primary motion-safe:transition-colors motion-safe:duration-200 group-hover:text-brand-secondary">
+                <span class="inline-block min-w-12 tabular-nums" data-count-to="40" data-count-duration="800">40</span>
+              </dd>
+            </div>
+          </dl>
+          <p class="text-sm leading-6 text-text-subtle italic">
+            RCAN supports Prison Friends with background on the client, access to lawyers and social
+            workers, guidelines for writing letters and sending items, and ideas for correspondence.
+          </p>
+        </aside>
+      </div>
+    </section>
+  </section>
+
+  <section class="border-t border-border-default py-10" aria-labelledby="rcan-fun-heading">
+    <SectionTitle id="rcan-fun-heading" text="RCAN fun" />
+    <p class="mx-auto mt-6 max-w-3xl text-center text-base leading-7 text-text-subtle">
+      Beyond urgent requests, RCAN's network shows up for the lighter moments too — holiday gift
+      bags, freshly restored bikes, and the volunteers who make them happen.
+    </p>
+    <ul class="mt-8 grid gap-4 sm:grid-cols-3" aria-label="Snapshots from RCAN programs">
+      {
+        rcanFunPhotos.map((photo) => (
+          <li>
+            <figure class="overflow-hidden rounded-lg shadow-md">
+              <Image
+                src={photo.image}
+                class="h-48 w-full object-cover"
+                alt={photo.alt}
+                widths={[320, 480, 640]}
+                sizes="(min-width: 768px) 32vw, 100vw"
+                format="webp"
+                quality={65}
+                loading="lazy"
+              />
+              <figcaption class="mt-2 text-center text-xs italic leading-5 text-text-subtle">
+                {photo.caption}
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <CTABlock
@@ -384,6 +526,8 @@ const pathwaySteps = [
     secondaryHref="/donate"
     variant="outline"
   />
+
+  <CountUpScript />
 
   <script>
     import { initCarousels } from "../utils/carousel";

@@ -22,16 +22,17 @@ Translate the client's raw notes (`notes.md`, root of repo) into an ordered, pag
 - About page content restructure — `about.astro` already has the full 3-part History/Motivation/Approach content (expanded founding narrative, all 5 scripture references, values renamed to "Our Approach"); no RCAN Fund section exists on this page in the current build, so there's nothing left to move to Donate on this front. The "Not started" status this used to carry was stale.
 - About page visual/design pass — see [Design System Rollout](#design-system-rollout-about-page--rest-of-site) below. This is now the reference implementation for the rest of the site; read that section before touching any other page.
 - Home page — tagline added under the H1 ("Giving a helping hand to those returning from incarceration."), hero paragraph left as the condensed version per the pushback recommendation below (no change needed there), "Bring your congregation" copy corrected from "DC, Maryland, or Virginia" to "Washington, DC" (missed by the original sitewide DC-only pass since Home wasn't in the locations list called out at the time — worth double-checking other pages for the same residual phrase). Visual/design pass done alongside the content change — see [Design System Rollout](#design-system-rollout-about-page--rest-of-site), Home is now the second page on the new patterns and two components were extracted in the process (`SectionTitle.astro`, `IconCardGrid.astro`) — see that section for details.
+- How We Help page — done. Note for whoever picks this up next: an earlier session had already done substantial work here (Holiday Gifts/Beauty Behind Bars/Bike Ministry pulled in from Impact, "Types of support" deleted, Support Pathway moved to the top) but committed it inside a commit titled "home page redesign" without updating this doc, so it looked untouched on paper. This round verified the actual file state against the spec below and finished what was missing: Prison Friendship Project moved in from Get Involved (replacing the now-removed full section there with a "Learn more" link off the existing "Become a Prison Friend" list item), Second Chance Event cut entirely (removed from Impact, where it had lived), and a new "RCAN fun" section added (reusing the existing bag-of-gifts/bike photos in a lightweight 3-photo grid, per [Decisions Log](#decisions-log) #8). The hero also moved off `SectionHeader` onto the new centered `PageHeader.astro` (see Design System Rollout below).
+- Impact page (partial) — the four program write-ups that belonged on How We Help (Holiday Gifts, Beauty Behind Bars, Bike Ministry, Second Chance Event) are removed now that they've landed there; the page is back to just the stats strip and Client Stories, matching the target end-state. The dead `initCarousels` script (no carousels left on the page) was removed too. Still pending: new stories/quotes/photos when that material exists — see "Not started yet."
 
 **Not started yet:**
-- How We Help page (delete "Types of support," reorder, pull in moved content)
 - Who We Are: board placeholder slots 4→9
-- Impact page (remove moved sections, add new stories when available)
-- Get Involved page (collapse Ways to Help to 4, remove Prison Friendship section)
+- Impact page: new stories/quotes/case summaries (structural cleanup above is done; this is additive content that needs client-provided material)
+- Get Involved page (collapse Ways to Help to 4 — the Prison Friendship section itself is already gone, replaced with a pointer link; the 6→4 consolidation and its Contact-page sync are still open)
 - Contact page (topic dropdown sync, congregation field simplification)
 - Donate page (absorb RCAN Fund content — verify this is still needed; see note above)
 
-Recommended order for what's left: How We Help → Get Involved → Contact → Donate → Who We Are (board slots) → Impact (once new story material exists). Home is now done — see above. For every page in this list, apply the [Design System Rollout](#design-system-rollout-about-page--rest-of-site) guidance below as you go — don't treat content and visual design as separate passes. Two components already exist (`SectionTitle.astro`, `IconCardGrid.astro`) — use them instead of re-inlining the markup a third time.
+Recommended order for what's left: Get Involved → Contact → Donate → Who We Are (board slots) → Impact (once new story material exists). Home and How We Help are now done — see above. For every page in this list, apply the [Design System Rollout](#design-system-rollout-about-page--rest-of-site) guidance below as you go — don't treat content and visual design as separate passes. Three components already exist (`SectionTitle.astro`, `IconCardGrid.astro`, `PageHeader.astro`) — use them instead of re-inlining the markup a third time.
 
 ---
 
@@ -42,7 +43,7 @@ Recommended order for what's left: How We Help → Get Involved → Contact → 
 **Patterns established on About — replicate these elsewhere:**
 
 1. **No gray/tinted page backgrounds.** `BaseLayout.astro`'s `html`/`body` no longer carry the `neutral-50` gradient, and `Footer.astro` now uses `bg-surface-default` (matching the navbar) instead of `bg-surface-subtle`. This is already sitewide — no per-page action needed, but don't reintroduce a tinted section background without a specific reason (the quote card below is an intentional, deliberate exception, not the default).
-2. **Centered page header.** Eyebrow label (small uppercase, `text-brand-secondary`) + centered serif H1 + short centered accent-bar divider + centered subheading, in a `max-w-2xl mx-auto text-center` block with a `border-b border-border-default` closing it out. Currently hand-rolled inline in `about.astro` rather than going through `SectionHeader.astro` (which only does left-aligned headers today).
+2. **Centered page header.** Eyebrow label (small uppercase, `text-brand-secondary`) + centered serif H1 + short centered accent-bar divider + centered subheading, in a `max-w-2xl mx-auto text-center` block with a `border-b border-border-default` closing it out. ✅ **Extracted** into `src/components/PageHeader.astro` (props: `id`, `eyebrow`, `heading`, optional `subheading`, optional `class`) when How We Help became the second page with a text-only hero (no side image) needing this shape. `about.astro` and `how-we-help.astro` both use it now — reach for it on any other page whose hero is plain text (not a two-column image+text hero like Home's or Get Involved's, which stay on the left-aligned `SectionHeader.astro`).
 3. **Centered section titles.** Short centered uppercase label + small centered accent bar underneath, replacing the old left-aligned `.section-title` CSS rule (`global.css`) and its `::after` underline anchored at `left-0`. ✅ **Extracted** into `src/components/SectionTitle.astro` (props: `id`, `text`, optional `level` (2 or 3, default 2), optional `class`) when Home became the second page to use this pattern. `about.astro` (History/Motivation/Approach) and `index.astro` ("How RCAN assists"/"How you can help") both use it now — reuse it on every other page instead of hand-rolling the eyebrow-label-plus-bar markup again. The old `.section-title` CSS rule in `global.css` is still live and still used by Donate, Contact, Get Involved, How We Help, Impact, and Who We Are — don't remove it until those pages migrate too.
 4. **Narrow reading column for body copy.** Long-form paragraphs live in a `mx-auto max-w-3xl` wrapper, left-aligned (don't center body paragraphs — hurts readability past 1-2 lines). Centering is reserved for short ceremonial elements (titles, headers, captions), not prose.
 5. **Ornamental paragraph dividers.** Small muted flanking lines + center dot (`brand-secondary/60`) between long paragraphs, used in History and the Motivation intro, to break up dense reading without a heavy rule.
@@ -52,7 +53,7 @@ Recommended order for what's left: How We Help → Get Involved → Contact → 
 
 **How to roll this out without making a mess:**
 
-- Patterns 3 and 7 are now real components (`SectionTitle.astro`, `IconCardGrid.astro` — see above) since Home brought a second page into each. The rest (centered page header, paragraph dividers, quote card) are still bespoke markup inside `about.astro` only — extract them the same way the first time a second page needs one; don't copy-paste the inline version.
+- Patterns 2, 3, and 7 are now real components (`PageHeader.astro`, `SectionTitle.astro`, `IconCardGrid.astro` — see above) since Home and How We Help each brought a second page into one. The rest (paragraph dividers, quote card) are still bespoke markup inside `about.astro` only — extract them the same way the first time a second page needs one; don't copy-paste the inline version.
 - After extracting, sweep for dead code the change just orphaned: unused `SectionHeader` props if About stops calling it directly, the left-aligned `.section-title` CSS rule in `global.css` once every page ends up using `SectionTitle.astro`, any now-unused `bg-surface-subtle`/gray-background classes left over from the old per-page styling (Home's "How RCAN assists" section had one of these — removed when it moved to `SectionTitle`/`IconCardGrid`).
 - Record each newly-extracted component here (or in the Decisions Log) as it's created, so the next agent reuses it instead of re-inlining the markup a third time.
 
@@ -193,6 +194,8 @@ The current About page has a substantial "RCAN Fund" section (donation history, 
 
 ## How We Help Page
 
+**Status: done** — see [Implementation Status](#implementation-status) for the full account of what was already live vs. finished this round.
+
 This is where the program-specific content (Holiday Gifts, Beauty Behind Bars, Bike Ministry, Prison Friendship Project) lands, per the reconciliation above.
 
 ### 1. Headline/intro — keep, slight edit ✅
@@ -256,9 +259,9 @@ All 3 directions (clean text list / card grid / logo-tile placeholder) were buil
 
 Clear, additive — needs source material (more client-provided stories, quotes, and photos) but no structural ambiguity.
 
-### 3. Holiday Gifts / Beauty Behind Bars / Bike Ministry / Second Chance Event move off this page ✅
+### 3. Holiday Gifts / Beauty Behind Bars / Bike Ministry / Second Chance Event move off this page ✅ done
 
-Per the How We Help section above — those four program write-ups leave Impact; Impact keeps the stats strip and the "Client Stories" block (Mr. E., TW, Ms. Davenport), which is exactly the kind of outcome-focused content the client's "list success stories" instruction is asking for.
+Per the How We Help section above — those four program write-ups are now removed from Impact (Second Chance Event was cut outright per item 5 there, the other three already live on How We Help). Impact keeps the stats strip and the "Client Stories" block (Mr. E., TW, Ms. Davenport), which is exactly the kind of outcome-focused content the client's "list success stories" instruction is asking for.
 
 ---
 
@@ -274,9 +277,9 @@ Per the How We Help section above — those four program write-ups leave Impact;
 
 Current `waysToHelp` array has 6 items; consolidate to these 4. Also drives the Contact form topic-list changes below — these need to be the same 4 labels (or very close to it) in both places.
 
-### 4. Prison Friendship Project section removed from this page ✅
+### 4. Prison Friendship Project section removed from this page ✅ done
 
-Moves to How We Help (see above); replace with a short pointer/link from the "be a prison friend" item instead of the full section.
+Moved to How We Help (see above). The full section is gone; the "Become a Prison Friend" entry in the `waysToHelp` list now carries a "Learn more" link to `/how-we-help#prison-friendship-project` instead. Note this is still a 6-item list today — the 6→4 consolidation in item 3 above (and its Contact-page sync) hasn't happened yet, so don't read this as that task being done too.
 
 ### 5. Congregation Commitments section ✅ confirmed staying
 
@@ -324,7 +327,9 @@ All items below were open questions as of the first draft of this PRD; all are n
 11. **Congregation Commitments section (Get Involved)** — confirmed staying as-is.
 12. **Contact "congregation/organization" field** — single always-visible optional text input, replacing the current topic-triggered reveal logic (not an additional dropdown-gated field).
 13. **First component extractions from the Design System Rollout** — Home was the second page to need the centered-section-title and icon-value-card patterns, so per the rollout's own instructions, both got extracted instead of copy-pasted a second time: `src/components/SectionTitle.astro` (centered eyebrow-style `h2`/`h3` + accent bar) and `src/components/IconCardGrid.astro` (icon-in-circle card grid, optional per-card description + CTA button). `about.astro` was updated to consume both instead of keeping its original hand-rolled markup, so there's exactly one implementation of each pattern. `SectionHeader.astro` also gained an optional `tagline` prop (italic line under the H1, above the divider) for the homepage tagline — reuse it rather than hand-rolling another one-off subtitle. The `.section-title` CSS rule in `global.css` is still in use by Donate, Contact, Get Involved, How We Help, Impact, and Who We Are, so it wasn't removed — revisit once those migrate too.
+14. **Second component extraction: `PageHeader.astro`** — How We Help's hero is a plain text-only header (eyebrow + H1 + subheading, no side image), the same shape as About's hand-rolled centered header. Per the rollout's "extract on the second occurrence" rule, that markup became `src/components/PageHeader.astro` (props: `id`, `eyebrow`, `heading`, optional `subheading`, optional `class`); both `about.astro` and `how-we-help.astro` now consume it. This is distinct from `SectionHeader.astro`, which stays left-aligned and keeps serving the two-column image+text heroes (Home, Get Involved, Impact, etc.) — don't conflate the two when a future page's hero needs picking between them.
+15. **How We Help / Get Involved / Impact content moves were already half-done before this round started** — a prior session had migrated Holiday Gifts, Beauty Behind Bars, and Bike Ministry from Impact into How We Help, deleted "Types of support," and moved Support Pathway to the top, but landed it inside a commit titled "home page redesign" (`d45875c`) without updating this PRD, so it read as "Not started" here despite being live. Worth flagging because it could easily happen again: when picking up a "Not started" page, run `git diff`/`git log -- <file>` against the actual file before trusting this doc's status table.
 
 ## Suggested next steps
 
-See [Implementation Status](#implementation-status) for the current done/in-progress/not-started breakdown. About and Home are both done — Home is now the second reference point for the design system, with `SectionTitle.astro` and `IconCardGrid.astro` extracted as real components (see [Design System Rollout](#design-system-rollout-about-page--rest-of-site) and Decisions Log #13). Next chunk up is **How We Help**, then Get Involved, Contact, Donate, Who We Are (board slots), and Impact, in that order. Reach for `SectionTitle`/`IconCardGrid` first before re-inlining markup, and extract a new shared component the first time one of the remaining patterns (centered page header, paragraph dividers, quote card) repeats on a second page.
+See [Implementation Status](#implementation-status) for the current done/in-progress/not-started breakdown. About, Home, and How We Help are now done — three components are extracted as a result (`SectionTitle.astro`, `IconCardGrid.astro`, `PageHeader.astro`; see [Design System Rollout](#design-system-rollout-about-page--rest-of-site) and Decisions Log #13–14). Next chunk up is **Get Involved** (the 6→4 Ways to Help consolidation, which the Contact page's topic dropdown needs to mirror), then Contact, Donate, Who We Are (board slots), and Impact (new story material), in that order. Reach for `SectionTitle`/`IconCardGrid`/`PageHeader` first before re-inlining markup, and extract a new shared component the first time one of the remaining patterns (paragraph dividers, quote card) repeats on a second page. Per Decisions Log #15, don't trust this doc's status table blindly for a "Not started" page — check `git diff`/`git log` against the actual file first, since past sessions have landed page work inside differently-named commits without updating this PRD.

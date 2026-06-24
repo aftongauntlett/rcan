@@ -1,0 +1,23 @@
+---
+interface Props {
+  id?: string;
+  eyebrow: string;
+  heading: string;
+  subheading?: string;
+  class?: string;
+}
+
+const { id, eyebrow, heading, subheading, class: className = "" } = Astro.props as Props;
+---
+
+<div class={`mx-auto max-w-2xl text-center ${className}`}>
+  <p class="text-sm font-semibold uppercase tracking-widest text-brand-secondary">{eyebrow}</p>
+  <h1
+    id={id}
+    class="mt-4 text-balance font-serif text-4xl font-semibold leading-tight text-text-default md:text-5xl"
+  >
+    {heading}
+  </h1>
+  <div class="mx-auto mt-6 h-1.5 w-20 rounded-full bg-brand-secondary" aria-hidden="true"></div>
+  {subheading && <p class="mx-auto mt-6 max-w-md text-lg leading-7 text-text-subtle">{subheading}</p>}
+</div>

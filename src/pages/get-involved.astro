@@ -5,7 +5,6 @@ import SectionHeader from "../components/SectionHeader.astro";
 import CTABlock from "../components/CTABlock.astro";
 import CountUpScript from "../components/CountUpScript.astro";
 import IconSupportList from "../components/IconSupportList.astro";
-import mailboxImage from "../assets/mailbox.jpg";
 import faithImage from "../assets/faith.jpg";
 
 const pageTitle = "Get Involved | RCAN";
@@ -50,33 +49,11 @@ const waysToHelp = [
   {
     icon: "mail",
     text: "Become a Prison Friend and build consistent encouragement through letters and shared reading materials.",
+    cta: { label: "Learn more", href: "/how-we-help#prison-friendship-project" },
   },
   {
     icon: "book-open",
     text: "Share practical resources with RCAN and help connect your community to meaningful opportunities to respond.",
-  },
-] as const;
-
-const prisonFriendsDo = [
-  {
-    icon: "check",
-    text: "Learn about the background and current situation of the person they are matched with",
-  },
-  {
-    icon: "check",
-    text: "Build a relationship through letters and reading materials",
-  },
-  {
-    icon: "check",
-    text: "Give gifts on special occasions to the person's commissary account — providing access to food, drinks, toiletries, and personal items",
-  },
-  {
-    icon: "check",
-    text: "Provide assistance in any other mutually agreed-upon way as the relationship develops",
-  },
-  {
-    icon: "check",
-    text: "A single committed person can be just as meaningful as a group.",
   },
 ] as const;
 ---
@@ -105,7 +82,7 @@ const prisonFriendsDo = [
       These pathways are open to anyone who wants to support returning citizens, whether you are
       participating individually or through a congregation.
     </p>
-    <IconSupportList items={waysToHelp} ariaLabel="Ways to get involved with RCAN" />
+    <IconSupportList items={waysToHelp} ariaLabel="Ways to get involved with RCAN" sentenceEndCta />
   </section>
 
   <section class="py-10" aria-labelledby="commitments-heading">
@@ -135,72 +112,6 @@ const prisonFriendsDo = [
           class="max-w-2xl"
         />
       </div>
-    </div>
-  </section>
-
-  <!-- Prison Friendship Project -->
-  <section id="prison-friendship-project" class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="pfp-heading">
-    <h2 id="pfp-heading" class="section-title text-text-default">Prison Friendship Project</h2>
-
-    <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-stretch">
-      <div class="space-y-3">
-        <p class="text-base leading-7 text-text-subtle">
-          About 4,000 people from Washington, DC are scattered in federal prisons across the
-          country. Most are incarcerated hundreds of miles from their families, in conditions of
-          isolation and deprivation that are hard to imagine. Many have served long sentences and
-          lost contact with family and friends. A human connection from the outside offers hope,
-          affirms their humanity, and helps set the stage for successful reentry.
-        </p>
-        <p class="text-base leading-7 text-text-subtle">
-          To increase personal connections between RCAN supporters and DC PDS clients who are
-          currently incarcerated, RCAN created the Prison Friendship Project. Any individual — or
-          small group — who would like to become a "Prison Friend" will be matched with a PDS
-          client serving a sentence in the Bureau of Prisons.
-        </p>
-
-        <span class="mx-auto mt-2 block h-px w-24 bg-brand-secondary" aria-hidden="true"></span>
-        <h3 class="pt-2 text-sm font-semibold uppercase tracking-wide text-text-default">What Prison Friends do</h3>
-        <IconSupportList
-          items={prisonFriendsDo}
-          columns={1}
-          ariaLabel="What Prison Friends do"
-          class="mt-2!"
-        />
-      </div>
-
-      <aside class="flex h-full flex-col gap-4" aria-label="Prison Friendship Project highlights">
-        <figure class="overflow-hidden rounded-lg shadow-md">
-          <Image
-            src={mailboxImage}
-            class="w-full object-cover"
-            alt="A mailbox, representing the letters exchanged through the Prison Friendship Project."
-            width={480}
-            widths={[320, 480]}
-            sizes="(min-width: 1024px) 33vw, 100vw"
-            format="webp"
-            quality={60}
-            loading="lazy"
-          />
-        </figure>
-        <dl class="grid grid-cols-2 gap-3">
-          <div class="group rounded-lg bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
-            <dt class="text-xs leading-5 text-text-subtle">New pen pal matches in 2025</dt>
-            <dd class="mt-1 text-3xl font-bold text-brand-primary motion-safe:transition-colors motion-safe:duration-200 group-hover:text-brand-secondary">
-              <span class="inline-block min-w-12 tabular-nums" data-count-to="23" data-count-duration="800">23</span>
-            </dd>
-          </div>
-          <div class="group rounded-lg bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
-            <dt class="text-xs leading-5 text-text-subtle">Letters being sent now</dt>
-            <dd class="mt-1 text-3xl font-bold text-brand-primary motion-safe:transition-colors motion-safe:duration-200 group-hover:text-brand-secondary">
-              <span class="inline-block min-w-12 tabular-nums" data-count-to="40" data-count-duration="800">40</span>
-            </dd>
-          </div>
-        </dl>
-        <p class="text-sm leading-6 text-text-subtle italic">
-          RCAN supports Prison Friends with background on the client, access to lawyers and social
-          workers, guidelines for writing letters and sending items, and ideas for correspondence.
-        </p>
-      </aside>
     </div>
   </section>
 

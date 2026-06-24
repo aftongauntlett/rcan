@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import IconCardGrid from "../components/IconCardGrid.astro";
 
@@ -40,19 +41,12 @@ const values = [
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section aria-labelledby="about-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
-    <div class="mx-auto max-w-2xl text-center">
-      <p class="text-sm font-semibold uppercase tracking-widest text-brand-secondary">About RCAN</p>
-      <h1
-        id="about-heading"
-        class="mt-4 text-balance font-serif text-4xl font-semibold leading-tight text-text-default md:text-5xl"
-      >
-        Community networks changing reentry outcomes
-      </h1>
-      <div class="mx-auto mt-6 h-1.5 w-20 rounded-full bg-brand-secondary" aria-hidden="true"></div>
-      <p class="mx-auto mt-6 max-w-md text-lg leading-7 text-text-subtle">
-        Congregations across Washington, DC uniting to support returning citizens.
-      </p>
-    </div>
+    <PageHeader
+      id="about-heading"
+      eyebrow="About RCAN"
+      heading="Community networks changing reentry outcomes"
+      subheading="Congregations across Washington, DC uniting to support returning citizens."
+    />
   </section>
 
   <section aria-labelledby="history-heading" class="mx-auto max-w-3xl">

@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import IconCardGrid from "../components/IconCardGrid.astro";
+import QuoteCard from "../components/QuoteCard.astro";
 
 const pageTitle = "About RCAN | Returning Citizens Assistance Network";
 const pageDescription =
@@ -10,23 +11,23 @@ const pageDescription =
 
 const motivationScriptures = [
   {
-    text: `Continue to remember those in prison as if you were together with them in prison, and those who are mistreated as if you yourselves were suffering.`,
+    quote: `Continue to remember those in prison as if you were together with them in prison, and those who are mistreated as if you yourselves were suffering.`,
     reference: "Hebrews 13:3",
   },
   {
-    text: `Suppose a brother or sister is without clothes and daily food. If one of you says to them, "Go in peace; keep warm and well fed," but does nothing about their physical needs, what good is it?`,
+    quote: `Suppose a brother or sister is without clothes and daily food. If one of you says to them, "Go in peace; keep warm and well fed," but does nothing about their physical needs, what good is it?`,
     reference: "James 2:14–16",
   },
   {
-    text: `Whoever oppresses the poor shows contempt for their Maker, but whoever is kind to the needy honors God.`,
+    quote: `Whoever oppresses the poor shows contempt for their Maker, but whoever is kind to the needy honors God.`,
     reference: "Proverbs 14:31",
   },
   {
-    text: `And what does the Lord require of you? To act justly and to love mercy and to walk humbly with your God.`,
+    quote: `And what does the Lord require of you? To act justly and to love mercy and to walk humbly with your God.`,
     reference: "Micah 6:8",
   },
   {
-    text: `Each of you should use whatever gift you have received to serve others, as faithful stewards of God's grace in its various forms.`,
+    quote: `Each of you should use whatever gift you have received to serve others, as faithful stewards of God's grace in its various forms.`,
     reference: "1 Peter 4:10",
   },
 ];
@@ -113,33 +114,12 @@ const values = [
       </p>
     </div>
 
-    <div class="mt-10 rounded-2xl border border-border-default/60 bg-surface-subtle px-6 py-8 md:px-10 md:py-10">
-      <ul aria-label="Scriptures that inspire RCAN">
-        {
-          motivationScriptures.map((verse, index) => (
-            <li class={index > 0 ? "mt-8" : ""}>
-              {index > 0 && (
-                <div class="mb-8 flex items-center justify-center gap-3" aria-hidden="true">
-                  <span class="h-px w-16 bg-brand-secondary/25"></span>
-                  <span class="h-2 w-2 rotate-45 bg-brand-secondary/60"></span>
-                  <span class="h-px w-16 bg-brand-secondary/25"></span>
-                </div>
-              )}
-              <figure>
-                <blockquote class="font-serif text-lg italic leading-relaxed text-text-subtle">
-                  <span aria-hidden="true" class="text-brand-secondary/50">&ldquo;</span>
-                  {verse.text}
-                  <span aria-hidden="true" class="text-brand-secondary/50">&rdquo;</span>
-                </blockquote>
-                <figcaption class="mt-2 text-right text-sm font-semibold uppercase tracking-wide text-brand-secondary/80">
-                  {verse.reference}
-                </figcaption>
-              </figure>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <QuoteCard
+      items={motivationScriptures}
+      divider
+      ariaLabel="Scriptures that inspire RCAN"
+      class="mt-10"
+    />
   </section>
 
   <section aria-labelledby="approach-heading" class="mx-auto max-w-3xl">

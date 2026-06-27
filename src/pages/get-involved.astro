@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import SectionHeader from "../components/SectionHeader.astro";
+import PageHeader from "../components/PageHeader.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import IconCardGrid from "../components/IconCardGrid.astro";
 import CTABlock from "../components/CTABlock.astro";
 import CountUpScript from "../components/CountUpScript.astro";
 import IconSupportList from "../components/IconSupportList.astro";
@@ -31,58 +33,57 @@ const congregationCommitments = [
 
 const waysToHelp = [
   {
-    icon: "heart",
-    text: "Directly support urgent requests with goods, services, or short-term financial help for people in transition.",
+    icon: "mail",
+    label: "Become a Prison Friend",
+    description: "Build consistent encouragement through letters and shared reading materials with someone currently incarcerated.",
   },
   {
     icon: "users",
-    text: "Coordinate volunteers through your congregation to organize practical responses to specific needs.",
+    label: "Engage your congregation",
+    description: "Coordinate volunteers through your congregation to organize practical responses to specific reentry needs.",
+  },
+  {
+    icon: "hand-heart",
+    label: "Provide direct assistance",
+    description: "Support urgent requests with goods, services, or short-term financial help for returning citizens and their families.",
   },
   {
     icon: "user",
-    text: "Build one-to-one encouragement and mentoring relationships that support stability during reentry.",
-  },
-  {
-    icon: "dollar-sign",
-    text: "Give financially for urgent needs and remove barriers to reentry, including transit, housing, and essentials.",
-  },
-  {
-    icon: "mail",
-    text: "Become a Prison Friend and build consistent encouragement through letters and shared reading materials.",
-    cta: { label: "Learn more", href: "/how-we-help#prison-friendship-project" },
-  },
-  {
-    icon: "book-open",
-    text: "Share practical resources with RCAN and help connect your community to meaningful opportunities to respond.",
+    label: "Become an RCAN volunteer",
+    description: "Build one-to-one mentoring relationships and help connect your community to meaningful opportunities to respond.",
   },
 ] as const;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="border-b border-border-default pb-10 pt-6 md:pt-8" aria-labelledby="get-involved-heading">
-    <SectionHeader
+  <section aria-labelledby="get-involved-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
+    <PageHeader
       id="get-involved-heading"
-      level={1}
+      eyebrow="Get Involved"
       heading="Bring your strengths to RCAN."
-      subheading="RCAN brings together individuals, small groups, and congregations to respond to urgent needs that can otherwise derail successful reentry. Whether support comes through direct help, coordinated volunteers, sustained friendship, or financial giving, every pathway strengthens stability and dignity for people returning home."
+      subheading="RCAN brings together individuals, small groups, and congregations to respond to urgent needs that can otherwise derail successful reentry."
     />
-    <p class="mt-6 text-base leading-7 text-text-subtle">
-      RCAN welcomes individuals, small groups, and congregations who are ready to respond to
-      practical needs with care, consistency, and dignity.
-    </p>
-    <p class="mt-4 text-base leading-7 text-text-subtle">
-      You can volunteer, join as a congregation partner, become a Prison Friend, or donate to help
-      remove barriers that threaten successful reentry.
-    </p>
   </section>
 
-  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="ways-heading">
-    <h2 id="ways-heading" class="section-title text-text-subtle">Ways to help</h2>
-    <p class="mt-2 text-sm leading-6 text-text-subtle">
-      These pathways are open to anyone who wants to support returning citizens, whether you are
-      participating individually or through a congregation.
-    </p>
-    <IconSupportList items={waysToHelp} ariaLabel="Ways to get involved with RCAN" sentenceEndCta />
+  <section aria-labelledby="ways-heading">
+    <SectionTitle id="ways-heading" text="Ways to help" />
+    <div class="mx-auto mt-6 max-w-2xl space-y-4 text-center text-base leading-7 text-text-subtle">
+      <p>
+        Whether support comes through direct help, coordinated volunteers, sustained friendship, or
+        financial giving, every pathway strengthens stability and dignity for people returning home.
+      </p>
+      <p>
+        RCAN welcomes individuals, small groups, and congregations who are ready to respond to
+        practical needs with care, consistency, and dignity. You can volunteer, join as a
+        congregation partner, become a Prison Friend, or donate to help remove barriers that
+        threaten successful reentry.
+      </p>
+      <p>
+        These pathways are open to anyone who wants to support returning citizens, whether you are
+        participating individually or through a congregation.
+      </p>
+    </div>
+    <IconCardGrid items={waysToHelp} ariaLabel="Ways to get involved with RCAN" columns={4} />
   </section>
 
   <section class="py-10" aria-labelledby="commitments-heading">
@@ -102,7 +103,7 @@ const waysToHelp = [
       </figure>
 
       <div>
-        <h2 id="commitments-heading" class="section-title text-text-subtle">Congregation commitments</h2>
+        <SectionTitle id="commitments-heading" text="Congregation commitments" align="left" />
         <p class="mt-2 max-w-2xl text-sm leading-6 text-text-subtle">Any congregation that joins RCAN agrees to three commitments:</p>
         <IconSupportList
           items={congregationCommitments}
@@ -122,7 +123,7 @@ const waysToHelp = [
     primaryHref="/donate"
     secondaryLabel="Contact"
     secondaryHref="/contact"
-    variant="outline"
+    variant="fill"
   />
 
   <CountUpScript />

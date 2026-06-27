@@ -1,0 +1,41 @@
+---
+interface QuoteItem {
+  quote: string;
+  reference: string;
+}
+
+interface Props {
+  items: QuoteItem[];
+  divider?: boolean;
+  ariaLabel?: string;
+  class?: string;
+}
+
+const { items, divider = false, ariaLabel, class: className = "" } = Astro.props as Props;
+---
+
+<div class={`px-6 py-8 md:px-10 md:py-10 ${className}`}>
+  <ul aria-label={ariaLabel}>
+    {
+      items.map((item, index) => (
+        <li class={index > 0 ? "mt-8" : ""}>
+          {divider && index > 0 && (
+            <div class="mb-8 flex items-center justify-center gap-3" aria-hidden="true">
+              <span class="h-px w-16 bg-brand-secondary/25" />
+              <span class="h-2 w-2 rotate-45 bg-brand-secondary/60" />
+              <span class="h-px w-16 bg-brand-secondary/25" />
+            </div>
+          )}
+          <figure>
+            <blockquote class="border-l-4 border-brand-secondary pl-4 text-base italic leading-8 text-text-default">
+              <p>{item.quote}</p>
+            </blockquote>
+            <figcaption class="mt-3 text-right text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+              {item.reference}
+            </figcaption>
+          </figure>
+        </li>
+      ))
+    }
+  </ul>
+</div>

@@ -17,15 +17,6 @@ html {
   @apply outline-2 outline-offset-2 outline-brand-primary;
 }
 
-.section-title {
-  @apply relative inline-block pb-2 text-lg font-semibold uppercase tracking-widest md:text-xl;
-}
-
-.section-title::after {
-  content: "";
-  @apply absolute bottom-0 left-0 h-0.5 w-16 bg-brand-secondary;
-}
-
 @media (width >= 48rem) and (width < 64rem) {
   main figure img.object-cover:not(.absolute) {
     @apply max-h-96;

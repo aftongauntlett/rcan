@@ -1,19 +1,23 @@
 ---
 interface Props {
   id?: string;
-  text: string;
+  text?: string;
   level?: 2 | 3;
+  align?: "center" | "left";
   class?: string;
 }
 
-const { id, text, level = 2, class: className = "" } = Astro.props as Props;
+const { id, text, level = 2, align = "center", class: className = "" } = Astro.props as Props;
 
 const HeadingTag = `h${level}` as "h2" | "h3";
+const alignClass = align === "left" ? "text-left" : "text-center";
+const barClass = align === "left" ? "mt-2 h-0.5 w-12 rounded-full bg-brand-secondary" : "mx-auto mt-2 h-0.5 w-12 rounded-full bg-brand-secondary";
+const hasSlotContent = Astro.slots.has("default");
 ---
 
-<div class={`text-center ${className}`}>
+<div class={`${alignClass} ${className}`}>
   <HeadingTag id={id} class="text-lg font-semibold uppercase tracking-widest text-text-subtle md:text-xl">
-    {text}
+    {hasSlotContent ? <slot /> : text}
   </HeadingTag>
-  <div class="mx-auto mt-2 h-0.5 w-12 rounded-full bg-brand-secondary" aria-hidden="true"></div>
+  <div class={barClass} aria-hidden="true"></div>
 </div>

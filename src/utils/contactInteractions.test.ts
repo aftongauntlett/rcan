@@ -1,33 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  CONGREGATION_PARTNERSHIP_TOPIC,
-  getCongregationFieldState,
-  resolveCopyValue,
-  shouldResetSubmitState,
-} from "./contactInteractions";
-
-describe("getCongregationFieldState", () => {
-  it("shows and requires field for congregation partnership topic", () => {
-    const result = getCongregationFieldState(CONGREGATION_PARTNERSHIP_TOPIC);
-
-    expect(result).toEqual({
-      showField: true,
-      required: true,
-      shouldClearInput: false,
-    });
-  });
-
-  it("hides, unrequires, and clears field for non-partnership topic", () => {
-    const result = getCongregationFieldState("General question");
-
-    expect(result).toEqual({
-      showField: false,
-      required: false,
-      shouldClearInput: true,
-    });
-  });
-});
+import { resolveCopyValue, shouldResetSubmitState } from "./contactInteractions";
 
 describe("resolveCopyValue", () => {
   it("prefers visible row text when present", () => {

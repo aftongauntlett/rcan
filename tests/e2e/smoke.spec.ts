@@ -40,26 +40,20 @@ test("mobile navigation opens, closes, and navigates to contact", async ({ page 
   await expect(page).toHaveURL(/\/contact\/?$/);
 });
 
-test("contact topic toggle updates congregation field visibility and required state", async ({
+test("contact congregation field stays visible and optional regardless of topic", async ({
   page,
 }) => {
   await page.goto("/contact");
 
   const dropdownTrigger = page.locator("[data-dropdown-trigger]");
-  const congregationField = page.locator("[data-congregation-field]");
   const congregationInput = page.locator("#congregation");
 
-  await expect(congregationField).not.toBeVisible();
+  await expect(congregationInput).toBeVisible();
+  await expect(congregationInput).toHaveJSProperty("required", false);
 
   await dropdownTrigger.click();
-  await page.getByRole("menuitemradio", { name: "Congregation partnership" }).click();
+  await page.getByRole("menuitemradio", { name: "Engage your congregation" }).click();
 
-  await expect(congregationField).toBeVisible();
-  await expect(congregationInput).toHaveJSProperty("required", true);
-
-  await dropdownTrigger.click();
-  await page.getByRole("menuitemradio", { name: "General question" }).click();
-
-  await expect(congregationField).not.toBeVisible();
+  await expect(congregationInput).toBeVisible();
   await expect(congregationInput).toHaveJSProperty("required", false);
 });

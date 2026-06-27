@@ -10,7 +10,7 @@ interface Props {
 const { id, eyebrow, heading, subheading, class: className = "" } = Astro.props as Props;
 ---
 
-<div class={`mx-auto max-w-2xl text-center ${className}`}>
+<div class={`mx-auto max-w-3xl text-center ${className}`}>
   <p class="text-sm font-semibold uppercase tracking-widest text-brand-secondary">{eyebrow}</p>
   <h1
     id={id}
@@ -19,5 +19,5 @@ const { id, eyebrow, heading, subheading, class: className = "" } = Astro.props 
     {heading}
   </h1>
   <div class="mx-auto mt-6 h-1.5 w-20 rounded-full bg-brand-secondary" aria-hidden="true"></div>
-  {subheading && <p class="mx-auto mt-6 max-w-md text-lg leading-7 text-text-subtle">{subheading}</p>}
+  {subheading && <p class="mx-auto mt-6 max-w-xl text-lg leading-7 text-text-subtle">{subheading}</p>}
 </div>

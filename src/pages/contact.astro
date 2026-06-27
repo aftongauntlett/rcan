@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import SectionHeader from "../components/SectionHeader.astro";
+import PageHeader from "../components/PageHeader.astro";
+import SectionTitle from "../components/SectionTitle.astro";
 import Button from "../components/Button.astro";
 import CustomDropdown from "../components/CustomDropdown.astro";
 import Icon from "../components/Icon.astro";
@@ -13,9 +14,9 @@ const pageDescription =
 const topicOptions = [
   { value: "", label: "Select a topic" },
   { value: "Become a Prison Friend", label: "Become a Prison Friend" },
-  { value: "Congregation partnership", label: "Congregation partnership" },
-  { value: "Volunteer interest", label: "Volunteer interest" },
-  { value: "Referral question", label: "Referral question" },
+  { value: "Engage your congregation", label: "Engage your congregation" },
+  { value: "Provide direct assistance", label: "Provide direct assistance" },
+  { value: "Become an RCAN volunteer", label: "Become an RCAN volunteer" },
   { value: "General question", label: "General question" },
 ];
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
@@ -27,22 +28,23 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="border-b border-border-default pb-10 pt-6 md:pt-8" aria-label="Contact overview">
-    <SectionHeader
-      level={1}
+  <section aria-labelledby="contact-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
+    <PageHeader
+      id="contact-heading"
+      eyebrow="Contact"
       heading="Connect with RCAN for partnership and support"
       subheading="Reach out to coordinate congregation participation, ask questions, or explore ways to support returning citizens."
     />
-    <p class="mt-6 text-base leading-7 text-text-subtle">
-      RCAN collaborates with referral partners and congregations and welcomes partnership from
-      communities committed to practical, dignity-centered reentry support.
-    </p>
   </section>
 
   <section class="pb-10" aria-labelledby="contact-methods-heading">
     <div class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
-      <h2 id="contact-methods-heading" class="section-title text-text-subtle">Get in touch</h2>
+      <SectionTitle id="contact-methods-heading" text="Get in touch" />
       <p class="mt-4 text-base leading-7 text-text-subtle">
+        RCAN collaborates with referral partners and congregations and welcomes partnership from
+        communities committed to practical, dignity-centered reentry support.
+      </p>
+      <p class="mt-3 text-base leading-7 text-text-subtle">
         We read every message that comes in and do our best to reply as quickly as possible, usually by email.
         Whether you have a question, a partnership idea, or are not sure where to start, please reach out and we
         will be in touch.
@@ -127,8 +129,8 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
                 <span data-fs-error="topic" class="block text-sm text-status-error"></span>
               </div>
 
-              <div id="congregation-field-wrap" class="hidden space-y-2" data-congregation-field>
-                <label for="congregation" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Congregation name</label>
+              <div class="space-y-2">
+                <label for="congregation" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Congregation or organization (if any)</label>
                 <input
                   id="congregation"
                   name="congregation"
@@ -293,7 +295,6 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
   <script>
     import { initForm } from "@formspree/ajax";
     import {
-      getCongregationFieldState,
       resolveCopyValue,
       shouldResetSubmitState,
     } from "../utils/contactInteractions";
@@ -381,45 +382,6 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
     };
 
     const topicFromQuery = new URLSearchParams(window.location.search).get("topic");
-    const topicInput = document.querySelector("[data-dropdown-input][name='topic']");
-    const congregationFieldWrap = document.querySelector("[data-congregation-field]");
-    const congregationInput = document.querySelector("#congregation");
-
-    const syncCongregationField = () => {
-      if (!(topicInput instanceof HTMLInputElement)) {
-        return;
-      }
-
-      const fieldState = getCongregationFieldState(topicInput.value);
-
-      if (congregationFieldWrap instanceof HTMLElement) {
-        congregationFieldWrap.classList.toggle("hidden", !fieldState.showField);
-      }
-
-      if (congregationInput instanceof HTMLInputElement) {
-        congregationInput.required = fieldState.required;
-
-        if (fieldState.shouldClearInput) {
-          congregationInput.value = "";
-          congregationInput.dispatchEvent(new Event("input", { bubbles: true }));
-          congregationInput.dispatchEvent(new Event("change", { bubbles: true }));
-        }
-      }
-    };
-
-    const bindTopicListeners = () => {
-      if (!(topicInput instanceof HTMLInputElement)) {
-        return;
-      }
-
-      if (topicInput.dataset.contactTopicBound === "true") {
-        return;
-      }
-
-      topicInput.addEventListener("change", syncCongregationField);
-      topicInput.addEventListener("input", syncCongregationField);
-      topicInput.dataset.contactTopicBound = "true";
-    };
 
     const copyButtons = Array.from(document.querySelectorAll("[data-copy-button]"));
 
@@ -537,9 +499,7 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
 
     const initContactInteractions = () => {
       initContactForm();
-      bindTopicListeners();
       bindCopyButtons();
-      syncCongregationField();
     };
 
     initContactInteractions();

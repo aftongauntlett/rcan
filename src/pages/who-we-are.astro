@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import SectionHeader from "../components/SectionHeader.astro";
+import PageHeader from "../components/PageHeader.astro";
+import SectionTitle from "../components/SectionTitle.astro";
 import Card from "../components/Card.astro";
 import CTABlock from "../components/CTABlock.astro";
 import Icon from "../components/Icon.astro";
@@ -38,22 +39,33 @@ const congregations: { name: string; url?: string }[] = [
   { name: "Westminster Presbyterian Church", url: "https://westminsterdc.org" },
 ];
 
-const boardPlaceholderPhotos = [boardPlaceholder1, boardPlaceholder2, boardPlaceholder3, boardPlaceholder4];
+const boardPlaceholderPhotos = [
+  boardPlaceholder1,
+  boardPlaceholder2,
+  boardPlaceholder3,
+  boardPlaceholder4,
+  boardPlaceholder1,
+  boardPlaceholder2,
+  boardPlaceholder3,
+  boardPlaceholder4,
+  boardPlaceholder1,
+];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="border-b border-border-default pb-10 pt-6 md:pt-8">
-    <SectionHeader
-      level={1}
-      heading="Who We Are"
+  <section aria-labelledby="who-we-are-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
+    <PageHeader
+      id="who-we-are-heading"
+      eyebrow="Who We Are"
+      heading="A volunteer board and a growing network of congregations"
       subheading="RCAN is powered by a volunteer board and a growing network of congregations across the Washington, DC area, all committed to supporting returning citizens."
     />
   </section>
 
   <!-- Board of Directors -->
-  <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="board-heading">
-    <h2 id="board-heading" class="section-title text-text-subtle">Board of Directors</h2>
-    <p class="mt-2 text-sm text-text-subtle">Board member information will be added soon.</p>
+  <section class="py-10" aria-labelledby="board-heading">
+    <SectionTitle id="board-heading" text="Board of Directors" />
+    <p class="mx-auto mt-2 max-w-2xl text-center text-sm text-text-subtle">Board member information will be added soon.</p>
     <ul class="mt-6 grid gap-4 sm:grid-cols-2" aria-label="Board of Directors placeholder cards">
       {
         boardPlaceholderPhotos.map((photo) => (
@@ -103,9 +115,9 @@ const boardPlaceholderPhotos = [boardPlaceholder1, boardPlaceholder2, boardPlace
   </section>
 
   <!-- Participating Congregations -->
-  <section class="py-8 md:py-10" aria-labelledby="congregations-heading">
-    <h2 id="congregations-heading" class="section-title text-text-subtle">Participating congregations</h2>
-    <p class="mt-2 text-base leading-7 text-text-subtle">
+  <section class="py-10" aria-labelledby="congregations-heading">
+    <SectionTitle id="congregations-heading" text="Participating congregations" />
+    <p class="mx-auto mt-2 max-w-2xl text-center text-base leading-7 text-text-subtle">
       {congregations.length} congregations across the Washington, DC area have joined RCAN and committed
       to responding to needs as they arise.
     </p>

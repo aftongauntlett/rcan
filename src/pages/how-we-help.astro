@@ -9,7 +9,6 @@ import CountUpScript from "../components/CountUpScript.astro";
 import Button from "../components/Button.astro";
 import supportImage from "../assets/art-community.jpg";
 import bagOfGiftsImage from "../assets/bag-of-gifts.jpg";
-import cakeGiftImage from "../assets/cake-gift.jpg";
 import beautyBehindBarsImage from "../assets/beauty-behind-bars.jpg";
 import paintingImage from "../assets/painting.jpg";
 import bikeGiftsImage from "../assets/bike-gifts.jpg";
@@ -78,21 +77,18 @@ const rcanFunPhotos = [
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="border-b border-border-default pb-10 pt-6 md:pt-8" aria-label="How We Help overview">
+  <section aria-labelledby="how-we-help-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
     <PageHeader
+      id="how-we-help-heading"
       eyebrow="How We Help"
       heading="Practical support when timing matters most"
       subheading="RCAN coordinates short-term, high-impact support that helps returning citizens stabilize and move forward."
     />
-    <p class="mx-auto mt-6 max-w-3xl text-base leading-7 text-text-subtle">
-      Requests come through the DC Public Defender Service. RCAN congregations then coordinate
-      practical, short-term support that helps people stabilize quickly and move toward
-      longer-term reentry goals.
-    </p>
   </section>
 
   <section class="py-10" aria-labelledby="pathway-heading">
-    <div class="grid gap-6 lg:grid-cols-[2fr_3fr] lg:items-stretch">
+    <SectionTitle id="pathway-heading" text="Support pathway" />
+    <div class="mt-6 grid gap-6 lg:grid-cols-[2fr_3fr] lg:items-stretch">
       <figure class="overflow-hidden rounded-lg shadow-md">
         <Image
           src={supportImage}
@@ -107,8 +103,12 @@ const rcanFunPhotos = [
         />
       </figure>
 
-      <div class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
-        <h2 id="pathway-heading" class="section-title text-text-subtle">Support pathway</h2>
+      <div class="flex h-full flex-col">
+        <p class="text-base leading-7 text-text-subtle">
+          Requests come through the DC Public Defender Service. RCAN congregations then coordinate
+          practical, short-term support that helps people stabilize quickly and move toward
+          longer-term reentry goals.
+        </p>
         <ol class="mt-6 space-y-6 border-l-2 border-border-default pl-6">
           {
             pathwaySteps.map((step) => (
@@ -133,40 +133,23 @@ const rcanFunPhotos = [
   <section class="space-y-12 md:space-y-16" aria-label="Program highlights">
 
     <article class="py-10" aria-labelledby="holiday-story-heading">
-      <div class="grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
-        <div class="flex flex-col gap-4">
-          <figure class="overflow-hidden rounded-lg shadow-md">
-            <Image
-              src={bagOfGiftsImage}
-              class="h-32 w-full object-cover md:h-36 lg:h-40"
-              alt="Holiday gift bags prepared for detained youth at the Youth Services Center."
-              widths={[320, 480, 640]}
-              sizes="(min-width: 1024px) 32vw, 100vw"
-              format="webp"
-              quality={70}
-              loading="lazy"
-            />
-          </figure>
-          <figure class="overflow-hidden rounded-lg shadow-md">
-            <Image
-              src={cakeGiftImage}
-              class="h-32 w-full object-cover brightness-110 contrast-110 md:h-36 lg:h-40"
-              alt="Connie holds a birthday cake she delivered to a PDS client."
-              widths={[320, 480, 640]}
-              sizes="(min-width: 1024px) 32vw, 100vw"
-              format="webp"
-              quality={70}
-              loading="lazy"
-            />
-            <figcaption class="mt-2 text-center text-xs italic leading-5 text-text-subtle">
-              Connie delivers a birthday cake to a PDS client.
-            </figcaption>
-          </figure>
-        </div>
+      <SectionTitle id="holiday-story-heading" text="Holiday Gifts at the Youth Services Center" level={3} />
+      <div class="mt-6 grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
+        <figure class="overflow-hidden rounded-lg shadow-md">
+          <Image
+            src={bagOfGiftsImage}
+            class="h-full w-full object-cover"
+            alt="Holiday gift bags prepared for detained youth at the Youth Services Center."
+            widths={[320, 480, 640, 900]}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            format="webp"
+            quality={70}
+            loading="lazy"
+          />
+        </figure>
 
         <div class="flex h-full flex-col">
-          <h3 id="holiday-story-heading" class="section-title text-text-subtle">Holiday Gifts at the Youth Services Center</h3>
-          <p class="mt-3 text-base leading-7 text-text-subtle">
+          <p class="text-base leading-7 text-text-subtle">
             RCAN-supported attorney Kayla Wyatt gave small Christmas gifts to 120 detained juveniles at the Youth Services Center.
           </p>
           <p class="mt-3 text-base leading-7 text-text-subtle">
@@ -185,43 +168,43 @@ const rcanFunPhotos = [
     </article>
 
     <!-- Beauty Behind Bars -->
-    <section class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="beauty-behind-bars-heading">
-      <div class="grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-stretch">
+    <section class="py-10" aria-labelledby="beauty-behind-bars-heading">
+      <SectionTitle id="beauty-behind-bars-heading" level={3}>
+        <a
+          href="https://www.studiogallerydc.com/beauty-behind-bars-online-catalogue"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 hover:text-brand-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+        >
+          Beauty Behind Bars: The Transformative Power of Arts in Confinement
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M15 3h6v6" />
+            <path d="M10 14 21 3" />
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          </svg>
+        </a>
+      </SectionTitle>
+      <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-stretch">
         <div class="flex h-full flex-col">
-          <h3 id="beauty-behind-bars-heading" class="section-title text-text-subtle">
-            <a
-              href="https://www.studiogallerydc.com/beauty-behind-bars-online-catalogue"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 hover:text-brand-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle"
-            >
-              Beauty Behind Bars: The Transformative Power of Arts in Confinement
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M15 3h6v6" />
-                <path d="M10 14 21 3" />
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-              </svg>
-            </a>
-          </h3>
-          <p class="mt-3 text-base leading-7 text-text-subtle">
+          <p class="text-base leading-7 text-text-subtle">
             Hosted at Studio Gallery in January 2025 and curated by Anokhi Shah and LaVander Williams, Beauty Behind Bars featured art and poetry by PDS clients, including Fernard Strowbridge, Arlis Hicks-Bey, Curtis Dickson, David Watkins, Harry Ellis, Keith Starr, and others.
           </p>
           <p class="mt-3 text-base leading-7 text-text-subtle">
             The exhibit invited audiences to see resilience and humanity beyond incarceration. RCAN churches later hosted the collection locally, and PDS attorneys used this context in advocacy tied to release efforts under the Incarceration Reduction Amendment Act.
           </p>
           <div class="mt-6">
-            <figure class="rounded-lg bg-surface-default px-5 py-5">
+            <figure class="rounded-lg bg-surface-subtle px-5 py-5">
               <blockquote class="border-l-4 border-brand-secondary pl-4 text-base italic leading-7 text-text-default">
                 <p>
                   Tough times do not last, but tough people do. My mantra is positive consistency, striving to do right regardless of one's circumstances.
@@ -315,7 +298,8 @@ const rcanFunPhotos = [
     </section>
 
     <section class="py-10" aria-labelledby="bike-ministry-heading">
-      <div class="grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
+      <SectionTitle id="bike-ministry-heading" text="Bike Ministry" level={3} />
+      <div class="mt-6 grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
         <div class="flex h-full flex-col" data-carousel aria-label="Bike Ministry images">
           <div id="bike-carousel-track" class="group relative h-80 overflow-hidden rounded-lg shadow-sm md:h-96 lg:h-full">
             <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
@@ -397,8 +381,7 @@ const rcanFunPhotos = [
         </div>
 
         <div class="flex h-full flex-col">
-          <h3 id="bike-ministry-heading" class="section-title text-text-subtle">Bike Ministry</h3>
-          <p class="mt-3 text-base leading-7 text-text-subtle">
+          <p class="text-base leading-7 text-text-subtle">
             Manuel Vera, 74, restores donated bicycles in Silver Spring and gives them to refugees, immigrants, and returning citizens who need dependable transportation for daily use.
           </p>
           <p class="mt-3 text-base leading-7 text-text-subtle">
@@ -420,8 +403,8 @@ const rcanFunPhotos = [
     </section>
 
     <!-- Prison Friendship Project -->
-    <section id="prison-friendship-project" class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10" aria-labelledby="prison-friendship-heading">
-      <h3 id="prison-friendship-heading" class="section-title text-text-subtle">Prison Friendship Project</h3>
+    <section id="prison-friendship-project" class="py-10" aria-labelledby="prison-friendship-heading">
+      <SectionTitle id="prison-friendship-heading" text="Prison Friendship Project" level={3} />
 
       <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-stretch">
         <div class="space-y-3">
@@ -464,13 +447,13 @@ const rcanFunPhotos = [
             />
           </figure>
           <dl class="grid grid-cols-2 gap-3">
-            <div class="group rounded-lg bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
+            <div class="group rounded-lg border border-border-default bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
               <dt class="text-xs leading-5 text-text-subtle">New pen pal matches in 2025</dt>
               <dd class="mt-1 text-3xl font-bold text-brand-primary motion-safe:transition-colors motion-safe:duration-200 group-hover:text-brand-secondary">
                 <span class="inline-block min-w-12 tabular-nums" data-count-to="23" data-count-duration="800">23</span>
               </dd>
             </div>
-            <div class="group rounded-lg bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
+            <div class="group rounded-lg border border-border-default bg-surface-default px-4 py-4 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
               <dt class="text-xs leading-5 text-text-subtle">Letters being sent now</dt>
               <dd class="mt-1 text-3xl font-bold text-brand-primary motion-safe:transition-colors motion-safe:duration-200 group-hover:text-brand-secondary">
                 <span class="inline-block min-w-12 tabular-nums" data-count-to="40" data-count-duration="800">40</span>
@@ -524,7 +507,7 @@ const rcanFunPhotos = [
     primaryHref="/get-involved"
     secondaryLabel="Support RCAN"
     secondaryHref="/donate"
-    variant="outline"
+    variant="fill"
   />
 
   <CountUpScript />

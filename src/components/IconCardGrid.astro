@@ -51,7 +51,7 @@ const columnsClasses: Record<2 | 3 | 4, string> = {
 <ul class={`mt-8 grid gap-4 ${columnsClasses[columns]} ${className}`} aria-label={ariaLabel}>
   {
     items.map((item) => (
-      <li class="flex flex-col items-center gap-3 rounded-xl border border-border-default/60 bg-surface-default px-5 py-6 text-center shadow-sm">
+      <li class="flex flex-col items-center gap-3 rounded-xl border border-border-default/60 bg-surface-default px-5 py-6 text-center shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md hover:border-brand-secondary/60">
         <span
           class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary"
           aria-hidden="true"

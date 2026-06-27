@@ -4,20 +4,20 @@
 
 ### Primary Navigation (proposed)
 
-| Label        | Route           | Notes                                                         |
-| ------------ | --------------- | ------------------------------------------------------------- |
-| Home         | `/`             | Existing                                                      |
-| About        | `/about`        | Existing — add congregation list + board of directors         |
-| How We Help  | `/how-we-help`  | Existing                                                      |
-| Impact       | `/impact`       | **New page** — 2025 highlights, stories, quotes               |
-| Get Involved | `/get-involved` | Existing — add Prison Friendship Project as a section         |
-| Contact      | `/contact`      | Existing                                                      |
-| Donate       | `/donate`       | CTA button in nav (not a tab)                                 |
+| Label        | Route           | Notes                                                 |
+| ------------ | --------------- | ----------------------------------------------------- |
+| Home         | `/`             | Existing                                              |
+| About        | `/about`        | Existing — add congregation list + board of directors |
+| How We Help  | `/how-we-help`  | Existing                                              |
+| Impact       | `/impact`       | **New page** — 2025 highlights, stories, quotes       |
+| Get Involved | `/get-involved` | Existing — add Prison Friendship Project as a section |
+| Contact      | `/contact`      | Existing                                              |
+| Donate       | `/donate`       | CTA button in nav (not a tab)                         |
 
 ### Navigation decisions
 
 - **Impact** is a stronger title than "Success Stories" for a justice-focused nonprofit — it is broader, less transactional, and covers both stories and data.
-- **Prison Friendship Project** fits naturally as a dedicated section on `/get-involved` (it *is* a way to get involved), with a deep-link anchor (`#prison-friendship-project`) so it can be referenced directly from other pages. A standalone page is a reasonable future addition if the program grows, but it does not need a top-level nav slot right now.
+- **Prison Friendship Project** fits naturally as a dedicated section on `/get-involved` (it _is_ a way to get involved), with a deep-link anchor (`#prison-friendship-project`) so it can be referenced directly from other pages. A standalone page is a reasonable future addition if the program grows, but it does not need a top-level nav slot right now.
 - An "Other" dropdown is an option, but adds mobile nav complexity for only one item. Hold off unless there are 2–3 items that warrant it — revisit when content grows.
 - **Congregation list** belongs on `/about` — it answers "who is RCAN?" and reinforces credibility without needing its own page.
 - **Board of Directors** also belongs on `/about` — keep all "who we are" content together.
@@ -86,6 +86,7 @@ Any congregation that wishes to join RCAN or has questions should contact **emai
 > **[PLACEHOLDER — board member info needed from client]**
 >
 > Format for each entry:
+>
 > - Name, Title / Role
 > - Headshot photo (image file needed)
 > - Bio (2–4 sentences: background, connection to mission, professional or community role)

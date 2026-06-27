@@ -100,7 +100,7 @@ Forms and dynamic feedback (/contact):
 
 - Confirm all form fields have programmatic labels.
 - Confirm topic selection keyboard behavior for custom dropdown (Arrow keys, Enter, Escape, Home, End).
-- Confirm Congregation name field appears only when topic is Congregation partnership and clears when hidden.
+- Confirm "Congregation or organization (if any)" field is always visible, optional, and has a programmatic label regardless of selected topic.
 - Confirm submit state changes are announced and form uses aria-busy during submission.
 - Confirm success and error messages are announced via live regions.
 - Confirm copy buttons expose accessible names and feedback is announced.

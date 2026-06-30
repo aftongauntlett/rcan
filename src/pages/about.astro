@@ -4,6 +4,7 @@ import PageHeader from "../components/PageHeader.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import IconCardGrid from "../components/IconCardGrid.astro";
 import QuoteCard from "../components/QuoteCard.astro";
+import { congregations } from "../data/congregations";
 
 const pageTitle = "About RCAN | Returning Citizens Assistance Network";
 const pageDescription =
@@ -85,14 +86,15 @@ const values = [
         Church to help. After months of the two congregations working together, they decided to
         invite others to join. In 2018, NYAPC and Metropolitan AME wrote to about 20 congregations,
         inviting them to form the Returning Citizens Assistance Network. About a dozen signed on as
-        founding members, and RCAN has grown steadily since — today, 21 churches and synagogues
+        founding members, and RCAN has grown steadily since — today, {congregations.length} churches and synagogues
         across Washington, DC work together to assist PDS clients who are returning from
         incarceration or still in prison.
       </p>
     </div>
   </section>
 
-  <section aria-labelledby="motivation-heading" class="mx-auto max-w-3xl">
+  <section aria-labelledby="motivation-heading" class="border-t border-border-default py-10">
+    <div class="mx-auto max-w-3xl">
     <SectionTitle id="motivation-heading" text="Our Motivation" />
     <div class="mt-6 space-y-6 text-base leading-7 text-text-subtle">
       <p>
@@ -120,15 +122,18 @@ const values = [
       ariaLabel="Scriptures that inspire RCAN"
       class="mt-10"
     />
+    </div>
   </section>
 
-  <section aria-labelledby="approach-heading" class="mx-auto max-w-3xl">
+  <section aria-labelledby="approach-heading" class="border-t border-border-default py-10">
+    <div class="mx-auto max-w-3xl">
     <SectionTitle id="approach-heading" text="Our Approach" />
     <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-text-subtle">
       RCAN is rooted in the conviction that practical support and faithful community can reshape
-      reentry outcomes. Twenty-one congregations across Washington, DC share this commitment —
+      reentry outcomes. {congregations.length} congregations across Washington, DC share this commitment —
       different in tradition, united in purpose.
     </p>
     <IconCardGrid items={values} ariaLabel="RCAN core values" columns={4} />
+    </div>
   </section>
 </BaseLayout>

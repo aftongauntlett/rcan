@@ -10,34 +10,11 @@ import boardPlaceholder1 from "../assets/board-placeholder-1.png";
 import boardPlaceholder2 from "../assets/board-placeholder-2.png";
 import boardPlaceholder3 from "../assets/board-placeholder-3.png";
 import boardPlaceholder4 from "../assets/board-placeholder-4.png";
+import { congregations } from "../data/congregations";
 
 const pageTitle = "Who We Are | RCAN";
 const pageDescription =
   "Meet the RCAN Board of Directors and the congregations across the Washington, DC area that power the network.";
-
-const congregations: { name: string; url?: string }[] = [
-  { name: "Emory United Methodist Church", url: "https://emoryfellowship.org/" },
-  { name: "Episcopal Church of the Redeemer", url: "https://www.redeemerbethesda.org" },
-  { name: "Foundry United Methodist Church", url: "https://foundryumc.org" },
-  { name: "Hill Havurah", url: "https://hillhavurah.org" },
-  { name: "Holy Trinity Catholic Church", url: "https://trinity.org/" },
-  { name: "Metropolitan AME Church", url: "https://www.metropolitaname.org" },
-  { name: "Mt. Vernon Place United Methodist Church", url: "https://mvpumc.org" },
-  { name: "National Community Church", url: "https://national.cc" },
-  { name: "National Presbyterian Church", url: "https://nationalpres.org" },
-  { name: "New York Avenue Presbyterian Church", url: "https://nyapc.org" },
-  { name: "Ohev Sholom — The National Synagogue", url: "https://www.ohevdc.org/" },
-  { name: "Pennsylvania Avenue Baptist Church", url: "https://www.pabc-dc.org/" },
-  { name: "Peoples United Church of Christ", url: "https://peopleschurchucc.org/" },
-  { name: "St. Augustine Episcopal Church", url: "https://www.staugustinesdc.org/" },
-  { name: "St. Columba's Episcopal Church", url: "https://www.columba.org/" },
-  { name: "St. Mark's Episcopal Church", url: "https://www.stmarks.net/" },
-  { name: "Seekers Church", url: "https://www.seekerschurch.org" },
-  { name: "Tifereth Israel Congregation", url: "https://www.tifereth-israel.org/" },
-  { name: "Warner Memorial Presbyterian Church", url: "https://warnermemorial.org/" },
-  { name: "Western Presbyterian Church", url: "https://www.westernpresbyterian.org/" },
-  { name: "Westminster Presbyterian Church", url: "https://westminsterdc.org" },
-];
 
 const boardPlaceholderPhotos = [
   boardPlaceholder1,
@@ -115,7 +92,7 @@ const boardPlaceholderPhotos = [
   </section>
 
   <!-- Participating Congregations -->
-  <section class="py-10" aria-labelledby="congregations-heading">
+  <section class="border-t border-border-default py-10" aria-labelledby="congregations-heading">
     <SectionTitle id="congregations-heading" text="Participating congregations" />
     <p class="mx-auto mt-2 max-w-2xl text-center text-base leading-7 text-text-subtle">
       {congregations.length} congregations across the Washington, DC area have joined RCAN and committed

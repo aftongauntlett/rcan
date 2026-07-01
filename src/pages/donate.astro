@@ -29,24 +29,58 @@ const donorboxFrameHeight = 720;
 
   <section id="donate-form" class="py-10" aria-labelledby="give-heading">
     <SectionTitle id="give-heading" text="Give to RCAN" />
-    <div class="mx-auto mt-6 max-w-2xl space-y-4 text-center text-base leading-7 text-text-subtle">
-      <p>
-        Your gift helps RCAN respond quickly to urgent requests for housing, food, transportation,
-        and other practical barriers that can delay reentry stability. The RCAN Fund was established
-        through New York Avenue Presbyterian Church in January 2021 to facilitate online donations
-        supporting client requests from the DC Public Defender Service. Each December since 2020, RCAN
-        has prepared holiday gift baskets for PDS-selected families and individuals — in 2025, ten
-        families (51 adults and children) received gifts by Christmas, and 36 incarcerated clients
-        without outside support each received $50 in commissary funds. In all, 2025 contributions
-        helped 361 clients.
-      </p>
-      <p>
-        Every contribution supports practical, short-term needs identified through RCAN's
-        referral channels. Support is processed securely through Donorbox.
-      </p>
-    </div>
 
-    <div class="mt-8 grid gap-6 lg:grid-cols-[3fr_2fr] lg:items-stretch">
+    <div class="mt-8 grid gap-6 lg:grid-cols-[2fr_3fr] lg:items-stretch">
+      <aside id="mail-giving" class="h-full rounded-lg border border-border-default bg-surface-default px-6 py-8" aria-labelledby="mail-giving-heading">
+        <div class="space-y-4 text-base leading-7 text-text-subtle">
+          <p>
+            Your gift helps RCAN respond quickly to urgent requests for housing, food, transportation,
+            and other practical barriers that can delay reentry stability. The RCAN Fund was established
+            through New York Avenue Presbyterian Church in January 2021 to facilitate online donations
+            supporting client requests from the DC Public Defender Service. Each December since 2020, RCAN
+            has prepared holiday gift baskets for PDS-selected families and individuals — in 2025, ten
+            families (51 adults and children) received gifts by Christmas, and 36 incarcerated clients
+            without outside support each received $50 in commissary funds. In all, 2025 contributions
+            helped 361 clients.
+          </p>
+          <p>
+            Every contribution supports practical, short-term needs identified through RCAN's
+            referral channels. Support is processed securely through Donorbox.
+          </p>
+        </div>
+        <div class="mt-6 border-t border-border-default pt-5">
+          <h3 id="mail-giving-heading" class="text-sm font-semibold uppercase tracking-wide text-text-default">Prefer to give by mail?</h3>
+          <p class="mt-3 text-base leading-7 text-text-subtle">
+            Make checks payable to New York Avenue Presbyterian Church and mail to:
+          </p>
+          <address class="mt-3 not-italic text-base leading-7 text-text-subtle">
+            Placeholder Mailing Address<br />
+            Washington, DC 00000
+          </address>
+          <div class="mt-6 border-t border-border-default pt-5" aria-label="Direct contact options">
+            <p class="text-xs font-semibold uppercase tracking-wide text-brand-secondary">Direct contact</p>
+            <ul class="mt-3 space-y-2 text-base leading-7 text-text-subtle">
+              <li>
+                <a
+                  href="mailto:email@example.org"
+                  class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+                >
+                  email@example.org
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:555-555-5555"
+                  class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+                >
+                  555-555-5555
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
       <div class="h-full">
         {
           hasDonorboxEmbed ? (
@@ -54,14 +88,14 @@ const donorboxFrameHeight = 720;
               src={donorboxEmbedUrl}
               title="Secure donation form powered by Donorbox"
               name="donorbox-donation-form"
-              class="w-full rounded-lg border border-border-default bg-surface-default"
+              class="w-full"
               loading="lazy"
               height={donorboxFrameHeight}
               allow="payment"
             ></iframe>
           ) : isDev ? (
             <aside
-              class="flex h-full items-center rounded-lg border border-border-default bg-surface-default px-6 py-8"
+              class="flex items-start rounded-lg border border-border-default bg-surface-default px-6 py-8"
               aria-label="Donation embed preview helper"
             >
               <div>
@@ -74,7 +108,7 @@ const donorboxFrameHeight = 720;
             </aside>
           ) : (
             <aside
-              class="flex h-full items-center rounded-lg border border-border-default bg-surface-default px-6 py-8"
+              class="flex items-start rounded-lg border border-border-default bg-surface-default px-6 py-8"
               aria-label="Donation form unavailable"
             >
               <div>
@@ -91,38 +125,6 @@ const donorboxFrameHeight = 720;
           )
         }
       </div>
-
-      <aside id="mail-giving" class="h-full rounded-lg border border-border-default bg-surface-default px-6 py-8" aria-labelledby="mail-giving-heading">
-        <h3 id="mail-giving-heading" class="text-sm font-semibold uppercase tracking-wide text-text-default">Prefer to give by mail?</h3>
-        <p class="mt-3 text-base leading-7 text-text-subtle">
-          Make checks payable to New York Avenue Presbyterian Church and mail to:
-        </p>
-        <address class="mt-3 not-italic text-base leading-7 text-text-subtle">
-          Placeholder Mailing Address<br />
-          Washington, DC 00000
-        </address>
-        <div class="mt-6 border-t border-border-default pt-5" aria-label="Direct contact options">
-          <p class="text-xs font-semibold uppercase tracking-wide text-brand-secondary">Direct contact</p>
-          <ul class="mt-3 space-y-2 text-base leading-7 text-text-subtle">
-            <li>
-              <a
-                href="mailto:email@example.org"
-                class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
-              >
-                email@example.org
-              </a>
-            </li>
-            <li>
-              <a
-                href="tel:555-555-5555"
-                class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
-              >
-                555-555-5555
-              </a>
-            </li>
-          </ul>
-        </div>
-      </aside>
     </div>
   </section>
 

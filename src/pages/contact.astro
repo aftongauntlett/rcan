@@ -38,21 +38,11 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
   </section>
 
   <section class="pb-10" aria-labelledby="contact-methods-heading">
-    <div class="rounded-lg bg-surface-subtle px-6 py-8 md:px-8 md:py-10">
+    <div>
       <SectionTitle id="contact-methods-heading" text="Get in touch" />
-      <p class="mt-4 text-base leading-7 text-text-subtle">
-        RCAN collaborates with referral partners and congregations and welcomes partnership from
-        communities committed to practical, dignity-centered reentry support.
-      </p>
-      <p class="mt-3 text-base leading-7 text-text-subtle">
-        We read every message that comes in and do our best to reply as quickly as possible, usually by email.
-        Whether you have a question, a partnership idea, or are not sure where to start, please reach out and we
-        will be in touch.
-      </p>
-
-      <div class="mt-8 grid gap-6 md:mt-10 md:grid-cols-[3fr_2fr] md:items-stretch">
+      <div class="mt-6 grid gap-6 md:grid-cols-[3fr_2fr] md:items-stretch">
         <article class="order-2 h-full md:order-1">
-          <div class="flex h-full flex-col rounded-lg border border-border-default bg-surface-default px-6 py-6 md:justify-center md:px-7 md:py-6">
+          <div class="flex h-full flex-col">
             <div data-fs-success role="status" aria-live="polite" class="text-sm font-semibold text-status-success"></div>
             <div data-fs-error role="alert" aria-live="assertive" class="text-sm font-semibold text-status-error"></div>
 
@@ -182,27 +172,40 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
         </article>
 
         <aside class="order-1 h-full md:order-2">
-          <figure class="overflow-hidden rounded-lg border border-border-default bg-surface-default">
-            <Image
-              src={postImage}
-              class="h-auto w-full object-cover"
-              alt="A post-mounted mailbox representing direct communication and follow-up with RCAN."
-              width={900}
-              widths={[360, 540, 720, 900]}
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              format="webp"
-              quality={60}
-              loading="lazy"
-            />
-          </figure>
+          <div class="flex h-full flex-col gap-5">
+            <div class="space-y-3">
+              <p class="text-base leading-7 text-text-subtle">
+                RCAN collaborates with referral partners and congregations and welcomes partnership from
+                communities committed to practical, dignity-centered reentry support.
+              </p>
+              <p class="text-base leading-7 text-text-subtle">
+                We read every message that comes in and do our best to reply as quickly as possible, usually by email.
+                Whether you have a question, a partnership idea, or are not sure where to start, please reach out and we
+                will be in touch.
+              </p>
+            </div>
+            <figure class="min-h-0 flex-1 overflow-hidden rounded-lg border border-border-default bg-surface-default">
+              <Image
+                src={postImage}
+                class="h-full w-full object-cover"
+                alt="A post-mounted mailbox representing direct communication and follow-up with RCAN."
+                width={900}
+                widths={[360, 540, 720, 900]}
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                format="webp"
+                quality={60}
+                loading="lazy"
+              />
+            </figure>
+          </div>
         </aside>
       </div>
     </div>
   </section>
 
   <section class="border-t border-border-default py-10" aria-labelledby="direct-contact-heading">
-    <h2 id="direct-contact-heading" class="sr-only">Direct contact details</h2>
-    <div class="grid gap-4 md:grid-cols-2">
+    <SectionTitle id="direct-contact-heading" text="Connect directly" />
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
       <article class="group flex h-full flex-col rounded-lg border border-border-default bg-surface-default px-5 py-6 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md" aria-labelledby="find-us-heading">
         <h3 id="find-us-heading" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Find Us</h3>
         <div class="mt-4 flex flex-1 items-center justify-center rounded-md border border-border-default bg-surface-subtle px-4 py-6 text-sm leading-6 text-text-subtle">

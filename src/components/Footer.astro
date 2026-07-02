@@ -2,7 +2,6 @@
 import Link from "./Link.astro";
 import Icon from "./Icon.astro";
 
-// New shared site-chrome component for BaseLayout; no reusable footer existed in src/components.
 const year = new Date().getFullYear();
 const footerNavItems = [
   { href: "/", label: "Home" },
@@ -73,7 +72,7 @@ const footerNavItems = [
           type="button"
           data-back-to-top
           aria-label="Back to top"
-          class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-default bg-surface-default text-text-subtle hover:border-brand-secondary hover:bg-brand-secondary/10 hover:text-brand-secondary"
+          class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border-default bg-surface-default text-text-subtle hover:border-brand-secondary hover:bg-brand-secondary/10 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
         >
           <Icon name="arrow-up-right" size="sm" class="-rotate-45" aria-hidden="true" />
         </button>

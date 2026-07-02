@@ -7,56 +7,19 @@ import IconSupportList from "../components/IconSupportList.astro";
 import CTABlock from "../components/CTABlock.astro";
 import CountUpScript from "../components/CountUpScript.astro";
 import Button from "../components/Button.astro";
-import rcanAndPdsStaffImage from "../assets/rcan_and_pds_staff.jpeg";
-import bagOfGiftsImage from "../assets/bag-of-gifts.jpg";
-import beautyBehindBarsImage from "../assets/beauty-behind-bars.jpg";
-import paintingImage from "../assets/painting.jpg";
-import bikeGiftsImage from "../assets/bike-gifts.jpg";
-import bikeBagsGiftImage from "../assets/bike-bags-gift.jpg";
-import bikeDonationImage from "../assets/bike-donation.jpeg";
-import mrrogersBikeImage from "../assets/mrrogersbike.jpg";
+import ImageCarousel from "../components/ImageCarousel.astro";
+import {
+  beautySlides,
+  bikeSlides,
+  holidaySlides,
+  pathwaySteps,
+  prisonFriendsDo,
+  rcanAndPdsStaffImage,
+} from "../data/howWeHelp";
 
 const pageTitle = "How We Help | RCAN";
 const pageDescription =
   "Explore the support pathways and services RCAN coordinates for returning citizens and their families.";
-
-const pathwaySteps = [
-  {
-    label: "1. Request received",
-    body: "RCAN receives a specific short-term need through the DC Public Defender Service. All individuals are people PDS represents or has previously represented.",
-  },
-  {
-    label: "2. Network mobilizes",
-    body: "RCAN shares information with the full network. Each congregation determines whether it is able to help with a particular request — then coordinates volunteers, resources, or funding.",
-  },
-  {
-    label: "3. Stabilization",
-    body: "Immediate barriers are reduced so individuals can focus on longer-term reentry goals — housing, employment, and community.",
-  },
-];
-
-const prisonFriendsDo = [
-  {
-    icon: "check",
-    text: "Learn about the background and current situation of the person they are matched with",
-  },
-  {
-    icon: "check",
-    text: "Build a relationship through letters and reading materials",
-  },
-  {
-    icon: "check",
-    text: "Give gifts on special occasions to the person's commissary account — providing access to food, drinks, toiletries, and personal items",
-  },
-  {
-    icon: "check",
-    text: "Provide assistance in any other mutually agreed-upon way as the relationship develops",
-  },
-  {
-    icon: "check",
-    text: "A single committed person can be just as meaningful as a group.",
-  },
-] as const;
 
 ---
 
@@ -195,61 +158,12 @@ const prisonFriendsDo = [
     <section class="border-t border-border-default py-10" aria-labelledby="bike-ministry-heading">
       <SectionTitle id="bike-ministry-heading" text="Bike Ministry" level={3} />
       <div class="mt-6 grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
-        <div class="flex h-full flex-col" data-carousel aria-label="Bike Ministry photos">
-          <div id="bike-carousel-track" class="group relative h-96 overflow-hidden rounded-lg bg-neutral-100 shadow-sm md:h-112 lg:h-full">
-            <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
-              <Image
-                src={bikeDonationImage}
-                class="h-full w-full object-contain"
-                alt="A donated bicycle being prepared for restoration by Manuel Vera."
-                width={600}
-                widths={[320, 480, 600]}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                format="webp"
-                quality={65}
-                loading="lazy"
-              />
-            </figure>
-            <figure data-carousel-slide class="absolute inset-0 h-full opacity-0 pointer-events-none motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
-              <Image
-                src={mrrogersBikeImage}
-                class="h-full w-full object-contain"
-                alt="Manuel Vera with a restored bicycle ready for a new rider."
-                width={600}
-                widths={[320, 480, 600]}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                format="webp"
-                quality={65}
-                loading="lazy"
-              />
-            </figure>
-            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/90 px-4 py-3">
-              <div class="flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  data-carousel-prev
-                  aria-label="Previous photo"
-                  aria-controls="bike-carousel-track"
-                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-                  <span>Prev</span>
-                </button>
-                <p class="text-sm font-medium text-neutral-100" data-carousel-status aria-live="polite">Photo 1 of 2</p>
-                <button
-                  type="button"
-                  data-carousel-next
-                  aria-label="Next photo"
-                  aria-controls="bike-carousel-track"
-                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <span>Next</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ImageCarousel
+          id="bike-carousel-track"
+          ariaLabel="Bike Ministry photos"
+          slides={bikeSlides}
+          frameClass="bg-neutral-100 shadow-sm"
+        />
 
         <div class="flex h-full flex-col space-y-3">
           <p class="text-base leading-7 text-text-subtle">
@@ -326,61 +240,11 @@ const prisonFriendsDo = [
           </div>
         </div>
 
-        <div class="flex h-full flex-col" data-carousel aria-label="Beauty Behind Bars images">
-          <div id="beauty-carousel-track" class="group relative h-96 overflow-hidden rounded-lg shadow-sm md:h-112 lg:h-full">
-            <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
-              <Image
-                src={beautyBehindBarsImage}
-                class="h-full w-full object-cover object-top"
-                alt="PDS staff, RCAN volunteers, and recently returned clients show their artwork at the Beauty Behind Bars event at St. Columba's Episcopal Church."
-                width={600}
-                widths={[320, 480, 600]}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                format="webp"
-                quality={65}
-                loading="lazy"
-              />
-            </figure>
-            <figure data-carousel-slide class="absolute inset-0 h-full opacity-0 pointer-events-none motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
-              <Image
-                src={paintingImage}
-                class="h-full w-full object-cover"
-                alt="A recently returned PDS client stands beside his large mural on display at the Beauty Behind Bars exhibition."
-                width={600}
-                widths={[320, 480, 600]}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                format="webp"
-                quality={65}
-                loading="lazy"
-              />
-            </figure>
-            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/90 px-4 py-3">
-              <div class="flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  data-carousel-prev
-                  aria-label="Previous photo"
-                  aria-controls="beauty-carousel-track"
-                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-                  <span>Prev</span>
-                </button>
-                <p class="text-sm font-medium text-neutral-100" data-carousel-status aria-live="polite">Photo 1 of 2</p>
-                <button
-                  type="button"
-                  data-carousel-next
-                  aria-label="Next photo"
-                  aria-controls="beauty-carousel-track"
-                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <span>Next</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ImageCarousel
+          id="beauty-carousel-track"
+          ariaLabel="Beauty Behind Bars images"
+          slides={beautySlides}
+        />
       </div>
     </section>
 
@@ -412,74 +276,11 @@ const prisonFriendsDo = [
           </figure>
         </div>
 
-        <div class="flex h-full flex-col" data-carousel aria-label="Holiday Gifts photos">
-          <div id="holiday-carousel-track" class="group relative h-96 overflow-hidden rounded-lg shadow-sm md:h-112 lg:h-full">
-            <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
-              <Image
-                src={bagOfGiftsImage}
-                class="h-full w-full object-cover"
-                alt="Holiday gift bags prepared for detained youth at the Youth Services Center."
-                width={600}
-                widths={[320, 480, 600]}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                format="webp"
-                quality={70}
-                loading="lazy"
-              />
-            </figure>
-            <figure data-carousel-slide class="absolute inset-0 h-full opacity-0 pointer-events-none motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
-              <Image
-                src={bikeGiftsImage}
-                class="h-full w-full object-cover"
-                alt="A restored bicycle prepared for delivery to a returning citizen."
-                width={600}
-                widths={[320, 480, 600]}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                format="webp"
-                quality={65}
-                loading="lazy"
-              />
-            </figure>
-            <figure data-carousel-slide class="absolute inset-0 h-full opacity-0 pointer-events-none motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
-              <Image
-                src={bikeBagsGiftImage}
-                class="h-full w-full object-cover"
-                alt="A restored bicycle displayed with gift bags prepared by RCAN supporters."
-                width={600}
-                widths={[320, 480, 600]}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                format="webp"
-                quality={65}
-                loading="lazy"
-              />
-            </figure>
-            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/90 px-4 py-3">
-              <div class="flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  data-carousel-prev
-                  aria-label="Previous photo"
-                  aria-controls="holiday-carousel-track"
-                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-                  <span>Prev</span>
-                </button>
-                <p class="text-sm font-medium text-neutral-100" data-carousel-status aria-live="polite">Photo 1 of 3</p>
-                <button
-                  type="button"
-                  data-carousel-next
-                  aria-label="Next photo"
-                  aria-controls="holiday-carousel-track"
-                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <span>Next</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ImageCarousel
+          id="holiday-carousel-track"
+          ariaLabel="Holiday Gifts photos"
+          slides={holidaySlides}
+        />
       </div>
     </article>
 

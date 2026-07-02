@@ -1,0 +1,144 @@
+---
+import type { DropdownOption } from "../utils/dropdown";
+import Button from "./Button.astro";
+import CustomDropdown from "./CustomDropdown.astro";
+
+interface Props {
+  topicOptions: DropdownOption[];
+  showTurnstileWidget: boolean;
+  activeTurnstileSiteKey: string;
+  turnstileEnabled: boolean;
+}
+
+const { topicOptions, showTurnstileWidget, activeTurnstileSiteKey, turnstileEnabled } = Astro.props as Props;
+---
+
+<div class="lg:col-span-3">
+  <div class="rounded-xl bg-surface-subtle px-6 py-8 md:px-8">
+    <div data-fs-success role="status" aria-live="polite" class="text-sm font-semibold text-status-success"></div>
+    <div data-fs-error role="alert" aria-live="assertive" class="text-sm font-semibold text-status-error"></div>
+
+    <form id="contact-form" action="https://formspree.io/f/mdajaprb" method="POST" class="space-y-5">
+      <input type="hidden" name="_subject" value="RCAN website contact request" />
+      <input type="hidden" name="source" value="contact-page" />
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+      <div class="grid gap-5 md:grid-cols-2">
+        <div class="space-y-2">
+          <label for="first-name" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">First name</label>
+          <input
+            id="first-name"
+            name="firstName"
+            type="text"
+            autocomplete="given-name"
+            data-fs-field
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+          <span data-fs-error="firstName" class="block text-sm text-status-error"></span>
+        </div>
+
+        <div class="space-y-2">
+          <label for="last-name" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Last name</label>
+          <input
+            id="last-name"
+            name="lastName"
+            type="text"
+            autocomplete="family-name"
+            data-fs-field
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+          <span data-fs-error="lastName" class="block text-sm text-status-error"></span>
+        </div>
+
+        <div class="space-y-2">
+          <label for="phone" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Phone number</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            data-fs-field
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+          <span data-fs-error="phone" class="block text-sm text-status-error"></span>
+        </div>
+
+        <div class="space-y-2">
+          <label for="email" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Email address</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            data-fs-field
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+          <span data-fs-error="email" class="block text-sm text-status-error"></span>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <label id="topic-label" for="topic-trigger" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">What are you reaching out about?</label>
+        <CustomDropdown
+          id="topic"
+          name="topic"
+          labelledBy="topic-label"
+          options={topicOptions}
+          required
+          class="w-full"
+        />
+        <span data-fs-error="topic" class="block text-sm text-status-error"></span>
+      </div>
+
+      <div class="space-y-2">
+        <label for="congregation" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Congregation or organization (if any)</label>
+        <input
+          id="congregation"
+          name="congregation"
+          type="text"
+          autocomplete="organization"
+          data-fs-field
+          class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+        />
+        <span data-fs-error="congregation" class="block text-sm text-status-error"></span>
+      </div>
+
+      <div class="mt-2 space-y-2">
+        <label for="message" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows={6}
+          required
+          data-fs-field
+          class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+        ></textarea>
+        <span data-fs-error="message" class="block text-sm text-status-error"></span>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        {
+          showTurnstileWidget ? (
+            <div class="cf-turnstile" data-sitekey={activeTurnstileSiteKey}></div>
+          ) : (
+            <div class="rounded-md border border-border-default bg-surface-subtle px-4 py-3 text-sm text-status-warning">
+              CAPTCHA is not configured yet. Add PUBLIC_TURNSTILE_SITE_KEY to enable submissions.
+            </div>
+          )
+        }
+
+        <Button
+          type="submit"
+          variant="primary"
+          size="md"
+          data-fs-submit-btn=""
+          disabled={!turnstileEnabled}
+        >
+          <span data-fs-submit-label>Send message</span>
+        </Button>
+      </div>
+      <span data-fs-error="cf-turnstile-response" class="text-sm text-status-error"></span>
+    </form>
+  </div>
+</div>

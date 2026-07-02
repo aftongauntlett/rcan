@@ -14,7 +14,7 @@ interface Props {
 const { items, divider = false, ariaLabel, class: className = "" } = Astro.props as Props;
 ---
 
-<div class={`px-6 py-8 md:px-10 md:py-10 ${className}`}>
+<div class={`rounded-lg bg-surface-subtle px-6 py-8 md:px-10 md:py-10 ${className}`}>
   <ul aria-label={ariaLabel}>
     {
       items.map((item, index) => (

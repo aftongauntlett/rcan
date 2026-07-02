@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import PageHeader from "../components/PageHeader.astro";
 import SectionTitle from "../components/SectionTitle.astro";
-import Button from "../components/Button.astro";
 import BulletList from "../components/BulletList.astro";
 import donateImage from "../assets/make-change.jpg";
 
@@ -11,10 +10,6 @@ const pageTitle = "Donate | RCAN";
 const pageDescription =
   "Support RCAN's mission with financial contributions that expand resources for returning citizens.";
 
-const donorboxEmbedUrl = import.meta.env.PUBLIC_DONORBOX_EMBED_URL?.trim();
-const hasDonorboxEmbed = Boolean(donorboxEmbedUrl);
-const isDev = import.meta.env.DEV;
-const donorboxFrameHeight = 720;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -23,15 +18,14 @@ const donorboxFrameHeight = 720;
       id="donate-heading"
       eyebrow="Donate"
       heading="Fuel practical support for returning citizens"
-      subheading="RCAN's ministry is sustained through the generosity of dedicated members and friends."
     />
   </section>
 
-  <section id="donate-form" class="py-10" aria-labelledby="give-heading">
+  <section id="donate-form" class="pt-6 pb-10" aria-labelledby="give-heading">
     <SectionTitle id="give-heading" text="Give to RCAN" />
 
-    <div class="mt-8 grid gap-6 lg:grid-cols-[2fr_3fr] lg:items-stretch">
-      <aside id="mail-giving" class="h-full rounded-lg border border-border-default bg-surface-default px-6 py-8" aria-labelledby="mail-giving-heading">
+    <div class="mt-8 grid gap-6 lg:grid-cols-[3fr_2fr] lg:items-stretch">
+      <aside id="mail-giving" class="rounded-lg border border-border-default bg-surface-default px-6 py-8" aria-labelledby="mail-giving-heading">
         <div class="space-y-4 text-base leading-7 text-text-subtle">
           <p>
             Your gift helps RCAN respond quickly to urgent requests for housing, food, transportation,
@@ -48,82 +42,40 @@ const donorboxFrameHeight = 720;
             referral channels. Support is processed securely through Donorbox.
           </p>
         </div>
-        <div class="mt-6 border-t border-border-default pt-5">
-          <h3 id="mail-giving-heading" class="text-sm font-semibold uppercase tracking-wide text-text-default">Prefer to give by mail?</h3>
-          <p class="mt-3 text-base leading-7 text-text-subtle">
-            Make checks payable to New York Avenue Presbyterian Church and mail to:
-          </p>
-          <address class="mt-3 not-italic text-base leading-7 text-text-subtle">
-            Placeholder Mailing Address<br />
-            Washington, DC 00000
-          </address>
-          <div class="mt-6 border-t border-border-default pt-5" aria-label="Direct contact options">
-            <p class="text-xs font-semibold uppercase tracking-wide text-brand-secondary">Direct contact</p>
-            <ul class="mt-3 space-y-2 text-base leading-7 text-text-subtle">
-              <li>
-                <a
-                  href="mailto:email@example.org"
-                  class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
-                >
-                  email@example.org
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:555-555-5555"
-                  class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
-                >
-                  555-555-5555
-                </a>
-              </li>
-            </ul>
-          </div>
+        <h3 id="mail-giving-heading" class="mt-6 border-t border-border-default pt-5 text-xs font-semibold uppercase tracking-wide text-brand-secondary">Prefer to give by mail?</h3>
+        <p class="mt-3 text-base leading-7 text-text-subtle">
+          Make checks payable to <strong>Returning Citizens Assistance Network (RCAN)</strong> and mail to:
+        </p>
+        <address class="mt-3 not-italic text-base leading-7 text-text-subtle">
+          5109 Nannie Helen Burroughs Ave. NE<br />
+          Washington, DC 20019
+        </address>
+        <div class="mt-6 border-t border-border-default pt-5" aria-label="Direct contact options">
+          <p class="text-xs font-semibold uppercase tracking-wide text-brand-secondary">Direct contact</p>
+          <ul class="mt-3 space-y-2 text-base leading-7 text-text-subtle">
+            <li>
+              <a
+                href="mailto:dcrcan2018@gmail.com"
+                class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+              >
+                dcrcan2018@gmail.com
+              </a>
+            </li>
+            <li>
+              <a
+                href="tel:555-555-5555"
+                class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+              >
+                555-555-5555
+              </a>
+            </li>
+          </ul>
         </div>
       </aside>
 
-      <div class="h-full">
-        {
-          hasDonorboxEmbed ? (
-            <iframe
-              src={donorboxEmbedUrl}
-              title="Secure donation form powered by Donorbox"
-              name="donorbox-donation-form"
-              class="w-full"
-              loading="lazy"
-              height={donorboxFrameHeight}
-              allow="payment"
-            ></iframe>
-          ) : isDev ? (
-            <aside
-              class="flex items-start rounded-lg border border-border-default bg-surface-default px-6 py-8"
-              aria-label="Donation embed preview helper"
-            >
-              <div>
-                <p class="text-sm font-semibold uppercase tracking-wide text-text-default">Donorbox preview</p>
-                <p class="mt-2 text-base leading-7 text-text-subtle">
-                  Add a value for <strong>PUBLIC_DONORBOX_EMBED_URL</strong> to render the live donation
-                  iframe in this section.
-                </p>
-              </div>
-            </aside>
-          ) : (
-            <aside
-              class="flex items-start rounded-lg border border-border-default bg-surface-default px-6 py-8"
-              aria-label="Donation form unavailable"
-            >
-              <div>
-                <p class="text-sm font-semibold uppercase tracking-wide text-text-default">Donation form temporarily unavailable</p>
-                <p class="mt-2 text-base leading-7 text-text-subtle">
-                  The online donation form is not configured right now. Contact RCAN and we will help
-                  you complete your gift.
-                </p>
-                <div class="mt-4">
-                  <Button href="/contact" variant="secondary" size="sm">Contact RCAN</Button>
-                </div>
-              </div>
-            </aside>
-          )
-        }
+      <div class="flex justify-center overflow-hidden rounded-lg">
+        <script type="module" src="https://donorbox.org/widgets.js" is:inline async></script>
+        <dbox-widget campaign="returning-citizens-assistance-network" type="donation_form" enable-auto-scroll="true" highlight-color="#1E5B52"></dbox-widget>
       </div>
     </div>
   </section>

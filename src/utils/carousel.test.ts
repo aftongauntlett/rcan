@@ -41,7 +41,7 @@ describe("initCarousels", () => {
     const status = document.querySelector("[data-carousel-status]");
     const slides = Array.from(document.querySelectorAll("[data-carousel-slide]"));
 
-    expect(status?.textContent).toBe("1 / 2");
+    expect(status?.textContent).toBe("Photo 1 of 2");
     expect(slides[0]?.getAttribute("aria-hidden")).toBe("false");
     expect(slides[1]?.getAttribute("aria-hidden")).toBe("true");
   });
@@ -58,11 +58,11 @@ describe("initCarousels", () => {
     }
 
     nextButton.click();
-    expect(status?.textContent).toBe("2 / 2");
+    expect(status?.textContent).toBe("Photo 2 of 2");
     expect(slides[1]?.classList.contains("opacity-100")).toBe(true);
 
     nextButton.click();
-    expect(status?.textContent).toBe("1 / 2");
+    expect(status?.textContent).toBe("Photo 1 of 2");
     expect(slides[0]?.classList.contains("opacity-100")).toBe(true);
   });
 });

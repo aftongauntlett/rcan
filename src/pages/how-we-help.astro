@@ -7,12 +7,14 @@ import IconSupportList from "../components/IconSupportList.astro";
 import CTABlock from "../components/CTABlock.astro";
 import CountUpScript from "../components/CountUpScript.astro";
 import Button from "../components/Button.astro";
-import supportImage from "../assets/art-community.jpg";
+import rcanAndPdsStaffImage from "../assets/rcan_and_pds_staff.jpeg";
 import bagOfGiftsImage from "../assets/bag-of-gifts.jpg";
 import beautyBehindBarsImage from "../assets/beauty-behind-bars.jpg";
 import paintingImage from "../assets/painting.jpg";
 import bikeGiftsImage from "../assets/bike-gifts.jpg";
 import bikeBagsGiftImage from "../assets/bike-bags-gift.jpg";
+import bikeDonationImage from "../assets/bike-donation.jpeg";
+import mrrogersBikeImage from "../assets/mrrogersbike.jpg";
 
 const pageTitle = "How We Help | RCAN";
 const pageDescription =
@@ -56,23 +58,6 @@ const prisonFriendsDo = [
   },
 ] as const;
 
-const rcanFunPhotos = [
-  {
-    image: bagOfGiftsImage,
-    alt: "Holiday gift bags prepared for detained youth at the Youth Services Center.",
-    caption: "Gift bags ready for delivery at the holidays.",
-  },
-  {
-    image: bikeGiftsImage,
-    alt: "A restored bicycle prepared for delivery to a returning citizen.",
-    caption: "A freshly restored bike, ready for its new rider.",
-  },
-  {
-    image: bikeBagsGiftImage,
-    alt: "A restored bicycle displayed with gift bags prepared by RCAN supporters.",
-    caption: "Bikes and gift bags, prepped together for delivery day.",
-  },
-] as const;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -81,25 +66,29 @@ const rcanFunPhotos = [
       id="how-we-help-heading"
       eyebrow="How We Help"
       heading="Practical support when timing matters most"
-      subheading="RCAN coordinates short-term, high-impact support that helps returning citizens stabilize and move forward."
     />
   </section>
 
   <section class="py-10" aria-labelledby="pathway-heading">
     <SectionTitle id="pathway-heading" text="Support pathway" />
     <div class="mt-6 grid gap-6 lg:grid-cols-[2fr_3fr] lg:items-stretch">
-      <figure class="overflow-hidden rounded-lg shadow-md">
-        <Image
-          src={supportImage}
-          class="h-full w-full object-cover"
-          alt="A community mural featuring hands and symbols of shared care, representing collective support for neighbors in transition."
-          width={900}
-          widths={[360, 540, 720, 900]}
-          sizes="(min-width: 1024px) 40vw, 100vw"
-          format="webp"
-          quality={60}
-          loading="lazy"
-        />
+      <figure class="flex flex-col overflow-hidden rounded-lg shadow-md">
+        <div class="min-h-0 flex-1">
+          <Image
+            src={rcanAndPdsStaffImage}
+            class="h-full w-full object-cover object-top"
+            alt="RCAN leaders and PDS staff gathered together at a Christmas party in 2025."
+            width={900}
+            widths={[360, 540, 720, 900]}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            format="webp"
+            quality={60}
+            loading="lazy"
+          />
+        </div>
+        <figcaption class="bg-surface-subtle px-4 py-2 text-center text-sm italic text-text-subtle">
+          RCAN leaders and PDS staff together at a Christmas party in 2025.
+        </figcaption>
       </figure>
 
       <div class="flex h-full flex-col">
@@ -131,195 +120,26 @@ const rcanFunPhotos = [
   <!-- Program Highlights -->
   <section class="border-t border-border-default space-y-12 md:space-y-16" aria-label="Program highlights">
 
-    <article class="py-10" aria-labelledby="holiday-story-heading">
-      <SectionTitle id="holiday-story-heading" text="Holiday Gifts at the Youth Services Center" level={3} />
-      <div class="mt-6 grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
-        <figure class="overflow-hidden rounded-lg shadow-md">
-          <Image
-            src={bagOfGiftsImage}
-            class="h-full w-full object-cover"
-            alt="Holiday gift bags prepared for detained youth at the Youth Services Center."
-            widths={[320, 480, 640, 900]}
-            sizes="(min-width: 1024px) 40vw, 100vw"
-            format="webp"
-            quality={70}
-            loading="lazy"
-          />
-        </figure>
-
-        <div class="flex h-full flex-col">
-          <p class="text-base leading-7 text-text-subtle">
-            RCAN-supported attorney Kayla Wyatt gave small Christmas gifts to 120 detained juveniles at the Youth Services Center.
-          </p>
-          <p class="mt-3 text-base leading-7 text-text-subtle">
-            RCAN volunteer Connie marks birthdays and holidays throughout the year, delivering homemade cakes and small celebrations to PDS clients so no one marks the day alone.
-          </p>
-          <figure class="group mt-5 rounded-lg bg-surface-subtle px-5 py-6 motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md lg:mt-auto">
-            <blockquote class="border-l-4 border-brand-secondary pl-4 text-base italic leading-8 text-text-default motion-safe:transition-colors motion-safe:duration-200 group-hover:border-brand-primary">
-              <p>
-                A lot of the kids at YSC have been away from their families for a long time and, some, are away for the first time during the holiday. I cannot imagine how awful that is. But Kayla found a way to make their holiday season just a little better by making every kid at YSC feel loved and cared for.
-              </p>
-            </blockquote>
-            <figcaption class="mt-3 text-right text-sm text-text-subtle">— DC PDS</figcaption>
-          </figure>
-        </div>
+    <!-- Emergency Assistance -->
+    <article class="py-10" aria-labelledby="emergency-assistance-heading">
+      <SectionTitle id="emergency-assistance-heading" text="Emergency Assistance" level={3} />
+      <div class="mt-6 space-y-4">
+        <p class="text-base leading-7 text-text-subtle">
+          Each week RCAN receives requests to help clients of the Public Defender Service who are
+          returning from incarceration. People often are released from prison with little or no resources
+          and need help with basics such as food, clothing and emergency shelter. RCAN assists these
+          men and women with gift cards to places like Giant Food, Target and CVS where they can get
+          the basic necessities for their reentry into the community.
+        </p>
+        <p class="text-base leading-7 text-text-subtle">
+          Congregations in RCAN often collect food and clothing for these individuals to supplement
+          what they are able to purchase and also sometimes get donations of furniture to help furnish
+          an apartment. Individuals returning to the community also need cell phones they can use to
+          help get and keep a job, arrange appointments, and communicate with health professionals
+          and so often RCAN will provide a phone as well as prepaid minutes they can use.
+        </p>
       </div>
     </article>
-
-    <!-- Beauty Behind Bars -->
-    <section class="border-t border-border-default py-10" aria-labelledby="beauty-behind-bars-heading">
-      <SectionTitle id="beauty-behind-bars-heading" level={3}>
-        <a
-          href="https://www.studiogallerydc.com/beauty-behind-bars-online-catalogue"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 hover:text-brand-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
-        >
-          Beauty Behind Bars: The Transformative Power of Arts in Confinement
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M15 3h6v6" />
-            <path d="M10 14 21 3" />
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-          </svg>
-        </a>
-      </SectionTitle>
-      <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-stretch">
-        <div class="flex h-full flex-col">
-          <p class="text-base leading-7 text-text-subtle">
-            Hosted at Studio Gallery in January 2025 and curated by Anokhi Shah and LaVander Williams, Beauty Behind Bars featured art and poetry by PDS clients, including Fernard Strowbridge, Arlis Hicks-Bey, Curtis Dickson, David Watkins, Harry Ellis, Keith Starr, and others.
-          </p>
-          <p class="mt-3 text-base leading-7 text-text-subtle">
-            The exhibit invited audiences to see resilience and humanity beyond incarceration. RCAN churches later hosted the collection locally, and PDS attorneys used this context in advocacy tied to release efforts under the Incarceration Reduction Amendment Act.
-          </p>
-          <div class="mt-6">
-            <figure class="rounded-lg bg-surface-subtle px-5 py-5">
-              <blockquote class="border-l-4 border-brand-secondary pl-4 text-base italic leading-7 text-text-default">
-                <p>
-                  Tough times do not last, but tough people do. My mantra is positive consistency, striving to do right regardless of one's circumstances.
-                </p>
-              </blockquote>
-              <figcaption class="mt-2 text-right text-sm text-text-subtle">— Fernard Strowbridge</figcaption>
-            </figure>
-          </div>
-        </div>
-
-        <div class="flex h-full flex-col" data-carousel aria-label="Beauty Behind Bars images">
-          <div id="beauty-carousel-track" class="group relative h-80 overflow-hidden rounded-lg shadow-sm md:h-96 lg:h-full">
-            <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
-              <Image
-                src={beautyBehindBarsImage}
-                class="h-full w-full object-cover object-top"
-                alt="PDS staff, RCAN volunteers, and recently returned clients show their artwork at the Beauty Behind Bars event at St. Columba's Episcopal Church."
-                width={600}
-                widths={[320, 480, 600]}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                format="webp"
-                quality={65}
-                loading="lazy"
-              />
-            </figure>
-            <figure data-carousel-slide class="absolute inset-0 h-full opacity-0 pointer-events-none motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
-              <Image
-                src={paintingImage}
-                class="h-full w-full object-cover"
-                alt="A recently returned PDS client stands beside his large mural on display at the Beauty Behind Bars exhibition."
-                width={600}
-                widths={[320, 480, 600]}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                format="webp"
-                quality={65}
-                loading="lazy"
-              />
-            </figure>
-            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/80 px-3 py-2 motion-safe:transition-opacity motion-safe:duration-500 motion-safe:ease-out">
-              <div class="flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  data-carousel-prev
-                  aria-label="Previous Beauty Behind Bars image"
-                  aria-controls="beauty-carousel-track"
-                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent cursor-pointer text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="m15 18-6-6 6-6" />
-                  </svg>
-                </button>
-                <p class="text-xs font-semibold tracking-wide text-neutral-100" data-carousel-status aria-live="polite">1 / 2</p>
-                <button
-                  type="button"
-                  data-carousel-next
-                  aria-label="Next Beauty Behind Bars image"
-                  aria-controls="beauty-carousel-track"
-                  class="inline-flex h-9 w-9 items-center justify-center rounded-sm bg-transparent cursor-pointer text-text-invert transition-colors duration-base hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-invert disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="border-t border-border-default py-10" aria-labelledby="bike-ministry-heading">
-      <SectionTitle id="bike-ministry-heading" text="Bike Ministry" level={3} />
-      <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-start">
-        <div class="space-y-3">
-          <p class="text-base leading-7 text-text-subtle">
-            Manuel Vera, 74, restores donated bicycles in Silver Spring and gives them to refugees, immigrants, and returning citizens who need dependable transportation for daily use.
-          </p>
-          <p class="text-base leading-7 text-text-subtle">
-            What began as neighborhood tune-ups during the pandemic grew into a word-of-mouth network of donors and recipients. In 2025, he completed his 1,000th restored bike through RCAN-connected requests and continues matching available bikes to community need.
-          </p>
-          <p class="text-base leading-7 text-text-subtle">
-            To donate an unused bike or request more information, email <a href="mailto:manvera@yahoo.com" class="underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default">manvera@yahoo.com</a>.
-          </p>
-        </div>
-        <figure class="rounded-lg bg-surface-subtle px-5 py-5">
-          <blockquote class="border-l-4 border-brand-secondary pl-4 text-base italic leading-7 text-text-default">
-            <p>
-              "As long as I'm getting bikes and people want bikes, I think I'm going to keep this going for quite some time."
-            </p>
-          </blockquote>
-          <figcaption class="mt-2 text-right text-sm text-text-subtle">- Manuel Vera</figcaption>
-        </figure>
-      </div>
-    </section>
 
     <!-- Prison Friendship Project -->
     <section id="prison-friendship-project" class="border-t border-border-default py-10" aria-labelledby="prison-friendship-heading">
@@ -370,37 +190,299 @@ const rcanFunPhotos = [
         </div>
       </div>
     </section>
-  </section>
 
-  <section class="border-t border-border-default py-10" aria-labelledby="rcan-fun-heading">
-    <SectionTitle id="rcan-fun-heading" text="RCAN fun" />
-    <p class="mx-auto mt-6 max-w-3xl text-center text-base leading-7 text-text-subtle">
-      Beyond urgent requests, RCAN's network shows up for the lighter moments too — holiday gift
-      bags, freshly restored bikes, and the volunteers who make them happen.
-    </p>
-    <ul class="mt-8 grid gap-4 sm:grid-cols-3" aria-label="Snapshots from RCAN programs">
-      {
-        rcanFunPhotos.map((photo) => (
-          <li>
-            <figure class="overflow-hidden rounded-lg shadow-md">
+    <!-- Bike Ministry (image left) -->
+    <section class="border-t border-border-default py-10" aria-labelledby="bike-ministry-heading">
+      <SectionTitle id="bike-ministry-heading" text="Bike Ministry" level={3} />
+      <div class="mt-6 grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
+        <div class="flex h-full flex-col" data-carousel aria-label="Bike Ministry photos">
+          <div id="bike-carousel-track" class="group relative h-96 overflow-hidden rounded-lg bg-neutral-100 shadow-sm md:h-112 lg:h-full">
+            <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
               <Image
-                src={photo.image}
-                class="h-60 w-full object-cover"
-                alt={photo.alt}
-                widths={[320, 480, 640]}
-                sizes="(min-width: 768px) 32vw, 100vw"
+                src={bikeDonationImage}
+                class="h-full w-full object-contain"
+                alt="A donated bicycle being prepared for restoration by Manuel Vera."
+                width={600}
+                widths={[320, 480, 600]}
+                sizes="(min-width: 1024px) 32vw, 100vw"
                 format="webp"
                 quality={65}
                 loading="lazy"
               />
-              <figcaption class="px-3 py-3 text-center text-xs italic leading-5 text-text-subtle">
-                {photo.caption}
-              </figcaption>
             </figure>
-          </li>
-        ))
-      }
-    </ul>
+            <figure data-carousel-slide class="absolute inset-0 h-full opacity-0 pointer-events-none motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
+              <Image
+                src={mrrogersBikeImage}
+                class="h-full w-full object-contain"
+                alt="Manuel Vera with a restored bicycle ready for a new rider."
+                width={600}
+                widths={[320, 480, 600]}
+                sizes="(min-width: 1024px) 32vw, 100vw"
+                format="webp"
+                quality={65}
+                loading="lazy"
+              />
+            </figure>
+            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/90 px-4 py-3">
+              <div class="flex items-center justify-between gap-3">
+                <button
+                  type="button"
+                  data-carousel-prev
+                  aria-label="Previous photo"
+                  aria-controls="bike-carousel-track"
+                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+                  <span>Prev</span>
+                </button>
+                <p class="text-sm font-medium text-neutral-100" data-carousel-status aria-live="polite">Photo 1 of 2</p>
+                <button
+                  type="button"
+                  data-carousel-next
+                  aria-label="Next photo"
+                  aria-controls="bike-carousel-track"
+                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <span>Next</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex h-full flex-col space-y-3">
+          <p class="text-base leading-7 text-text-subtle">
+            Many people returning from prison need some form of transportation to get around the
+            community and one way RCAN meets this need is by providing them with free bicycles. RCAN
+            works with Manuel Vera who lives in Silver Spring, Maryland and loves to restore donated
+            bicycles and provide them for PDS clients and others who are in need.
+          </p>
+          <p class="text-base leading-7 text-text-subtle">
+            Manny has restored more than 1,000 bicycles through the years and many of those bicycles
+            now go to individuals identified by RCAN who use them to get to work, run errands or
+            simply for recreation and fun.
+          </p>
+          <p class="text-base leading-7 text-text-subtle">
+            To donate a bike to be refurbished or for more information, email <a href="mailto:dcrcan2018@gmail.com" class="underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default">dcrcan2018@gmail.com</a>.
+          </p>
+          <figure class="mt-auto rounded-lg bg-surface-subtle px-5 py-5">
+            <blockquote class="border-l-4 border-brand-secondary pl-4 text-base italic leading-7 text-text-default">
+              <p>
+                "As long as I'm getting bikes and people want bikes, I think I'm going to keep this going for quite some time."
+              </p>
+            </blockquote>
+            <figcaption class="mt-2 text-right text-sm text-text-subtle">— Manuel Vera</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Beauty Behind Bars -->
+    <section class="border-t border-border-default py-10" aria-labelledby="beauty-behind-bars-heading">
+      <SectionTitle id="beauty-behind-bars-heading" level={3}>
+        <a
+          href="https://www.studiogallerydc.com/beauty-behind-bars-online-catalogue"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 hover:text-brand-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+        >
+          Beauty Behind Bars: The Transformative Power of Arts in Confinement
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M15 3h6v6" />
+            <path d="M10 14 21 3" />
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          </svg>
+        </a>
+      </SectionTitle>
+      <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-stretch">
+        <div class="flex h-full flex-col">
+          <p class="text-base leading-7 text-text-subtle">
+            Hosted at Studio Gallery in January 2025 and curated by Anokhi Shah and LaVander Williams, Beauty Behind Bars featured art and poetry by PDS clients, including Fernard Strowbridge, Arlis Hicks-Bey, Curtis Dickson, David Watkins, Harry Ellis, Keith Starr, and others.
+          </p>
+          <p class="mt-3 text-base leading-7 text-text-subtle">
+            The exhibit invited audiences to see resilience and humanity beyond incarceration. RCAN churches later hosted the collection locally, and PDS attorneys used this context in advocacy tied to release efforts under the Incarceration Reduction Amendment Act.
+          </p>
+          <div class="mt-6">
+            <figure class="rounded-lg bg-surface-subtle px-5 py-5">
+              <blockquote class="border-l-4 border-brand-secondary pl-4 text-base italic leading-7 text-text-default">
+                <p>
+                  Tough times do not last, but tough people do. My mantra is positive consistency, striving to do right regardless of one's circumstances.
+                </p>
+              </blockquote>
+              <figcaption class="mt-2 text-right text-sm text-text-subtle">— Fernard Strowbridge</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="flex h-full flex-col" data-carousel aria-label="Beauty Behind Bars images">
+          <div id="beauty-carousel-track" class="group relative h-96 overflow-hidden rounded-lg shadow-sm md:h-112 lg:h-full">
+            <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
+              <Image
+                src={beautyBehindBarsImage}
+                class="h-full w-full object-cover object-top"
+                alt="PDS staff, RCAN volunteers, and recently returned clients show their artwork at the Beauty Behind Bars event at St. Columba's Episcopal Church."
+                width={600}
+                widths={[320, 480, 600]}
+                sizes="(min-width: 1024px) 32vw, 100vw"
+                format="webp"
+                quality={65}
+                loading="lazy"
+              />
+            </figure>
+            <figure data-carousel-slide class="absolute inset-0 h-full opacity-0 pointer-events-none motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
+              <Image
+                src={paintingImage}
+                class="h-full w-full object-cover"
+                alt="A recently returned PDS client stands beside his large mural on display at the Beauty Behind Bars exhibition."
+                width={600}
+                widths={[320, 480, 600]}
+                sizes="(min-width: 1024px) 32vw, 100vw"
+                format="webp"
+                quality={65}
+                loading="lazy"
+              />
+            </figure>
+            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/90 px-4 py-3">
+              <div class="flex items-center justify-between gap-3">
+                <button
+                  type="button"
+                  data-carousel-prev
+                  aria-label="Previous photo"
+                  aria-controls="beauty-carousel-track"
+                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+                  <span>Prev</span>
+                </button>
+                <p class="text-sm font-medium text-neutral-100" data-carousel-status aria-live="polite">Photo 1 of 2</p>
+                <button
+                  type="button"
+                  data-carousel-next
+                  aria-label="Next photo"
+                  aria-controls="beauty-carousel-track"
+                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <span>Next</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Holiday Gifts -->
+    <article class="border-t border-border-default py-10" aria-labelledby="holiday-story-heading">
+      <SectionTitle id="holiday-story-heading" text="Holiday Gifts" level={3} />
+      <div class="mt-6 grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-stretch">
+        <div class="flex h-full flex-col">
+          <p class="text-base leading-7 text-text-subtle">
+            Each year at Christmas, RCAN makes a special effort to identify and assist families of PDS clients
+            who are in need. For each of the past few years, we have helped ten families that each had
+            multiple children with necessities like food and clothing as well as gifts for each family
+            member. RCAN Board Member Connie Kurihara has coordinated this program with the
+            assistance from members of several congregations.
+          </p>
+          <p class="mt-3 text-base leading-7 text-text-subtle">
+            In addition, in 2025 RCAN helped provide gifts for 120 juveniles who were detained at the
+            Youth Services Center during Christmas. RCAN worked with attorney Kayla Wyatt who
+            identified this need and made arrangements for all of the young people to get at least one
+            gift.
+          </p>
+          <figure class="group mt-6 rounded-lg bg-surface-subtle px-5 py-6 motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md lg:mt-auto">
+            <blockquote class="border-l-4 border-brand-secondary pl-4 text-base italic leading-8 text-text-default motion-safe:transition-colors motion-safe:duration-200 group-hover:border-brand-primary">
+              <p>
+                Kayla found a way to make their holiday season just a little better by making every kid at YSC feel loved and cared for.
+              </p>
+            </blockquote>
+            <figcaption class="mt-3 text-right text-sm text-text-subtle">— DC PDS</figcaption>
+          </figure>
+        </div>
+
+        <div class="flex h-full flex-col" data-carousel aria-label="Holiday Gifts photos">
+          <div id="holiday-carousel-track" class="group relative h-96 overflow-hidden rounded-lg shadow-sm md:h-112 lg:h-full">
+            <figure data-carousel-slide class="absolute inset-0 h-full opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
+              <Image
+                src={bagOfGiftsImage}
+                class="h-full w-full object-cover"
+                alt="Holiday gift bags prepared for detained youth at the Youth Services Center."
+                width={600}
+                widths={[320, 480, 600]}
+                sizes="(min-width: 1024px) 32vw, 100vw"
+                format="webp"
+                quality={70}
+                loading="lazy"
+              />
+            </figure>
+            <figure data-carousel-slide class="absolute inset-0 h-full opacity-0 pointer-events-none motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
+              <Image
+                src={bikeGiftsImage}
+                class="h-full w-full object-cover"
+                alt="A restored bicycle prepared for delivery to a returning citizen."
+                width={600}
+                widths={[320, 480, 600]}
+                sizes="(min-width: 1024px) 32vw, 100vw"
+                format="webp"
+                quality={65}
+                loading="lazy"
+              />
+            </figure>
+            <figure data-carousel-slide class="absolute inset-0 h-full opacity-0 pointer-events-none motion-safe:transition-opacity motion-safe:duration-300 motion-safe:ease-out">
+              <Image
+                src={bikeBagsGiftImage}
+                class="h-full w-full object-cover"
+                alt="A restored bicycle displayed with gift bags prepared by RCAN supporters."
+                width={600}
+                widths={[320, 480, 600]}
+                sizes="(min-width: 1024px) 32vw, 100vw"
+                format="webp"
+                quality={65}
+                loading="lazy"
+              />
+            </figure>
+            <div class="absolute inset-x-0 bottom-0 z-10 border-t border-neutral-200/40 bg-surface-invert/90 px-4 py-3">
+              <div class="flex items-center justify-between gap-3">
+                <button
+                  type="button"
+                  data-carousel-prev
+                  aria-label="Previous photo"
+                  aria-controls="holiday-carousel-track"
+                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+                  <span>Prev</span>
+                </button>
+                <p class="text-sm font-medium text-neutral-100" data-carousel-status aria-live="polite">Photo 1 of 3</p>
+                <button
+                  type="button"
+                  data-carousel-next
+                  aria-label="Next photo"
+                  aria-controls="holiday-carousel-track"
+                  class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium text-text-invert cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <span>Next</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
   </section>
 
   <CTABlock

@@ -6,6 +6,8 @@ export const getWrappedIndex = (currentIndex: number, offset: number, total: num
   return (currentIndex + offset + total) % total;
 };
 
+const AUTOPLAY_INTERVAL_MS = 5000;
+
 const renderCarousel = (slides: HTMLElement[], status: HTMLElement, currentIndex: number): void => {
   slides.forEach((slide, index) => {
     const isActive = index === currentIndex;
@@ -15,7 +17,7 @@ const renderCarousel = (slides: HTMLElement[], status: HTMLElement, currentIndex
     slide.setAttribute("aria-hidden", String(!isActive));
   });
 
-  status.textContent = `${currentIndex + 1} / ${slides.length}`;
+  status.textContent = `Photo ${currentIndex + 1} of ${slides.length}`;
 };
 
 const initSingleCarousel = (carousel: Element): void => {
@@ -40,6 +42,22 @@ const initSingleCarousel = (carousel: Element): void => {
   }
 
   let currentIndex = 0;
+  let autoplayTimer: ReturnType<typeof setInterval> | null = null;
+
+  const startAutoplay = () => {
+    if (autoplayTimer !== null) return;
+    autoplayTimer = setInterval(() => {
+      currentIndex = getWrappedIndex(currentIndex, 1, slides.length);
+      renderCarousel(slides, status, currentIndex);
+    }, AUTOPLAY_INTERVAL_MS);
+  };
+
+  const stopAutoplay = () => {
+    if (autoplayTimer !== null) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  };
 
   prevButton.addEventListener("click", () => {
     currentIndex = getWrappedIndex(currentIndex, -1, slides.length);
@@ -51,7 +69,13 @@ const initSingleCarousel = (carousel: Element): void => {
     renderCarousel(slides, status, currentIndex);
   });
 
+  carousel.addEventListener("mouseenter", stopAutoplay);
+  carousel.addEventListener("mouseleave", startAutoplay);
+  carousel.addEventListener("focusin", stopAutoplay);
+  carousel.addEventListener("focusout", startAutoplay);
+
   renderCarousel(slides, status, currentIndex);
+  startAutoplay();
 
   if (carousel instanceof HTMLElement) {
     carousel.dataset.carouselBound = "true";

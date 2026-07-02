@@ -1,31 +1,25 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
 import PageHeader from "../components/PageHeader.astro";
 import SectionTitle from "../components/SectionTitle.astro";
-import Card from "../components/Card.astro";
 import CTABlock from "../components/CTABlock.astro";
 import Icon from "../components/Icon.astro";
-import boardPlaceholder1 from "../assets/board-placeholder-1.png";
-import boardPlaceholder2 from "../assets/board-placeholder-2.png";
-import boardPlaceholder3 from "../assets/board-placeholder-3.png";
-import boardPlaceholder4 from "../assets/board-placeholder-4.png";
 import { congregations } from "../data/congregations";
 
 const pageTitle = "Who We Are | RCAN";
 const pageDescription =
   "Meet the RCAN Board of Directors and the congregations across the Washington, DC area that power the network.";
 
-const boardPlaceholderPhotos = [
-  boardPlaceholder1,
-  boardPlaceholder2,
-  boardPlaceholder3,
-  boardPlaceholder4,
-  boardPlaceholder1,
-  boardPlaceholder2,
-  boardPlaceholder3,
-  boardPlaceholder4,
-  boardPlaceholder1,
+const boardMembers = [
+  { name: "Madalena Aspiras", affiliation: "Warner Memorial Presbyterian Church" },
+  { name: "Theo Brown", affiliation: "New York Avenue Presbyterian Church" },
+  { name: "Laura Cohen", affiliation: "Public Defender Service" },
+  { name: "Quiana Harris", affiliation: "Public Defender Service" },
+  { name: "Rob Hornstein", affiliation: "Public Defender Service" },
+  { name: "Connie Kurihara", affiliation: "St. Columba's Episcopal Church" },
+  { name: "Marcia Mendenhall", affiliation: "Emory United Methodist Church" },
+  { name: "Eric Nicoll", affiliation: "Holy Trinity Catholic Church" },
+  { name: "Kay Tatum", affiliation: "St. Columba's Episcopal" },
 ];
 ---
 
@@ -35,56 +29,21 @@ const boardPlaceholderPhotos = [
       id="who-we-are-heading"
       eyebrow="Who We Are"
       heading="A volunteer board and a growing network of congregations"
-      subheading="RCAN is powered by a volunteer board and a growing network of congregations across the Washington, DC area, all committed to supporting returning citizens."
     />
   </section>
 
   <!-- Board of Directors -->
   <section class="py-10" aria-labelledby="board-heading">
     <SectionTitle id="board-heading" text="Board of Directors" />
-    <p class="mx-auto mt-2 max-w-2xl text-center text-sm text-text-subtle">Board member information will be added soon.</p>
-    <ul class="mt-6 grid gap-4 sm:grid-cols-2" aria-label="Board of Directors placeholder cards">
+    <p class="mx-auto mt-2 max-w-2xl text-center text-sm text-text-subtle">
+      Three attorneys with Public Defender Service and six representatives from RCAN member congregations.
+    </p>
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2" aria-label="Board of Directors">
       {
-        boardPlaceholderPhotos.map((photo) => (
-          <li>
-            <Card class="h-full border-l-4 border-l-border-default group motion-safe:transition-colors motion-safe:duration-200 hover:border-l-brand-secondary" data-board-card>
-              <div class="flex gap-4">
-                <div class="h-28 w-20 shrink-0 overflow-hidden rounded-md border border-border-default bg-surface-subtle">
-                  <Image
-                    src={photo}
-                    alt=""
-                    role="presentation"
-                    width={80}
-                    height={112}
-                    class="h-full w-full object-cover object-top grayscale group-hover:grayscale-0 motion-safe:transition-[filter] motion-safe:duration-300"
-                    loading="lazy"
-                    format="webp"
-                  />
-                </div>
-                <div class="min-w-0 flex-1">
-                  <div class="flex items-start justify-between gap-2">
-                    <div>
-                      <p class="text-sm font-semibold text-text-default">Board Member</p>
-                      <p class="mt-0.5 text-xs text-text-subtle">Title / Role</p>
-                    </div>
-                    <button type="button" disabled class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-subtle text-text-subtle motion-safe:transition-colors hover:bg-brand-primary hover:text-surface-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2" aria-label="LinkedIn profile (placeholder)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                        <rect x="2" y="9" width="4" height="12"/>
-                        <circle cx="4" cy="4" r="2"/>
-                      </svg>
-                    </button>
-                  </div>
-                  <p class="mt-3 text-sm leading-6 text-text-subtle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec commodo quam ac nisl vehicula, eget faucibus odio volutpat. Praesent elementum nunc sed felis tincidunt.</p>
-                  <div class="hidden" data-bio-extra>
-                    <p class="mt-2 text-sm leading-6 text-text-subtle">Sed euismod diam in mi lacinia, id faucibus felis imperdiet. Pellentesque habitant morbi tristique senectus et malesuada fames ac turpis egestas.</p>
-                  </div>
-                  <div class="mt-2 flex justify-end">
-                    <button data-read-more aria-expanded="false" class="text-xs text-brand-primary underline underline-offset-2 hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">Read more</button>
-                  </div>
-                </div>
-              </div>
-            </Card>
+        boardMembers.map(({ name, affiliation }) => (
+          <li class="flex items-baseline gap-2 rounded-lg border border-border-default bg-surface-subtle px-4 py-4">
+            <span class="text-sm font-semibold text-text-default">{name},</span>
+            <span class="text-xs text-text-subtle">{affiliation}</span>
           </li>
         ))
       }
@@ -143,17 +102,4 @@ const boardPlaceholderPhotos = [
     secondaryHref="/contact"
   />
 
-  <script>
-    document.querySelectorAll<HTMLButtonElement>('[data-read-more]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('[data-board-card]');
-        const extra = card?.querySelector('[data-bio-extra]');
-        if (!extra) return;
-        const isHidden = extra.classList.contains('hidden');
-        extra.classList.toggle('hidden');
-        btn.setAttribute('aria-expanded', String(isHidden));
-        btn.textContent = isHidden ? 'Show less' : 'Read more';
-      });
-    });
-  </script>
 </BaseLayout>

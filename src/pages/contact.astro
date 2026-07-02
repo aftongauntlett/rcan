@@ -1,12 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
 import PageHeader from "../components/PageHeader.astro";
-import SectionTitle from "../components/SectionTitle.astro";
 import Button from "../components/Button.astro";
 import CustomDropdown from "../components/CustomDropdown.astro";
 import Icon from "../components/Icon.astro";
-import postImage from "../assets/post.jpg";
 
 const pageTitle = "Contact RCAN | Returning Citizens Assistance Network";
 const pageDescription =
@@ -33,20 +30,72 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
       id="contact-heading"
       eyebrow="Contact"
       heading="Connect with RCAN for partnership and support"
-      subheading="Reach out to coordinate congregation participation, ask questions, or explore ways to support returning citizens."
     />
   </section>
 
   <section class="pb-10" aria-labelledby="contact-methods-heading">
-    <div>
-      <SectionTitle id="contact-methods-heading" text="Get in touch" />
-      <div class="mt-6 grid gap-6 md:grid-cols-[3fr_2fr] md:items-stretch">
-        <article class="order-2 h-full md:order-1">
-          <div class="flex h-full flex-col">
-            <div data-fs-success role="status" aria-live="polite" class="text-sm font-semibold text-status-success"></div>
-            <div data-fs-error role="alert" aria-live="assertive" class="text-sm font-semibold text-status-error"></div>
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-14">
 
-            <form id="contact-form" action="https://formspree.io/f/mdajaprb" method="POST" class="space-y-5 pt-1">
+      <!-- Left column: description + contact details -->
+      <div class="lg:col-span-2">
+        <div class="space-y-4">
+          <p class="text-base leading-7 text-text-subtle">
+            Whether you're a congregation looking to get involved, an individual with a question, or an
+            organization exploring partnership, we'd love to hear from you.
+          </p>
+          <p class="text-base leading-7 text-text-subtle">
+            RCAN welcomes partnership from communities committed to practical, dignity-centered reentry support.
+            We read every message and do our best to reply quickly, usually by email.
+          </p>
+          <p class="text-base leading-7 text-text-subtle">
+            Not sure where to start? Just say hello — we'll help point you in the right direction.
+          </p>
+        </div>
+
+        <div class="mt-8 space-y-5" aria-labelledby="contact-methods-heading">
+          <h2 id="contact-methods-heading" class="sr-only">Contact information</h2>
+
+          <div data-copy-row class="group/row flex items-center gap-3 rounded-lg border border-border-default bg-surface-default px-4 py-3">
+            <Icon name="mail" class="h-4 w-4 shrink-0 text-brand-secondary" aria-hidden="true" />
+            <p data-copy-text class="flex-1 text-sm font-medium text-text-default">dcrcan2018@gmail.com</p>
+            <button type="button" data-copy-button data-copy-value="dcrcan2018@gmail.com" data-copy-feedback-id="email-copy-feedback" aria-label="Copy email address" class="inline-flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+              <span data-copy-icon class="inline-flex"><Icon name="copy" class="h-3.5 w-3.5" aria-hidden="true" /></span>
+              <span data-copied-icon class="inline-flex" style="display:none"><Icon name="check" class="h-3.5 w-3.5" aria-hidden="true" /></span>
+            </button>
+          </div>
+
+          <div data-copy-row class="group/row flex items-center gap-3 rounded-lg border border-border-default bg-surface-default px-4 py-3">
+            <Icon name="phone" class="h-4 w-4 shrink-0 text-brand-secondary" aria-hidden="true" />
+            <p data-copy-text class="flex-1 text-sm font-medium text-text-default">555-555-5555</p>
+            <button type="button" data-copy-button data-copy-value="555-555-5555" data-copy-feedback-id="phone-copy-feedback" aria-label="Copy phone number" class="inline-flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+              <span data-copy-icon class="inline-flex"><Icon name="copy" class="h-3.5 w-3.5" aria-hidden="true" /></span>
+              <span data-copied-icon class="inline-flex" style="display:none"><Icon name="check" class="h-3.5 w-3.5" aria-hidden="true" /></span>
+            </button>
+          </div>
+
+          <div data-copy-row class="group/row flex items-start gap-3 rounded-lg border border-border-default bg-surface-default px-4 py-3">
+            <Icon name="map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-brand-secondary" aria-hidden="true" />
+            <p data-copy-text class="flex-1 text-sm font-medium leading-6 text-text-default">5109 Nannie Helen Burroughs Ave. NE<br />Washington, DC 20019</p>
+            <button type="button" data-copy-button data-copy-value="5109 Nannie Helen Burroughs Ave. NE, Washington, DC 20019" data-copy-feedback-id="address-copy-feedback" aria-label="Copy mailing address" class="inline-flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+              <span data-copy-icon class="inline-flex"><Icon name="copy" class="h-3.5 w-3.5" aria-hidden="true" /></span>
+              <span data-copied-icon class="inline-flex" style="display:none"><Icon name="check" class="h-3.5 w-3.5" aria-hidden="true" /></span>
+            </button>
+          </div>
+        </div>
+        <p class="mt-3 text-sm leading-6 text-text-subtle">Mailing address only — for letters and correspondence. Please do not visit in person.</p>
+
+        <p id="email-copy-feedback" class="sr-only" aria-live="polite"></p>
+        <p id="phone-copy-feedback" class="sr-only" aria-live="polite"></p>
+        <p id="address-copy-feedback" class="sr-only" aria-live="polite"></p>
+      </div>
+
+      <!-- Right column: contact form -->
+      <div class="lg:col-span-3">
+        <div class="rounded-xl bg-surface-subtle px-6 py-8 md:px-8">
+          <div data-fs-success role="status" aria-live="polite" class="text-sm font-semibold text-status-success"></div>
+          <div data-fs-error role="alert" aria-live="assertive" class="text-sm font-semibold text-status-error"></div>
+
+          <form id="contact-form" action="https://formspree.io/f/mdajaprb" method="POST" class="space-y-5">
               <input type="hidden" name="_subject" value="RCAN website contact request" />
               <input type="hidden" name="source" value="contact-page" />
               <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
@@ -169,129 +218,9 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
               <span data-fs-error="cf-turnstile-response" class="text-sm text-status-error"></span>
             </form>
           </div>
-        </article>
-
-        <aside class="order-1 h-full md:order-2">
-          <div class="flex h-full flex-col gap-5">
-            <div class="space-y-3">
-              <p class="text-base leading-7 text-text-subtle">
-                RCAN collaborates with referral partners and congregations and welcomes partnership from
-                communities committed to practical, dignity-centered reentry support.
-              </p>
-              <p class="text-base leading-7 text-text-subtle">
-                We read every message that comes in and do our best to reply as quickly as possible, usually by email.
-                Whether you have a question, a partnership idea, or are not sure where to start, please reach out and we
-                will be in touch.
-              </p>
-            </div>
-            <figure class="min-h-0 flex-1 overflow-hidden rounded-lg border border-border-default bg-surface-default">
-              <Image
-                src={postImage}
-                class="h-full w-full object-cover"
-                alt="A post-mounted mailbox representing direct communication and follow-up with RCAN."
-                width={900}
-                widths={[360, 540, 720, 900]}
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                format="webp"
-                quality={60}
-                loading="lazy"
-              />
-            </figure>
-          </div>
-        </aside>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="border-t border-border-default py-10" aria-labelledby="direct-contact-heading">
-    <SectionTitle id="direct-contact-heading" text="Connect directly" />
-    <div class="mt-8 grid gap-4 md:grid-cols-2">
-      <article class="group flex h-full flex-col rounded-lg border border-border-default bg-surface-default px-5 py-6 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md" aria-labelledby="find-us-heading">
-        <h3 id="find-us-heading" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Find Us</h3>
-        <div class="mt-4 flex flex-1 items-center justify-center rounded-md border border-border-default bg-surface-subtle px-4 py-6 text-sm leading-6 text-text-subtle">
-          <div class="flex max-w-sm flex-col items-center gap-3 text-center">
-            <Icon name="map-pin" class="h-6 w-6 text-brand-secondary" aria-hidden="true" />
-            <p>Map preview can be added once the address is finalized and API setup is complete.</p>
-          </div>
-        </div>
-      </article>
-
-      <article class="group rounded-lg border border-border-default bg-surface-default px-5 py-6 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md" aria-labelledby="email-phone-heading">
-        <h3 id="email-phone-heading" class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">Reach Out</h3>
-        <div class="mt-3 space-y-3">
-          <div data-copy-row class="group/row flex items-center justify-between gap-3 rounded-md border border-border-default bg-surface-default px-3 py-3 motion-safe:transition-colors motion-safe:duration-200 hover:border-brand-secondary hover:bg-surface-subtle">
-            <div class="flex min-w-0 items-center gap-3 text-text-subtle">
-              <Icon name="mail" class="h-4 w-4 text-brand-secondary motion-safe:transition-colors motion-safe:duration-200 group-hover/row:text-brand-primary" aria-hidden="true" />
-              <p data-copy-text class="truncate text-sm font-medium">email@example.org</p>
-            </div>
-            <button
-              type="button"
-              data-copy-button
-              data-copy-value="email@example.org"
-              data-copy-feedback-id="email-copy-feedback"
-              aria-label="Copy email address"
-              class="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-            >
-              <span data-copy-icon class="inline-flex">
-                <Icon name="copy" class="h-4 w-4" aria-hidden="true" />
-              </span>
-              <span data-copied-icon class="inline-flex" style="display:none">
-                <Icon name="check" class="h-4 w-4" aria-hidden="true" />
-              </span>
-            </button>
-          </div>
-
-          <div data-copy-row class="group/row flex items-center justify-between gap-3 rounded-md border border-border-default bg-surface-default px-3 py-3 motion-safe:transition-colors motion-safe:duration-200 hover:border-brand-secondary hover:bg-surface-subtle">
-            <div class="flex min-w-0 items-center gap-3 text-text-subtle">
-              <Icon name="phone" class="h-4 w-4 text-brand-secondary motion-safe:transition-colors motion-safe:duration-200 group-hover/row:text-brand-primary" aria-hidden="true" />
-              <p data-copy-text class="truncate text-sm font-medium">555-555-5555</p>
-            </div>
-            <button
-              type="button"
-              data-copy-button
-              data-copy-value="555-555-5555"
-              data-copy-feedback-id="phone-copy-feedback"
-              aria-label="Copy phone number"
-              class="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-            >
-              <span data-copy-icon class="inline-flex">
-                <Icon name="copy" class="h-4 w-4" aria-hidden="true" />
-              </span>
-              <span data-copied-icon class="inline-flex" style="display:none">
-                <Icon name="check" class="h-4 w-4" aria-hidden="true" />
-              </span>
-            </button>
-          </div>
-
-          <div data-copy-row class="group/row flex items-center justify-between gap-3 rounded-md border border-border-default bg-surface-default px-3 py-3 motion-safe:transition-colors motion-safe:duration-200 hover:border-brand-secondary hover:bg-surface-subtle">
-            <div class="flex min-w-0 items-center gap-3 text-text-subtle">
-              <Icon name="map-pin" class="h-4 w-4 text-brand-secondary motion-safe:transition-colors motion-safe:duration-200 group-hover/row:text-brand-primary" aria-hidden="true" />
-              <p data-copy-text class="text-sm font-medium leading-6">
-                Placeholder Mailing Address<br />
-                Washington, DC 00000
-              </p>
-            </div>
-            <button
-              type="button"
-              data-copy-button
-              data-copy-value="Placeholder Mailing Address, Washington, DC 00000"
-              data-copy-feedback-id="address-copy-feedback"
-              aria-label="Copy mailing address"
-              class="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-            >
-              <span data-copy-icon class="inline-flex">
-                <Icon name="copy" class="h-4 w-4" aria-hidden="true" />
-              </span>
-              <span data-copied-icon class="inline-flex" style="display:none">
-                <Icon name="check" class="h-4 w-4" aria-hidden="true" />
-              </span>
-            </button>
-          </div>
-        </div>
-        <p id="email-copy-feedback" class="sr-only" aria-live="polite"></p>
-        <p id="phone-copy-feedback" class="sr-only" aria-live="polite"></p>
-        <p id="address-copy-feedback" class="sr-only" aria-live="polite"></p>
-      </article>
     </div>
   </section>
 

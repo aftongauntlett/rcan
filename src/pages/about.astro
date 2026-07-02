@@ -27,10 +27,6 @@ const motivationScriptures = [
     quote: `And what does the Lord require of you? To act justly and to love mercy and to walk humbly with your God.`,
     reference: "Micah 6:8",
   },
-  {
-    quote: `Each of you should use whatever gift you have received to serve others, as faithful stewards of God's grace in its various forms.`,
-    reference: "1 Peter 4:10",
-  },
 ];
 
 const values = [
@@ -46,8 +42,7 @@ const values = [
     <PageHeader
       id="about-heading"
       eyebrow="About RCAN"
-      heading="Community networks changing reentry outcomes"
-      subheading="Congregations across Washington, DC uniting to support returning citizens."
+      heading="Congregations across Washington, DC, united for returning citizens"
     />
   </section>
 
@@ -126,7 +121,6 @@ const values = [
   </section>
 
   <section aria-labelledby="approach-heading" class="border-t border-border-default py-10">
-    <div class="mx-auto max-w-3xl">
     <SectionTitle id="approach-heading" text="Our Approach" />
     <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-text-subtle">
       RCAN is rooted in the conviction that practical support and faithful community can reshape
@@ -134,6 +128,5 @@ const values = [
       different in tradition, united in purpose.
     </p>
     <IconCardGrid items={values} ariaLabel="RCAN core values" columns={4} />
-    </div>
   </section>
 </BaseLayout>

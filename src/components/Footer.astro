@@ -17,13 +17,16 @@ const footerNavItems = [
 ---
 
 <footer class="border-t border-border-default bg-surface-default">
-  <div class="mx-auto w-full max-w-7xl px-4 py-8">
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-[180px_1fr_180px] md:items-center">
+  <div class="mx-auto w-full max-w-7xl px-4 py-5">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-[180px_1fr_180px] md:items-center">
 
       <!-- Logo -->
-      <div class="flex items-stretch justify-center gap-2 md:justify-start">
+      <div class="flex items-stretch justify-center gap-3 md:justify-start">
         <span class="w-1 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
-        <span class="font-serif text-xl font-bold tracking-wide text-text-default" aria-label="Returning Citizens Assistance Network">RCAN</span>
+        <span class="flex flex-col leading-none">
+          <span class="font-serif text-2xl font-bold tracking-wide text-text-default">RCAN</span>
+          <span class="mt-1 text-[11px] font-semibold uppercase tracking-wider text-brand-secondary">Returning Citizens Assistance Network</span>
+        </span>
       </div>
 
       <!-- Nav + copyright -->
@@ -47,22 +50,21 @@ const footerNavItems = [
           </ul>
         </nav>
 
-        <div class="h-px w-full max-w-xs bg-border-default"></div>
-
-        <p class="text-center text-xs text-text-subtle">Copyright {year} Returning Citizens Assistance Network</p>
-
-        <p class="text-center text-xs text-text-subtle">
-          Built with <span aria-hidden="true">❤️</span><span class="sr-only">love</span> by{" "}
-          <a
-            href="https://www.prettyprettyprettygood.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="prettyprettyprettygood (opens in a new tab)"
-            class="font-medium text-text-subtle hover:text-text-default hover:underline hover:decoration-brand-secondary hover:underline-offset-4"
-          >
-            prettyprettyprettygood
-          </a>
-        </p>
+        <div class="flex flex-col gap-0.5">
+          <p class="text-center text-[11px] text-text-subtle">Copyright {year} Returning Citizens Assistance Network</p>
+          <p class="text-center text-[11px] text-text-subtle">
+            Built with <span aria-hidden="true">❤️</span><span class="sr-only">love</span> by{" "}
+            <a
+              href="https://www.prettyprettyprettygood.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="prettyprettyprettygood (opens in a new tab)"
+              class="font-medium text-text-subtle hover:text-text-default hover:underline hover:decoration-brand-secondary hover:underline-offset-4"
+            >
+              prettyprettyprettygood
+            </a>
+          </p>
+        </div>
       </div>
 
       <!-- Back to top -->

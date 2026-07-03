@@ -13,6 +13,12 @@ const PRIORITY_OPTIONS = [
   { value: "Urgent — as soon as possible", label: "Urgent — as soon as possible" },
 ];
 
+const PAGE_GROUP_OPTIONS = [
+  { value: "pages", label: "Pages" },
+  { value: "whole-site", label: "Whole Site" },
+  { value: "other", label: "Other" },
+];
+
 type ChangeRequestStatus = "New" | "In progress" | "Waiting for info" | "Complete";
 
 interface ChangeRequest {
@@ -306,13 +312,22 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
                   </button>
                 </div>
 
-                <!-- Page card select -->
+                <!-- Page group + card select -->
                 <fieldset class="space-y-1" data-field="page">
                   <legend class="block mb-3 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
                     What part of the site?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
                   </legend>
                   <div class="space-y-4">
-                    <div class="space-y-2" data-page-group>
+                    <StyledDropdown
+                      id="page-group-select-1"
+                      name=""
+                      label="Choose one area to update"
+                      options={PAGE_GROUP_OPTIONS}
+                      required={true}
+                      hint="One category per change, please. Need a page added or removed? Choose “Other.”"
+                      data-page-group-select
+                    />
+                    <div class="space-y-2" data-page-group data-group="pages" hidden>
                       <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">Pages</p>
                       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                         {["Home", "Who We Are", "How We Help", "Get Involved", "Impact", "Donate", "Contact", "About"].map((page) => (
@@ -329,8 +344,8 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
                         <div class="flex flex-wrap gap-2" data-section-chips></div>
                       </div>
                     </div>
-                    <div class="space-y-2" data-page-group>
-                      <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">Site-wide elements</p>
+                    <div class="space-y-2" data-page-group data-group="whole-site" hidden>
+                      <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">Whole Site</p>
                       <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         {["Header / Navigation", "Footer", "Sitewide"].map((page) => (
                           <label class="page-card">
@@ -346,7 +361,7 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
                         <div class="flex flex-wrap gap-2" data-section-chips></div>
                       </div>
                     </div>
-                    <div class="space-y-2" data-page-group>
+                    <div class="space-y-2" data-page-group data-group="other" hidden>
                       <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">Other</p>
                       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {["Request a new page", "Request to remove a page"].map((page) => (
@@ -562,6 +577,8 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
     </div>
 
     <script>
+      import { bootstrapAllStyledDropdowns } from "../utils/styledDropdown";
+
       const PAGE_SECTIONS: Record<string, string[]> = {
         "Home": ["Hero / Banner", "Mission Statement", "Stats Bar", "Programs Overview", "Quote / Testimonial", "Call to Action"],
         "Who We Are": ["Page Header", "Our Story / History", "Leadership / Staff", "Values"],
@@ -578,9 +595,15 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
       };
 
       const PAGE_GROUPS_DATA = [
-        { label: "Pages", pages: ["Home", "Who We Are", "How We Help", "Get Involved", "Impact", "Donate", "Contact", "About"], cols: "grid-cols-2 sm:grid-cols-4" },
-        { label: "Site-wide elements", pages: ["Header / Navigation", "Footer", "Sitewide"], cols: "grid-cols-2 sm:grid-cols-3" },
-        { label: "Other", pages: ["Request a new page", "Request to remove a page"], cols: "grid-cols-1 sm:grid-cols-2" },
+        { key: "pages", label: "Pages", pages: ["Home", "Who We Are", "How We Help", "Get Involved", "Impact", "Donate", "Contact", "About"], cols: "grid-cols-2 sm:grid-cols-4" },
+        { key: "whole-site", label: "Whole Site", pages: ["Header / Navigation", "Footer", "Sitewide"], cols: "grid-cols-2 sm:grid-cols-3" },
+        { key: "other", label: "Other", pages: ["Request a new page", "Request to remove a page"], cols: "grid-cols-1 sm:grid-cols-2" },
+      ];
+
+      const PAGE_GROUP_OPTIONS = [
+        { value: "pages", label: "Pages" },
+        { value: "whole-site", label: "Whole Site" },
+        { value: "other", label: "Other" },
       ];
 
       const ADMIN_USER = import.meta.env.PUBLIC_ADMIN_USER;
@@ -638,16 +661,59 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
 
       // ── Change blocks ────────────────────────────────────────────────────────
 
-      function makePageCardsHTML(fieldName: string): string {
+      function makeGroupDropdownHTML(idPrefix: string): string {
+        const labelId = `${idPrefix}-label`;
+        const valueId = `${idPrefix}-value`;
+        const listboxId = `${idPrefix}-listbox`;
+        const nativeId = `${idPrefix}-native`;
+        return `
+          <div class="styled-dropdown" data-styled-dropdown data-page-group-select>
+            <label class="block mb-2 text-sm font-semibold uppercase tracking-wide text-brand-secondary" id="${labelId}" for="${nativeId}">
+              Choose one area to update<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
+              <span class="block mt-0.5 text-sm font-normal normal-case text-text-subtle">One category per change, please. Need a page added or removed? Choose &ldquo;Other.&rdquo;</span>
+            </label>
+            <div class="styled-dropdown__control">
+              <button
+                class="w-full flex items-center justify-between gap-3 rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-left shadow-sm transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none styled-dropdown__trigger"
+                type="button"
+                id="${idPrefix}"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="${listboxId}"
+                aria-labelledby="${labelId} ${valueId}"
+                data-dropdown-trigger
+                hidden
+              >
+                <span class="truncate styled-dropdown__value text-text-subtle" id="${valueId}" data-dropdown-value>— Select one —</span>
+                <span class="w-5 h-5 shrink-0 styled-dropdown__icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+                    <path d="M5.5 7.5L10 12l4.5-4.5"></path>
+                  </svg>
+                </span>
+              </button>
+              <ul class="styled-dropdown__list" id="${listboxId}" role="listbox" aria-labelledby="${labelId}" hidden tabindex="-1" data-dropdown-listbox>
+                ${PAGE_GROUP_OPTIONS.map((o, i) => `
+                  <li class="styled-dropdown__option" id="${idPrefix}-option-${i}" role="option" aria-selected="false" data-value="${o.value}" data-label="${o.label}" data-disabled="false" data-dropdown-option>${o.label}</li>`).join("")}
+              </ul>
+              <select class="styled-dropdown__native" id="${nativeId}" name="" required aria-labelledby="${labelId}" data-dropdown-native>
+                <option value="" disabled selected>— Select one —</option>
+                ${PAGE_GROUP_OPTIONS.map(o => `<option value="${o.value}">${o.label}</option>`).join("")}
+              </select>
+              <p class="sr-only" aria-live="polite" data-dropdown-announcer>No option selected.</p>
+            </div>
+          </div>`;
+      }
+
+      function makePageCardsHTML(fieldName: string, groupIdPrefix: string): string {
         return `
           <fieldset class="space-y-1" data-field="page">
             <legend class="block mb-3 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
               What part of the site?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
-              <span class="ml-2 font-normal normal-case tracking-normal text-text-subtle">— select one</span>
             </legend>
             <div class="space-y-4">
+              ${makeGroupDropdownHTML(groupIdPrefix)}
               ${PAGE_GROUPS_DATA.map(g => `
-                <div class="space-y-2" data-page-group>
+                <div class="space-y-2" data-page-group data-group="${g.key}" hidden>
                   <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">${g.label}</p>
                   <div class="grid ${g.cols} gap-2">
                     ${g.pages.map(page => `
@@ -694,6 +760,22 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
       }
 
       function wireBlock(block: HTMLElement) {
+        const groupSelect = block.querySelector<HTMLSelectElement>('[data-page-group-select] [data-dropdown-native]');
+        groupSelect?.addEventListener("change", () => {
+          const selected = groupSelect.value;
+          block.querySelectorAll<HTMLElement>('[data-page-group]').forEach(group => {
+            const isMatch = group.dataset.group === selected;
+            if (!isMatch) {
+              group.querySelectorAll<HTMLInputElement>('[data-page-radio]').forEach(r => { r.checked = false; });
+              group.querySelectorAll<HTMLElement>('[data-section-area]').forEach(area => {
+                area.hidden = true;
+                area.querySelector('[data-section-chips]')!.innerHTML = "";
+              });
+            }
+            group.hidden = !isMatch;
+          });
+        });
+
         block.querySelectorAll<HTMLInputElement>('[data-page-radio]').forEach(radio => {
           radio.addEventListener("click", (e) => {
             if (radio.checked) return;
@@ -768,7 +850,7 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
               Remove
             </button>
           </div>
-          ${makePageCardsHTML("page-placeholder")}
+          ${makePageCardsHTML("page-placeholder", `page-group-select-${blockCounter}`)}
           <div class="space-y-2">
             <label class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">What would you like changed?</label>
             <p class="text-sm text-text-subtle">Describe the change in your own words. The more detail, the better.</p>
@@ -776,6 +858,7 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
               placeholder="Example: Please update the first paragraph to say..."
               class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"></textarea>
           </div>`;
+        bootstrapAllStyledDropdowns(block);
         wireBlock(block);
         return block;
       }
@@ -785,6 +868,7 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
         blocks.slice(1).forEach(b => b.remove());
         const first = blocks[0];
         first.querySelectorAll<HTMLInputElement>('[data-page-radio]').forEach(r => { r.checked = false; });
+        first.querySelectorAll<HTMLElement>('[data-page-group]').forEach(group => { group.hidden = true; });
         first.querySelectorAll<HTMLElement>('[data-section-area]').forEach(area => {
           area.hidden = true;
           area.querySelector('[data-section-chips]')!.innerHTML = "";

@@ -146,6 +146,21 @@ export const getPriorityChipClass = (priority: string, status: ChangeRequestStat
 // Notes and statuses render on the admin page for all logged-in users.
 export const CHANGE_REQUESTS: ChangeRequest[] = [
   {
+    id: "2026-07-03-hero-image",
+    requester: "Theo",
+    submitted: "July 3, 2026",
+    priority: "Urgent (ASAP, today if possible)",
+    status: "Complete",
+    note: "Replaced hero image with a new photo.",
+    changes: [
+      {
+        page: "Home",
+        section: "Hero / About RCAN",
+        description: "Update the hero image.",
+      },
+    ],
+  },
+  {
     id: "2026-07-03-donorbox-launch",
     requester: "Afton - Developer",
     submitted: "July 3, 2026",

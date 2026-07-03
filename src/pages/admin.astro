@@ -8,9 +8,9 @@ import StyledDropdown from "../components/StyledDropdown.astro";
 const prefillUser = import.meta.env.PUBLIC_ADMIN_USER ?? "";
 
 const PRIORITY_OPTIONS = [
-  { value: "Whenever you get to it", label: "Whenever you get to it" },
-  { value: "Soon — within the week", label: "Soon — within the week" },
-  { value: "Urgent — as soon as possible", label: "Urgent — as soon as possible" },
+  { value: "No Rush (1 week)", label: "No Rush (1 week)" },
+  { value: "Rush (a few days)", label: "Rush (a few days)" },
+  { value: "Urgent (ASAP, today if possible)", label: "Urgent (ASAP, today if possible)" },
 ];
 
 const PAGE_GROUP_OPTIONS = [
@@ -35,6 +35,13 @@ interface ChangeRequest {
   }[];
 }
 
+const getPriorityChipClass = (priority: string): string => {
+  if (priority.startsWith("Urgent")) return "bg-[#FFE4E6] text-[#9F1239]";
+  if (priority.startsWith("Rush")) return "bg-[#FEF3C7] text-[#92400E]";
+  if (priority.startsWith("No Rush")) return "bg-[#DCFCE7] text-[#166534]";
+  return "bg-[#E2E8F0] text-[#334155]";
+};
+
 // Manually maintained from Formspree email notifications pasted into Codex.
 // Notes and statuses render on the admin page for all logged-in users.
 const CHANGE_REQUESTS: ChangeRequest[] = [
@@ -42,7 +49,7 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
     id: "2026-07-02-board-who-we-are",
     requester: "Theo",
     submitted: "July 2, 2026",
-    priority: "Soon - before board review",
+    priority: "Urgent (ASAP, today if possible)",
     status: "Complete",
     note: "Board list and introductory language have been provided. Photos and bios can be added later when available.",
     changes: [
@@ -58,13 +65,19 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
         description:
           "Use the provided group photo of RCAN volunteers and PDS staff together at a holiday party. Place it where it best fits on the Who We Are page.",
       },
+      {
+        page: "Contact",
+        section: "Contact Methods",
+        description:
+          "Update the contact page phone number using the number Theo provided.",
+      },
     ],
   },
   {
     id: "2026-07-01-website-photos",
     requester: "Theo",
     submitted: "July 1, 2026",
-    priority: "Soon",
+    priority: "Rush (a few days)",
     status: "Complete",
     note: "Use the strongest available images where they support the page content. Avoid adding photos where they make sections feel crowded.",
     changes: [
@@ -86,7 +99,7 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
     id: "2026-07-01-how-we-help-rewrites",
     requester: "Theo",
     submitted: "July 1, 2026",
-    priority: "Soon",
+    priority: "No Rush (1 week)",
     status: "Complete",
     note: "Theo provided revised page copy for multiple How We Help sections.",
     changes: [
@@ -120,7 +133,7 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
     id: "2026-06-23-25-site-planning",
     requester: "Theo",
     submitted: "June 23-25, 2026",
-    priority: "Planning",
+    priority: "No Rush (1 week)",
     status: "Complete",
     note: "Initial planning and platform direction are archived here for project history.",
     changes: [
@@ -297,7 +310,7 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
                 label="How soon do you need this done?"
                 options={PRIORITY_OPTIONS}
                 required={true}
-                value="Whenever you get to it"
+                value="No Rush (1 week)"
               />
             </div>
 
@@ -508,9 +521,27 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
                               {request.status}
                             </span>
                           </div>
-                          <p class="text-base text-text-subtle">
-                            {request.submitted} · Priority: {request.priority}
-                          </p>
+                          <div class="mt-3 flex flex-wrap items-center gap-2" aria-label="Request details">
+                            <span class="inline-flex items-center gap-1.5 rounded-full border border-border-default bg-surface-default px-3 py-1.5 text-sm font-semibold text-text-subtle shadow-sm">
+                              <svg class="h-3.5 w-3.5 text-brand-secondary" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" aria-hidden="true">
+                                <path d="M6 3.5v3" />
+                                <path d="M14 3.5v3" />
+                                <path d="M4.5 6h11" />
+                                <rect x="3.5" y="4.5" width="13" height="12" rx="2" />
+                              </svg>
+                              <span>{request.submitted}</span>
+                            </span>
+                            <span class:list={[
+                              "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold shadow-sm",
+                              getPriorityChipClass(request.priority),
+                            ]}>
+                              <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" aria-hidden="true">
+                                <path d="M5 16V4" />
+                                <path d="M5 5h8.5l-1.5 3 1.5 3H5" />
+                              </svg>
+                              <span>{request.priority}</span>
+                            </span>
+                          </div>
                         </div>
                         <svg
                           data-chevron
@@ -577,14 +608,14 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
       import { bootstrapAllStyledDropdowns } from "../utils/styledDropdown";
 
       const PAGE_SECTIONS: Record<string, string[]> = {
-        "Home": ["Hero / Banner", "Mission Statement", "Stats Bar", "Programs Overview", "Quote / Testimonial", "Call to Action"],
-        "Who We Are": ["Page Header", "Our Story / History", "Leadership / Staff", "Values"],
-        "How We Help": ["Page Header", "Programs List", "Prison Friendship Project", "RCAN Fun Section"],
-        "Get Involved": ["Page Header", "Ways to Help", "Volunteer Steps"],
-        "Impact": ["Page Header", "Stats / Numbers", "Stories / Testimonials"],
-        "Donate": ["Page Header", "Donation Message", "Donation Options"],
+        "Home": ["Hero / About RCAN", "2025 impact stats", "How RCAN assists", "How you can help", "Stand with returning citizens CTA"],
+        "Who We Are": ["Page Header", "Board of Directors", "Participating congregations", "Congregation CTA"],
+        "How We Help": ["Page Header", "Support pathway", "Emergency Assistance", "Prison Friendship Project", "Bike Ministry", "Beauty Behind Bars", "Holiday Gifts", "Response network CTA"],
+        "Get Involved": ["Page Header", "Ways to help", "Congregation commitments", "Ready to help CTA"],
+        "Impact": ["Page Header", "2025 by the numbers", "Client Stories", "Impact CTA"],
+        "Donate": ["Page Header", "Give to RCAN", "Donorbox donation form", "Mail giving", "What your gift supports"],
         "Contact": ["Page Header", "Contact Methods", "Contact Form"],
-        "About": ["Page Header", "Body Content"],
+        "About": ["Page Header", "Our History", "Our Motivation", "Our Approach"],
         "Header / Navigation": ["Main menu", "Logo", "Mobile menu", "Call-to-action button", "Other"],
         "Footer": ["Contact info", "Navigation links", "Donate / CTA", "Copyright / legal", "Other"],
         "Sitewide": ["Colors / styling", "Accessibility", "SEO / search preview", "Images", "Other"],

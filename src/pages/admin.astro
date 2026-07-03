@@ -1,0 +1,948 @@
+---
+import "../styles/global.css";
+import "@fontsource/manrope/latin-400.css";
+import "@fontsource/manrope/latin-700.css";
+import "@fontsource/fraunces/latin-600.css";
+import StyledDropdown from "../components/StyledDropdown.astro";
+
+const prefillUser = import.meta.env.PUBLIC_ADMIN_USER ?? "";
+
+const PRIORITY_OPTIONS = [
+  { value: "Whenever you get to it", label: "Whenever you get to it" },
+  { value: "Soon — within the week", label: "Soon — within the week" },
+  { value: "Urgent — as soon as possible", label: "Urgent — as soon as possible" },
+];
+
+type ChangeRequestStatus = "New" | "In progress" | "Waiting for info" | "Complete";
+
+interface ChangeRequest {
+  id: string;
+  requester: string;
+  submitted: string;
+  priority: string;
+  status: ChangeRequestStatus;
+  note: string;
+  changes: {
+    page: string;
+    section: string;
+    description: string;
+  }[];
+}
+
+// Manually maintained from Formspree email notifications pasted into Codex.
+// Notes and statuses render on the admin page for all logged-in users.
+const CHANGE_REQUESTS: ChangeRequest[] = [
+  {
+    id: "2026-07-02-board-who-we-are",
+    requester: "Theo",
+    submitted: "July 2, 2026",
+    priority: "Soon - before board review",
+    status: "Complete",
+    note: "Board list and introductory language have been provided. Photos and bios can be added later when available.",
+    changes: [
+      {
+        page: "Who We Are",
+        section: "Board of Directors",
+        description:
+          "Add a Board of Directors section using the provided list and short introductory sentence. For now, list board members without photos or bios.",
+      },
+      {
+        page: "Who We Are",
+        section: "RCAN / PDS group photo",
+        description:
+          "Use the provided group photo of RCAN volunteers and PDS staff together at a holiday party. Place it where it best fits on the Who We Are page.",
+      },
+    ],
+  },
+  {
+    id: "2026-07-01-website-photos",
+    requester: "Theo",
+    submitted: "July 1, 2026",
+    priority: "Soon",
+    status: "Complete",
+    note: "Use the strongest available images where they support the page content. Avoid adding photos where they make sections feel crowded.",
+    changes: [
+      {
+        page: "Who We Are",
+        section: "RCAN / PDS group photo",
+        description:
+          'Add the large group photo of RCAN leaders and PDS staff with a caption along the lines of "RCAN leaders and PDS staff together at a Christmas party in 2025."',
+      },
+      {
+        page: "How We Help",
+        section: "Bike Ministry",
+        description:
+          "Use one or two provided bike ministry photos if they fit the layout. If space is limited, choose the stronger image.",
+      },
+    ],
+  },
+  {
+    id: "2026-07-01-how-we-help-rewrites",
+    requester: "Theo",
+    submitted: "July 1, 2026",
+    priority: "Soon",
+    status: "Complete",
+    note: "Theo provided revised page copy for multiple How We Help sections.",
+    changes: [
+      {
+        page: "How We Help",
+        section: "Emergency Assistance",
+        description:
+          "Add the new Emergency Assistance section using the provided copy.",
+      },
+      {
+        page: "How We Help",
+        section: "Bike Ministry",
+        description:
+          "Update the Bike Ministry section using the revised copy.",
+      },
+      {
+        page: "How We Help",
+        section: "Holiday Gifts",
+        description:
+          "Create a new Holiday Gifts category using the provided language and related Youth Center updates.",
+      },
+      {
+        page: "How We Help",
+        section: "Page structure",
+        description:
+          "Reorder the How We Help sections and remove the Holiday Fun section at the bottom. Reuse one or two suitable existing holiday images if they fit.",
+      },
+    ],
+  },
+  {
+    id: "2026-06-23-25-site-planning",
+    requester: "Theo",
+    submitted: "June 23-25, 2026",
+    priority: "Planning",
+    status: "Complete",
+    note: "Initial planning and platform direction are archived here for project history.",
+    changes: [
+      {
+        page: "Donate",
+        section: "Donation platform",
+        description:
+          "Discussed Donorbox setup and how donation flow should fit into the website.",
+      },
+      {
+        page: "Website",
+        section: "Platform and design planning",
+        description:
+          "Discussed Wix/platform considerations, initial design direction, and overall site planning.",
+      },
+    ],
+  },
+];
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-surface-default text-text-default">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Admin — RCAN</title>
+    <!-- Must run before paint so CSS can hide the native select immediately -->
+    <script is:inline>document.documentElement.classList.add("js")</script>
+  </head>
+  <body class="flex min-h-full flex-col bg-surface-default font-sans text-text-default antialiased">
+
+    <!-- Login screen -->
+    <div id="login-screen" class="flex min-h-screen items-center justify-center px-4 py-12">
+      <div class="w-full max-w-sm space-y-6">
+        <div class="text-center">
+          <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">RCAN</p>
+          <h1 class="mt-1 text-2xl font-semibold text-text-default">Admin Portal</h1>
+          <p class="mt-2 text-sm text-text-subtle">Sign in to submit website update requests</p>
+        </div>
+
+        <div class="rounded-xl bg-surface-subtle px-6 py-8">
+          <form id="login-form" class="space-y-5" novalidate>
+            <div class="space-y-2">
+              <label for="admin-username" class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                Username
+              </label>
+              <input
+                id="admin-username"
+                type="text"
+                autocomplete="username"
+                autocapitalize="none"
+                value={prefillUser}
+                class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label for="admin-password" class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                Password
+              </label>
+              <input
+                id="admin-password"
+                type="password"
+                autocomplete="current-password"
+                class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+              />
+              <label class="mt-2 flex cursor-pointer items-center gap-2 text-sm text-text-subtle">
+                <input
+                  id="show-password"
+                  type="checkbox"
+                  class="h-4 w-4 cursor-pointer accent-brand-primary"
+                />
+                Show password
+              </label>
+            </div>
+
+            <p id="login-error" hidden role="alert" class="text-sm font-semibold text-status-error">
+              Incorrect username or password. Please try again.
+            </p>
+
+            <button
+              type="submit"
+              class="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-md border border-brand-primary bg-brand-primary px-4 py-2 text-base font-semibold text-surface-default shadow-sm transition-colors duration-base hover:border-brand-accent hover:bg-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+            >
+              Sign In
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin portal (hidden until authenticated) -->
+    <div id="portal" hidden class="flex min-h-screen flex-col">
+      <header class="border-b border-border-default bg-surface-subtle px-4 py-4 md:px-6">
+        <div class="mx-auto flex max-w-5xl items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-text-subtle">RCAN Admin</p>
+            <h1 class="text-xl font-semibold text-text-default">Website Update Requests</h1>
+          </div>
+          <button
+            id="sign-out"
+            type="button"
+            class="text-sm font-semibold text-brand-primary underline hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          >
+            Sign Out
+          </button>
+        </div>
+      </header>
+
+      <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-10 md:px-6">
+        <p class="mb-8 text-text-subtle">
+          Use this form to request changes to the RCAN website. You can add as many changes as you need in one submission. Hit <strong class="text-text-default">Submit Request</strong> when you're done and your developer will take care of the rest.
+        </p>
+
+        <!-- Success message -->
+        <div
+          id="submit-success"
+          hidden
+          role="status"
+          aria-live="polite"
+          class="mb-8 rounded-lg border-l-4 border-l-[#166534] bg-surface-subtle px-5 py-4"
+        >
+          <p class="font-semibold text-status-success">Your request was sent successfully!</p>
+          <p class="mt-1 text-sm text-text-subtle">
+            Your developer will be in touch once the changes have been made. Feel free to submit another request below.
+          </p>
+        </div>
+
+        <!-- Error message -->
+        <div
+          id="submit-error"
+          hidden
+          role="alert"
+          aria-live="assertive"
+          class="mb-8 rounded-lg border-l-4 border-l-[#B91C1C] bg-surface-subtle px-5 py-4"
+        >
+          <p class="font-semibold text-status-error">Something went wrong. Please try again.</p>
+          <p class="mt-1 text-sm text-text-subtle">
+            If the problem continues, email your developer directly at
+            <a href="mailto:aftonagauntlett@gmail.com" class="font-semibold text-brand-primary underline hover:text-brand-accent">
+              aftonagauntlett@gmail.com
+            </a>.
+          </p>
+        </div>
+
+        <form
+          id="change-request-form"
+          action="https://formspree.io/f/mzdlkkrr"
+          method="POST"
+          class="space-y-6"
+          novalidate
+        >
+            <input type="hidden" name="_subject" value="[RCAN] Website Content Change Request" />
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+            <!-- Name + Priority row -->
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div class="space-y-2">
+                <label for="requester-name" class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                  Your name <span class="font-normal normal-case text-text-subtle">(optional)</span>
+                </label>
+                <input
+                  id="requester-name"
+                  name="name"
+                  type="text"
+                  autocomplete="given-name"
+                  class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                />
+              </div>
+              <StyledDropdown
+                id="priority-select"
+                name="priority"
+                label="How soon do you need this done?"
+                options={PRIORITY_OPTIONS}
+                required={true}
+                value="Whenever you get to it"
+              />
+            </div>
+
+            <!-- Repeatable change blocks -->
+            <div id="changes-container" class="space-y-4">
+              <!-- First block is in HTML; additional blocks are added by JS -->
+              <div class="change-block rounded-lg border border-border-default bg-surface-default px-5 py-5 space-y-4">
+                <div class="flex items-center justify-between">
+                  <h2 class="block-heading inline-flex items-center rounded-md bg-[#FEF0E8] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-secondary">Change 1</h2>
+                  <button type="button" hidden class="remove-btn text-sm font-semibold text-status-error underline hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
+                    Remove
+                  </button>
+                </div>
+
+                <!-- Page card select -->
+                <fieldset class="space-y-1" data-field="page">
+                  <legend class="block mb-3 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                    What part of the site?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="space-y-4">
+                    <div class="space-y-2" data-page-group>
+                      <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">Pages</p>
+                      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        {["Home", "Who We Are", "How We Help", "Get Involved", "Impact", "Donate", "Contact", "About"].map((page) => (
+                          <label class="page-card">
+                            <input type="radio" name="Change 1 - Page" value={page} class="sr-only" required data-page-radio />
+                            <span class="page-card-inner">{page}</span>
+                          </label>
+                        ))}
+                      </div>
+                      <div data-section-area hidden>
+                        <p class="block mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                          Which section?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2" data-section-chips></div>
+                      </div>
+                    </div>
+                    <div class="space-y-2" data-page-group>
+                      <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">Site-wide elements</p>
+                      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {["Header / Navigation", "Footer", "Sitewide"].map((page) => (
+                          <label class="page-card">
+                            <input type="radio" name="Change 1 - Page" value={page} class="sr-only" required data-page-radio />
+                            <span class="page-card-inner">{page}</span>
+                          </label>
+                        ))}
+                      </div>
+                      <div data-section-area hidden>
+                        <p class="block mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                          Which section?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2" data-section-chips></div>
+                      </div>
+                    </div>
+                    <div class="space-y-2" data-page-group>
+                      <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">Other</p>
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {["Request a new page", "Request to remove a page"].map((page) => (
+                          <label class="page-card">
+                            <input type="radio" name="Change 1 - Page" value={page} class="sr-only" required data-page-radio />
+                            <span class="page-card-inner">{page}</span>
+                          </label>
+                        ))}
+                      </div>
+                      <div data-section-area hidden>
+                        <p class="block mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                          Which section?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2" data-section-chips></div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">What would you like changed?</label>
+                  <p class="text-sm text-text-subtle">Describe the change in your own words. The more detail, the better.</p>
+                  <textarea
+                    name="Change 1 - Description"
+                    data-field="description"
+                    rows={6}
+                    required
+                    placeholder="Example: Please change the heading to say &quot;Our Programs&quot; instead of &quot;How We Help&quot;. And update the first paragraph to include..."
+                    class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Add another change -->
+            <div class="flex justify-end">
+              <button
+                id="add-change-btn"
+                type="button"
+                class="inline-flex items-center gap-2 rounded-md border border-brand-primary px-4 py-2 text-sm font-semibold text-brand-primary transition-colors duration-base hover:border-brand-accent hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+              >
+                + Add another change
+              </button>
+            </div>
+
+            <!-- Attachment note -->
+            <div class="rounded-md border border-border-default bg-surface-default px-4 py-4">
+              <p class="text-sm text-text-default"><strong>Have photos or documents to include?</strong></p>
+              <p class="mt-1 text-sm text-text-subtle">
+                Email them directly to
+                <a href="mailto:aftonagauntlett@gmail.com" class="font-semibold text-brand-primary underline hover:text-brand-accent">
+                  aftonagauntlett@gmail.com
+                </a>
+                and mention which page they're for.
+              </p>
+            </div>
+
+            <div class="flex justify-end pt-2">
+              <button
+                id="submit-btn"
+                type="submit"
+                class="inline-flex items-center justify-center gap-2 rounded-md border border-brand-primary bg-brand-primary px-5 py-3 text-base font-semibold text-surface-default shadow-sm transition-colors duration-base hover:border-brand-accent hover:bg-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default disabled:pointer-events-none disabled:border-border-default disabled:bg-surface-subtle disabled:text-text-subtle"
+              >
+                <span id="submit-label">Submit Request</span>
+              </button>
+            </div>
+        </form>
+
+        <section aria-labelledby="request-history-heading" class="mt-12 border-t border-border-default pt-10">
+          <div class="mb-6">
+            <p class="text-xs font-semibold uppercase tracking-wide text-text-subtle">Shared status</p>
+            <h2 id="request-history-heading" class="mt-1 text-2xl font-semibold text-text-default">Request history</h2>
+            <p class="mt-2 text-base text-text-subtle">
+              Submitted website update requests will appear here after your developer logs them.
+            </p>
+          </div>
+
+          {
+            CHANGE_REQUESTS.length === 0 ? (
+              <div class="rounded-xl border border-border-default bg-surface-subtle px-6 py-6">
+                <p class="text-base font-semibold text-text-default">No requests logged yet.</p>
+                <p class="mt-1 text-base text-text-subtle">
+                  Once a request is submitted and added to the site, its status and notes will show here.
+                </p>
+              </div>
+            ) : (
+              <div>
+                <!-- Filter / sort bar -->
+                <div class="mb-6 flex flex-wrap items-center gap-3">
+                  <div class="flex flex-wrap gap-2" role="group" aria-label="Filter by status">
+                    {(["All", ...new Set(CHANGE_REQUESTS.map(r => r.status))] as string[]).map((label) => (
+                      <button
+                        type="button"
+                        data-filter={label === "All" ? "all" : label}
+                        class="history-filter inline-flex items-center rounded-md border border-border-default bg-surface-default px-4 py-2 text-sm font-semibold text-text-subtle transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    id="sort-toggle"
+                    data-sort="desc"
+                    class="ml-auto inline-flex items-center gap-2 rounded-md border border-border-default bg-surface-default px-4 py-2 text-sm font-semibold text-text-subtle transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  >
+                    <span data-sort-label>Newest first</span>
+                    <svg data-sort-chevron class="h-4 w-4 transition-transform duration-200" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true">
+                      <path d="M5.5 7.5L10 12l4.5-4.5"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Card list -->
+                <div id="request-history-list" class="space-y-4">
+                  {CHANGE_REQUESTS.map((request) => (
+                    <article
+                      class="rounded-xl border border-border-default bg-surface-default overflow-hidden"
+                      data-request-card
+                      data-status={request.status}
+                      data-date={request.id.split("-").slice(0, 3).join("-")}
+                      data-requester={request.requester}
+                    >
+                      <!-- Accordion toggle — entire header is one large click target -->
+                      <button
+                        type="button"
+                        class="w-full text-left flex items-start justify-between gap-4 border-b border-border-default bg-surface-default px-6 py-6 transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-primary"
+                        aria-expanded="false"
+                        aria-controls={`card-body-${request.id}`}
+                        data-card-toggle
+                      >
+                        <div class="flex-1 min-w-0">
+                          <div class="flex flex-wrap items-center gap-3 mb-1.5">
+                            <h3 class="text-xl font-semibold text-text-default">
+                              {request.requester || "Website update request"}
+                            </h3>
+                            <span class:list={[
+                              "inline-flex items-center rounded-md px-3 py-1 text-sm font-bold whitespace-nowrap",
+                              request.status === "Complete"
+                                ? "bg-[#DCFCE7] text-[#166534]"
+                                : request.status === "In progress"
+                                  ? "bg-[#8FAD9F] text-[#1B2B27]"
+                                  : request.status === "Waiting for info"
+                                    ? "bg-[#FEF3C7] text-[#92400E]"
+                                    : "bg-neutral-200 text-text-subtle",
+                            ]}>
+                              {request.status}
+                            </span>
+                          </div>
+                          <p class="text-base text-text-subtle">
+                            {request.submitted} · Priority: {request.priority}
+                          </p>
+                        </div>
+                        <svg
+                          data-chevron
+                          class="mt-2 h-5 w-5 shrink-0 text-text-subtle transition-transform duration-200"
+                          viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <path d="M5.5 7.5L10 12l4.5-4.5"></path>
+                        </svg>
+                      </button>
+
+                      <!-- Expandable body -->
+                      <div id={`card-body-${request.id}`} hidden data-card-body>
+                        <div class="divide-y divide-border-default px-6">
+                          {request.changes.map((change, index) => (
+                            <div class="py-5">
+                              <span class="inline-flex items-center rounded-md bg-[#FEF0E8] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-secondary">
+                                Change {index + 1}
+                              </span>
+                              <dl class="mt-3 space-y-3 text-base">
+                                <div class="grid grid-cols-2 gap-4">
+                                  <div>
+                                    <dt class="font-semibold text-text-default">Page</dt>
+                                    <dd class="mt-1 text-text-subtle">{change.page}</dd>
+                                  </div>
+                                  <div>
+                                    <dt class="font-semibold text-text-default">Section</dt>
+                                    <dd class="mt-1 text-text-subtle">{change.section}</dd>
+                                  </div>
+                                </div>
+                                <div>
+                                  <dt class="font-semibold text-text-default">Requested change</dt>
+                                  <dd class="mt-1 whitespace-pre-line text-text-subtle">{change.description}</dd>
+                                </div>
+                              </dl>
+                            </div>
+                          ))}
+                        </div>
+
+                        <!-- Developer note — full-width tinted footer -->
+                        <div class="border-t border-border-default bg-[#EBF2F1] px-6 py-5">
+                          <p class="text-sm font-semibold uppercase tracking-wide text-brand-primary">Note from your developer</p>
+                          <p class="mt-2 whitespace-pre-line text-base text-text-default">
+                            {request.note || "No note yet."}
+                          </p>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                <p id="history-no-results" hidden class="rounded-xl border border-border-default px-6 py-6 text-base text-text-subtle">
+                  No requests match this filter.
+                </p>
+              </div>
+            )
+          }
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const PAGE_SECTIONS: Record<string, string[]> = {
+        "Home": ["Hero / Banner", "Mission Statement", "Stats Bar", "Programs Overview", "Quote / Testimonial", "Call to Action"],
+        "Who We Are": ["Page Header", "Our Story / History", "Leadership / Staff", "Values"],
+        "How We Help": ["Page Header", "Programs List", "Prison Friendship Project", "RCAN Fun Section"],
+        "Get Involved": ["Page Header", "Ways to Help", "Volunteer Steps"],
+        "Impact": ["Page Header", "Stats / Numbers", "Stories / Testimonials"],
+        "Donate": ["Page Header", "Donation Message", "Donation Options"],
+        "Contact": ["Page Header", "Contact Methods", "Contact Form"],
+        "About": ["Page Header", "Body Content"],
+        "Header / Navigation": ["Main menu", "Logo", "Mobile menu", "Call-to-action button", "Other"],
+        "Footer": ["Contact info", "Navigation links", "Donate / CTA", "Copyright / legal", "Other"],
+        "Sitewide": ["Colors / styling", "Accessibility", "SEO / search preview", "Images", "Other"],
+        "Request to remove a page": ["Home", "Who We Are", "How We Help", "Get Involved", "Impact", "Donate", "Contact", "About"],
+      };
+
+      const PAGE_GROUPS_DATA = [
+        { label: "Pages", pages: ["Home", "Who We Are", "How We Help", "Get Involved", "Impact", "Donate", "Contact", "About"], cols: "grid-cols-2 sm:grid-cols-4" },
+        { label: "Site-wide elements", pages: ["Header / Navigation", "Footer", "Sitewide"], cols: "grid-cols-2 sm:grid-cols-3" },
+        { label: "Other", pages: ["Request a new page", "Request to remove a page"], cols: "grid-cols-1 sm:grid-cols-2" },
+      ];
+
+      const ADMIN_USER = import.meta.env.PUBLIC_ADMIN_USER;
+      const ADMIN_PASS = import.meta.env.PUBLIC_ADMIN_PASS;
+
+      const loginScreen = document.getElementById("login-screen")!;
+      const portal = document.getElementById("portal")!;
+      const loginError = document.getElementById("login-error") as HTMLElement;
+      const submitSuccess = document.getElementById("submit-success") as HTMLElement;
+      const submitError = document.getElementById("submit-error") as HTMLElement;
+      const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
+      const submitLabel = document.getElementById("submit-label") as HTMLElement;
+      const changesContainer = document.getElementById("changes-container") as HTMLElement;
+
+      // ── Auth ────────────────────────────────────────────────────────────────
+
+      function showPortal() {
+        loginScreen.hidden = true;
+        portal.hidden = false;
+      }
+
+      function showLogin() {
+        portal.hidden = true;
+        loginScreen.hidden = false;
+        (document.getElementById("admin-username") as HTMLInputElement).value = "";
+        (document.getElementById("admin-password") as HTMLInputElement).value = "";
+        loginError.hidden = true;
+      }
+
+      if (localStorage.getItem("rcan_admin_session") === "authenticated") showPortal();
+
+      document.getElementById("show-password")!.addEventListener("change", (e) => {
+        const checkbox = e.target as HTMLInputElement;
+        (document.getElementById("admin-password") as HTMLInputElement).type =
+          checkbox.checked ? "text" : "password";
+      });
+
+      document.getElementById("login-form")!.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const user = (document.getElementById("admin-username") as HTMLInputElement).value.trim();
+        const pass = (document.getElementById("admin-password") as HTMLInputElement).value;
+        if (user === ADMIN_USER && pass === ADMIN_PASS) {
+          localStorage.setItem("rcan_admin_session", "authenticated");
+          loginError.hidden = true;
+          showPortal();
+        } else {
+          loginError.hidden = false;
+        }
+      });
+
+      document.getElementById("sign-out")!.addEventListener("click", () => {
+        localStorage.removeItem("rcan_admin_session");
+        showLogin();
+      });
+
+      // ── Change blocks ────────────────────────────────────────────────────────
+
+      function makePageCardsHTML(fieldName: string): string {
+        return `
+          <fieldset class="space-y-1" data-field="page">
+            <legend class="block mb-3 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+              What part of the site?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
+              <span class="ml-2 font-normal normal-case tracking-normal text-text-subtle">— select one</span>
+            </legend>
+            <div class="space-y-4">
+              ${PAGE_GROUPS_DATA.map(g => `
+                <div class="space-y-2" data-page-group>
+                  <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">${g.label}</p>
+                  <div class="grid ${g.cols} gap-2">
+                    ${g.pages.map(page => `
+                      <label class="page-card">
+                        <input type="radio" name="${fieldName}" value="${page}" class="sr-only" required data-page-radio />
+                        <span class="page-card-inner">${page}</span>
+                      </label>`).join("")}
+                  </div>
+                  <div data-section-area hidden>
+                    <p class="block mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                      Which section?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
+                    </p>
+                    <div class="flex flex-wrap gap-2" data-section-chips></div>
+                  </div>
+                </div>`).join("")}
+            </div>
+          </fieldset>`;
+      }
+
+      function showPageChangeModal(onConfirm: () => void): void {
+        const modal = document.getElementById("page-change-modal")!;
+        const confirmBtn = document.getElementById("modal-confirm")!;
+        const cancelBtn = document.getElementById("modal-cancel")!;
+        const backdrop = document.getElementById("modal-backdrop")!;
+
+        modal.hidden = false;
+        cancelBtn.focus();
+
+        function close() {
+          modal.hidden = true;
+          confirmBtn.removeEventListener("click", handleConfirm);
+          cancelBtn.removeEventListener("click", handleCancel);
+          backdrop.removeEventListener("click", handleCancel);
+          document.removeEventListener("keydown", handleKeydown);
+        }
+        function handleConfirm() { close(); onConfirm(); }
+        function handleCancel() { close(); }
+        function handleKeydown(e: KeyboardEvent) { if (e.key === "Escape") handleCancel(); }
+
+        confirmBtn.addEventListener("click", handleConfirm);
+        cancelBtn.addEventListener("click", handleCancel);
+        backdrop.addEventListener("click", handleCancel);
+        document.addEventListener("keydown", handleKeydown);
+      }
+
+      function wireBlock(block: HTMLElement) {
+        block.querySelectorAll<HTMLInputElement>('[data-page-radio]').forEach(radio => {
+          radio.addEventListener("click", (e) => {
+            if (radio.checked) return;
+            const hasSection = !!block.querySelector<HTMLInputElement>('[data-section-input]:checked');
+            const desc = block.querySelector<HTMLTextAreaElement>('[data-field="description"]')?.value.trim() ?? "";
+            if (!hasSection && !desc) return;
+            e.preventDefault();
+            showPageChangeModal(() => {
+              block.querySelector<HTMLTextAreaElement>('[data-field="description"]')!.value = "";
+              block.querySelectorAll<HTMLElement>('[data-section-area]').forEach(area => {
+                area.hidden = true;
+                area.querySelector('[data-section-chips]')!.innerHTML = "";
+              });
+              radio.checked = true;
+              radio.dispatchEvent(new Event("change", { bubbles: true }));
+            });
+          });
+
+          radio.addEventListener("change", () => {
+            block.querySelectorAll<HTMLElement>('[data-section-area]').forEach(area => {
+              area.hidden = true;
+              area.querySelector('[data-section-chips]')!.innerHTML = "";
+            });
+            const group = radio.closest<HTMLElement>('[data-page-group]')!;
+            const sectionArea = group.querySelector<HTMLElement>('[data-section-area]')!;
+            const chipContainer = sectionArea.querySelector<HTMLElement>('[data-section-chips]')!;
+            const n = block.querySelector(".block-heading")!.textContent!.match(/\d+/)?.[0] ?? "1";
+            const sections = PAGE_SECTIONS[radio.value] ?? [];
+
+            const isMulti = radio.value === "Request to remove a page";
+            const inputType = isMulti ? "checkbox" : "radio";
+
+            chipContainer.innerHTML = sections.map(s => `
+              <label class="section-chip">
+                <input type="${inputType}" name="Change ${n} - Section" value="${s}" class="sr-only" ${isMulti ? "" : "required"} data-section-input />
+                <span class="section-chip-inner">${s}</span>
+              </label>`).join("");
+
+            sectionArea.hidden = sections.length === 0;
+          });
+        });
+
+        block.querySelector(".remove-btn")!.addEventListener("click", () => {
+          block.remove();
+          renumberBlocks();
+        });
+      }
+
+      function renumberBlocks() {
+        const blocks = Array.from(changesContainer.querySelectorAll<HTMLElement>(".change-block"));
+        const only = blocks.length === 1;
+        blocks.forEach((block, i) => {
+          const n = i + 1;
+          block.querySelector(".block-heading")!.textContent = `Change ${n}`;
+          block.querySelectorAll<HTMLInputElement>('[data-page-radio]').forEach(r => { r.name = `Change ${n} - Page`; });
+          block.querySelectorAll<HTMLInputElement>('[data-section-input]').forEach(r => { r.name = `Change ${n} - Section`; });
+          block.querySelector<HTMLElement>('[data-field="description"]')!.setAttribute("name", `Change ${n} - Description`);
+          (block.querySelector(".remove-btn") as HTMLElement).hidden = only;
+        });
+      }
+
+      let blockCounter = 1;
+
+      function createBlock(): HTMLElement {
+        blockCounter += 1;
+        const block = document.createElement("div");
+        block.className = "change-block rounded-lg border border-border-default bg-surface-default px-5 py-5 space-y-5";
+        block.innerHTML = `
+          <div class="flex items-center justify-between">
+            <h2 class="block-heading inline-flex items-center rounded-md bg-[#FEF0E8] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-secondary"></h2>
+            <button type="button" class="remove-btn text-sm font-semibold text-status-error underline hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
+              Remove
+            </button>
+          </div>
+          ${makePageCardsHTML("page-placeholder")}
+          <div class="space-y-2">
+            <label class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">What would you like changed?</label>
+            <p class="text-sm text-text-subtle">Describe the change in your own words. The more detail, the better.</p>
+            <textarea data-field="description" rows="6" required
+              placeholder="Example: Please update the first paragraph to say..."
+              class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"></textarea>
+          </div>`;
+        wireBlock(block);
+        return block;
+      }
+
+      function resetBlocks() {
+        const blocks = Array.from(changesContainer.querySelectorAll<HTMLElement>(".change-block"));
+        blocks.slice(1).forEach(b => b.remove());
+        const first = blocks[0];
+        first.querySelectorAll<HTMLInputElement>('[data-page-radio]').forEach(r => { r.checked = false; });
+        first.querySelectorAll<HTMLElement>('[data-section-area]').forEach(area => {
+          area.hidden = true;
+          area.querySelector('[data-section-chips]')!.innerHTML = "";
+        });
+        first.querySelector<HTMLTextAreaElement>('[data-field="description"]')!.value = "";
+        renumberBlocks();
+      }
+
+      wireBlock(changesContainer.querySelector<HTMLElement>(".change-block")!);
+      renumberBlocks();
+
+      document.getElementById("add-change-btn")!.addEventListener("click", () => {
+        const block = createBlock();
+        changesContainer.appendChild(block);
+        renumberBlocks();
+        block.querySelector<HTMLInputElement>("[data-page-radio]")?.focus();
+      });
+
+      // ── Form submission ──────────────────────────────────────────────────────
+
+      const changeForm = document.getElementById("change-request-form") as HTMLFormElement;
+
+      changeForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        submitSuccess.hidden = true;
+        submitError.hidden = true;
+        submitLabel.textContent = "Sending…";
+        submitBtn.disabled = true;
+
+        try {
+          const response = await fetch(changeForm.action, {
+            method: "POST",
+            body: new FormData(changeForm),
+            headers: { Accept: "application/json" },
+          });
+
+          if (response.ok) {
+            changeForm.reset();
+            resetBlocks();
+            submitSuccess.hidden = false;
+            submitSuccess.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          } else {
+            submitError.hidden = false;
+          }
+        } catch {
+          submitError.hidden = false;
+        } finally {
+          submitLabel.textContent = "Submit Request";
+          submitBtn.disabled = false;
+        }
+      });
+
+      // ── Request history: accordion + filter/sort ─────────────────────────────
+
+      const historyList = document.getElementById("request-history-list");
+      const noResults = document.getElementById("history-no-results");
+
+      if (historyList) {
+        let activeFilter = "all";
+        let sortOrder: "desc" | "asc" = "desc";
+
+        function applyFilterSort() {
+          const cards = Array.from(historyList!.querySelectorAll<HTMLElement>("[data-request-card]"));
+
+          cards.sort((a, b) => {
+            const da = a.dataset.date ?? "";
+            const db = b.dataset.date ?? "";
+            return sortOrder === "desc" ? db.localeCompare(da) : da.localeCompare(db);
+          }).forEach(card => historyList!.appendChild(card));
+
+          let visible = 0;
+          cards.forEach(card => {
+            const match = activeFilter === "all" || card.dataset.status === activeFilter;
+            card.hidden = !match;
+            if (match) visible++;
+          });
+
+          if (noResults) noResults.hidden = visible > 0;
+        }
+
+        function setActiveFilter(value: string) {
+          activeFilter = value;
+          document.querySelectorAll<HTMLButtonElement>(".history-filter").forEach(btn => {
+            const active = btn.dataset.filter === value;
+            btn.classList.toggle("border-brand-primary", active);
+            btn.classList.toggle("bg-brand-primary", active);
+            btn.classList.toggle("text-white", active);
+            btn.classList.toggle("border-border-default", !active);
+            btn.classList.toggle("bg-surface-default", !active);
+            btn.classList.toggle("text-text-subtle", !active);
+            // Suppress hover color shifts on the active button so teal-on-teal doesn't happen
+            btn.classList.toggle("hover:border-brand-primary", !active);
+            btn.classList.toggle("hover:text-brand-primary", !active);
+          });
+          applyFilterSort();
+        }
+
+        document.querySelectorAll<HTMLButtonElement>(".history-filter").forEach(btn => {
+          btn.addEventListener("click", () => setActiveFilter(btn.dataset.filter ?? "all"));
+        });
+
+        const sortToggle = document.getElementById("sort-toggle");
+        const sortLabel = sortToggle?.querySelector<HTMLElement>("[data-sort-label]");
+        const sortChevron = sortToggle?.querySelector<SVGElement>("[data-sort-chevron]");
+        sortToggle?.addEventListener("click", () => {
+          sortOrder = sortOrder === "desc" ? "asc" : "desc";
+          if (sortLabel) sortLabel.textContent = sortOrder === "desc" ? "Newest first" : "Oldest first";
+          if (sortChevron) sortChevron.style.transform = sortOrder === "asc" ? "rotate(180deg)" : "";
+          applyFilterSort();
+        });
+
+        document.querySelectorAll<HTMLButtonElement>("[data-card-toggle]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const expanded = btn.getAttribute("aria-expanded") === "true";
+            btn.setAttribute("aria-expanded", String(!expanded));
+            const body = document.getElementById(btn.getAttribute("aria-controls") ?? "");
+            if (body) body.hidden = expanded;
+            const chevron = btn.querySelector<SVGElement>("[data-chevron]");
+            if (chevron) chevron.style.transform = expanded ? "" : "rotate(180deg)";
+          });
+        });
+
+        setActiveFilter("all");
+      }
+    </script>
+
+    <!-- Page-switch confirmation modal -->
+    <div
+      id="page-change-modal"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="page-modal-title"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4"
+    >
+      <div id="modal-backdrop" class="absolute inset-0 bg-black/40"></div>
+      <div class="relative w-full max-w-md rounded-xl bg-surface-default p-8 shadow-lg">
+        <h2 id="page-modal-title" class="text-xl font-semibold text-text-default">Switch to a different page?</h2>
+        <p class="mt-3 text-base text-text-subtle">
+          You've already started filling in details for this change. Switching pages will clear your section selection and description.
+        </p>
+        <div class="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          <button
+            id="modal-cancel"
+            type="button"
+            class="inline-flex items-center justify-center rounded-md border border-border-default bg-surface-default px-5 py-3 text-base font-semibold text-text-default transition-colors hover:bg-surface-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          >
+            Keep current page
+          </button>
+          <button
+            id="modal-confirm"
+            type="button"
+            class="inline-flex items-center justify-center rounded-md bg-status-error px-5 py-3 text-base font-semibold text-white transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-status-error focus-visible:ring-offset-2"
+          >
+            Switch page, clear details
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

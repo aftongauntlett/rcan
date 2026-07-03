@@ -1,0 +1,184 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface StyledDropdownOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
+  separatorBefore?: boolean;
+}
+
+interface Props extends HTMLAttributes<"div"> {
+  id: string;
+  name: string;
+  label?: string;
+  options: StyledDropdownOption[];
+  placeholder?: string;
+  required?: boolean;
+  hint?: string;
+  value?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  options,
+  placeholder = "— Select one —",
+  required = false,
+  hint,
+  value = "",
+  class: className,
+  ...rest
+}: Props = Astro.props;
+
+const hasMatchingValue = options.some((o) => o.value === value && !o.disabled);
+const initialValue = hasMatchingValue ? value : "";
+const selectedOption = options.find((o) => o.value === initialValue);
+const selectedLabel = selectedOption?.label ?? placeholder;
+
+const labelId = `${id}-label`;
+const valueId = `${id}-value`;
+const listboxId = `${id}-listbox`;
+const nativeId = `${id}-native`;
+---
+
+<div class:list={["styled-dropdown", className]} data-styled-dropdown {...rest}>
+  {
+    label && (
+      <label
+        class="block mb-2 text-sm font-semibold uppercase tracking-wide text-brand-secondary"
+        id={labelId}
+        for={nativeId}
+      >
+        {label}
+        {required && (
+          <span class="ml-0.5 text-status-error" aria-hidden="true">
+            *
+          </span>
+        )}
+        {hint && (
+          <span class="block mt-0.5 text-sm font-normal normal-case text-text-subtle">{hint}</span>
+        )}
+      </label>
+    )
+  }
+
+  <div class="styled-dropdown__control">
+    <button
+      class="w-full flex items-center justify-between gap-3 rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-left shadow-sm transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none styled-dropdown__trigger"
+      type="button"
+      id={id}
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      aria-controls={listboxId}
+      aria-labelledby={label ? `${labelId} ${valueId}` : valueId}
+      data-dropdown-trigger
+      hidden
+    >
+      <span
+        class:list={[
+          "truncate styled-dropdown__value",
+          initialValue === "" ? "text-text-subtle" : "text-text-default",
+        ]}
+        id={valueId}
+        data-dropdown-value
+      >
+        {selectedLabel}
+      </span>
+      <span class="w-5 h-5 shrink-0 styled-dropdown__icon" aria-hidden="true">
+        <svg
+          viewBox="0 0 20 20"
+          focusable="false"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.75"
+        >
+          <path d="M5.5 7.5L10 12l4.5-4.5"></path>
+        </svg>
+      </span>
+    </button>
+
+    <ul
+      class="styled-dropdown__list"
+      id={listboxId}
+      role="listbox"
+      aria-labelledby={label ? labelId : undefined}
+      hidden
+      tabindex="-1"
+      data-dropdown-listbox
+    >
+      {
+        !required && (
+          <li
+            class="styled-dropdown__option"
+            id={`${id}-option-empty`}
+            role="option"
+            aria-selected={initialValue === "" ? "true" : "false"}
+            data-value=""
+            data-label={placeholder}
+            data-disabled="false"
+            data-dropdown-option
+          >
+            {placeholder}
+          </li>
+        )
+      }
+      {
+        options.map((option, index) => (
+          <>
+            {option.separatorBefore && (
+              <li class="styled-dropdown__divider" aria-hidden="true" />
+            )}
+            <li
+              class="styled-dropdown__option"
+              id={`${id}-option-${index}`}
+              role="option"
+              aria-selected={option.value === initialValue ? "true" : "false"}
+              data-value={option.value}
+              data-label={option.label}
+              data-disabled={option.disabled ? "true" : "false"}
+              data-dropdown-option
+            >
+              {option.label}
+            </li>
+          </>
+        ))
+      }
+    </ul>
+
+    <select
+      class="styled-dropdown__native"
+      id={nativeId}
+      name={name}
+      required={required}
+      aria-labelledby={label ? labelId : undefined}
+      data-dropdown-native
+    >
+      <option value="" disabled={required} selected={initialValue === ""}>{placeholder}</option>
+      {
+        options.map((option) => (
+          <option
+            value={option.value}
+            disabled={option.disabled}
+            selected={option.value === initialValue}
+          >
+            {option.label}
+          </option>
+        ))
+      }
+    </select>
+
+    <p class="sr-only" aria-live="polite" data-dropdown-announcer>
+      {initialValue === "" ? "No option selected." : `Selected: ${selectedLabel}`}
+    </p>
+  </div>
+</div>
+
+<script>
+  import { bootstrapAllStyledDropdowns } from "../utils/styledDropdown";
+  bootstrapAllStyledDropdowns();
+  document.addEventListener("astro:page-load", () => bootstrapAllStyledDropdowns());
+</script>

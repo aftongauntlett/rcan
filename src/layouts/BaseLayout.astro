@@ -45,6 +45,7 @@ const resolvedOgImage = ogImage.startsWith("http")
     <meta name="twitter:image" content={resolvedOgImage} />
 
     <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add("js")</script>
   </head>
   <body class="flex min-h-full flex-col bg-surface-default font-sans text-text-default antialiased">
     <SkipLink href="#main-content" />

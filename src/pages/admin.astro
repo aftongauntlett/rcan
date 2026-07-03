@@ -314,9 +314,6 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
 
                 <!-- Page group + card select -->
                 <fieldset class="space-y-1" data-field="page">
-                  <legend class="block mb-3 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
-                    What part of the site?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
-                  </legend>
                   <div class="space-y-4">
                     <StyledDropdown
                       id="page-group-select-1"
@@ -707,9 +704,6 @@ const CHANGE_REQUESTS: ChangeRequest[] = [
       function makePageCardsHTML(fieldName: string, groupIdPrefix: string): string {
         return `
           <fieldset class="space-y-1" data-field="page">
-            <legend class="block mb-3 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
-              What part of the site?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
-            </legend>
             <div class="space-y-4">
               ${makeGroupDropdownHTML(groupIdPrefix)}
               ${PAGE_GROUPS_DATA.map(g => `

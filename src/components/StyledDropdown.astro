@@ -4,6 +4,7 @@ import type { HTMLAttributes } from "astro/types";
 interface StyledDropdownOption {
   value: string;
   label: string;
+  description?: string;
   disabled?: boolean;
   separatorBefore?: boolean;
 }
@@ -142,7 +143,10 @@ const nativeId = `${id}-native`;
               data-disabled={option.disabled ? "true" : "false"}
               data-dropdown-option
             >
-              {option.label}
+              <span class="styled-dropdown__option-label">{option.label}</span>
+              {option.description && (
+                <span class="styled-dropdown__option-description">{option.description}</span>
+              )}
             </li>
           </>
         ))
@@ -165,7 +169,7 @@ const nativeId = `${id}-native`;
             disabled={option.disabled}
             selected={option.value === initialValue}
           >
-            {option.label}
+            {option.description ? `${option.label} — ${option.description}` : option.label}
           </option>
         ))
       }

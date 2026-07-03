@@ -147,7 +147,7 @@ function makeGroupDropdownHTML(idPrefix: string): string {
     <div class="styled-dropdown" data-styled-dropdown data-page-group-select>
       <label class="block mb-2 text-sm font-semibold uppercase tracking-wide text-brand-secondary" id="${labelId}" for="${nativeId}">
         Choose one area to update<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
-        <span class="block mt-0.5 text-sm font-normal normal-case text-text-subtle">One category per change, please. Need a page added or removed? Choose &ldquo;Other.&rdquo;</span>
+        <span class="block mt-0.5 text-sm font-normal normal-case text-text-subtle">One category per change, please. Need a page added, removed, or edited? Choose &ldquo;Other.&rdquo; Reporting a bug? Choose &ldquo;Technical / Bug Report.&rdquo;</span>
       </label>
       <div class="styled-dropdown__control">
         <button
@@ -171,12 +171,12 @@ function makeGroupDropdownHTML(idPrefix: string): string {
         <ul class="styled-dropdown__list" id="${listboxId}" role="listbox" aria-labelledby="${labelId}" hidden tabindex="-1" data-dropdown-listbox>
           ${PAGE_GROUP_OPTIONS.map(
             (option, index) =>
-              `<li class="styled-dropdown__option" id="${idPrefix}-option-${index}" role="option" aria-selected="false" data-value="${option.value}" data-label="${option.label}" data-disabled="false" data-dropdown-option>${option.label}</li>`,
+              `<li class="styled-dropdown__option" id="${idPrefix}-option-${index}" role="option" aria-selected="false" data-value="${option.value}" data-label="${option.label}" data-disabled="false" data-dropdown-option><span class="styled-dropdown__option-label">${option.label}</span><span class="styled-dropdown__option-description">${option.description}</span></li>`,
           ).join("")}
         </ul>
         <select class="styled-dropdown__native" id="${nativeId}" name="" required aria-labelledby="${labelId}" data-dropdown-native>
           <option value="" disabled selected>— Select one —</option>
-          ${PAGE_GROUP_OPTIONS.map((option) => `<option value="${option.value}">${option.label}</option>`).join("")}
+          ${PAGE_GROUP_OPTIONS.map((option) => `<option value="${option.value}">${option.label} — ${option.description}</option>`).join("")}
         </select>
         <p class="sr-only" aria-live="polite" data-dropdown-announcer>No option selected.</p>
       </div>
@@ -367,7 +367,7 @@ function createBlock(changesContainer: HTMLElement): HTMLElement {
       <p class="text-sm text-text-subtle">Describe the change in your own words. The more detail, the better.</p>
       <textarea data-field="description" rows="6" required
         placeholder="Example: Please update the first paragraph to say..."
-        class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"></textarea>
+        class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"></textarea>
     </div>`;
 
   bootstrapAllStyledDropdowns(block);

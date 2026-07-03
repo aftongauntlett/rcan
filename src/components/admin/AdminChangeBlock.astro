@@ -31,7 +31,7 @@ const { index = 1 } = Astro.props;
         label="Choose one area to update"
         options={PAGE_GROUP_OPTIONS}
         required={true}
-        hint="One category per change, please. Need a page added or removed? Choose “Other.”"
+        hint='One category per change, please. Need a page added, removed, or edited? Choose "Other." Reporting a bug? Choose "Technical / Bug Report."'
         data-page-group-select
       />
 
@@ -78,7 +78,7 @@ const { index = 1 } = Astro.props;
       rows={6}
       required
       placeholder='Example: Please change the heading to say "Our Programs" instead of "How We Help". And update the first paragraph to include...'
-      class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+      class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
     ></textarea>
   </div>
 </div>

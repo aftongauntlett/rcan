@@ -15,10 +15,14 @@ type DropdownWindow = Window & {
 let openInstance: DropdownInstance | null = null;
 
 const getEnabledOptions = (instance: DropdownInstance): HTMLButtonElement[] =>
-  instance.options.filter((option) => !option.disabled && option.getAttribute("aria-disabled") !== "true");
+  instance.options.filter(
+    (option) => !option.disabled && option.getAttribute("aria-disabled") !== "true",
+  );
 
 const getSelectedOption = (instance: DropdownInstance): HTMLButtonElement | null => {
-  const checkedOption = instance.options.find((option) => option.getAttribute("aria-checked") === "true");
+  const checkedOption = instance.options.find(
+    (option) => option.getAttribute("aria-checked") === "true",
+  );
   if (checkedOption && !checkedOption.disabled) {
     return checkedOption;
   }
@@ -96,7 +100,8 @@ const moveOptionFocus = (instance: DropdownInstance, direction: 1 | -1): void =>
   }
 
   const activeElement = document.activeElement;
-  const currentIndex = activeElement instanceof HTMLButtonElement ? enabledOptions.indexOf(activeElement) : -1;
+  const currentIndex =
+    activeElement instanceof HTMLButtonElement ? enabledOptions.indexOf(activeElement) : -1;
   const selectedOption = getSelectedOption(instance);
   const selectedIndex = selectedOption ? enabledOptions.indexOf(selectedOption) : -1;
   const startIndex = currentIndex >= 0 ? currentIndex : selectedIndex;
@@ -275,7 +280,9 @@ export const selectCustomDropdownValue = (root: HTMLElement, value: string): boo
     return false;
   }
 
-  const matchedOption = instance.options.find((option) => option.dataset.value === value && !option.disabled);
+  const matchedOption = instance.options.find(
+    (option) => option.dataset.value === value && !option.disabled,
+  );
   if (!matchedOption) {
     return false;
   }

@@ -8,9 +8,18 @@ export const PRIORITY_OPTIONS = [
 ];
 
 export const PAGE_GROUP_OPTIONS = [
-  { value: "pages", label: "Pages" },
-  { value: "whole-site", label: "Whole Site" },
-  { value: "other", label: "Other" },
+  { value: "pages", label: "Pages", description: "Update content on a specific page" },
+  {
+    value: "whole-site",
+    label: "Site",
+    description: "Request sitewide changes, like the navbar or footer",
+  },
+  { value: "other", label: "Other", description: "Add, remove, or edit a page" },
+  {
+    value: "technical",
+    label: "Technical / Bug Report",
+    description: "Report a bug, broken link, or something not working",
+  },
 ];
 
 export const PAGE_SECTIONS: Record<string, string[]> = {
@@ -37,12 +46,7 @@ export const PAGE_SECTIONS: Record<string, string[]> = {
     "Holiday Gifts",
     "Response network CTA",
   ],
-  "Get Involved": [
-    "Page Header",
-    "Ways to help",
-    "Congregation commitments",
-    "Ready to help CTA",
-  ],
+  "Get Involved": ["Page Header", "Ways to help", "Congregation commitments", "Ready to help CTA"],
   Impact: ["Page Header", "2025 by the numbers", "Client Stories", "Impact CTA"],
   Donate: [
     "Page Header",
@@ -53,16 +57,20 @@ export const PAGE_SECTIONS: Record<string, string[]> = {
   ],
   Contact: ["Page Header", "Contact Methods", "Contact Form"],
   About: ["Page Header", "Our History", "Our Motivation", "Our Approach"],
-  "Header / Navigation": [
-    "Main menu",
-    "Logo",
-    "Mobile menu",
-    "Call-to-action button",
-    "Other",
-  ],
+  "Header / Navigation": ["Main menu", "Logo", "Mobile menu", "Call-to-action button", "Other"],
   Footer: ["Contact info", "Navigation links", "Donate / CTA", "Copyright / legal", "Other"],
   Sitewide: ["Colors / styling", "Accessibility", "SEO / search preview", "Images", "Other"],
   "Request to remove a page": [
+    "Home",
+    "Who We Are",
+    "How We Help",
+    "Get Involved",
+    "Impact",
+    "Donate",
+    "Contact",
+    "About",
+  ],
+  "Request to edit a page": [
     "Home",
     "Who We Are",
     "How We Help",
@@ -78,20 +86,35 @@ export const PAGE_GROUPS_DATA = [
   {
     key: "pages",
     label: "Pages",
-    pages: ["Home", "Who We Are", "How We Help", "Get Involved", "Impact", "Donate", "Contact", "About"],
+    pages: [
+      "Home",
+      "Who We Are",
+      "How We Help",
+      "Get Involved",
+      "Impact",
+      "Donate",
+      "Contact",
+      "About",
+    ],
     cols: "grid-cols-2 sm:grid-cols-4",
   },
   {
     key: "whole-site",
-    label: "Whole Site",
+    label: "Site",
     pages: ["Header / Navigation", "Footer", "Sitewide"],
     cols: "grid-cols-2 sm:grid-cols-3",
   },
   {
     key: "other",
     label: "Other",
-    pages: ["Request a new page", "Request to remove a page"],
-    cols: "grid-cols-1 sm:grid-cols-2",
+    pages: ["Request to add a page", "Request to remove a page", "Request to edit a page"],
+    cols: "grid-cols-1 sm:grid-cols-3",
+  },
+  {
+    key: "technical",
+    label: "Technical / Bug Report",
+    pages: [],
+    cols: "grid-cols-1",
   },
 ];
 
@@ -111,10 +134,7 @@ export interface ChangeRequest {
   }[];
 }
 
-export const getPriorityChipClass = (
-  priority: string,
-  status: ChangeRequestStatus,
-): string => {
+export const getPriorityChipClass = (priority: string, status: ChangeRequestStatus): string => {
   if (status !== "In progress") return "bg-neutral-200 text-text-subtle";
   if (priority.startsWith("Urgent")) return "bg-[#FFE4E6] text-[#9F1239]";
   if (priority.startsWith("Rush")) return "bg-[#FEF3C7] text-[#92400E]";

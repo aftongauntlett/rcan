@@ -37,7 +37,7 @@ export const initMobileNavDialog = (root: ParentNode = document): void => {
   };
 
   openButton.addEventListener("click", () => {
-    returnFocusEl = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    returnFocusEl = openButton;
     dialog.showModal();
 
     const firstInteractive = dialog.querySelector("a[href], button:not([disabled])");

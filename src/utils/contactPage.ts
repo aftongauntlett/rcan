@@ -158,7 +158,8 @@ const bindCopyButtons = (): void => {
     const handleCopyClick = async () => {
       const row = button.closest("[data-copy-row]");
       const copyTextElement = row?.querySelector("[data-copy-text]");
-      const valueFromRow = copyTextElement instanceof HTMLElement ? copyTextElement.innerText.trim() : "";
+      const valueFromRow =
+        copyTextElement instanceof HTMLElement ? copyTextElement.innerText.trim() : "";
       const value = resolveCopyValue(valueFromRow, button.dataset.copyValue ?? "");
       const feedbackId = button.dataset.copyFeedbackId ?? "";
 

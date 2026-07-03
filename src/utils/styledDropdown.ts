@@ -106,9 +106,7 @@ export function bootstrapStyledDropdown(root: HTMLElement): void {
 
     const activeId = elements.trigger.getAttribute("aria-activedescendant");
     const currentIndex = enabled.findIndex((o) => o.id === activeId);
-    const selectedIndex = enabled.findIndex(
-      (o) => getValue(o) === elements.nativeSelect.value,
-    );
+    const selectedIndex = enabled.findIndex((o) => getValue(o) === elements.nativeSelect.value);
     const startIndex = currentIndex >= 0 ? currentIndex : selectedIndex >= 0 ? selectedIndex : 0;
     const nextIndex = (startIndex + direction + enabled.length) % enabled.length;
     const nextOption = enabled[nextIndex];

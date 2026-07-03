@@ -42,7 +42,9 @@ html {
 .styled-dropdown__icon {
   color: #7c8f88; /* neutral-500 */
   flex-shrink: 0;
-  transition: color 150ms, transform 150ms;
+  transition:
+    color 150ms,
+    transform 150ms;
   width: 1.25rem;
   height: 1.25rem;
 }
@@ -72,7 +74,9 @@ html {
   background-color: #ffffff; /* surface-default */
   border: 1.5px solid color-mix(in srgb, #1e5b52 30%, transparent);
   border-radius: 0.75rem; /* radius-lg */
-  box-shadow: 0 12px 24px -8px rgb(15 23 42 / 0.18), 0 4px 8px -4px rgb(15 23 42 / 0.1);
+  box-shadow:
+    0 12px 24px -8px rgb(15 23 42 / 0.18),
+    0 4px 8px -4px rgb(15 23 42 / 0.1);
   padding: 0.5rem;
 }
 
@@ -84,7 +88,23 @@ html {
   line-height: 1.5rem;
   cursor: pointer;
   list-style: none;
-  transition: background-color 150ms, color 150ms;
+  transition:
+    background-color 150ms,
+    color 150ms;
+}
+
+.styled-dropdown__option-label {
+  display: block;
+  font-weight: 600;
+}
+
+.styled-dropdown__option-description {
+  display: block;
+  margin-top: 0.125rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  color: #5f726c; /* neutral-600 */
 }
 
 .styled-dropdown__option:hover,
@@ -131,14 +151,17 @@ html {
   justify-content: center;
   text-align: center;
   border-radius: 0.5rem;
-  border: 1.5px solid #C8D1CD;
-  background-color: #FFFFFF;
+  border: 1.5px solid #c8d1cd;
+  background-color: #ffffff;
   padding: 0.625rem 0.5rem;
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1.375rem;
-  color: #13211E;
-  transition: border-color 150ms, background-color 150ms, color 150ms;
+  color: #13211e;
+  transition:
+    border-color 150ms,
+    background-color 150ms,
+    color 150ms;
   min-height: 3rem;
 }
 
@@ -150,8 +173,8 @@ html {
   width: 17px;
   height: 17px;
   border-radius: 50%;
-  background-color: #1E5B52;
-  color: #FFFFFF;
+  background-color: #1e5b52;
+  color: #ffffff;
   font-size: 10px;
   font-weight: 800;
   display: flex;
@@ -161,17 +184,17 @@ html {
 }
 
 .page-card:hover .page-card-inner {
-  border-color: #1E5B52;
+  border-color: #1e5b52;
 }
 
 .page-card input:checked + .page-card-inner {
-  border-color: #1E5B52;
-  background-color: #EBF2F1;
-  color: #1E5B52;
+  border-color: #1e5b52;
+  background-color: #ebf2f1;
+  color: #1e5b52;
 }
 
 .page-card input:focus-visible + .page-card-inner {
-  outline: 2px solid #1E5B52;
+  outline: 2px solid #1e5b52;
   outline-offset: 2px;
 }
 
@@ -186,25 +209,28 @@ html {
   display: inline-flex;
   align-items: center;
   border-radius: 0.5rem;
-  border: 1.5px solid #C8D1CD;
-  background-color: #FFFFFF;
+  border: 1.5px solid #c8d1cd;
+  background-color: #ffffff;
   padding: 0.5rem 0.875rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #5F726C;
-  transition: border-color 150ms, background-color 150ms, color 150ms;
+  color: #5f726c;
+  transition:
+    border-color 150ms,
+    background-color 150ms,
+    color 150ms;
   white-space: nowrap;
 }
 
 .section-chip:hover .section-chip-inner {
-  border-color: #1E5B52;
-  color: #1E5B52;
+  border-color: #1e5b52;
+  color: #1e5b52;
 }
 
 .section-chip input:checked + .section-chip-inner {
-  border-color: #1E5B52;
-  background-color: #1E5B52;
-  color: #FFFFFF;
+  border-color: #1e5b52;
+  background-color: #1e5b52;
+  color: #ffffff;
 }
 
 .section-chip input[type="checkbox"]:checked + .section-chip-inner::after {
@@ -217,13 +243,13 @@ html {
 }
 
 .section-chip:has(input:checked):hover .section-chip-inner {
-  border-color: #1E5B52;
-  background-color: #1E5B52;
-  color: #FFFFFF;
+  border-color: #1e5b52;
+  background-color: #1e5b52;
+  color: #ffffff;
 }
 
 .section-chip input:focus-visible + .section-chip-inner {
-  outline: 2px solid #1E5B52;
+  outline: 2px solid #1e5b52;
   outline-offset: 2px;
 }
 

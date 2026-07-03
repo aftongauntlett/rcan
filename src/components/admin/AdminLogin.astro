@@ -1,0 +1,66 @@
+---
+interface Props {
+  prefillUser?: string;
+}
+
+const { prefillUser = "" } = Astro.props;
+---
+
+<div id="login-screen" class="flex min-h-screen items-center justify-center px-4 py-12">
+  <div class="w-full max-w-sm space-y-6">
+    <div class="text-center">
+      <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">RCAN</p>
+      <h1 class="mt-1 text-2xl font-semibold text-text-default">Admin Portal</h1>
+      <p class="mt-2 text-sm text-text-subtle">Sign in to submit website update requests</p>
+    </div>
+
+    <div class="rounded-xl bg-surface-subtle px-6 py-8">
+      <form id="login-form" class="space-y-5" novalidate>
+        <div class="space-y-2">
+          <label for="admin-username" class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+            Username
+          </label>
+          <input
+            id="admin-username"
+            type="text"
+            autocomplete="username"
+            autocapitalize="none"
+            value={prefillUser}
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+        </div>
+
+        <div class="space-y-2">
+          <label for="admin-password" class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+            Password
+          </label>
+          <input
+            id="admin-password"
+            type="password"
+            autocomplete="current-password"
+            class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          />
+          <label class="mt-2 flex cursor-pointer items-center gap-2 text-sm text-text-subtle">
+            <input
+              id="show-password"
+              type="checkbox"
+              class="h-4 w-4 cursor-pointer accent-brand-primary"
+            />
+            Show password
+          </label>
+        </div>
+
+        <p id="login-error" hidden role="alert" class="text-sm font-semibold text-status-error">
+          Incorrect username or password. Please try again.
+        </p>
+
+        <button
+          type="submit"
+          class="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-md border border-brand-primary bg-brand-primary px-4 py-2 text-base font-semibold text-surface-default shadow-sm transition-colors duration-base hover:border-brand-accent hover:bg-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
+        >
+          Sign In
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

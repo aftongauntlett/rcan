@@ -1,0 +1,108 @@
+---
+import StyledDropdown from "../StyledDropdown.astro";
+import { PRIORITY_OPTIONS } from "../../data/admin";
+import AdminChangeBlock from "./AdminChangeBlock.astro";
+---
+
+<p class="mb-8 text-text-subtle">
+  Use this form to request changes to the RCAN website. You can add as many changes as you need in one submission. Hit
+  <strong class="text-text-default">Submit Request</strong> when you're done and your developer will take care of the rest.
+</p>
+
+<div
+  id="submit-success"
+  hidden
+  role="status"
+  aria-live="polite"
+  class="mb-8 rounded-lg border-l-4 border-l-[#166534] bg-surface-subtle px-5 py-4"
+>
+  <p class="font-semibold text-status-success">Your request was sent successfully!</p>
+  <p class="mt-1 text-sm text-text-subtle">
+    Your developer will be in touch once the changes have been made. Feel free to submit another request below.
+  </p>
+</div>
+
+<div
+  id="submit-error"
+  hidden
+  role="alert"
+  aria-live="assertive"
+  class="mb-8 rounded-lg border-l-4 border-l-[#B91C1C] bg-surface-subtle px-5 py-4"
+>
+  <p class="font-semibold text-status-error">Something went wrong. Please try again.</p>
+  <p class="mt-1 text-sm text-text-subtle">
+    If the problem continues, email your developer directly at
+    <a href="mailto:aftonagauntlett@gmail.com" class="font-semibold text-brand-primary underline hover:text-brand-accent">
+      aftonagauntlett@gmail.com
+    </a>.
+  </p>
+</div>
+
+<form
+  id="change-request-form"
+  action="https://formspree.io/f/mzdlkkrr"
+  method="POST"
+  class="space-y-6"
+  novalidate
+>
+  <input type="hidden" name="_subject" value="[RCAN] Website Content Change Request" />
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div class="space-y-2">
+      <label for="requester-name" class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+        Your name <span class="font-normal normal-case text-text-subtle">(optional)</span>
+      </label>
+      <input
+        id="requester-name"
+        name="name"
+        type="text"
+        autocomplete="given-name"
+        class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+      />
+    </div>
+    <StyledDropdown
+      id="priority-select"
+      name="priority"
+      label="How soon do you need this done?"
+      options={PRIORITY_OPTIONS}
+      required={true}
+      value="No Rush (1 week)"
+    />
+  </div>
+
+  <div id="changes-container" class="space-y-4">
+    <AdminChangeBlock index={1} />
+  </div>
+
+  <div class="flex justify-end">
+    <button
+      id="add-change-btn"
+      type="button"
+      class="inline-flex items-center gap-2 rounded-md border border-brand-primary px-4 py-2 text-sm font-semibold text-brand-primary transition-colors duration-base hover:border-brand-accent hover:text-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+    >
+      + Add another change
+    </button>
+  </div>
+
+  <div class="rounded-md border border-border-default bg-surface-default px-4 py-4">
+    <p class="text-sm text-text-default"><strong>Have photos or documents to include?</strong></p>
+    <p class="mt-1 text-sm text-text-subtle">
+      Email them directly to
+      <a href="mailto:aftonagauntlett@gmail.com" class="font-semibold text-brand-primary underline hover:text-brand-accent">
+        aftonagauntlett@gmail.com
+      </a>
+      and mention which page they're for.
+    </p>
+  </div>
+
+  <div class="flex justify-end pt-2">
+    <button
+      id="submit-btn"
+      type="submit"
+      class="inline-flex items-center justify-center gap-2 rounded-md border border-brand-primary bg-brand-primary px-5 py-3 text-base font-semibold text-surface-default shadow-sm transition-colors duration-base hover:border-brand-accent hover:bg-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default disabled:pointer-events-none disabled:border-border-default disabled:bg-surface-subtle disabled:text-text-subtle"
+    >
+      <span id="submit-label">Submit Request</span>
+    </button>
+  </div>
+</form>

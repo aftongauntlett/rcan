@@ -1,0 +1,210 @@
+---
+import type { ChangeRequest } from "../../data/admin";
+import { getPriorityChipClass } from "../../data/admin";
+
+interface Props {
+  requests: ChangeRequest[];
+}
+
+const { requests } = Astro.props;
+const statusFilters = ["All", ...new Set(requests.map((request) => request.status))];
+---
+
+<section aria-labelledby="request-history-heading" class="mt-12 border-t border-border-default pt-10">
+  <div class="mb-6">
+    <p class="text-xs font-semibold uppercase tracking-wide text-text-subtle">Shared status</p>
+    <h2 id="request-history-heading" class="mt-1 text-2xl font-semibold text-text-default">Request history</h2>
+    <p class="mt-2 text-base text-text-subtle">
+      Submitted website update requests will appear here after your developer logs them.
+    </p>
+  </div>
+
+  {
+    requests.length === 0 ? (
+      <div class="rounded-xl border border-border-default bg-surface-subtle px-6 py-6">
+        <p class="text-base font-semibold text-text-default">No requests logged yet.</p>
+        <p class="mt-1 text-base text-text-subtle">
+          Once a request is submitted and added to the site, its status and notes will show here.
+        </p>
+      </div>
+    ) : (
+      <div>
+        <div class="mb-6 flex flex-wrap items-center gap-3">
+          <div class="flex flex-wrap gap-2" role="group" aria-label="Filter by status">
+            {statusFilters.map((label) => (
+              <button
+                type="button"
+                data-filter={label === "All" ? "all" : label}
+                class="history-filter inline-flex items-center rounded-md border border-border-default bg-surface-default px-4 py-2 text-sm font-semibold text-text-subtle transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            id="sort-toggle"
+            data-sort="desc"
+            class="ml-auto inline-flex items-center gap-2 rounded-md border border-border-default bg-surface-default px-4 py-2 text-sm font-semibold text-text-subtle transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          >
+            <span data-sort-label>Newest first</span>
+            <svg
+              data-sort-chevron
+              class="h-4 w-4 transition-transform duration-200"
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M5.5 7.5L10 12l4.5-4.5"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div id="request-history-list" class="space-y-4">
+          {requests.map((request) => (
+            <article
+              class:list={[
+                "overflow-hidden rounded-xl border border-border-default transition-shadow hover:shadow-sm",
+                request.status === "Complete" ? "bg-neutral-100" : "bg-surface-default",
+              ]}
+              data-request-card
+              data-status={request.status}
+              data-date={request.id.split("-").slice(0, 3).join("-")}
+              data-requester={request.requester}
+            >
+              <button
+                type="button"
+                class:list={[
+                  "flex w-full items-start justify-between gap-4 border-b border-border-default px-6 py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-primary",
+                  request.status === "Complete" ? "bg-neutral-100" : "bg-surface-default",
+                ]}
+                aria-expanded="false"
+                aria-controls={`card-body-${request.id}`}
+                data-card-toggle
+              >
+                <div class="min-w-0 flex-1">
+                  <div class="mb-1.5 flex flex-wrap items-center gap-3">
+                    <h3 class="text-xl font-semibold text-text-default">
+                      {request.requester || "Website update request"}
+                    </h3>
+                    <span
+                      class:list={[
+                        "inline-flex items-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-bold",
+                        request.status === "Complete"
+                          ? "bg-neutral-200 text-text-subtle"
+                          : request.status === "In progress"
+                            ? "bg-[#DDF3EA] text-brand-primary"
+                            : request.status === "Waiting for info"
+                              ? "bg-[#FEF3C7] text-[#92400E]"
+                              : "bg-neutral-200 text-text-subtle",
+                      ]}
+                    >
+                      {request.status}
+                    </span>
+                  </div>
+                  <div class="mt-3 flex flex-wrap items-center gap-2" aria-label="Request details">
+                    <span class="inline-flex items-center gap-1.5 rounded-full border border-border-default bg-surface-default px-3 py-1.5 text-sm font-semibold text-text-subtle shadow-sm">
+                      <svg
+                        class="h-3.5 w-3.5 text-brand-secondary"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        aria-hidden="true"
+                      >
+                        <path d="M6 3.5v3" />
+                        <path d="M14 3.5v3" />
+                        <path d="M4.5 6h11" />
+                        <rect x="3.5" y="4.5" width="13" height="12" rx="2" />
+                      </svg>
+                      <span>{request.submitted}</span>
+                    </span>
+                    <span
+                      class:list={[
+                        "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold shadow-sm",
+                        getPriorityChipClass(request.priority, request.status),
+                      ]}
+                    >
+                      <svg
+                        class="h-3.5 w-3.5"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        aria-hidden="true"
+                      >
+                        <path d="M5 16V4" />
+                        <path d="M5 5h8.5l-1.5 3 1.5 3H5" />
+                      </svg>
+                      <span>{request.priority}</span>
+                    </span>
+                  </div>
+                </div>
+                <svg
+                  data-chevron
+                  class="mt-2 h-5 w-5 shrink-0 text-text-subtle transition-transform duration-200"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <path d="M5.5 7.5L10 12l4.5-4.5"></path>
+                </svg>
+              </button>
+
+              <div id={`card-body-${request.id}`} class="bg-surface-default" hidden data-card-body>
+                <div class="divide-y divide-border-default px-6">
+                  {request.changes.map((change, index) => (
+                    <div class="py-5">
+                      <span class="inline-flex items-center rounded-md bg-[#FEF0E8] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-secondary">
+                        Change {index + 1}
+                      </span>
+                      <dl class="mt-3 space-y-3 text-base">
+                        <div class="grid grid-cols-2 gap-4">
+                          <div>
+                            <dt class="font-semibold text-text-default">Page</dt>
+                            <dd class="mt-1 text-text-subtle">{change.page}</dd>
+                          </div>
+                          <div>
+                            <dt class="font-semibold text-text-default">Section</dt>
+                            <dd class="mt-1 text-text-subtle">{change.section}</dd>
+                          </div>
+                        </div>
+                        <div>
+                          <dt class="font-semibold text-text-default">Requested change</dt>
+                          <dd class="mt-1 whitespace-pre-line text-text-subtle">{change.description}</dd>
+                        </div>
+                      </dl>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="border-t border-border-default bg-[#EBF2F1] px-6 py-5">
+                  <p class="text-sm font-semibold uppercase tracking-wide text-brand-primary">Note from your developer</p>
+                  <p class="mt-2 whitespace-pre-line text-base text-text-default">
+                    {request.note || "No note yet."}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p id="history-no-results" hidden class="rounded-xl border border-border-default px-6 py-6 text-base text-text-subtle">
+          No requests match this filter.
+        </p>
+      </div>
+    )
+  }
+</section>

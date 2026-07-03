@@ -1,0 +1,84 @@
+---
+import StyledDropdown from "../StyledDropdown.astro";
+import { PAGE_GROUP_OPTIONS, PAGE_GROUPS_DATA } from "../../data/admin";
+
+interface Props {
+  index?: number;
+}
+
+const { index = 1 } = Astro.props;
+---
+
+<div class="change-block space-y-4 rounded-lg border border-border-default bg-surface-default px-5 py-5">
+  <div class="flex items-center justify-between">
+    <h2 class="block-heading inline-flex items-center rounded-md bg-[#FEF0E8] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-secondary">
+      Change {index}
+    </h2>
+    <button
+      type="button"
+      hidden
+      class="remove-btn text-sm font-semibold text-status-error underline hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
+    >
+      Remove
+    </button>
+  </div>
+
+  <fieldset class="space-y-1" data-field="page">
+    <div class="space-y-4">
+      <StyledDropdown
+        id={`page-group-select-${index}`}
+        name=""
+        label="Choose one area to update"
+        options={PAGE_GROUP_OPTIONS}
+        required={true}
+        hint="One category per change, please. Need a page added or removed? Choose “Other.”"
+        data-page-group-select
+      />
+
+      {
+        PAGE_GROUPS_DATA.map((group) => (
+          <div class="space-y-2" data-page-group data-group={group.key} hidden>
+            <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">{group.label}</p>
+            <div class:list={["grid gap-2", group.cols]}>
+              {group.pages.map((page) => (
+                <label class="page-card">
+                  <input
+                    type="radio"
+                    name={`Change ${index} - Page`}
+                    value={page}
+                    class="sr-only"
+                    required
+                    data-page-radio
+                  />
+                  <span class="page-card-inner">{page}</span>
+                </label>
+              ))}
+            </div>
+            <div data-section-area hidden>
+              <p class="mb-2 mt-1 block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                Which section?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
+              </p>
+              <div class="flex flex-wrap gap-2" data-section-chips></div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </fieldset>
+
+  <div class="space-y-2">
+    <label for={`change-${index}-description`} class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+      What would you like changed?
+    </label>
+    <p class="text-sm text-text-subtle">Describe the change in your own words. The more detail, the better.</p>
+    <textarea
+      id={`change-${index}-description`}
+      name={`Change ${index} - Description`}
+      data-field="description"
+      rows={6}
+      required
+      placeholder='Example: Please change the heading to say "Our Programs" instead of "How We Help". And update the first paragraph to include...'
+      class="w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-base text-text-default placeholder:text-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+    ></textarea>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div
+  id="page-change-modal"
+  hidden
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="page-modal-title"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4"
+>
+  <div id="modal-backdrop" class="absolute inset-0 bg-black/40"></div>
+  <div class="relative w-full max-w-md rounded-xl bg-surface-default p-8 shadow-lg">
+    <h2 id="page-modal-title" class="text-xl font-semibold text-text-default">Switch to a different page?</h2>
+    <p class="mt-3 text-base text-text-subtle">
+      You've already started filling in details for this change. Switching pages will clear your section selection and description.
+    </p>
+    <div class="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+      <button
+        id="modal-cancel"
+        type="button"
+        class="inline-flex items-center justify-center rounded-md border border-border-default bg-surface-default px-5 py-3 text-base font-semibold text-text-default transition-colors hover:bg-surface-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+      >
+        Keep current page
+      </button>
+      <button
+        id="modal-confirm"
+        type="button"
+        class="inline-flex items-center justify-center rounded-md bg-status-error px-5 py-3 text-base font-semibold text-white transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-status-error focus-visible:ring-offset-2"
+      >
+        Switch page, clear details
+      </button>
+    </div>
+  </div>
+</div>

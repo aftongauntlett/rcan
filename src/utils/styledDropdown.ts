@@ -135,9 +135,11 @@ export function bootstrapStyledDropdown(root: HTMLElement): void {
   };
 
   trigger.addEventListener("click", () => {
-    elements.root.classList.contains("is-open")
-      ? closeDropdown(elements)
-      : openDropdown(elements);
+    if (elements.root.classList.contains("is-open")) {
+      closeDropdown(elements);
+    } else {
+      openDropdown(elements);
+    }
   });
 
   trigger.addEventListener("keydown", (event) => {

@@ -10,7 +10,12 @@ interface Props extends Omit<HTMLAttributes<"span">, "class"> {
   class?: string;
 }
 
-const { variant = "neutral", shape = "pill", class: className = "", ...rest } = Astro.props as Props;
+const {
+  variant = "neutral",
+  shape = "pill",
+  class: className = "",
+  ...rest
+} = Astro.props as Props;
 
 const variantClasses: Record<BadgeVariant, string> = {
   brand: "border border-brand-primary bg-surface-default text-brand-primary",

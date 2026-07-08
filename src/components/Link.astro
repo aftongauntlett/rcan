@@ -35,7 +35,8 @@ const baseClasses =
   "inline-flex items-center gap-1 font-medium transition-colors duration-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default";
 
 const variantClasses: Record<LinkVariant, string> = {
-  inline: "text-text-link underline decoration-brand-primary underline-offset-2 hover:text-brand-secondary",
+  inline:
+    "text-text-link underline decoration-brand-primary underline-offset-2 hover:text-brand-secondary",
   subtle: "text-text-default no-underline hover:text-brand-primary",
 };
 ---
@@ -47,8 +48,12 @@ const variantClasses: Record<LinkVariant, string> = {
   {...rest}
 >
   <slot />
-  {isExternal && showExternalIndicator && (
-    <span aria-hidden="true" class="text-sm text-text-subtle">External</span>
-  )}
+  {
+    isExternal && showExternalIndicator && (
+      <span aria-hidden="true" class="text-sm text-text-subtle">
+        External
+      </span>
+    )
+  }
   {isExternal && showExternalIndicator && <span class="sr-only">{externalIndicatorLabel}</span>}
 </a>

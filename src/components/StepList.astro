@@ -16,12 +16,14 @@ const labelClass = accentColor === "primary" ? "text-brand-primary" : "text-bran
 ---
 
 <ol class={`mt-6 space-y-6 border-l-2 ${borderClass} pl-6`}>
-  {steps.map((step, index) => (
-    <li>
-      <p class={`text-sm font-semibold uppercase tracking-wide ${labelClass}`}>
-        {step.label ?? `Step ${index + 1}`}
-      </p>
-      <p class="mt-1 text-base leading-7 text-text-subtle">{step.description}</p>
-    </li>
-  ))}
+  {
+    steps.map((step, index) => (
+      <li>
+        <p class={`text-sm font-semibold uppercase tracking-wide ${labelClass}`}>
+          {step.label ?? `Step ${index + 1}`}
+        </p>
+        <p class="mt-1 text-base leading-7 text-text-subtle">{step.description}</p>
+      </li>
+    ))
+  }
 </ol>

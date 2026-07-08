@@ -20,21 +20,25 @@ const hasCustomBg = /\bbg-\S+/.test(className);
   aria-label={ariaLabel}
   {...rest}
 >
-  {hasHeader && (
-    <header class="border-b border-border-default px-4 py-3">
-      <slot name="header" />
-    </header>
-  )}
+  {
+    hasHeader && (
+      <header class="border-b border-border-default px-4 py-3">
+        <slot name="header" />
+      </header>
+    )
+  }
 
-  {hasBody && (
-    <div class="px-4 py-4">
-      {Astro.slots.has("body") ? <slot name="body" /> : <slot />}
-    </div>
-  )}
+  {
+    hasBody && (
+      <div class="px-4 py-4">{Astro.slots.has("body") ? <slot name="body" /> : <slot />}</div>
+    )
+  }
 
-  {hasFooter && (
-    <footer class="border-t border-border-default px-4 py-3">
-      <slot name="footer" />
-    </footer>
-  )}
+  {
+    hasFooter && (
+      <footer class="border-t border-border-default px-4 py-3">
+        <slot name="footer" />
+      </footer>
+    )
+  }
 </article>

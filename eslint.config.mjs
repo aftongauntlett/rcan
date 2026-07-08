@@ -8,7 +8,7 @@ import globals from "globals";
 
 export default [
   {
-    ignores: ["dist", ".astro", "node_modules"],
+    ignores: ["**/dist", "**/.astro", "**/node_modules"],
   },
   js.configs.recommended,
   ...astroPlugin.configs["flat/recommended"],

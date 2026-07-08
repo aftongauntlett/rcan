@@ -10,14 +10,14 @@ The website for RCAN (Returning Citizens Assistance Network), a DC-area nonprofi
 
 This is the important part. A few pieces of this project are **not owned by RCAN** — they're hosted on the previous developer's personal accounts as a favor. If that developer becomes unreachable, these will eventually stop working and need to be replaced.
 
-| Piece | Who owns it | What happens if not transferred |
-|---|---|---|
-| **GitHub repo** (the code) | Previous developer, but transferable | Can be transferred to a new GitHub account any time — just ask. No urgency. |
-| **Vercel** (hosting — this is what actually serves the live site) | Previous developer's personal account | If access is lost, the live site goes down. You'll need to create your own Vercel account (free tier is fine) and redeploy from the GitHub repo. |
-| **Formspree** (powers the Contact form and the Admin request-log form) | Previous developer's personal account | If access is lost, form submissions stop working/arriving. You'll need your own Formspree account and to update the form endpoint URLs in the code (see below). |
-| **Domain name & DNS** | RCAN / Wix (managed by Theo or another RCAN member) | Not something you need to touch unless the site needs to move to different hosting — then DNS just needs to point at wherever the site is hosted (currently Vercel). |
-| **Donorbox** (donation processing on the Donate page) | RCAN | Maintained by RCAN directly, not the developer. |
-| **Wix account** | RCAN | Only used for domain/DNS management, not for the actual website. |
+| Piece                                                                  | Who owns it                                         | What happens if not transferred                                                                                                                                      |
+| ---------------------------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **GitHub repo** (the code)                                             | Previous developer, but transferable                | Can be transferred to a new GitHub account any time — just ask. No urgency.                                                                                          |
+| **Vercel** (hosting — this is what actually serves the live site)      | Previous developer's personal account               | If access is lost, the live site goes down. You'll need to create your own Vercel account (free tier is fine) and redeploy from the GitHub repo.                     |
+| **Formspree** (powers the Contact form and the Admin request-log form) | Previous developer's personal account               | If access is lost, form submissions stop working/arriving. You'll need your own Formspree account and to update the form endpoint URLs in the code (see below).      |
+| **Domain name & DNS**                                                  | RCAN / Wix (managed by Theo or another RCAN member) | Not something you need to touch unless the site needs to move to different hosting — then DNS just needs to point at wherever the site is hosted (currently Vercel). |
+| **Donorbox** (donation processing on the Donate page)                  | RCAN                                                | Maintained by RCAN directly, not the developer.                                                                                                                      |
+| **Wix account**                                                        | RCAN                                                | Only used for domain/DNS management, not for the actual website.                                                                                                     |
 
 **Bottom line:** if you're taking this over long-term, plan to set up your own Vercel and Formspree accounts fairly soon, so the site isn't dependent on someone else's personal login.
 
@@ -37,6 +37,7 @@ The site uses Formspree for two forms, hardcoded by URL:
 - `src/components/admin/AdminRequestForm.astro` — the admin "submit a change request" form (`action="https://formspree.io/f/mzdlkkrr"`)
 
 To move these:
+
 1. Create a free Formspree account.
 2. Create two new forms there.
 3. Replace the two URLs above with your new form endpoint URLs.
@@ -58,6 +59,7 @@ Most day-to-day requests — "change this text," "swap this photo," "update the 
 > "On the Contact page, update the phone number to (202) 555-0100."
 
 You don't need to know how to code to supervise that. Just:
+
 1. Open the project folder in an AI coding tool (Claude Code, Cursor, etc.).
 2. Describe the change in plain language.
 3. Preview it (ask the agent to run `npm run dev` and check the result), then commit/push.

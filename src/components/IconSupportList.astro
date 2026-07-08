@@ -68,17 +68,39 @@ const ListTag = ordered ? "ol" : "ul";
 const columnsClass = columns === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2";
 ---
 
-<ListTag class={`mt-6 grid ${columnsClass} gap-x-12 ${compact ? "gap-y-1" : "gap-y-2"} ${className}`} aria-label={ariaLabel}>
+<ListTag
+  class={`mt-6 grid ${columnsClass} gap-x-12 ${compact ? "gap-y-1" : "gap-y-2"} ${className}`}
+  aria-label={ariaLabel}
+>
   {
     items.map((item) => (
-      <li class={`group/item flex ${(item.label && !inlineCta) ? "items-start" : "items-center"} gap-3 rounded-md ${noRowPadding ? "px-0" : "px-3"} ${compact ? "py-1.5" : "py-2"} text-base leading-7 text-text-subtle ${rowHover ? "motion-safe:transition-colors motion-safe:duration-200 hover:bg-surface-default" : ""}`}>
+      <li
+        class={`group/item flex ${item.label && !inlineCta ? "items-start" : "items-center"} gap-3 rounded-md ${noRowPadding ? "px-0" : "px-3"} ${compact ? "py-1.5" : "py-2"} text-base leading-7 text-text-subtle ${rowHover ? "motion-safe:transition-colors motion-safe:duration-200 hover:bg-surface-default" : ""}`}
+      >
         {!hideIcon && (
-          <span class={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-accent text-surface-default ${rowHover ? "motion-safe:transition-colors motion-safe:duration-200 group-hover/item:bg-brand-secondary" : ""}`} aria-hidden="true">
+          <span
+            class={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-accent text-surface-default ${rowHover ? "motion-safe:transition-colors motion-safe:duration-200 group-hover/item:bg-brand-secondary" : ""}`}
+            aria-hidden="true"
+          >
             <Icon name={item.icon} size="sm" aria-hidden="true" />
           </span>
         )}
-        <div class={ctaButton ? "flex flex-1 flex-col min-w-0" : inlineCta ? "flex-1 min-w-0" : `flex ${compact ? "" : "min-h-14"} flex-1 flex-col justify-center`}>
-          {item.label && <span class={`whitespace-nowrap text-sm font-semibold uppercase tracking-wide text-brand-secondary motion-safe:transition-colors motion-safe:duration-200 ${hoverTitleColor ? "group-hover/item:text-brand-primary" : ""}`}>{item.label}</span>}
+        <div
+          class={
+            ctaButton
+              ? "flex flex-1 flex-col min-w-0"
+              : inlineCta
+                ? "flex-1 min-w-0"
+                : `flex ${compact ? "" : "min-h-14"} flex-1 flex-col justify-center`
+          }
+        >
+          {item.label && (
+            <span
+              class={`whitespace-nowrap text-sm font-semibold uppercase tracking-wide text-brand-secondary motion-safe:transition-colors motion-safe:duration-200 ${hoverTitleColor ? "group-hover/item:text-brand-primary" : ""}`}
+            >
+              {item.label}
+            </span>
+          )}
           {item.cta && sentenceEndCta ? (
             <p class={item.label ? "mt-0.5" : ""}>
               {item.text}{" "}
@@ -110,7 +132,9 @@ const columnsClass = columns === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2
           </a>
         )}
         {item.cta && ctaButton && (
-          <Button href={item.cta.href} variant="secondary" size="sm" class="shrink-0 min-w-24">{item.cta.label}</Button>
+          <Button href={item.cta.href} variant="secondary" size="sm" class="shrink-0 min-w-24">
+            {item.cta.label}
+          </Button>
         )}
       </li>
     ))

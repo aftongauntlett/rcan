@@ -40,7 +40,8 @@ These guide every decision in this PRD:
 ```astro
 <!-- preferred for prose lists -->
 <li class="flex items-start gap-3 text-base leading-7 text-text-subtle">
-  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"></span>
+  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-secondary" aria-hidden="true"
+  ></span>
   <span>{item}</span>
 </li>
 ```

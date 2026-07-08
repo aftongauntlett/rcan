@@ -26,9 +26,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
-    "@fontsource/fraunces": "^5.2.9",
+    "@fontsource/caveat": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/manrope": "^5.2.8",
+    "@fontsource/quicksand": "^5.2.10",
     "@formspree/ajax": "^1.1.5",
     "@lucide/astro": "^1.16.0",
     "@tailwindcss/vite": "^4.3.0",
@@ -51,6 +52,7 @@
     "globals": "^17.6.0",
     "jsdom": "^29.1.1",
     "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1",
     "vitest": "^4.1.6"
   }
 }

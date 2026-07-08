@@ -2,12 +2,13 @@
 import SkipLink from "../components/SkipLink.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import defaultOgImage from "../assets/rcan-logo.png";
+import defaultOgImage from "../assets/rcan-logo-lockup-tagline.png";
 import "../styles/global.css";
 import "@fontsource/manrope/latin-400.css";
 import "@fontsource/manrope/latin-700.css";
-import "@fontsource/fraunces/latin-400-italic.css";
-import "@fontsource/fraunces/latin-600.css";
+import "@fontsource/quicksand/latin-600.css";
+import "@fontsource/quicksand/latin-700.css";
+import "@fontsource/caveat/latin-600.css";
 
 interface Props {
   title: string;
@@ -45,12 +46,17 @@ const resolvedOgImage = ogImage.startsWith("http")
     <meta name="twitter:image" content={resolvedOgImage} />
 
     <title>{title}</title>
-    <script is:inline>document.documentElement.classList.add("js")</script>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
   </head>
   <body class="flex min-h-full flex-col bg-surface-default font-sans text-text-default antialiased">
     <SkipLink href="#main-content" />
     <Header />
-    <main id="main-content" class="mx-auto w-full max-w-7xl flex-1 px-4 pt-4 pb-10 md:px-6 space-y-12 md:space-y-16">
+    <main
+      id="main-content"
+      class="mx-auto w-full max-w-7xl flex-1 px-4 pt-4 pb-10 md:px-6 space-y-12 md:space-y-16"
+    >
       <slot />
     </main>
     <Footer />

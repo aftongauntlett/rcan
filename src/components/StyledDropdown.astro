@@ -48,7 +48,7 @@ const nativeId = `${id}-native`;
   {
     label && (
       <label
-        class="block mb-2 text-sm font-semibold uppercase tracking-wide text-brand-secondary"
+        class="block mb-2 text-sm font-semibold uppercase tracking-wide text-brand-primary"
         id={labelId}
         for={nativeId}
       >
@@ -130,9 +130,7 @@ const nativeId = `${id}-native`;
       {
         options.map((option, index) => (
           <>
-            {option.separatorBefore && (
-              <li class="styled-dropdown__divider" aria-hidden="true" />
-            )}
+            {option.separatorBefore && <li class="styled-dropdown__divider" aria-hidden="true" />}
             <li
               class="styled-dropdown__option"
               id={`${id}-option-${index}`}

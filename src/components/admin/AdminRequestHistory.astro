@@ -10,10 +10,15 @@ const { requests } = Astro.props;
 const statusFilters = ["All", ...new Set(requests.map((request) => request.status))];
 ---
 
-<section aria-labelledby="request-history-heading" class="mt-12 border-t border-border-default pt-10">
+<section
+  aria-labelledby="request-history-heading"
+  class="mt-12 border-t border-border-default pt-10"
+>
   <div class="mb-6">
     <p class="text-xs font-semibold uppercase tracking-wide text-text-subtle">Shared status</p>
-    <h2 id="request-history-heading" class="mt-1 text-2xl font-semibold text-text-default">Request history</h2>
+    <h2 id="request-history-heading" class="mt-1 text-2xl font-semibold text-text-default">
+      Request history
+    </h2>
     <p class="mt-2 text-base text-text-subtle">
       Submitted website update requests will appear here after your developer logs them.
     </p>
@@ -59,7 +64,7 @@ const statusFilters = ["All", ...new Set(requests.map((request) => request.statu
               stroke-width="2"
               aria-hidden="true"
             >
-              <path d="M5.5 7.5L10 12l4.5-4.5"></path>
+              <path d="M5.5 7.5L10 12l4.5-4.5" />
             </svg>
           </button>
         </div>
@@ -97,9 +102,9 @@ const statusFilters = ["All", ...new Set(requests.map((request) => request.statu
                         request.status === "Complete"
                           ? "bg-neutral-200 text-text-subtle"
                           : request.status === "In progress"
-                            ? "bg-[#DDF3EA] text-brand-primary"
+                            ? "bg-brand-primary/10 text-brand-primary"
                             : request.status === "Waiting for info"
-                              ? "bg-[#FEF3C7] text-[#92400E]"
+                              ? "bg-status-warningBg text-status-warning"
                               : "bg-neutral-200 text-text-subtle",
                       ]}
                     >
@@ -159,7 +164,7 @@ const statusFilters = ["All", ...new Set(requests.map((request) => request.statu
                   stroke-width="2"
                   aria-hidden="true"
                 >
-                  <path d="M5.5 7.5L10 12l4.5-4.5"></path>
+                  <path d="M5.5 7.5L10 12l4.5-4.5" />
                 </svg>
               </button>
 
@@ -167,7 +172,7 @@ const statusFilters = ["All", ...new Set(requests.map((request) => request.statu
                 <div class="divide-y divide-border-default px-6">
                   {request.changes.map((change, index) => (
                     <div class="py-5">
-                      <span class="inline-flex items-center rounded-md bg-[#FEF0E8] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-secondary">
+                      <span class="inline-flex items-center rounded-md bg-brand-primary/10 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-primary">
                         Change {index + 1}
                       </span>
                       <dl class="mt-3 space-y-3 text-base">
@@ -183,15 +188,19 @@ const statusFilters = ["All", ...new Set(requests.map((request) => request.statu
                         </div>
                         <div>
                           <dt class="font-semibold text-text-default">Requested change</dt>
-                          <dd class="mt-1 whitespace-pre-line text-text-subtle">{change.description}</dd>
+                          <dd class="mt-1 whitespace-pre-line text-text-subtle">
+                            {change.description}
+                          </dd>
                         </div>
                       </dl>
                     </div>
                   ))}
                 </div>
 
-                <div class="border-t border-border-default bg-[#EBF2F1] px-6 py-5">
-                  <p class="text-sm font-semibold uppercase tracking-wide text-brand-primary">Note from your developer</p>
+                <div class="border-t border-border-default bg-surface-subtle px-6 py-5">
+                  <p class="text-sm font-semibold uppercase tracking-wide text-brand-primary">
+                    Note from your developer
+                  </p>
                   <p class="mt-2 whitespace-pre-line text-base text-text-default">
                     {request.note || "No note yet."}
                   </p>
@@ -201,7 +210,11 @@ const statusFilters = ["All", ...new Set(requests.map((request) => request.statu
           ))}
         </div>
 
-        <p id="history-no-results" hidden class="rounded-xl border border-border-default px-6 py-6 text-base text-text-subtle">
+        <p
+          id="history-no-results"
+          hidden
+          class="rounded-xl border border-border-default px-6 py-6 text-base text-text-subtle"
+        >
           No requests match this filter.
         </p>
       </div>

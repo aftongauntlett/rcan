@@ -39,17 +39,25 @@ const headingColorAndSize = headingClass ?? `${headingSizes[level]} text-text-de
 ---
 
 <header class={`space-y-5 ${className}`} {...rest}>
-  {eyebrow && <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">{eyebrow}</p>}
+  {
+    eyebrow && (
+      <p class="text-sm font-semibold uppercase tracking-wide text-brand-primary">{eyebrow}</p>
+    )
+  }
 
   <div class="space-y-1">
-    <HeadingTag class={`font-serif font-semibold leading-tight ${headingColorAndSize}`}>
+    <HeadingTag class={`font-display font-semibold leading-tight ${headingColorAndSize}`}>
       {heading}
     </HeadingTag>
 
-    {tagline && <p class="font-serif text-lg italic leading-snug text-text-subtle md:text-xl">{tagline}</p>}
+    {
+      tagline && (
+        <p class="font-handwritten text-2xl leading-snug text-brand-pink md:text-3xl">{tagline}</p>
+      )
+    }
   </div>
 
-  {divider && <div class="h-1.5 w-20 rounded-full bg-brand-secondary" aria-hidden="true"></div>}
+  {divider && <div class="h-1.5 w-20 rounded-full bg-brand-primary" aria-hidden="true" />}
 
   {subheading && <p class="text-base text-text-subtle">{subheading}</p>}
 </header>

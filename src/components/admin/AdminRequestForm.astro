@@ -5,8 +5,10 @@ import AdminChangeBlock from "./AdminChangeBlock.astro";
 ---
 
 <p class="mb-8 text-text-subtle">
-  Use this form to request changes to the RCAN website. You can add as many changes as you need in one submission. Hit
-  <strong class="text-text-default">Submit Request</strong> when you're done and your developer will take care of the rest.
+  Use this form to request changes to the RCAN website. You can add as many changes as you need in
+  one submission. Hit
+  <strong class="text-text-default">Submit Request</strong> when you're done and your developer will take
+  care of the rest.
 </p>
 
 <div
@@ -14,11 +16,12 @@ import AdminChangeBlock from "./AdminChangeBlock.astro";
   hidden
   role="status"
   aria-live="polite"
-  class="mb-8 rounded-lg border-l-4 border-l-[#166534] bg-surface-subtle px-5 py-4"
+  class="mb-8 rounded-lg border-l-4 border-l-status-success bg-surface-subtle px-5 py-4"
 >
   <p class="font-semibold text-status-success">Your request was sent successfully!</p>
   <p class="mt-1 text-sm text-text-subtle">
-    Your developer will be in touch once the changes have been made. Feel free to submit another request below.
+    Your developer will be in touch once the changes have been made. Feel free to submit another
+    request below.
   </p>
 </div>
 
@@ -27,12 +30,15 @@ import AdminChangeBlock from "./AdminChangeBlock.astro";
   hidden
   role="alert"
   aria-live="assertive"
-  class="mb-8 rounded-lg border-l-4 border-l-[#B91C1C] bg-surface-subtle px-5 py-4"
+  class="mb-8 rounded-lg border-l-4 border-l-status-error bg-surface-subtle px-5 py-4"
 >
   <p class="font-semibold text-status-error">Something went wrong. Please try again.</p>
   <p class="mt-1 text-sm text-text-subtle">
     If the problem continues, email your developer directly at
-    <a href="mailto:aftonagauntlett@gmail.com" class="font-semibold text-brand-primary underline hover:text-brand-accent">
+    <a
+      href="mailto:aftonagauntlett@gmail.com"
+      class="font-semibold text-brand-primary underline hover:text-brand-accent"
+    >
       aftonagauntlett@gmail.com
     </a>.
   </p>
@@ -46,11 +52,21 @@ import AdminChangeBlock from "./AdminChangeBlock.astro";
   novalidate
 >
   <input type="hidden" name="_subject" value="[RCAN] Website Content Change Request" />
-  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+  <input
+    type="text"
+    name="_gotcha"
+    tabindex="-1"
+    autocomplete="off"
+    class="hidden"
+    aria-hidden="true"
+  />
 
   <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
     <div class="space-y-2">
-      <label for="requester-name" class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+      <label
+        for="requester-name"
+        class="block text-sm font-semibold uppercase tracking-wide text-brand-primary"
+      >
         Your name <span class="font-normal normal-case text-text-subtle">(optional)</span>
       </label>
       <input
@@ -89,7 +105,10 @@ import AdminChangeBlock from "./AdminChangeBlock.astro";
     <p class="text-sm text-text-default"><strong>Have photos or documents to include?</strong></p>
     <p class="mt-1 text-sm text-text-subtle">
       Email them directly to
-      <a href="mailto:aftonagauntlett@gmail.com" class="font-semibold text-brand-primary underline hover:text-brand-accent">
+      <a
+        href="mailto:aftonagauntlett@gmail.com"
+        class="font-semibold text-brand-primary underline hover:text-brand-accent"
+      >
         aftonagauntlett@gmail.com
       </a>
       and mention which page they're for.

@@ -9,7 +9,7 @@ const { prefillUser = "" } = Astro.props;
 <div id="login-screen" class="flex min-h-screen items-center justify-center px-4 py-12">
   <div class="w-full max-w-sm space-y-6">
     <div class="text-center">
-      <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">RCAN</p>
+      <p class="text-sm font-semibold uppercase tracking-wide text-brand-primary">RCAN</p>
       <h1 class="mt-1 text-2xl font-semibold text-text-default">Admin Portal</h1>
       <p class="mt-2 text-sm text-text-subtle">Sign in to submit website update requests</p>
     </div>
@@ -17,7 +17,10 @@ const { prefillUser = "" } = Astro.props;
     <div class="rounded-xl bg-surface-subtle px-6 py-8">
       <form id="login-form" class="space-y-5" novalidate>
         <div class="space-y-2">
-          <label for="admin-username" class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+          <label
+            for="admin-username"
+            class="block text-sm font-semibold uppercase tracking-wide text-brand-primary"
+          >
             Username
           </label>
           <input
@@ -31,7 +34,10 @@ const { prefillUser = "" } = Astro.props;
         </div>
 
         <div class="space-y-2">
-          <label for="admin-password" class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+          <label
+            for="admin-password"
+            class="block text-sm font-semibold uppercase tracking-wide text-brand-primary"
+          >
             Password
           </label>
           <input

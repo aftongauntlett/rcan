@@ -4,19 +4,36 @@ interface Props {
   text?: string;
   level?: 2 | 3;
   align?: "center" | "left";
+  centerOnMobile?: boolean;
   class?: string;
 }
 
-const { id, text, level = 2, align = "center", class: className = "" } = Astro.props as Props;
+const {
+  id,
+  text,
+  level = 2,
+  align = "center",
+  centerOnMobile = false,
+  class: className = "",
+} = Astro.props as Props;
 
 const HeadingTag = `h${level}` as "h2" | "h3";
-const alignClass = align === "left" ? "text-left" : "text-center";
-const barClass = align === "left" ? "mt-2 h-0.5 w-12 rounded-full bg-brand-secondary" : "mx-auto mt-2 h-0.5 w-12 rounded-full bg-brand-secondary";
+const alignClass =
+  align === "left" ? (centerOnMobile ? "text-center lg:text-left" : "text-left") : "text-center";
+const barClass =
+  align === "left"
+    ? centerOnMobile
+      ? "mx-auto mt-2 h-0.5 w-12 rounded-full bg-brand-primary lg:mx-0"
+      : "mt-2 h-0.5 w-12 rounded-full bg-brand-primary"
+    : "mx-auto mt-2 h-0.5 w-12 rounded-full bg-brand-primary";
 const hasSlotContent = Astro.slots.has("default");
 ---
 
 <div class={`${alignClass} ${className}`}>
-  <HeadingTag id={id} class="text-lg font-semibold uppercase tracking-widest text-text-subtle md:text-xl">
+  <HeadingTag
+    id={id}
+    class="text-lg font-semibold uppercase tracking-widest text-text-subtle md:text-xl"
+  >
     {hasSlotContent ? <slot /> : text}
   </HeadingTag>
   <div class={barClass} aria-hidden="true"></div>

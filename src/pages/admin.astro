@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import "@fontsource/manrope/latin-400.css";
 import "@fontsource/manrope/latin-700.css";
-import "@fontsource/fraunces/latin-600.css";
 import AdminLogin from "../components/admin/AdminLogin.astro";
 import AdminPortal from "../components/admin/AdminPortal.astro";
 import PageChangeModal from "../components/admin/PageChangeModal.astro";
@@ -18,7 +17,9 @@ const prefillUser = import.meta.env.PUBLIC_ADMIN_USER ?? "";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Admin — RCAN</title>
-    <script is:inline>document.documentElement.classList.add("js")</script>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
   </head>
   <body class="flex min-h-full flex-col bg-surface-default font-sans text-text-default antialiased">
     <AdminLogin prefillUser={prefillUser} />

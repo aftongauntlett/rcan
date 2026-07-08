@@ -9,9 +9,13 @@ interface Props {
 const { index = 1 } = Astro.props;
 ---
 
-<div class="change-block space-y-4 rounded-lg border border-border-default bg-surface-default px-5 py-5">
+<div
+  class="change-block space-y-4 rounded-lg border border-border-default bg-surface-default px-5 py-5"
+>
   <div class="flex items-center justify-between">
-    <h2 class="block-heading inline-flex items-center rounded-md bg-[#FEF0E8] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-secondary">
+    <h2
+      class="block-heading inline-flex items-center rounded-md bg-brand-primary/10 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-primary"
+    >
       Change {index}
     </h2>
     <button
@@ -38,7 +42,9 @@ const { index = 1 } = Astro.props;
       {
         PAGE_GROUPS_DATA.map((group) => (
           <div class="space-y-2" data-page-group data-group={group.key} hidden>
-            <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">{group.label}</p>
+            <p class="text-xs font-semibold uppercase tracking-widest text-text-subtle">
+              {group.label}
+            </p>
             <div class:list={["grid gap-2", group.cols]}>
               {group.pages.map((page) => (
                 <label class="page-card">
@@ -55,10 +61,13 @@ const { index = 1 } = Astro.props;
               ))}
             </div>
             <div data-section-area hidden>
-              <p class="mb-2 mt-1 block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
-                Which section?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
+              <p class="mb-2 mt-1 block text-sm font-semibold uppercase tracking-wide text-brand-primary">
+                Which section?
+                <span class="ml-0.5 text-status-error" aria-hidden="true">
+                  *
+                </span>
               </p>
-              <div class="flex flex-wrap gap-2" data-section-chips></div>
+              <div class="flex flex-wrap gap-2" data-section-chips />
             </div>
           </div>
         ))
@@ -67,10 +76,15 @@ const { index = 1 } = Astro.props;
   </fieldset>
 
   <div class="space-y-2">
-    <label for={`change-${index}-description`} class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+    <label
+      for={`change-${index}-description`}
+      class="block text-sm font-semibold uppercase tracking-wide text-brand-primary"
+    >
       What would you like changed?
     </label>
-    <p class="text-sm text-text-subtle">Describe the change in your own words. The more detail, the better.</p>
+    <p class="text-sm text-text-subtle">
+      Describe the change in your own words. The more detail, the better.
+    </p>
     <textarea
       id={`change-${index}-description`}
       name={`Change ${index} - Description`}

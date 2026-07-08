@@ -145,7 +145,7 @@ function makeGroupDropdownHTML(idPrefix: string): string {
 
   return `
     <div class="styled-dropdown" data-styled-dropdown data-page-group-select>
-      <label class="block mb-2 text-sm font-semibold uppercase tracking-wide text-brand-secondary" id="${labelId}" for="${nativeId}">
+      <label class="block mb-2 text-sm font-semibold uppercase tracking-wide text-brand-primary" id="${labelId}" for="${nativeId}">
         Choose one area to update<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
         <span class="block mt-0.5 text-sm font-normal normal-case text-text-subtle">One category per change, please. Need a page added, removed, or edited? Choose &ldquo;Other.&rdquo; Reporting a bug? Choose &ldquo;Technical / Bug Report.&rdquo;</span>
       </label>
@@ -204,7 +204,7 @@ function makePageCardsHTML(fieldName: string, groupIdPrefix: string): string {
                   .join("")}
               </div>
               <div data-section-area hidden>
-                <p class="block mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+                <p class="block mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-brand-primary">
                   Which section?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
                 </p>
                 <div class="flex flex-wrap gap-2" data-section-chips></div>
@@ -356,14 +356,14 @@ function createBlock(changesContainer: HTMLElement): HTMLElement {
     "change-block rounded-lg border border-border-default bg-surface-default px-5 py-5 space-y-5";
   block.innerHTML = `
     <div class="flex items-center justify-between">
-      <h2 class="block-heading inline-flex items-center rounded-md bg-[#FEF0E8] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-secondary"></h2>
+      <h2 class="block-heading inline-flex items-center rounded-md bg-brand-primary/10 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-brand-primary"></h2>
       <button type="button" class="remove-btn text-sm font-semibold text-status-error underline hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary">
         Remove
       </button>
     </div>
     ${makePageCardsHTML("page-placeholder", `page-group-select-${blockCounter}`)}
     <div class="space-y-2">
-      <label class="block text-sm font-semibold uppercase tracking-wide text-brand-secondary">What would you like changed?</label>
+      <label class="block text-sm font-semibold uppercase tracking-wide text-brand-primary">What would you like changed?</label>
       <p class="text-sm text-text-subtle">Describe the change in your own words. The more detail, the better.</p>
       <textarea data-field="description" rows="6" required
         placeholder="Example: Please update the first paragraph to say..."

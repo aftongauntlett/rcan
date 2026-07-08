@@ -28,17 +28,26 @@ const columnsClass = photos.length >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2";
     photos.map((photo) => (
       <li>
         <figure class="overflow-hidden rounded-lg shadow-sm">
-          <Image
-            src={photo.src}
-            class={`${aspectClass} w-full rounded-lg object-cover`}
-            alt={photo.alt}
-            width={600}
-            widths={[320, 480, 600]}
-            sizes="(min-width: 1024px) 32vw, 50vw"
-            format="webp"
-            quality={photo.quality ?? 65}
-            loading="lazy"
-          />
+          <button
+            class="image-zoom-button block w-full"
+            type="button"
+            data-lightbox-trigger
+            data-lightbox-caption={photo.caption}
+            aria-label={`Enlarge image: ${photo.alt}`}
+          >
+            <Image
+              src={photo.src}
+              class={`${aspectClass} w-full object-cover`}
+              alt={photo.alt}
+              width={600}
+              widths={[320, 480, 600]}
+              sizes="(min-width: 1024px) 32vw, 50vw"
+              format="webp"
+              quality={photo.quality ?? 65}
+              loading="lazy"
+            />
+            <span class="image-zoom-button__hint" aria-hidden="true">View larger</span>
+          </button>
           {photo.caption && (
             <figcaption class="flex min-h-11 items-center justify-center bg-surface-subtle px-3 py-2 text-center text-xs italic text-text-subtle">
               {photo.caption}

@@ -35,17 +35,25 @@ const pageDescription =
     <SectionTitle id="pathway-heading" text="Support pathway" />
     <div class="mt-6 grid gap-6 lg:grid-cols-[2fr_3fr] lg:items-stretch">
       <figure class="overflow-hidden rounded-lg shadow-md">
-        <Image
-          src={supportPathwayImage}
-          class="h-full w-full object-cover"
-          alt="A carved wooden hand propping up a leaning tree branch, symbolizing steady support."
-          width={900}
-          widths={[360, 540, 720, 900]}
-          sizes="(min-width: 1024px) 40vw, 100vw"
-          format="webp"
-          quality={60}
-          loading="lazy"
-        />
+        <button
+          class="image-zoom-button block h-full w-full"
+          type="button"
+          data-lightbox-trigger
+          aria-label="Enlarge image: A carved wooden hand propping up a leaning tree branch, symbolizing steady support."
+        >
+          <Image
+            src={supportPathwayImage}
+            class="h-full w-full object-cover"
+            alt="A carved wooden hand propping up a leaning tree branch, symbolizing steady support."
+            width={900}
+            widths={[360, 540, 720, 900]}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            format="webp"
+            quality={60}
+            loading="lazy"
+          />
+          <span class="image-zoom-button__hint" aria-hidden="true">View larger</span>
+        </button>
       </figure>
 
       <div class="flex h-full flex-col">

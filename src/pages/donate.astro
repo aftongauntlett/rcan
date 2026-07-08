@@ -148,17 +148,25 @@ const giftSupports = [
   <section class="border-t border-border-default py-10" aria-labelledby="impact-heading">
     <div class="grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
       <figure class="overflow-hidden rounded-lg shadow-md">
-        <Image
-          src={donateImage}
-          class="h-full w-full object-cover"
-          alt="Hands holding coins and a note reading Make a change, representing direct financial support for community impact."
-          width={900}
-          widths={[360, 540, 720, 900]}
-          sizes="(min-width: 1024px) 40vw, 100vw"
-          format="webp"
-          quality={60}
-          loading="lazy"
-        />
+        <button
+          class="image-zoom-button block h-full w-full"
+          type="button"
+          data-lightbox-trigger
+          aria-label="Enlarge image: Hands holding coins and a note reading Make a change, representing direct financial support for community impact."
+        >
+          <Image
+            src={donateImage}
+            class="h-full w-full object-cover"
+            alt="Hands holding coins and a note reading Make a change, representing direct financial support for community impact."
+            width={900}
+            widths={[360, 540, 720, 900]}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            format="webp"
+            quality={60}
+            loading="lazy"
+          />
+          <span class="image-zoom-button__hint" aria-hidden="true">View larger</span>
+        </button>
       </figure>
 
       <article>

@@ -1,0 +1,97 @@
+<div class="image-lightbox" data-image-lightbox hidden>
+  <button
+    class="image-lightbox__backdrop"
+    type="button"
+    data-image-lightbox-close
+    aria-label="Close enlarged image"
+  ></button>
+  <div
+    class="image-lightbox__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Enlarged image"
+    tabindex="-1"
+    data-image-lightbox-dialog
+  >
+    <button class="image-lightbox__close" type="button" data-image-lightbox-close>
+      Close
+    </button>
+    <img class="image-lightbox__image" src="" alt="" data-image-lightbox-image />
+    <p class="image-lightbox__caption" data-image-lightbox-caption hidden></p>
+  </div>
+</div>
+
+<script>
+  const initImageLightbox = () => {
+    const lightbox = document.querySelector<HTMLElement>("[data-image-lightbox]");
+    const dialog = document.querySelector<HTMLElement>("[data-image-lightbox-dialog]");
+    const image = document.querySelector<HTMLImageElement>("[data-image-lightbox-image]");
+    const caption = document.querySelector<HTMLElement>("[data-image-lightbox-caption]");
+    const triggers = document.querySelectorAll<HTMLButtonElement>("[data-lightbox-trigger]");
+
+    if (!lightbox || !dialog || !image || !caption || triggers.length === 0) {
+      return;
+    }
+
+    let previousFocus: HTMLElement | null = null;
+
+    const close = () => {
+      lightbox.hidden = true;
+      document.documentElement.classList.remove("image-lightbox-open");
+      image.removeAttribute("src");
+      image.alt = "";
+      caption.textContent = "";
+      caption.hidden = true;
+      previousFocus?.focus();
+    };
+
+    const open = (trigger: HTMLButtonElement) => {
+      const targetImage = trigger.querySelector("img");
+
+      if (!targetImage) {
+        return;
+      }
+
+      const triggerCaption =
+        trigger.dataset.lightboxCaption ??
+        trigger.closest("figure")?.querySelector("figcaption")?.textContent?.trim() ??
+        "";
+
+      previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      image.src = targetImage.currentSrc || targetImage.src;
+      image.alt = targetImage.alt;
+      caption.textContent = triggerCaption;
+      caption.hidden = triggerCaption.length === 0;
+      lightbox.hidden = false;
+      document.documentElement.classList.add("image-lightbox-open");
+      dialog.focus();
+    };
+
+    triggers.forEach((trigger) => {
+      if (trigger.dataset.lightboxReady === "true") {
+        return;
+      }
+
+      trigger.dataset.lightboxReady = "true";
+      trigger.addEventListener("click", () => open(trigger));
+    });
+
+    lightbox.querySelectorAll<HTMLElement>("[data-image-lightbox-close]").forEach((closeButton) => {
+      if (closeButton.dataset.lightboxReady === "true") {
+        return;
+      }
+
+      closeButton.dataset.lightboxReady = "true";
+      closeButton.addEventListener("click", close);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !lightbox.hidden) {
+        close();
+      }
+    });
+  };
+
+  initImageLightbox();
+  document.addEventListener("astro:page-load", initImageLightbox);
+</script>

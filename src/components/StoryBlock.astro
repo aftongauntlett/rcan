@@ -80,13 +80,21 @@ const quoteSpacingClass = (index: number, withImage: boolean) => {
       >
         {imagePosition === "left" && (
           <div class="relative h-full min-h-60 overflow-hidden rounded-lg shadow-md">
-            <Image
-              src={image.src}
-              alt={image.alt}
-              class={`h-full w-full object-cover ${imageClass ?? ""}`}
-              widths={[400, 800]}
-              sizes="(min-width: 1024px) 40vw, 100vw"
-            />
+            <button
+              class="image-zoom-button block h-full w-full"
+              type="button"
+              data-lightbox-trigger
+              aria-label={`Enlarge image: ${image.alt}`}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                class={`h-full w-full object-cover ${imageClass ?? ""}`}
+                widths={[400, 800]}
+                sizes="(min-width: 1024px) 40vw, 100vw"
+              />
+              <span class="image-zoom-button__hint" aria-hidden="true">View larger</span>
+            </button>
           </div>
         )}
         <div class="flex h-full flex-col">
@@ -107,13 +115,21 @@ const quoteSpacingClass = (index: number, withImage: boolean) => {
         </div>
         {imagePosition === "right" && (
           <div class="relative h-full min-h-60 overflow-hidden rounded-lg shadow-md">
-            <Image
-              src={image.src}
-              alt={image.alt}
-              class={`h-full w-full object-cover ${imageClass ?? ""}`}
-              widths={[400, 800]}
-              sizes="(min-width: 1024px) 40vw, 100vw"
-            />
+            <button
+              class="image-zoom-button block h-full w-full"
+              type="button"
+              data-lightbox-trigger
+              aria-label={`Enlarge image: ${image.alt}`}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                class={`h-full w-full object-cover ${imageClass ?? ""}`}
+                widths={[400, 800]}
+                sizes="(min-width: 1024px) 40vw, 100vw"
+              />
+              <span class="image-zoom-button__hint" aria-hidden="true">View larger</span>
+            </button>
           </div>
         )}
       </div>

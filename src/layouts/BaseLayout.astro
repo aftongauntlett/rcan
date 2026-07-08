@@ -2,6 +2,7 @@
 import SkipLink from "../components/SkipLink.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { FALLBACK_SITE } from "../data/site";
 import defaultOgImage from "../assets/rcan-logo-lockup-tagline.png";
 import "../styles/global.css";
 import "@fontsource/manrope/latin-400.css";
@@ -18,7 +19,7 @@ interface Props {
 
 const { title, description, ogImage = defaultOgImage.src } = Astro.props as Props;
 
-const resolvedSite = Astro.site ?? new URL("https://rcan.example");
+const resolvedSite = Astro.site ?? FALLBACK_SITE;
 const canonicalUrl = new URL(Astro.url.pathname, resolvedSite).toString();
 
 const resolvedOgImage = ogImage.startsWith("http")

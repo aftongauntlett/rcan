@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { FALLBACK_SITE } from "../data/site";
 
 export const SITE_ROUTES = [
   "/",
@@ -10,8 +11,6 @@ export const SITE_ROUTES = [
   "/contact",
   "/donate",
 ] as const;
-
-export const FALLBACK_SITE = new URL("https://rcan.example");
 
 export const buildSitemapXml = (baseSite: URL): string => {
   const urls = SITE_ROUTES.map((route) => {

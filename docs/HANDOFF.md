@@ -26,8 +26,9 @@ This is the important part. A few pieces of this project are **not owned by RCAN
 1. Create a free account at vercel.com.
 2. Ask to be added as a collaborator to the GitHub repo (or have it transferred to you).
 3. In Vercel, "Import Project" from the GitHub repo. Vercel auto-detects Astro — no config needed.
-4. Once it's deploying successfully on your account, ask whoever manages DNS (Wix, via Theo/RCAN) to point the domain at your new Vercel deployment instead of the old one.
-5. Old developer can then remove the project from their Vercel account.
+4. Add a Vercel environment variable named `SITE_URL` with the live site origin, such as `https://rcandc.org`. This keeps canonical URLs, Open Graph URLs, `sitemap.xml`, and `robots.txt` pointed at the real domain.
+5. Once it's deploying successfully on your account, ask whoever manages DNS (Wix, via Theo/RCAN) to point the domain at your new Vercel deployment instead of the old one.
+6. Old developer can then remove the project from their Vercel account.
 
 ## How to move forms to your own Formspree account
 

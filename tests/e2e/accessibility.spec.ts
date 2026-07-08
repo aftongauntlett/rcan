@@ -33,7 +33,7 @@ const describeViolations = (
 
 for (const route of routes) {
   test(`axe scan has no serious or critical issues on ${route}`, async ({ page }) => {
-    await page.route("https://donorbox.org/**", (donorboxRoute) => donorboxRoute.abort());
+    await page.route(/donorbox\.org/, (donorboxRoute) => donorboxRoute.abort());
     await page.goto(route, { waitUntil: "domcontentloaded" });
 
     const results = await new AxeBuilder({ page })

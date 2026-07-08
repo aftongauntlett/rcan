@@ -33,8 +33,6 @@ html {
   }
 }
 
-/* ── Styled Dropdown ─────────────────────────────────────────────────────── */
-
 .styled-dropdown__control {
   position: relative;
 }
@@ -73,7 +71,7 @@ html {
   -webkit-overflow-scrolling: touch;
   background-color: theme(colors.surface.default);
   border: 1.5px solid color-mix(in srgb, theme(colors.brand.primary) 30%, transparent);
-  border-radius: 0.75rem; /* radius-lg */
+  border-radius: 0.75rem;
   box-shadow:
     0 12px 24px -8px rgb(15 23 42 / 0.18),
     0 4px 8px -4px rgb(15 23 42 / 0.1);
@@ -82,7 +80,7 @@ html {
 
 .styled-dropdown__option {
   padding: 0.625rem 0.875rem;
-  border-radius: 0.5rem; /* radius-md */
+  border-radius: 0.5rem;
   color: theme(colors.text.default);
   font-size: 1rem;
   line-height: 1.5rem;
@@ -144,8 +142,6 @@ html {
 .styled-dropdown__native {
   width: 100%;
 }
-
-/* ── Page card select ────────────────────────────────────────────────────── */
 
 .page-card {
   display: block;
@@ -210,8 +206,6 @@ html {
   outline-offset: 2px;
 }
 
-/* ── Section chip select ─────────────────────────────────────────────────── */
-
 .section-chip {
   display: inline-block;
   cursor: pointer;
@@ -265,7 +259,6 @@ html {
   outline-offset: 2px;
 }
 
-/* Hide native select once JS has enhanced the dropdown */
 .js .styled-dropdown.is-enhanced .styled-dropdown__native {
   position: absolute;
   width: 1px;

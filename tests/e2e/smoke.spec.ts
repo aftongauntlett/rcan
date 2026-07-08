@@ -12,9 +12,15 @@ const routes = [
   "/404",
 ];
 
+test.beforeEach(async ({ page }) => {
+  await page.route(/challenges\.cloudflare\.com|donorbox\.org/, (thirdPartyRoute) =>
+    thirdPartyRoute.abort(),
+  );
+});
+
 test("core routes render main landmark", async ({ page }) => {
   for (const route of routes) {
-    await page.goto(route);
+    await page.goto(route, { waitUntil: "domcontentloaded" });
     await expect(page.locator("main#main-content")).toBeVisible();
   }
 });

@@ -62,6 +62,12 @@ npm run build
 
 Note: `astro check` runs automatically before build via `prebuild`.
 
+### Production URL
+
+Set `SITE_URL` in the hosting environment to the live origin, for example
+`https://rcandc.org`. Astro uses it for canonical URLs, Open Graph URLs,
+`sitemap.xml`, and `robots.txt`.
+
 ## Quality checks
 
 ```bash

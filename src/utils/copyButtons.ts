@@ -53,8 +53,8 @@ const setCopyIconState = (button: HTMLButtonElement, copied: boolean): void => {
     return;
   }
 
-  copyIcon.style.display = copied ? "none" : "inline-block";
-  copiedIcon.style.display = copied ? "inline-block" : "none";
+  copyIcon.hidden = copied;
+  copiedIcon.hidden = !copied;
 };
 
 export const initCopyButtons = (): void => {

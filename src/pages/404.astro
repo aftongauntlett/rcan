@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
 import Button from "../components/Button.astro";
 
 const pageTitle = "Page Not Found | RCAN";
@@ -8,13 +9,16 @@ const pageDescription =
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="mx-auto max-w-3xl rounded-lg border border-border-default bg-surface-subtle px-6 py-10 text-center md:px-8 md:py-12" aria-labelledby="not-found-heading">
-    <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">404</p>
-    <h1 id="not-found-heading" class="mt-2 text-3xl font-serif font-semibold leading-tight text-text-default md:text-4xl">We could not find that page</h1>
-    <p class="mx-auto mt-4 max-w-2xl text-base leading-7 text-text-subtle">
-      The link may be outdated, or the page may have moved. You can return to the homepage,
-      explore how RCAN helps, or contact us for assistance.
-    </p>
+  <section
+    class="mx-auto max-w-3xl rounded-lg border border-border-default bg-surface-subtle px-6 py-10 text-center md:px-8 md:py-12"
+    aria-labelledby="not-found-heading"
+  >
+    <PageHeader
+      id="not-found-heading"
+      eyebrow="404"
+      heading="We could not find that page"
+      subheading="The link may be outdated, or the page may have moved. You can return to the homepage, explore how RCAN helps, or contact us for assistance."
+    />
 
     <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
       <Button href="/" variant="primary" size="md">Go to Home</Button>

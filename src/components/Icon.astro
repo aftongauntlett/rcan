@@ -3,6 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 import {
   ArrowRight,
   ArrowUpRight,
+  Bike,
   BookOpen,
   Check,
   ChevronRight,
@@ -21,15 +22,17 @@ import {
   Menu,
   Pencil,
   Phone,
+  Timer,
   User,
   Users,
   X,
 } from "@lucide/astro";
 
-type IconSize = "sm" | "md" | "lg";
+type IconSize = "sm" | "md" | "lg" | "xl";
 type IconName =
   | "arrow-right"
   | "arrow-up-right"
+  | "bike"
   | "book-open"
   | "check"
   | "chevron-right"
@@ -48,6 +51,7 @@ type IconName =
   | "menu"
   | "pencil"
   | "phone"
+  | "timer"
   | "user"
   | "users"
   | "x";
@@ -74,6 +78,7 @@ const decorative = !ariaLabel;
 const iconMap = {
   "arrow-right": ArrowRight,
   "arrow-up-right": ArrowUpRight,
+  bike: Bike,
   "book-open": BookOpen,
   check: Check,
   "chevron-right": ChevronRight,
@@ -92,6 +97,7 @@ const iconMap = {
   menu: Menu,
   pencil: Pencil,
   phone: Phone,
+  timer: Timer,
   user: User,
   users: Users,
   x: X,
@@ -103,6 +109,7 @@ const sizeClasses: Record<IconSize, string> = {
   sm: "h-4 w-4",
   md: "h-5 w-5",
   lg: "h-6 w-6",
+  xl: "h-10 w-10",
 };
 
 const classes = `inline-block shrink-0 align-middle text-current ${sizeClasses[size]} ${className}`;

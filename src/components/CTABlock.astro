@@ -18,26 +18,30 @@ const {
   primaryHref,
   secondaryLabel,
   secondaryHref,
-  variant = "fill",
+  variant = "outline",
 } = Astro.props;
 
 const sectionClass =
   variant === "outline"
-    ? "rounded-lg border border-border-default px-6 py-8 text-center md:px-8 md:py-10"
+    ? "border-t border-border-default pb-0 pt-10 text-center md:pb-2 md:pt-12"
     : variant === "bare"
-    ? "py-8 text-center md:py-10"
-    : "rounded-lg bg-surface-subtle px-6 py-8 text-center md:px-8 md:py-10";
+      ? "py-12 text-center md:py-14"
+      : "rounded-lg bg-surface-subtle px-6 py-8 text-center md:px-8 md:py-10";
 ---
 
 <section class={sectionClass}>
-  <h2 class="text-xl font-semibold text-text-default">{heading}</h2>
-  {body && (
-    <p class="mx-auto mt-3 max-w-2xl text-base leading-7 text-text-subtle">{body}</p>
-  )}
-  <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-    <Button href={primaryHref} variant="primary">{primaryLabel}</Button>
-    {secondaryLabel && secondaryHref && (
-      <Button href={secondaryHref} variant="secondary">{secondaryLabel}</Button>
-    )}
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-xl font-semibold text-text-default">{heading}</h2>
+    {body && <p class="mx-auto mt-3 max-w-2xl text-base leading-7 text-text-subtle">{body}</p>}
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+      <Button href={primaryHref} variant="primary">{primaryLabel}</Button>
+      {
+        secondaryLabel && secondaryHref && (
+          <Button href={secondaryHref} variant="secondary">
+            {secondaryLabel}
+          </Button>
+        )
+      }
+    </div>
   </div>
 </section>

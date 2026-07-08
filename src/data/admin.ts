@@ -136,15 +136,57 @@ export interface ChangeRequest {
 
 export const getPriorityChipClass = (priority: string, status: ChangeRequestStatus): string => {
   if (status !== "In progress") return "bg-neutral-200 text-text-subtle";
-  if (priority.startsWith("Urgent")) return "bg-[#FFE4E6] text-[#9F1239]";
-  if (priority.startsWith("Rush")) return "bg-[#FEF3C7] text-[#92400E]";
-  if (priority.startsWith("No Rush")) return "bg-[#DCFCE7] text-[#166534]";
-  return "bg-[#E2E8F0] text-[#334155]";
+  if (priority.startsWith("Urgent")) return "bg-status-errorBg text-status-error";
+  if (priority.startsWith("Rush")) return "bg-status-warningBg text-status-warning";
+  if (priority.startsWith("No Rush")) return "bg-status-successBg text-status-success";
+  return "bg-neutral-200 text-text-subtle";
 };
 
 // Manually maintained from Formspree email notifications pasted into Codex.
 // Notes and statuses render on the admin page for all logged-in users.
 export const CHANGE_REQUESTS: ChangeRequest[] = [
+  {
+    id: "2026-07-07-content-updates",
+    requester: "Theo",
+    submitted: "July 7, 2026",
+    priority: "Urgent (ASAP, today if possible)",
+    status: "Complete",
+    note: "Batch of content corrections and copy updates from Theo.",
+    changes: [
+      {
+        page: "Who We Are",
+        section: "RCAN / PDS group photo",
+        description: 'Update photo caption from "RCAN leaders" to "RCAN volunteers".',
+      },
+      {
+        page: "Who We Are",
+        section: "Board of Directors",
+        description: 'Update "Laura Cohen" to "Laura Beth Cohen".',
+      },
+      {
+        page: "Header / Navigation",
+        section: "Logo",
+        description: "Make the navbar logo a bit larger.",
+      },
+      {
+        page: "About",
+        section: "Our Motivation",
+        description: "Move the Proverbs and Micah scripture quotes to the top of the list.",
+      },
+      {
+        page: "How We Help",
+        section: "Support pathway",
+        description:
+          'Remove the line "Most weeks, RCAN coordinates one to two urgent requests through the network." and fold it into the top paragraph as "RCAN usually receives 2-3 urgent requests each week."',
+      },
+      {
+        page: "Donate",
+        section: "Mail giving",
+        description:
+          "Replace the NYAPC/gift paragraph with new copy about how gifts help fund urgent requests and 2025 impact (361 PDS clients and family members assisted), holiday gifts, and commissary contributions. Keep the closing sentence about Donorbox.",
+      },
+    ],
+  },
   {
     id: "2026-07-03-hero-image",
     requester: "Theo",

@@ -12,14 +12,6 @@ const pageDescription =
 
 const motivationScriptures = [
   {
-    quote: `Continue to remember those in prison as if you were together with them in prison, and those who are mistreated as if you yourselves were suffering.`,
-    reference: "Hebrews 13:3",
-  },
-  {
-    quote: `Suppose a brother or sister is without clothes and daily food. If one of you says to them, "Go in peace; keep warm and well fed," but does nothing about their physical needs, what good is it?`,
-    reference: "James 2:14–16",
-  },
-  {
     quote: `Whoever oppresses the poor shows contempt for their Maker, but whoever is kind to the needy honors God.`,
     reference: "Proverbs 14:31",
   },
@@ -27,21 +19,31 @@ const motivationScriptures = [
     quote: `And what does the Lord require of you? To act justly and to love mercy and to walk humbly with your God.`,
     reference: "Micah 6:8",
   },
+  {
+    quote: `Continue to remember those in prison as if you were together with them in prison, and those who are mistreated as if you yourselves were suffering.`,
+    reference: "Hebrews 13:3",
+  },
+  {
+    quote: `Suppose a brother or sister is without clothes and daily food. If one of you says to them, "Go in peace; keep warm and well fed," but does nothing about their physical needs, what good is it?`,
+    reference: "James 2:14–16",
+  },
 ];
 
 const values = [
   { icon: "hand-heart", label: "Dignity-first support for people returning to society" },
-  { icon: "gift", label: "Rapid response to urgent short-term needs" },
+  { icon: "timer", label: "Rapid response to urgent short-term needs" },
   { icon: "users", label: "Congregation-led coordination and care" },
   { icon: "home", label: "Practical pathways toward housing, stability, and work" },
 ] as const;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section aria-labelledby="about-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
+  <section
+    aria-labelledby="about-heading"
+    class="border-b border-border-default pb-10 pt-2 md:pb-12"
+  >
     <PageHeader
       id="about-heading"
-      eyebrow="About RCAN"
       heading="Congregations across Washington, DC, united for returning citizens"
     />
   </section>
@@ -59,7 +61,7 @@ const values = [
       </p>
       <div class="flex items-center justify-center gap-2" aria-hidden="true">
         <span class="h-px w-10 bg-border-default"></span>
-        <span class="h-1 w-1 rounded-full bg-brand-secondary/60"></span>
+        <span class="h-1 w-1 rounded-full bg-brand-pink/60"></span>
         <span class="h-px w-10 bg-border-default"></span>
       </div>
       <p>
@@ -71,7 +73,7 @@ const values = [
       </p>
       <div class="flex items-center justify-center gap-2" aria-hidden="true">
         <span class="h-px w-10 bg-border-default"></span>
-        <span class="h-1 w-1 rounded-full bg-brand-secondary/60"></span>
+        <span class="h-1 w-1 rounded-full bg-brand-pink/60"></span>
         <span class="h-px w-10 bg-border-default"></span>
       </div>
       <p>
@@ -81,42 +83,42 @@ const values = [
         Church to help. After months of the two congregations working together, they decided to
         invite others to join. In 2018, NYAPC and Metropolitan AME wrote to about 20 congregations,
         inviting them to form the Returning Citizens Assistance Network. About a dozen signed on as
-        founding members, and RCAN has grown steadily since — today, {congregations.length} churches and synagogues
-        across Washington, DC work together to assist PDS clients who are returning from
-        incarceration or still in prison.
+        founding members, and RCAN has grown steadily since — today, {congregations.length} churches and
+        synagogues across Washington, DC work together to assist PDS clients who are returning from incarceration
+        or still in prison.
       </p>
     </div>
   </section>
 
   <section aria-labelledby="motivation-heading" class="border-t border-border-default py-10">
     <div class="mx-auto max-w-3xl">
-    <SectionTitle id="motivation-heading" text="Our Motivation" />
-    <div class="mt-6 space-y-6 text-base leading-7 text-text-subtle">
-      <p>
-        The congregations that are part of RCAN are motivated by their shared spiritual conviction
-        that each person is a child of God and deserves to be treated with respect and dignity.
-        They are further motivated by commands from their faith traditions that urge followers to
-        show particular concern for the needs of those who are marginalized in our society — the
-        poor, the downtrodden, the despised, and those who are in prison.
-      </p>
-      <div class="flex items-center justify-center gap-2" aria-hidden="true">
-        <span class="h-px w-10 bg-border-default"></span>
-        <span class="h-1 w-1 rounded-full bg-brand-secondary/60"></span>
-        <span class="h-px w-10 bg-border-default"></span>
+      <SectionTitle id="motivation-heading" text="Our Motivation" />
+      <div class="mt-6 space-y-6 text-base leading-7 text-text-subtle">
+        <p>
+          The congregations that are part of RCAN are motivated by their shared spiritual conviction
+          that each person is a child of God and deserves to be treated with respect and dignity.
+          They are further motivated by commands from their faith traditions that urge followers to
+          show particular concern for the needs of those who are marginalized in our society — the
+          poor, the downtrodden, the despised, and those who are in prison.
+        </p>
+        <div class="flex items-center justify-center gap-2" aria-hidden="true">
+          <span class="h-px w-10 bg-border-default"></span>
+          <span class="h-1 w-1 rounded-full bg-brand-pink/60"></span>
+          <span class="h-px w-10 bg-border-default"></span>
+        </div>
+        <p>
+          Scripture is filled with the admonition to treat others as we would like to be treated,
+          and to take specific action to alleviate the suffering of those in physical and mental
+          pain. Some of the passages that inspire RCAN members:
+        </p>
       </div>
-      <p>
-        Scripture is filled with the admonition to treat others as we would like to be treated, and
-        to take specific action to alleviate the suffering of those in physical and mental pain.
-        Some of the passages that inspire RCAN members:
-      </p>
-    </div>
 
-    <QuoteCard
-      items={motivationScriptures}
-      divider
-      ariaLabel="Scriptures that inspire RCAN"
-      class="mt-10"
-    />
+      <QuoteCard
+        items={motivationScriptures}
+        divider
+        ariaLabel="Scriptures that inspire RCAN"
+        class="mt-10"
+      />
     </div>
   </section>
 
@@ -124,8 +126,8 @@ const values = [
     <SectionTitle id="approach-heading" text="Our Approach" />
     <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-text-subtle">
       RCAN is rooted in the conviction that practical support and faithful community can reshape
-      reentry outcomes. {congregations.length} congregations across Washington, DC share this commitment —
-      different in tradition, united in purpose.
+      reentry outcomes. {congregations.length} congregations across Washington, DC share this commitment
+      — different in tradition, united in purpose.
     </p>
     <IconCardGrid items={values} ariaLabel="RCAN core values" columns={4} />
   </section>

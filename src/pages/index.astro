@@ -12,140 +12,181 @@ import { congregations } from "../data/congregations";
 
 const pageTitle = "RCAN | Returning Citizens Assistance Network";
 const pageDescription =
-	"RCAN is a Washington, DC network of congregations that responds to urgent short-term needs for returning citizens through direct community support.";
+  "RCAN is a Washington, DC network of congregations that responds to urgent short-term needs for returning citizens through direct community support.";
 
 const assistanceExamples = [
-	{ icon: "heart" as const, label: "Providing clothing, food, and personal essentials to people newly released" },
-	{ icon: "users" as const, label: "Offering life-skills counseling and short-term mentoring relationships" },
-	{ icon: "home" as const, label: "Helping secure housing — application fees, security deposits, and furnishings" },
-	{ icon: "map-pin" as const, label: "Providing bicycles and metro cards so clients can get to work and medical appointments" },
-	{ icon: "dollar-sign" as const, label: "Providing emergency funds to prevent eviction or meet urgent financial needs" },
-	{ icon: "book-open" as const, label: "Connecting clients to employers and navigating job applications together" },
+  {
+    icon: "heart" as const,
+    label: "Providing clothing, food, and personal essentials to people newly released",
+  },
+  {
+    icon: "users" as const,
+    label: "Offering life-skills counseling and short-term mentoring relationships",
+  },
+  {
+    icon: "home" as const,
+    label: "Helping secure housing — application fees, security deposits, and furnishings",
+  },
+  {
+    icon: "bike" as const,
+    label: "Providing bicycles and metro cards so clients can get to work and medical appointments",
+  },
+  {
+    icon: "dollar-sign" as const,
+    label: "Providing emergency funds to prevent eviction or meet urgent financial needs",
+  },
+  {
+    icon: "book-open" as const,
+    label: "Connecting clients to employers and navigating job applications together",
+  },
 ] as const;
 
 const actionItems = [
-	{
-		icon: "check" as const,
-		label: "Fund urgent needs",
-		description: "Every gift directly supports urgent client needs, including stable housing, food, transportation costs, and other essential needs during reentry.",
-		cta: { label: "Donate", href: "/donate", variant: "secondary" as const },
-	},
-	{
-		icon: "check" as const,
-		label: "Serve in person",
-		description: "Respond to specific client requests by offering goods, services, skills, or time, and help meet practical needs quickly — open to everyone, no congregation required.",
-		cta: { label: "Support", href: "/contact", variant: "secondary" as const },
-	},
-	{
-		icon: "check" as const,
-		label: "Bring your congregation",
-		description: "If your congregation serves in Washington, DC, RCAN welcomes new partner communities ready to advance social justice through direct, practical reentry support.",
-		cta: { label: "Partner", href: "/contact", variant: "secondary" as const },
-	},
+  {
+    icon: "check" as const,
+    label: "Fund urgent needs",
+    description:
+      "Every gift directly supports urgent client needs, including stable housing, food, transportation costs, and other essential needs during reentry.",
+    cta: { label: "Donate", href: "/donate", variant: "secondary" as const },
+  },
+  {
+    icon: "check" as const,
+    label: "Serve in person",
+    description:
+      "Respond to specific client requests by offering goods, services, skills, or time, and help meet practical needs quickly — open to everyone, no congregation required.",
+    cta: { label: "Support", href: "/contact", variant: "secondary" as const },
+  },
+  {
+    icon: "check" as const,
+    label: "Bring your congregation",
+    description:
+      "If your congregation serves in Washington, DC, RCAN welcomes new partner communities ready to advance social justice through direct, practical reentry support.",
+    cta: { label: "Partner", href: "/contact", variant: "secondary" as const },
+  },
 ] as const;
 
 const impactStats = [
-	{ value: "361", label: "Clients helped in 2025" },
-	{ prefix: "$", value: "35,000+", label: "Contributed to the RCAN Fund in 2025" },
-	{ value: String(congregations.length), label: "Participating Congregations" },
-	{ value: "40", label: "Active Prison Friendship Matches" },
+  { value: "361", label: "Clients helped in 2025" },
+  { prefix: "$", value: "35,000+", label: "Contributed to the RCAN Fund in 2025" },
+  { value: String(congregations.length), label: "Participating Congregations" },
+  { value: "40", label: "Active Prison Friendship Matches" },
 ];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-	<section class="pt-6 md:pt-8" aria-label="About RCAN">
-		<div class="grid gap-10 lg:grid-cols-2 lg:items-stretch">
-			<!-- Title + buttons + image LEFT -->
-			<div class="flex flex-col gap-6">
-				<SectionHeader
-					level={1}
-					heading="Returning Citizens Assistance Network"
-					headingClass="text-4xl md:text-5xl text-brand-primary"
-					tagline="Giving a helping hand to those returning from incarceration."
-					divider
-				/>
-				<div class="flex flex-wrap items-center gap-3 pb-4">
-					<Button href="/donate" variant="primary" size="md">Donate today</Button>
-					<Button href="/how-we-help" variant="secondary" size="md">How RCAN helps</Button>
-				</div>
-				<figure class="flex-1 overflow-hidden rounded-lg shadow-lg">
-					<Image
-						src={handsTogether}
-						alt="A circle of people placing their hands together to show shared support and community solidarity."
-						class="h-full w-full object-cover"
-						widths={[360, 540, 720, 900]}
-						sizes="(min-width: 1024px) 50vw, 100vw"
-						format="webp"
-						quality={60}
-						loading="eager"
-					/>
-				</figure>
-			</div>
+  <section class="pt-6 md:pt-8" aria-label="About RCAN">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-stretch">
+      <!-- Title + buttons + image LEFT -->
+      <div class="flex flex-col gap-6">
+        <SectionHeader
+          level={1}
+          heading="Returning Citizens Assistance Network"
+          headingClass="text-4xl md:text-5xl text-brand-primary"
+          tagline="Giving a helping hand to those returning from incarceration."
+          divider
+        />
+        <div class="flex flex-wrap items-center justify-center gap-3 pb-4 sm:justify-start">
+          <Button href="/donate" variant="primary" size="md">Donate today</Button>
+          <Button href="/how-we-help" variant="secondary" size="md">How RCAN helps</Button>
+        </div>
+        <figure class="flex-1 overflow-hidden rounded-lg shadow-lg">
+          <Image
+            src={handsTogether}
+            alt="A circle of people placing their hands together to show shared support and community solidarity."
+            class="h-full w-full object-cover"
+            widths={[360, 540, 720, 900]}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            format="webp"
+            quality={60}
+            loading="eager"
+          />
+        </figure>
+      </div>
 
-			<!-- Description RIGHT -->
-			<article class="flex flex-col justify-center">
-				<div class="space-y-6 text-base leading-7 text-text-subtle">
-					<p>
-						The Returning Citizens Assistance Network (RCAN) is composed of <strong>{congregations.length} congregations</strong> in Washington, DC and works with clients of the <strong>Public Defender Service</strong> who are returning from a time of incarceration or are still in prison. The network assists these individuals and their families in a variety of different ways with a focus on the practical barriers to effective reentry—<strong>housing, clothing, food, transportation, employment</strong> and the need for ongoing personal friendship and support.
-					</p>
-					<div class="flex items-center justify-center gap-2" aria-hidden="true">
-						<span class="h-px w-10 bg-border-default"></span>
-						<span class="h-1 w-1 rounded-full bg-brand-secondary/60"></span>
-						<span class="h-px w-10 bg-border-default"></span>
-					</div>
-					<p>
-						Since its founding in 2018, RCAN has assisted hundreds of individuals and every week we get
-						new referrals of individuals and families who need assistance as they struggle to build stable
-						lives after a time of incarceration. RCAN also provides support and help to those who are currently
-						incarcerated through the <strong>Prison Friendship Project</strong> which matches individuals in the community
-						with men and women who are still in federal prison. These "prison friends" write to the inmate
-						they are matched with and also offer other support during and after a time of incarceration.
-					</p>
-					<div class="flex items-center justify-center gap-2" aria-hidden="true">
-						<span class="h-px w-10 bg-border-default"></span>
-						<span class="h-1 w-1 rounded-full bg-brand-secondary/60"></span>
-						<span class="h-px w-10 bg-border-default"></span>
-					</div>
-					<p>
-						Through these and other programs, the individuals and congregations associated with the
-						Returning Citizens Assistance Network do everything we can to help those who have been in
-						prison find stability and success in their return to the community.
-					</p>
-				</div>
-			</article>
-		</div>
+      <!-- Description RIGHT -->
+      <article class="flex flex-col justify-center">
+        <div class="space-y-6 text-base leading-7 text-text-subtle">
+          <p>
+            The Returning Citizens Assistance Network (RCAN) is composed of <strong
+              >{congregations.length} congregations</strong
+            > in Washington, DC and works with clients of the <strong
+              >Public Defender Service</strong
+            > who are returning from a time of incarceration or are still in prison. The network assists
+            these individuals and their families in a variety of different ways with a focus on the practical
+            barriers to effective reentry—<strong
+              >housing, clothing, food, transportation, employment</strong
+            > and the need for ongoing personal friendship and support.
+          </p>
+          <div class="flex items-center justify-center gap-2" aria-hidden="true">
+            <span class="h-px w-10 bg-border-default"></span>
+            <span class="h-1 w-1 rounded-full bg-brand-pink/60"></span>
+            <span class="h-px w-10 bg-border-default"></span>
+          </div>
+          <p>
+            Since its founding in 2018, RCAN has assisted hundreds of individuals and every week we
+            get new referrals of individuals and families who need assistance as they struggle to
+            build stable lives after a time of incarceration. RCAN also provides support and help to
+            those who are currently incarcerated through the <strong
+              >Prison Friendship Project</strong
+            > which matches individuals in the community with men and women who are still in federal prison.
+            These "prison friends" write to the inmate they are matched with and also offer other support
+            during and after a time of incarceration.
+          </p>
+          <div class="flex items-center justify-center gap-2" aria-hidden="true">
+            <span class="h-px w-10 bg-border-default"></span>
+            <span class="h-1 w-1 rounded-full bg-brand-pink/60"></span>
+            <span class="h-px w-10 bg-border-default"></span>
+          </div>
+          <p>
+            Through these and other programs, the individuals and congregations associated with the
+            Returning Citizens Assistance Network do everything we can to help those who have been
+            in prison find stability and success in their return to the community.
+          </p>
+        </div>
+      </article>
+    </div>
 
-		<!-- Stats row below hero -->
-		<div class="mt-10">
-			<StatStrip stats={impactStats} layout="grid" background="subtle" accentColor="primary" hoverSwapAccent />
-		</div>
-	</section>
+    <!-- Stats row below hero -->
+    <div class="mt-10">
+      <StatStrip
+        stats={impactStats}
+        layout="grid"
+        background="subtle"
+        accentColor="primary"
+        hoverSwapAccent
+      />
+    </div>
+  </section>
 
-	<section aria-labelledby="assistance-heading" class="border-t border-border-default py-10">
-		<SectionTitle id="assistance-heading" text="How RCAN assists" />
-		<p class="mx-auto mt-6 max-w-3xl text-base leading-7 text-text-subtle">
-			RCAN responds to urgent reentry needs through direct referrals and coordinated support from partner congregations.
-			The examples below show how assistance is delivered and where people can step in to help.
-		</p>
+  <section aria-labelledby="assistance-heading" class="border-t border-border-default py-10">
+    <SectionTitle id="assistance-heading" text="How RCAN assists" />
+    <p class="mx-auto mt-6 max-w-3xl text-base leading-7 text-text-subtle">
+      RCAN responds to urgent reentry needs through direct referrals and coordinated support from
+      partner congregations. The examples below show how assistance is delivered and where people
+      can step in to help.
+    </p>
 
-		<IconCardGrid items={assistanceExamples} ariaLabel="Ways RCAN assists returning citizens" columns={3} />
-	</section>
+    <IconCardGrid
+      items={assistanceExamples}
+      ariaLabel="Ways RCAN assists returning citizens"
+      columns={3}
+    />
+  </section>
 
-	<section aria-labelledby="how-to-help-heading" class="border-t border-border-default py-10">
-		<SectionTitle id="how-to-help-heading" text="How you can help" />
-		<p class="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-text-subtle">
-			Donate, volunteer, or join as a congregation partner in the DC area.
-		</p>
-		<IconCardGrid items={actionItems} ariaLabel="Ways to help RCAN" columns={3} />
-	</section>
+  <section aria-labelledby="how-to-help-heading" class="border-t border-border-default py-10">
+    <SectionTitle id="how-to-help-heading" text="How you can help" />
+    <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-text-subtle">
+      Donate, volunteer, or join as a congregation partner in the DC area.
+    </p>
+    <IconCardGrid items={actionItems} ariaLabel="Ways to help RCAN" columns={3} />
+  </section>
 
-	<CTABlock
-		heading="Stand with returning citizens."
-		body="Donations fund emergency needs. Volunteers build connections. Every contribution - of any kind - makes a difference."
-		primaryLabel="Donate"
-		primaryHref="/donate"
-		secondaryLabel="Contact us"
-		secondaryHref="/contact"
-	/>
-
+  <CTABlock
+    heading="Stand with returning citizens."
+    body="Donations fund emergency needs. Volunteers build connections. Every contribution - of any kind - makes a difference."
+    primaryLabel="Donate"
+    primaryHref="/donate"
+    secondaryLabel="Contact us"
+    secondaryHref="/contact"
+  />
 </BaseLayout>

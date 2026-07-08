@@ -5,6 +5,7 @@ import Button from "./Button.astro";
 type IconName =
   | "arrow-right"
   | "arrow-up-right"
+  | "bike"
   | "book-open"
   | "check"
   | "chevron-right"
@@ -21,6 +22,7 @@ type IconName =
   | "map-pin"
   | "menu"
   | "phone"
+  | "timer"
   | "user"
   | "users"
   | "x";
@@ -51,7 +53,9 @@ const columnsClasses: Record<2 | 3 | 4, string> = {
 <ul class={`mt-8 grid gap-4 ${columnsClasses[columns]} ${className}`} aria-label={ariaLabel}>
   {
     items.map((item) => (
-      <li class="flex flex-col items-center gap-3 rounded-xl border border-border-default/60 bg-surface-default px-5 py-6 text-center shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md hover:border-brand-secondary/60">
+      <li
+        class={`flex flex-col items-center gap-3 rounded-xl border border-border-default/60 bg-surface-default px-5 py-6 text-center shadow-sm ${item.cta ? "motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md hover:border-brand-secondary/60" : ""}`}
+      >
         <span
           class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary"
           aria-hidden="true"
@@ -60,14 +64,21 @@ const columnsClasses: Record<2 | 3 | 4, string> = {
         </span>
         {item.description ? (
           <div>
-            <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">{item.label}</p>
+            <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+              {item.label}
+            </p>
             <p class="mt-1 text-sm leading-6 text-text-subtle">{item.description}</p>
           </div>
         ) : (
           <p class="text-sm leading-6 text-text-subtle">{item.label}</p>
         )}
         {item.cta && (
-          <Button href={item.cta.href} variant={item.cta.variant ?? "secondary"} size="sm" class="mt-1">
+          <Button
+            href={item.cta.href}
+            variant={item.cta.variant ?? "secondary"}
+            size="sm"
+            class="mt-1"
+          >
             {item.cta.label}
           </Button>
         )}

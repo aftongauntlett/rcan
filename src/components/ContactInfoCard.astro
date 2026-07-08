@@ -1,0 +1,85 @@
+---
+import Icon from "./Icon.astro";
+
+type IconName =
+  | "arrow-right"
+  | "arrow-up-right"
+  | "bike"
+  | "book-open"
+  | "check"
+  | "chevron-right"
+  | "copy"
+  | "dollar-sign"
+  | "external-link"
+  | "gift"
+  | "globe"
+  | "hand-heart"
+  | "home"
+  | "heart"
+  | "info"
+  | "landmark"
+  | "mail"
+  | "map-pin"
+  | "menu"
+  | "pencil"
+  | "phone"
+  | "timer"
+  | "user"
+  | "users"
+  | "x";
+
+interface Props {
+  icon: IconName;
+  href?: string;
+  copyValue: string;
+  copyLabel: string;
+  feedbackId: string;
+}
+
+const { icon, href, copyValue, copyLabel, feedbackId } = Astro.props;
+
+const textClass = "flex-1 text-sm font-medium text-text-default";
+const linkClass =
+  "underline-offset-2 hover:text-brand-secondary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2";
+---
+
+<div
+  data-copy-row
+  class="group/row flex items-center gap-3 rounded-lg border border-border-default bg-surface-default px-4 py-3 motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md hover:border-brand-secondary/60"
+>
+  <Icon name={icon} class="h-4 w-4 shrink-0 text-brand-secondary" aria-hidden="true" />
+  {
+    href ? (
+      <a href={href} data-copy-text class={`${textClass} ${linkClass}`}>
+        <slot />
+      </a>
+    ) : (
+      <address data-copy-text class={`${textClass} not-italic leading-6`}>
+        <slot />
+      </address>
+    )
+  }
+  <button
+    type="button"
+    data-copy-button
+    data-copy-value={copyValue}
+    data-copy-feedback-id={feedbackId}
+    aria-label={copyLabel}
+    class="inline-flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-text-subtle motion-safe:transition-colors motion-safe:duration-200 hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+  >
+    <span data-copy-icon class="inline-flex"
+      ><Icon name="copy" class="h-3.5 w-3.5" aria-hidden="true" /></span
+    >
+    <span data-copied-icon class="inline-flex" style="display:none"
+      ><Icon name="check" class="h-3.5 w-3.5" aria-hidden="true" /></span
+    >
+  </button>
+  <p id={feedbackId} class="sr-only" aria-live="polite"></p>
+</div>
+
+<script>
+  import { initCopyButtons } from "../utils/copyButtons";
+
+  initCopyButtons();
+  document.addEventListener("astro:page-load", initCopyButtons);
+</script>

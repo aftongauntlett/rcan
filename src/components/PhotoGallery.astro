@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface GalleryPhoto {
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+  quality?: number;
+}
+
+interface Props {
+  photos: readonly GalleryPhoto[];
+  ariaLabel: string;
+  class?: string;
+  aspectClass?: string;
+}
+
+const { photos, ariaLabel, class: className, aspectClass = "aspect-4/3" } = Astro.props as Props;
+const columnsClass = photos.length >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2";
+---
+
+<ul
+  class={`mt-10 grid grid-cols-2 gap-6 ${columnsClass} ${className ?? ""}`}
+  aria-label={ariaLabel}
+>
+  {
+    photos.map((photo) => (
+      <li>
+        <figure class="overflow-hidden rounded-lg shadow-sm">
+          <Image
+            src={photo.src}
+            class={`${aspectClass} w-full rounded-lg object-cover`}
+            alt={photo.alt}
+            width={600}
+            widths={[320, 480, 600]}
+            sizes="(min-width: 1024px) 32vw, 50vw"
+            format="webp"
+            quality={photo.quality ?? 65}
+            loading="lazy"
+          />
+          {photo.caption && (
+            <figcaption class="flex min-h-11 items-center justify-center bg-surface-subtle px-3 py-2 text-center text-xs italic text-text-subtle">
+              {photo.caption}
+            </figcaption>
+          )}
+        </figure>
+      </li>
+    ))
+  }
+</ul>

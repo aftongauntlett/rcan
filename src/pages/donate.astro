@@ -3,79 +3,144 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import PageHeader from "../components/PageHeader.astro";
 import SectionTitle from "../components/SectionTitle.astro";
-import BulletList from "../components/BulletList.astro";
+import IconSupportList from "../components/IconSupportList.astro";
+import ContactInfoCard from "../components/ContactInfoCard.astro";
 import donateImage from "../assets/make-change.jpg";
 
 const pageTitle = "Donate | RCAN";
 const pageDescription =
   "Support RCAN's mission with financial contributions that expand resources for returning citizens.";
 
+const giftSupports = [
+  {
+    icon: "check",
+    text: "Emergency support that prevents avoidable setbacks during reentry.",
+  },
+  {
+    icon: "check",
+    text: "Housing-related costs (application fees, deposits, utilities).",
+  },
+  {
+    icon: "check",
+    text: "Transportation support (Metro cards, rides, bicycles).",
+  },
+  {
+    icon: "check",
+    text: "Essential needs (food, clothing, hygiene).",
+  },
+  {
+    icon: "check",
+    text: "Coordinated congregation response to urgent requests.",
+  },
+  {
+    icon: "check",
+    text: "Program support that sustains ongoing client stabilization.",
+  },
+] as const;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section aria-labelledby="donate-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
-    <PageHeader
-      id="donate-heading"
-      eyebrow="Donate"
-      heading="Fuel practical support for returning citizens"
-    />
+  <section
+    aria-labelledby="donate-heading"
+    class="border-b border-border-default pb-10 pt-2 md:pb-12"
+  >
+    <PageHeader id="donate-heading" heading="Fuel practical support for returning citizens" />
   </section>
 
-  <section id="donate-form" class="pt-6 pb-10" aria-labelledby="give-heading">
-    <SectionTitle id="give-heading" text="Give to RCAN" />
-
-    <div class="mt-8 grid gap-6 lg:grid-cols-[3fr_2fr] lg:items-stretch">
-      <aside id="mail-giving" class="rounded-lg border border-border-default bg-surface-default px-6 py-8" aria-labelledby="mail-giving-heading">
+  <section id="donate-form" class="pb-10">
+    <div class="mt-2 grid gap-10 lg:grid-cols-[8fr_4fr] lg:items-stretch lg:gap-16">
+      <div id="mail-giving">
         <div class="space-y-4 text-base leading-7 text-text-subtle">
           <p>
-            Your gift helps RCAN respond quickly to urgent requests for housing, food, transportation,
-            and other practical barriers that can delay reentry stability. The RCAN Fund was established
-            through New York Avenue Presbyterian Church in January 2021 to facilitate online donations
-            supporting client requests from the DC Public Defender Service. Each December since 2020, RCAN
-            has prepared holiday gift baskets for PDS-selected families and individuals — in 2025, ten
-            families (51 adults and children) received gifts by Christmas, and 36 incarcerated clients
-            without outside support each received $50 in commissary funds. In all, 2025 contributions
-            helped 361 clients.
+            Your gift helps RCAN respond quickly to urgent requests for housing, food,
+            transportation and other practical barriers that can delay reentry stability. Last year
+            RCAN provided direct assistance to 361 Public Defender Service clients and their family
+            members. In addition to responding to urgent requests, RCAN provides special gifts
+            during the holidays and assists those who are still incarcerated with contributions to
+            their commissary accounts. RCAN volunteers also assist PDS clients in many other ways.
           </p>
           <p>
             Every contribution supports practical, short-term needs identified through RCAN's
             referral channels. Support is processed securely through Donorbox.
           </p>
         </div>
-        <h3 id="mail-giving-heading" class="mt-6 border-t border-border-default pt-5 text-xs font-semibold uppercase tracking-wide text-brand-secondary">Prefer to give by mail?</h3>
+        <h3
+          class="mt-6 border-t border-border-default pt-5 text-xs font-semibold uppercase tracking-wide text-brand-primary"
+        >
+          Prefer to give by mail?
+        </h3>
         <p class="mt-3 text-base leading-7 text-text-subtle">
-          Make checks payable to <strong>Returning Citizens Assistance Network (RCAN)</strong> and mail to:
+          Make checks payable to <strong>Returning Citizens Assistance Network (RCAN)</strong> and mail
+          to:
         </p>
-        <address class="mt-3 not-italic text-base leading-7 text-text-subtle">
-          5109 Nannie Helen Burroughs Ave. NE<br />
-          Washington, DC 20019
-        </address>
-        <div class="mt-6 border-t border-border-default pt-5" aria-label="Direct contact options">
-          <p class="text-xs font-semibold uppercase tracking-wide text-brand-secondary">Direct contact</p>
-          <ul class="mt-3 space-y-2 text-base leading-7 text-text-subtle">
-            <li>
-              <a
-                href="mailto:dcrcan2018@gmail.com"
-                class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
-              >
-                dcrcan2018@gmail.com
-              </a>
-            </li>
-            <li>
-              <a
-                href="tel:+12403937246"
-                class="underline decoration-brand-primary underline-offset-2 transition-colors duration-base hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-default"
-              >
-                (240) 393-7246
-              </a>
-            </li>
-          </ul>
+        <div class="mt-3">
+          <ContactInfoCard
+            icon="map-pin"
+            copyValue="5109 Nannie Helen Burroughs Ave. NE, Washington, DC 20019"
+            copyLabel="Copy mailing address"
+            feedbackId="donate-address-copy-feedback"
+          >
+            5109 Nannie Helen Burroughs Ave. NE<br />Washington, DC 20019
+          </ContactInfoCard>
         </div>
-      </aside>
+        <p
+          class="mt-6 border-t border-border-default pt-5 text-xs font-semibold uppercase tracking-wide text-brand-primary"
+        >
+          Direct contact
+        </p>
+        <div class="mt-3 space-y-3">
+          <ContactInfoCard
+            icon="mail"
+            href="mailto:dcrcan2018@gmail.com"
+            copyValue="dcrcan2018@gmail.com"
+            copyLabel="Copy email address"
+            feedbackId="donate-email-copy-feedback"
+          >
+            dcrcan2018@gmail.com
+          </ContactInfoCard>
+          <ContactInfoCard
+            icon="phone"
+            href="tel:+12403937246"
+            copyValue="(240) 393-7246"
+            copyLabel="Copy phone number"
+            feedbackId="donate-phone-copy-feedback"
+          >
+            (240) 393-7246
+          </ContactInfoCard>
+        </div>
+      </div>
 
-      <div class="flex justify-center overflow-hidden rounded-lg">
+      <div
+        class="relative min-h-[613px] w-full max-w-[425px] justify-self-start self-start overflow-hidden rounded-lg"
+      >
+        <div
+          id="donorbox-skeleton"
+          class="absolute inset-0 z-20 flex animate-pulse flex-col gap-4 rounded-lg bg-surface-subtle p-6"
+          aria-hidden="true"
+        >
+          <div class="h-6 w-2/3 rounded bg-neutral-200"></div>
+          <div class="h-10 rounded bg-neutral-200"></div>
+          <div class="h-10 rounded bg-neutral-200"></div>
+          <div class="mt-2 h-32 rounded bg-neutral-200"></div>
+          <div class="mt-auto h-11 rounded bg-neutral-200"></div>
+        </div>
+
         <script type="module" src="https://donorbox.org/widgets.js" is:inline async></script>
-        <dbox-widget campaign="returning-citizens-assistance-network" type="donation_form" enable-auto-scroll="true" highlight-color="#1E5B52"></dbox-widget>
+        <dbox-widget
+          campaign="returning-citizens-assistance-network"
+          type="donation_form"
+          enable-auto-scroll="true"
+          highlight-color="#1F0A4F"
+          class="relative z-10 block opacity-0 transition-opacity duration-150"
+          aria-hidden="true"
+          inert></dbox-widget>
+
+        <script>
+          import { initDonorboxWidget } from "../utils/donatePage";
+
+          initDonorboxWidget();
+          document.addEventListener("astro:page-load", initDonorboxWidget);
+        </script>
       </div>
     </div>
   </section>
@@ -97,16 +162,17 @@ const pageDescription =
       </figure>
 
       <article>
-        <SectionTitle id="impact-heading" text="What your gift supports" align="left" />
-        <BulletList
-          items={[
-            "Emergency support that prevents avoidable setbacks during reentry.",
-            "Housing-related costs (application fees, deposits, utilities).",
-            "Transportation support (Metro cards, rides, bicycles).",
-            "Essential needs (food, clothing, hygiene).",
-            "Coordinated congregation response to urgent requests.",
-            "Program support that sustains ongoing client stabilization.",
-          ]}
+        <SectionTitle
+          id="impact-heading"
+          text="What your gift supports"
+          align="left"
+          centerOnMobile
+        />
+        <IconSupportList
+          items={giftSupports}
+          columns={1}
+          ariaLabel="What your gift supports"
+          compact
         />
         <p class="mt-6 text-base leading-7 text-text-subtle">
           RCAN prioritizes urgent practical barriers so returning citizens can focus on long-term

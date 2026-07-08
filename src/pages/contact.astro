@@ -24,12 +24,11 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section aria-labelledby="contact-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
-    <PageHeader
-      id="contact-heading"
-      eyebrow="Contact"
-      heading="Connect with RCAN for partnership and support"
-    />
+  <section
+    aria-labelledby="contact-heading"
+    class="border-b border-border-default pb-10 pt-2 md:pb-12"
+  >
+    <PageHeader id="contact-heading" heading="Connect with RCAN for partnership and support" />
   </section>
 
   <section class="pb-10" aria-labelledby="contact-methods-heading">
@@ -50,5 +49,9 @@ const activeTurnstileSiteKey = turnstileEnabled ? turnstileSiteKey : localTurnst
     initContactPage();
     document.addEventListener("astro:page-load", initContactPage);
   </script>
-  {showTurnstileWidget && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+  {
+    showTurnstileWidget && (
+      <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
+    )
+  }
 </BaseLayout>

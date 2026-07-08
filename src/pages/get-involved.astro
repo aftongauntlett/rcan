@@ -5,9 +5,8 @@ import PageHeader from "../components/PageHeader.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import IconCardGrid from "../components/IconCardGrid.astro";
 import CTABlock from "../components/CTABlock.astro";
-import CountUpScript from "../components/CountUpScript.astro";
 import IconSupportList from "../components/IconSupportList.astro";
-import rcanAndPdsImage from "../assets/rcan_and_pds_staff.jpeg";
+import rcanLogoLockupTagline from "../assets/rcan-logo-lockup-tagline.png";
 
 const pageTitle = "Get Involved | RCAN";
 const pageDescription =
@@ -35,60 +34,72 @@ const waysToHelp = [
   {
     icon: "mail",
     label: "Become a Prison Friend",
-    description: "Build consistent encouragement through letters and shared reading materials with someone currently incarcerated.",
+    description:
+      "Build consistent encouragement through letters and shared reading materials with someone currently incarcerated.",
   },
   {
     icon: "users",
     label: "Engage your congregation",
-    description: "Coordinate volunteers through your congregation to organize practical responses to specific reentry needs.",
+    description:
+      "Coordinate volunteers through your congregation to organize practical responses to specific reentry needs.",
   },
   {
     icon: "hand-heart",
     label: "Provide direct assistance",
-    description: "Support urgent requests with goods, services, or short-term financial help for returning citizens and their families.",
+    description:
+      "Support urgent requests with goods, services, or short-term financial help for returning citizens and their families.",
   },
   {
     icon: "user",
     label: "Become an RCAN volunteer",
-    description: "Build one-to-one mentoring relationships and help connect your community to meaningful opportunities to respond.",
+    description:
+      "Build one-to-one mentoring relationships and help connect your community to meaningful opportunities to respond.",
   },
 ] as const;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section aria-labelledby="get-involved-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
+  <section
+    aria-labelledby="get-involved-heading"
+    class="border-b border-border-default pb-10 pt-2 md:pb-12"
+  >
     <PageHeader
       id="get-involved-heading"
-      eyebrow="Get Involved"
       heading="Bring your strengths to RCAN."
       subheading="RCAN brings together individuals, small groups, and congregations to respond to urgent needs that can otherwise derail successful reentry."
     />
   </section>
 
-  <section aria-labelledby="ways-heading" class="py-10">
+  <section aria-labelledby="ways-heading" class="pb-10">
     <SectionTitle id="ways-heading" text="Ways to help" />
     <IconCardGrid items={waysToHelp} ariaLabel="Ways to get involved with RCAN" columns={4} />
   </section>
 
   <section class="border-t border-border-default py-10" aria-labelledby="commitments-heading">
     <div class="grid gap-8 lg:grid-cols-[2fr_3fr] lg:items-stretch">
-      <figure class="overflow-hidden rounded-lg shadow-md">
+      <figure class="flex h-full flex-col items-center justify-center">
         <Image
-          src={rcanAndPdsImage}
-          class="h-full w-full object-cover"
-          alt="RCAN and PDS staff together, representing congregation partnership and coordinated support."
-          width={900}
-          widths={[360, 540, 720, 900]}
-          sizes="(min-width: 1024px) 40vw, 100vw"
+          src={rcanLogoLockupTagline}
+          class="w-full max-w-40 object-contain sm:max-w-xs"
+          alt="Returning Citizens Assistance Network — Helping Your Neighbors Come Home"
+          width={640}
+          widths={[320, 480, 640]}
+          sizes="(min-width: 1024px) 30vw, 60vw"
           format="webp"
-          quality={60}
           loading="lazy"
         />
       </figure>
 
       <div>
-        <SectionTitle id="commitments-heading" text="Congregation commitments" align="left" />
-        <p class="mt-2 max-w-2xl text-sm leading-6 text-text-subtle">Any congregation that joins RCAN agrees to three commitments:</p>
+        <SectionTitle
+          id="commitments-heading"
+          text="Congregation commitments"
+          align="left"
+          centerOnMobile
+        />
+        <p class="mt-6 max-w-2xl text-sm leading-6 text-text-subtle">
+          Any congregation that joins RCAN agrees to three commitments:
+        </p>
         <IconSupportList
           items={congregationCommitments}
           ordered
@@ -107,8 +118,5 @@ const waysToHelp = [
     primaryHref="/donate"
     secondaryLabel="Contact"
     secondaryHref="/contact"
-    variant="fill"
   />
-
-  <CountUpScript />
 </BaseLayout>

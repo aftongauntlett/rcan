@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import PageHeader from "../components/PageHeader.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import CTABlock from "../components/CTABlock.astro";
 import Icon from "../components/Icon.astro";
 import { congregations } from "../data/congregations";
+import rcanAndPdsImage from "../assets/rcan_and_pds_staff.jpeg";
 
 const pageTitle = "Who We Are | RCAN";
 const pageDescription =
@@ -13,52 +15,82 @@ const pageDescription =
 const boardMembers = [
   { name: "Madalena Aspiras", affiliation: "Warner Memorial Presbyterian Church" },
   { name: "Theo Brown", affiliation: "New York Avenue Presbyterian Church" },
-  { name: "Laura Cohen", affiliation: "Public Defender Service" },
+  { name: "Laura Beth Cohen", affiliation: "Public Defender Service" },
   { name: "Quiana Harris", affiliation: "Public Defender Service" },
   { name: "Rob Hornstein", affiliation: "Public Defender Service" },
-  { name: "Connie Kurihara", affiliation: "St. Columba's Episcopal Church" },
+  { name: "Kay Tatum", affiliation: "St. Columba's Episcopal" },
   { name: "Marcia Mendenhall", affiliation: "Emory United Methodist Church" },
   { name: "Eric Nicoll", affiliation: "Holy Trinity Catholic Church" },
-  { name: "Kay Tatum", affiliation: "St. Columba's Episcopal" },
+  { name: "Connie Kurihara", affiliation: "St. Columba's Episcopal Church" },
 ];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section aria-labelledby="who-we-are-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
+  <section
+    aria-labelledby="who-we-are-heading"
+    class="border-b border-border-default pb-10 pt-2 md:pb-12"
+  >
     <PageHeader
       id="who-we-are-heading"
-      eyebrow="Who We Are"
       heading="A volunteer board and a growing network of congregations"
     />
   </section>
 
   <!-- Board of Directors -->
-  <section class="py-10" aria-labelledby="board-heading">
+  <section class="pb-6" aria-labelledby="board-heading">
     <SectionTitle id="board-heading" text="Board of Directors" />
-    <p class="mx-auto mt-2 max-w-2xl text-center text-sm text-text-subtle">
-      Three attorneys with Public Defender Service and six representatives from RCAN member congregations.
+    <p class="mx-auto mt-6 max-w-2xl text-center text-sm text-text-subtle">
+      Three attorneys with Public Defender Service and six representatives from RCAN member
+      congregations.
     </p>
     <ul class="mt-6 grid gap-3 sm:grid-cols-2" aria-label="Board of Directors">
       {
-        boardMembers.map(({ name, affiliation }) => (
-          <li class="flex items-baseline gap-2 rounded-lg border border-border-default bg-surface-subtle px-4 py-4">
-            <span class="text-sm font-semibold text-text-default">{name},</span>
-            <span class="text-xs text-text-subtle">{affiliation}</span>
+        boardMembers.map(({ name, affiliation }, index) => (
+          <li
+            class={`flex flex-col items-center justify-center gap-1 rounded-lg border border-border-default bg-surface-subtle px-4 py-4 text-center sm:flex-row sm:items-baseline sm:gap-2 ${
+              index === boardMembers.length - 1 ? "sm:col-span-2 sm:mx-auto sm:w-1/2" : ""
+            }`}
+          >
+            <span class="text-base font-semibold text-text-default">
+              {name}
+              <span class="hidden sm:inline">,</span>
+            </span>
+            <span class="text-sm text-text-subtle">{affiliation}</span>
           </li>
         ))
       }
     </ul>
+
+    <figure class="mx-auto mt-8 max-w-3xl overflow-hidden rounded-lg shadow-md">
+      <Image
+        src={rcanAndPdsImage}
+        class="w-full"
+        alt="RCAN volunteers and PDS staff gathered together at a Christmas party in 2025."
+        width={1200}
+        widths={[480, 720, 960, 1200]}
+        sizes="(min-width: 640px) 768px, 100vw"
+        format="webp"
+        quality={60}
+        loading="lazy"
+      />
+      <figcaption class="bg-surface-subtle px-4 py-2 text-center text-sm italic text-text-subtle">
+        RCAN volunteers and PDS staff together at a Christmas party in 2025.
+      </figcaption>
+    </figure>
   </section>
 
   <!-- Participating Congregations -->
   <section class="border-t border-border-default py-10" aria-labelledby="congregations-heading">
     <SectionTitle id="congregations-heading" text="Participating congregations" />
-    <p class="mx-auto mt-2 max-w-2xl text-center text-base leading-7 text-text-subtle">
+    <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-text-subtle">
       {congregations.length} congregations across the Washington, DC area have joined RCAN and committed
       to responding to needs as they arise.
     </p>
 
-    <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label="List of participating congregations">
+    <ul
+      class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+      aria-label="List of participating congregations"
+    >
       {
         congregations.map(({ name, url }) => (
           <li>
@@ -68,10 +100,15 @@ const boardMembers = [
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${name} (opens in a new tab)`}
-                class="group flex items-center justify-between gap-2 rounded-lg border border-border-default bg-surface-default px-4 py-3 text-sm font-medium text-text-default shadow-sm motion-safe:transition-colors motion-safe:duration-200 visited:text-neutral-600 hover:border-brand-secondary hover:bg-surface-subtle"
+                class="group flex items-center justify-between gap-2 rounded-lg border border-border-default bg-surface-default px-4 py-3 text-sm font-medium text-text-default shadow-sm motion-safe:transition-colors motion-safe:duration-200 visited:underline visited:underline-offset-2 hover:border-brand-secondary hover:bg-surface-subtle"
               >
                 <span class="flex min-w-0 items-center gap-2">
-                  <Icon name="landmark" size="sm" class="shrink-0 text-brand-secondary group-visited:text-neutral-400" aria-hidden="true" />
+                  <Icon
+                    name="landmark"
+                    size="sm"
+                    class="shrink-0 text-brand-secondary"
+                    aria-hidden="true"
+                  />
                   <span class="truncate">{name}</span>
                 </span>
                 <Icon
@@ -83,7 +120,12 @@ const boardMembers = [
               </a>
             ) : (
               <div class="flex items-center gap-2 rounded-lg border border-border-default bg-surface-default px-4 py-3 text-sm font-medium text-text-default">
-                <Icon name="landmark" size="sm" class="shrink-0 text-text-subtle" aria-hidden="true" />
+                <Icon
+                  name="landmark"
+                  size="sm"
+                  class="shrink-0 text-text-subtle"
+                  aria-hidden="true"
+                />
                 <span class="truncate">{name}</span>
               </div>
             )}
@@ -101,5 +143,4 @@ const boardMembers = [
     secondaryLabel="Contact us"
     secondaryHref="/contact"
   />
-
 </BaseLayout>

@@ -1,4 +1,3 @@
-import rcanAndPdsStaffImage from "../assets/rcan_and_pds_staff.jpeg";
 import bagOfGiftsImage from "../assets/bag-of-gifts.jpg";
 import beautyBehindBarsImage from "../assets/beauty-behind-bars.jpg";
 import paintingImage from "../assets/painting.jpg";
@@ -6,8 +5,6 @@ import bikeGiftsImage from "../assets/bike-gifts.jpg";
 import bikeBagsGiftImage from "../assets/bike-bags-gift.jpg";
 import bikeDonationImage from "../assets/bike-donation.jpeg";
 import mrrogersBikeImage from "../assets/mrrogersbike.jpg";
-
-export { rcanAndPdsStaffImage };
 
 export const pathwaySteps = [
   {
@@ -47,43 +44,47 @@ export const prisonFriendsDo = [
   },
 ] as const;
 
-export const bikeSlides = [
+export const bikePhotos = [
   {
     src: bikeDonationImage,
-    class: "object-contain",
     alt: "A donated bicycle being prepared for restoration by Manuel Vera.",
+    caption: "A donated bike ready for Manuel Vera to restore.",
   },
   {
     src: mrrogersBikeImage,
-    class: "object-contain",
     alt: "Manuel Vera with a restored bicycle ready for a new rider.",
+    caption: "A restored bicycle ready for its new rider.",
   },
 ] as const;
 
-export const beautySlides = [
+export const beautyPhotos = [
   {
     src: beautyBehindBarsImage,
-    class: "object-cover object-top",
     alt: "PDS staff, RCAN volunteers, and recently returned clients show their artwork at the Beauty Behind Bars event at St. Columba's Episcopal Church.",
+    caption: "PDS staff, RCAN volunteers, and PDS clients at the Beauty Behind Bars event.",
   },
   {
     src: paintingImage,
     alt: "A recently returned PDS client stands beside his large mural on display at the Beauty Behind Bars exhibition.",
+    caption: "A PDS client stands beside his mural at the exhibition.",
   },
 ] as const;
 
-export const holidaySlides = [
+export const holidayPhotos = [
   {
     src: bagOfGiftsImage,
     alt: "Holiday gift bags prepared for detained youth at the Youth Services Center.",
+    caption: "Gift bags prepared for youth at the Youth Services Center.",
     quality: 70,
   },
   {
     src: bikeGiftsImage,
     alt: "A restored bicycle prepared for delivery to a returning citizen.",
+    caption: "A restored bicycle ready for delivery.",
   },
   {
     src: bikeBagsGiftImage,
     alt: "A restored bicycle displayed with gift bags prepared by RCAN supporters.",
+    caption: "A bicycle and gift bags prepared by RCAN supporters.",
   },
 ] as const;

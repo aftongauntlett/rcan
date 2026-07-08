@@ -2,12 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import PageHeader from "../components/PageHeader.astro";
-import SectionHeader from "../components/SectionHeader.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import QuoteCard from "../components/QuoteCard.astro";
 import CTABlock from "../components/CTABlock.astro";
 import StatStrip from "../components/StatStrip.astro";
-import cakeGiftImage from "../assets/cake-gift.jpg";
+import joyArtImage from "../assets/joy-art.svg";
+import familyArtImage from "../assets/family-art.svg";
+import birthdayArtImage from "../assets/birthday-art.svg";
 
 const pageTitle = "Impact | RCAN";
 const pageDescription =
@@ -21,18 +22,19 @@ const impactStats = [
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-
   <!-- Hero -->
-  <section aria-labelledby="impact-heading" class="border-b border-border-default pb-10 pt-2 md:pb-12">
+  <section
+    aria-labelledby="impact-heading"
+    class="border-b border-border-default pb-10 pt-2 md:pb-12"
+  >
     <PageHeader
       id="impact-heading"
-      eyebrow="Impact"
       heading="2025 Impact Highlights"
       subheading="Stories, program updates, and results from across the RCAN network this year."
     />
   </section>
 
-  <section class="py-10" aria-labelledby="numbers-heading">
+  <section class="pb-10" aria-labelledby="numbers-heading">
     <SectionTitle id="numbers-heading" text="2025 by the numbers" />
     <div class="mt-6">
       <StatStrip
@@ -44,40 +46,60 @@ const impactStats = [
       />
     </div>
     <p class="mx-auto mt-6 max-w-3xl text-center text-base leading-7 text-text-subtle">
-      The highlights below show personal stories, program milestones, and practical outcomes across the network, including $15,325 in gift cards and material support for food insecurity, eviction risk, utility bills, clothing, funeral costs, car repairs, restitution, and professional fees.
+      The highlights below show personal stories, program milestones, and practical outcomes across
+      the network, including $15,325 in gift cards and material support for food insecurity,
+      eviction risk, utility bills, clothing, funeral costs, car repairs, restitution, and
+      professional fees.
     </p>
   </section>
 
   <section class="border-t border-border-default pt-10" aria-labelledby="client-stories-heading">
-    <SectionHeader
-      id="client-stories-heading"
-      level={2}
-      heading="Client Stories"
-      class="mb-8"
-    />
+    <SectionTitle id="client-stories-heading" text="Client Stories" class="mb-8" />
     <div class="flex flex-col gap-10">
       <article aria-labelledby="mr-e-heading">
-        <div class="flex h-full flex-col">
-          <SectionTitle id="mr-e-heading" text="Mr. E. — The Most Joyful Man" level={3} />
+        <SectionTitle
+          id="mr-e-heading"
+          text="Mr. E. — The Most Joyful Man"
+          level={3}
+          align="left"
+          centerOnMobile
+        />
+        <div class="mt-5 grid gap-8 lg:grid-cols-[8fr_4fr] lg:items-center">
           <QuoteCard
-            class="mt-5"
+            class="order-2 lg:order-1"
             items={[
               {
-                quote: "His time at the hotel has been invaluable. It has allowed him to experience the dignity of getting back on his feet with a hot shower, clean bed, and free coffee in the morning — something he has not had for months. For his team, it has allowed us to focus on all the collateral needs he has, which would otherwise be barriers to housing: things like getting him connected with a core services agency, obtaining copies of his birth certificate, and tracking down verification of disability benefit. He walks with a cane and despite an extraordinarily difficult life fraught with poverty, addiction, and homelessness, Mr. E is the most joyful man to be around.",
+                quote:
+                  "His time at the hotel has been invaluable. It has allowed him to experience the dignity of getting back on his feet with a hot shower, clean bed, and free coffee in the morning — something he has not had for months. For his team, it has allowed us to focus on all the collateral needs he has, which would otherwise be barriers to housing: things like getting him connected with a core services agency, obtaining copies of his birth certificate, and tracking down verification of disability benefit. He walks with a cane and despite an extraordinarily difficult life fraught with poverty, addiction, and homelessness, Mr. E is the most joyful man to be around.",
                 reference: "— PDS Lawyer",
               },
             ]}
           />
+          <div
+            class="order-1 mx-auto w-full max-w-56 lg:order-2 lg:mx-0 lg:max-w-none"
+            aria-hidden="true"
+          >
+            <Image src={joyArtImage} alt="" class="h-auto w-full" />
+          </div>
         </div>
       </article>
       <article aria-labelledby="tw-story-heading">
-        <div class="flex h-full flex-col">
-          <SectionTitle id="tw-story-heading" text="TW — Safely With Family" level={3} />
+        <SectionTitle
+          id="tw-story-heading"
+          text="TW — Safely With Family"
+          level={3}
+          align="left"
+          centerOnMobile
+        />
+        <div class="mt-5 grid gap-8 lg:grid-cols-[3fr_9fr] lg:items-center">
+          <div class="mx-auto w-full max-w-56 lg:mx-0 lg:max-w-none" aria-hidden="true">
+            <Image src={familyArtImage} alt="" class="h-auto w-full" />
+          </div>
           <QuoteCard
-            class="mt-5"
             items={[
               {
-                quote: "Thank you all for your help in supporting TW and his family. All of your donations went such a long way to relieving the stress and anxiety of TW. He is safely with his grandparents that love and care for him. Their immediate burdens have been relieved thanks to the assistance of you all. I cannot express to you the joy this has brought to this family. Thank you all again so much!",
+                quote:
+                  "Thank you all for your help in supporting TW and his family. All of your donations went such a long way to relieving the stress and anxiety of TW. He is safely with his grandparents that love and care for him. Their immediate burdens have been relieved thanks to the assistance of you all. I cannot express to you the joy this has brought to this family. Thank you all again so much!",
                 reference: "— PDS Lawyer",
               },
             ]}
@@ -85,37 +107,40 @@ const impactStats = [
         </div>
       </article>
       <article aria-labelledby="davenport-story-heading">
-        <SectionTitle id="davenport-story-heading" text="Ms. Davenport's Birthday" level={3} />
-        <div class="mt-5 grid gap-8 lg:grid-cols-[9fr_3fr] lg:items-stretch">
-          <QuoteCard
-            items={[
-              {
-                quote: "This is so wonderful! Thank you, Kay! I spoke with Ms. Davenport today, and I can tell how much your friendship and support mean to her. And that birthday cake both looked and sounded amazing!",
-                reference: "— Florence Bryan, PDS Lawyer",
-              },
-              {
-                quote: "Florence, it is my pleasure to be a friend of Ms. Davenport. I enjoy my time with her. They are wonderful people. Ms. Davenport is very grateful for what you do for her and her family.",
-                reference: "— Kay Tatum, RCAN Member",
-              },
-            ]}
-          />
+        <SectionTitle
+          id="davenport-story-heading"
+          text="Ms. Davenport's Birthday"
+          level={3}
+          align="left"
+          centerOnMobile
+        />
+        <div class="mt-5 grid gap-8 lg:grid-cols-[9fr_3fr] lg:items-center">
+          <div class="order-2 flex flex-col gap-5 lg:order-1">
+            <QuoteCard
+              items={[
+                {
+                  quote:
+                    "This is so wonderful! Thank you, Kay! I spoke with Ms. Davenport today, and I can tell how much your friendship and support mean to her. And that birthday cake both looked and sounded amazing!",
+                  reference: "— Florence Bryan, PDS Lawyer",
+                },
+              ]}
+            />
+            <QuoteCard
+              items={[
+                {
+                  quote:
+                    "Florence, it is my pleasure to be a friend of Ms. Davenport. I enjoy my time with her. They are wonderful people. Ms. Davenport is very grateful for what you do for her and her family.",
+                  reference: "— Kay Tatum, RCAN Member",
+                },
+              ]}
+            />
+          </div>
 
-          <div class="flex h-full flex-col">
-            <figure class="relative h-full overflow-hidden rounded-lg shadow-md">
-              <Image
-                src={cakeGiftImage}
-                alt="An RCAN volunteer holds a birthday cake prepared for Ms. Davenport, a PDS client."
-                class="h-full w-full object-cover brightness-110 contrast-110"
-                widths={[320, 480, 640]}
-                sizes="(min-width: 1024px) 24vw, 100vw"
-                format="webp"
-                quality={70}
-                loading="lazy"
-              />
-              <figcaption class="absolute bottom-0 left-0 right-0 bg-surface-invert/70 px-3 py-2 text-center text-xs italic leading-5 text-text-invert">
-                An RCAN volunteer delivered a birthday cake to a PDS client.
-              </figcaption>
-            </figure>
+          <div
+            class="order-1 mx-auto w-full max-w-56 lg:order-2 lg:mx-0 lg:max-w-none"
+            aria-hidden="true"
+          >
+            <Image src={birthdayArtImage} alt="" class="h-auto w-full" />
           </div>
         </div>
       </article>
@@ -124,7 +149,6 @@ const impactStats = [
 
   <!-- CTA -->
   <CTABlock
-    variant="bare"
     heading="Help shape next year's impact."
     body="Donations meet urgent needs. Volunteers build lasting relationships. Join the network that responds when timing matters most."
     primaryLabel="Donate"
@@ -132,5 +156,4 @@ const impactStats = [
     secondaryLabel="Get involved"
     secondaryHref="/get-involved"
   />
-
 </BaseLayout>

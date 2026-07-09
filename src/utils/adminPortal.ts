@@ -1,45 +1,24 @@
 import { PAGE_GROUP_OPTIONS, PAGE_GROUPS_DATA, PAGE_SECTIONS } from "../data/admin";
 import { bootstrapAllStyledDropdowns } from "./styledDropdown";
 
-const SESSION_KEY = "rcan_admin_session";
-
 export function bootstrapAdminPortal(): void {
   if (document.documentElement.dataset.adminPortalBootstrapped === "true") return;
 
-  const loginScreen = document.getElementById("login-screen");
-  const portal = document.getElementById("portal");
-  const loginError = document.getElementById("login-error");
   const submitSuccess = document.getElementById("submit-success");
   const submitError = document.getElementById("submit-error");
   const submitBtn = document.querySelector<HTMLButtonElement>("#submit-btn");
   const submitLabel = document.getElementById("submit-label");
   const changesContainer = document.getElementById("changes-container");
   const changeForm = document.querySelector<HTMLFormElement>("#change-request-form");
+  const loginForm = document.querySelector<HTMLFormElement>("#login-form");
 
-  if (!loginScreen || !portal || !loginError || !changesContainer || !changeForm) return;
+  if (!loginForm && (!changesContainer || !changeForm)) return;
 
   document.documentElement.dataset.adminPortalBootstrapped = "true";
 
-  const loginScreenEl = loginScreen;
-  const portalEl = portal;
-  const loginErrorEl = loginError;
-  const adminUser = String(import.meta.env.PUBLIC_ADMIN_USER ?? "");
-  const adminPass = String(import.meta.env.PUBLIC_ADMIN_PASS ?? "");
-
-  function showPortal() {
-    loginScreenEl.hidden = true;
-    portalEl.hidden = false;
+  if (loginForm) {
+    wireLoginForm(loginForm);
   }
-
-  function showLogin() {
-    portalEl.hidden = true;
-    loginScreenEl.hidden = false;
-    (document.getElementById("admin-username") as HTMLInputElement).value = "";
-    (document.getElementById("admin-password") as HTMLInputElement).value = "";
-    loginErrorEl.hidden = true;
-  }
-
-  if (localStorage.getItem(SESSION_KEY) === "authenticated") showPortal();
 
   document.getElementById("show-password")?.addEventListener("change", (event) => {
     const checkbox = event.target as HTMLInputElement;
@@ -48,23 +27,11 @@ export function bootstrapAdminPortal(): void {
       : "password";
   });
 
-  document.getElementById("login-form")?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const user = (document.getElementById("admin-username") as HTMLInputElement).value.trim();
-    const pass = (document.getElementById("admin-password") as HTMLInputElement).value;
-    if (user === adminUser && pass === adminPass) {
-      localStorage.setItem(SESSION_KEY, "authenticated");
-      loginErrorEl.hidden = true;
-      showPortal();
-    } else {
-      loginErrorEl.hidden = false;
-    }
+  document.getElementById("sign-out")?.addEventListener("click", () => {
+    void signOut();
   });
 
-  document.getElementById("sign-out")?.addEventListener("click", () => {
-    localStorage.removeItem(SESSION_KEY);
-    showLogin();
-  });
+  if (!changesContainer || !changeForm) return;
 
   wireBlock(changesContainer.querySelector<HTMLElement>(".change-block")!);
   renumberBlocks(changesContainer);
@@ -90,6 +57,65 @@ export function bootstrapAdminPortal(): void {
   bootstrapRequestHistory();
 }
 
+function wireLoginForm(loginForm: HTMLFormElement) {
+  const loginError = document.getElementById("login-error");
+  const submitButton = loginForm.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  loginForm.addEventListener("submit", (event) => {
+    void submitLogin(event, { loginForm, loginError, submitButton });
+  });
+}
+
+async function submitLogin(
+  event: SubmitEvent,
+  elements: {
+    loginForm: HTMLFormElement;
+    loginError: HTMLElement | null;
+    submitButton: HTMLButtonElement | null;
+  },
+): Promise<void> {
+  const { loginForm, loginError, submitButton } = elements;
+  event.preventDefault();
+
+  const username = loginForm.querySelector<HTMLInputElement>("#admin-username")?.value.trim() ?? "";
+  const password = loginForm.querySelector<HTMLInputElement>("#admin-password")?.value ?? "";
+
+  if (loginError) loginError.hidden = true;
+  if (submitButton) submitButton.disabled = true;
+
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (response.ok) {
+      window.location.assign("/admin");
+      return;
+    }
+  } catch {
+    // The same generic error message is shown below.
+  }
+
+  if (loginError) loginError.hidden = false;
+  if (submitButton) submitButton.disabled = false;
+}
+
+async function signOut(): Promise<void> {
+  try {
+    await fetch("/api/logout", {
+      method: "POST",
+      headers: { Accept: "application/json" },
+    });
+  } finally {
+    window.location.assign("/");
+  }
+}
+
 async function submitChangeRequest(
   event: SubmitEvent,
   elements: {
@@ -106,6 +132,10 @@ async function submitChangeRequest(
 
   event.preventDefault();
   if (!submitSuccess || !submitError || !submitBtn || !submitLabel) return;
+  if (!changeForm.checkValidity()) {
+    changeForm.reportValidity();
+    return;
+  }
 
   submitSuccess.hidden = true;
   submitError.hidden = true;
@@ -363,7 +393,7 @@ function createBlock(changesContainer: HTMLElement): HTMLElement {
     </div>
     ${makePageCardsHTML("page-placeholder", `page-group-select-${blockCounter}`)}
     <div class="space-y-2">
-      <label class="block text-sm font-semibold uppercase tracking-wide text-brand-primary">What would you like changed?</label>
+      <label class="block text-sm font-semibold uppercase tracking-wide text-brand-primary">What would you like changed?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span></label>
       <p class="text-sm text-text-subtle">Describe the change in your own words. The more detail, the better.</p>
       <textarea data-field="description" rows="6" required
         placeholder="Example: Please update the first paragraph to say..."

@@ -146,9 +146,31 @@ export const getPriorityChipClass = (priority: string, status: ChangeRequestStat
 // Notes and statuses render on the admin page for all logged-in users.
 export const CHANGE_REQUESTS: ChangeRequest[] = [
   {
-    id: "2026-07-09-impact-page-stories",
+    id: "2026-07-09-nonprofit-donor-footer",
     requester: "Theo",
     submitted: "July 9, 2026",
+    priority: "Urgent (ASAP, today if possible)",
+    status: "Complete",
+    note: "Theo requested urgent updates around donation trust messaging and nonprofit status.",
+    changes: [
+      {
+        page: "Donate",
+        section: "Give to RCAN",
+        description:
+          "Add nonprofit/tax-deductible donation language to the donation page so donors can clearly see RCAN is a 501(c)(3).",
+      },
+      {
+        page: "Footer",
+        section: "Copyright / legal",
+        description:
+          "Add RCAN nonprofit status to the footer: RCAN is a 501(c)(3) organization and donations are tax deductible.",
+      },
+    ],
+  },
+  {
+    id: "2026-07-08-impact-page-stories",
+    requester: "Theo",
+    submitted: "July 8, 2026",
     priority: "No Rush (1 week)",
     status: "Complete",
     note: "Theo provided five short narrative vignettes plus summary sentences for the existing client stories.",
@@ -229,8 +251,8 @@ export const CHANGE_REQUESTS: ChangeRequest[] = [
     requester: "Afton - Developer",
     submitted: "July 3, 2026",
     priority: "Rush (a few days)",
-    status: "In progress",
-    note: "Launch coordination is in progress. The client will complete Donorbox payment setup, and the developer will handle DNS updates once the donation flow is ready.",
+    status: "Complete",
+    note: "Donorbox setup and launch coordination are complete.",
     changes: [
       {
         page: "Donate",

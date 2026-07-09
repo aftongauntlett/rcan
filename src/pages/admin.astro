@@ -7,7 +7,10 @@ import AdminPortal from "../components/admin/AdminPortal.astro";
 import PageChangeModal from "../components/admin/PageChangeModal.astro";
 import { CHANGE_REQUESTS } from "../data/admin";
 
-const prefillUser = import.meta.env.PUBLIC_ADMIN_USER ?? "";
+export const prerender = false;
+
+const adminSession = Astro.cookies.get("admin_session")?.value;
+const isAuthenticated = adminSession === "rcan-admin-authenticated";
 ---
 
 <!doctype html>
@@ -22,9 +25,16 @@ const prefillUser = import.meta.env.PUBLIC_ADMIN_USER ?? "";
     </script>
   </head>
   <body class="flex min-h-full flex-col bg-surface-default font-sans text-text-default antialiased">
-    <AdminLogin prefillUser={prefillUser} />
-    <AdminPortal requests={CHANGE_REQUESTS} />
-    <PageChangeModal />
+    {
+      isAuthenticated ? (
+        <>
+          <AdminPortal requests={CHANGE_REQUESTS} />
+          <PageChangeModal />
+        </>
+      ) : (
+        <AdminLogin />
+      )
+    }
 
     <script>
       import { bootstrapAdminPortal } from "../utils/adminPortal";

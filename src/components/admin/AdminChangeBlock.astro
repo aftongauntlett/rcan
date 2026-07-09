@@ -80,7 +80,7 @@ const { index = 1 } = Astro.props;
       for={`change-${index}-description`}
       class="block text-sm font-semibold uppercase tracking-wide text-brand-primary"
     >
-      What would you like changed?
+      What would you like changed?<span class="ml-0.5 text-status-error" aria-hidden="true">*</span>
     </label>
     <p class="text-sm text-text-subtle">
       Describe the change in your own words. The more detail, the better.

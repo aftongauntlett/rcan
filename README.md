@@ -19,6 +19,7 @@ Website for the [Returning Citizens Assistance Network](https://www.rcandc.org/)
 - Tailwind CSS 4
 - ESLint, Prettier
 - Vitest, Playwright
+- Vercel Analytics (`@vercel/analytics`), enabled via Vercel hosting
 
 ## Local Development
 

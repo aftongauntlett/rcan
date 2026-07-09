@@ -30,6 +30,8 @@ This is the important part. A few pieces of this project are **not owned by RCAN
 5. Once it's deploying successfully on your account, ask whoever manages DNS (Wix, via Theo/RCAN) to point the domain at your new Vercel deployment instead of the old one.
 6. Old developer can then remove the project from their Vercel account.
 
+Site analytics (page views, traffic) are provided by [Vercel Analytics](https://vercel.com/docs/analytics), viewable in the Vercel dashboard for whichever account the project is deployed under. No separate account or setup is needed — it's included with hosting and enabled via the `<Analytics />` component in the base layout.
+
 ## How to move forms to your own Formspree account
 
 The site uses Formspree for two forms, hardcoded by URL:

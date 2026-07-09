@@ -146,6 +146,28 @@ export const getPriorityChipClass = (priority: string, status: ChangeRequestStat
 // Notes and statuses render on the admin page for all logged-in users.
 export const CHANGE_REQUESTS: ChangeRequest[] = [
   {
+    id: "2026-07-09-impact-page-stories",
+    requester: "Theo",
+    submitted: "July 9, 2026",
+    priority: "No Rush (1 week)",
+    status: "Complete",
+    note: "Theo provided five short narrative vignettes plus summary sentences for the existing client stories.",
+    changes: [
+      {
+        page: "Impact",
+        section: "Because of RCAN",
+        description:
+          "Add a new section near the top of the page with five short narratives showing examples of how RCAN helps.",
+      },
+      {
+        page: "Impact",
+        section: "Client Stories",
+        description:
+          'Add a one-line summary above each of the three existing client stories explaining what RCAN did to help. Also anonymize "Ms. Davenport" to "Ms. D".',
+      },
+    ],
+  },
+  {
     id: "2026-07-07-content-updates",
     requester: "Theo",
     submitted: "July 7, 2026",

@@ -19,6 +19,29 @@ const impactStats = [
   { prefix: "$", value: "15,325", label: "In Gift Cards Provided" },
   { value: "120", label: "Detained Juveniles Received Gifts" },
 ];
+
+const becauseOfRcan = [
+  {
+    kicker: "A woman has a place to live in an emergency",
+    body: "Ms. RH served an unusually long prison sentence for her crime and was finally granted compassionate release after 28 years of confinement. She is in ill health and needs a walker to move around. She had no place to stay when she was released from prison and RCAN paid for a room until other arrangements could be made. RCAN also provided her with a cell phone she needed in order to start rebuilding her life.",
+  },
+  {
+    kicker: "An immigrant is able to save his possessions",
+    body: "Mr. HRA is a Venezuelan immigrant who was kicked out of his apartment because he was arrested and his landlord put his belongings on the street. He was unable to take 8 suitcases of personal items that belong to him to his shelter and needed someone to store his things until his life stabilized. RCAN found a volunteer to store his things in a shed until he could later reclaim them.",
+  },
+  {
+    kicker: "A man just back from prison has a way to get around in the community",
+    body: "Mr. CJ is a 50-year-old man who just returned home after more than 20 years in prison. He lined up a job soon after arriving back in the community, but had no easy means of transportation. RCAN volunteer Manuel Vera provided him with a refurbished bicycle and RCAN donated the helmet and lock he needed to ride the bike to work and back.",
+  },
+  {
+    kicker: "A family has furniture for their new apartment",
+    body: "The family of PDS client Mr. NF had been living in deplorable conditions where they endured rats, mold and lack of heat. Luckily, they found a new two-bedroom place that meets their needs, but they had no usable furniture they could take with them. RCAN asked volunteers to help collect items and furnishings were found to fill all the rooms in the apartment.",
+  },
+  {
+    kicker: "A pregnant mom has what she needs to care for her small children",
+    body: "A young mother, Ms. SD, who is pregnant and on home confinement was unable to work to provide for her 3 small children. RCAN provided her with gift cards to get diapers, clothes and other household necessities. RCAN volunteers also collected fans and a window unit to keep her apartment cool in the summer.",
+  },
+];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -53,6 +76,32 @@ const impactStats = [
     </p>
   </section>
 
+  <section
+    class="border-t border-border-default pb-10 pt-10"
+    aria-labelledby="because-of-rcan-heading"
+  >
+    <SectionTitle id="because-of-rcan-heading" text="Because of RCAN" />
+    <p class="mx-auto mt-4 max-w-3xl text-center text-base leading-7 text-text-subtle">
+      Things like this happen on a regular basis:
+    </p>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2">
+      {
+        becauseOfRcan.map((story, index) => (
+          <div
+            class={`rounded-lg border border-border-default bg-surface-default px-5 py-5 shadow-sm motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md ${
+              index === becauseOfRcan.length - 1 ? "sm:col-span-2 sm:mx-auto sm:max-w-xl" : ""
+            }`}
+          >
+            <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+              {story.kicker}
+            </p>
+            <p class="mt-2 text-base leading-7 text-text-subtle">{story.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
   <section class="border-t border-border-default pt-10" aria-labelledby="client-stories-heading">
     <SectionTitle id="client-stories-heading" text="Client Stories" class="mb-8" />
     <div class="flex flex-col gap-10">
@@ -64,6 +113,11 @@ const impactStats = [
           align="left"
           centerOnMobile
         />
+        <p
+          class="mt-4 text-center text-sm font-semibold uppercase tracking-wide text-brand-secondary lg:text-left"
+        >
+          RCAN provided a place to stay for this returning citizen
+        </p>
         <div class="mt-5 grid gap-8 lg:grid-cols-[8fr_4fr] lg:items-center">
           <QuoteCard
             class="order-2 lg:order-1"
@@ -91,6 +145,11 @@ const impactStats = [
           align="left"
           centerOnMobile
         />
+        <p
+          class="mt-4 text-center text-sm font-semibold uppercase tracking-wide text-brand-secondary lg:text-left"
+        >
+          A young man received clothes after all his possessions had been lost
+        </p>
         <div class="mt-5 grid gap-8 lg:grid-cols-[3fr_9fr] lg:items-center">
           <div class="mx-auto w-full max-w-56 lg:mx-0 lg:max-w-none" aria-hidden="true">
             <Image src={familyArtImage} alt="" class="h-auto w-full" />
@@ -106,21 +165,26 @@ const impactStats = [
           />
         </div>
       </article>
-      <article aria-labelledby="davenport-story-heading">
+      <article aria-labelledby="ms-d-story-heading">
         <SectionTitle
-          id="davenport-story-heading"
-          text="Ms. Davenport's Birthday"
+          id="ms-d-story-heading"
+          text="Ms. D's Birthday"
           level={3}
           align="left"
           centerOnMobile
         />
+        <p
+          class="mt-4 text-center text-sm font-semibold uppercase tracking-wide text-brand-secondary lg:text-left"
+        >
+          An RCAN volunteer brought birthday greetings to the family of a PDS client
+        </p>
         <div class="mt-5 grid gap-8 lg:grid-cols-[9fr_3fr] lg:items-center">
           <div class="order-2 flex flex-col gap-5 lg:order-1">
             <QuoteCard
               items={[
                 {
                   quote:
-                    "This is so wonderful! Thank you, Kay! I spoke with Ms. Davenport today, and I can tell how much your friendship and support mean to her. And that birthday cake both looked and sounded amazing!",
+                    "This is so wonderful! Thank you, Kay! I spoke with Ms. D today, and I can tell how much your friendship and support mean to her. And that birthday cake both looked and sounded amazing!",
                   reference: "— Florence Bryan, PDS Lawyer",
                 },
               ]}
@@ -129,7 +193,7 @@ const impactStats = [
               items={[
                 {
                   quote:
-                    "Florence, it is my pleasure to be a friend of Ms. Davenport. I enjoy my time with her. They are wonderful people. Ms. Davenport is very grateful for what you do for her and her family.",
+                    "Florence, it is my pleasure to be a friend of Ms. D. I enjoy my time with her. They are wonderful people. Ms. D is very grateful for what you do for her and her family.",
                   reference: "— Kay Tatum, RCAN Member",
                 },
               ]}

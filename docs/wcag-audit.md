@@ -10,7 +10,7 @@ Last updated: 2026-05-21
 
 Site type and stack:
 
-- Multi-page Astro 6 website with TypeScript and Tailwind CSS 4
+- Multi-page Astro 7 website with TypeScript and Tailwind CSS 4
 - Shared layout and reusable Astro components
 - Utility-level interaction logic tested with Vitest
 

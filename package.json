@@ -11,13 +11,13 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "npm run build && playwright test",
-    "test:a11y": "npm run build && playwright test tests/e2e/accessibility.spec.ts",
+    "test:e2e": "playwright test",
+    "test:a11y": "playwright test tests/e2e/accessibility.spec.ts",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
     "prebuild": "astro check",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "astro dev",
     "lighthouse:mobile": "lhci autorun --config=.lighthouserc.mobile.json",
     "lighthouse:desktop": "lhci autorun --config=.lighthouserc.desktop.json",
     "lighthouse:ci": "npm run build && npm run lighthouse:mobile && npm run lighthouse:desktop",
@@ -26,16 +26,16 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
-    "@astrojs/vercel": "^10.0.8",
+    "@astrojs/vercel": "11.0.2",
     "@fontsource/caveat": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/manrope": "^5.2.8",
     "@fontsource/quicksand": "^5.2.10",
     "@formspree/ajax": "^1.1.5",
-    "@lucide/astro": "^1.16.0",
-    "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.3.5",
-    "tailwindcss": "^4.3.0",
+    "@lucide/astro": "1.24.0",
+    "@tailwindcss/vite": "4.3.2",
+    "astro": "7.0.7",
+    "tailwindcss": "4.3.2",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
@@ -57,6 +57,8 @@
     "vitest": "^4.1.6"
   },
   "overrides": {
-    "tmp": "0.2.7"
+    "path-to-regexp": "6.3.0",
+    "tmp": "0.2.7",
+    "uuid": "11.1.1"
   }
 }

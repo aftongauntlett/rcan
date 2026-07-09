@@ -35,6 +35,7 @@ for (const route of routes) {
   test(`axe scan has no serious or critical issues on ${route}`, async ({ page }) => {
     await page.route(/donorbox\.org/, (donorboxRoute) => donorboxRoute.abort());
     await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle");
 
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])

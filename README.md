@@ -15,7 +15,38 @@ Website for the [Returning Citizens Assistance Network](https://www.rcandc.org/)
 
 ## Tech stack
 
-- Astro 6, TypeScript
+- Astro 7, TypeScript
 - Tailwind CSS 4
 - ESLint, Prettier
 - Vitest, Playwright
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+npm run preview
+npm run build
+```
+
+Node.js 24 is recommended for local parity with Vercel serverless functions. Node.js 22.12.0 or newer is supported by the project.
+
+## Release Checks
+
+Run these before publishing meaningful changes:
+
+```bash
+npm run check
+npm run lint
+npm run test
+npm run format
+npm run build
+npm run audit:deps
+npm run test:e2e
+```
+
+Notes:
+
+- `npm run preview` intentionally aliases Astro's dev server because the Vercel adapter does not support `astro preview` for this server-mode build.
+- `npm run test:e2e` starts Astro's dev server through Playwright. The Playwright config sets `ASTRO_DEV_BACKGROUND=1` so Astro 7 runs in the foreground under agent/CI environments.
+- The contact form imports Formspree's ESM build directly (`@formspree/ajax/dist/index.mjs`) because Astro 7's bundler resolves the package browser entry differently.

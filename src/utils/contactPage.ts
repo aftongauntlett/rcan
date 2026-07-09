@@ -1,4 +1,4 @@
-import { initForm } from "@formspree/ajax";
+import { initForm } from "@formspree/ajax/dist/index.mjs";
 import { shouldResetSubmitState } from "./contactInteractions";
 import { selectCustomDropdownValue } from "./dropdownClient";
 import { initCopyButtons } from "./copyButtons";

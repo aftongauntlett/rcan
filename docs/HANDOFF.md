@@ -4,7 +4,7 @@ If you're reading this, you're probably taking over this website. Here's what yo
 
 ## What this is
 
-The website for RCAN (Returning Citizens Assistance Network), a DC-area nonprofit. It's built with [Astro](https://astro.build), a framework for content-focused sites. No database, no user accounts (except one simple admin page — see below).
+The website for RCAN (Returning Citizens Assistance Network), a DC-area nonprofit. It's built with [Astro 7](https://astro.build), a framework for content-focused sites. No database, no user accounts (except one simple admin page — see below).
 
 ## Who owns what
 
@@ -49,7 +49,7 @@ To move these:
 - **`src/pages/`** — one file per page (e.g. `about.astro`, `donate.astro`, `contact.astro`). This is the easiest place to start if you just need to change page content.
 - **`src/components/`** — reusable pieces (buttons, cards, header, footer, etc.) used across pages.
 - **`src/data/admin.ts`** — plain data file. Notably, `CHANGE_REQUESTS` near the top is a manually-maintained list of past site change requests, shown on the admin page as a history log.
-- **`src/pages/admin.astro`** — a simple internal page (protected by a basic username/password in `.env.local`, not real user accounts) where RCAN members can view request history and submit new change requests.
+- **`src/pages/admin.astro`** — a simple internal page where RCAN members can view request history and submit new change requests. It is protected by `ADMIN_USER` / `ADMIN_PASS` and a lightweight signed cookie, not a full user-account system.
 - **`src/styles/global.css`** and **`tailwind.config.ts`** — colors, fonts, spacing. Change these to restyle the whole site at once.
 - **`docs/`** — planning docs and guides from when the site was originally built. Mostly historical context, not required reading.
 
@@ -72,10 +72,17 @@ For anything structural (new pages, adding integrations, changing hosting), it's
 ```bash
 npm install       # install dependencies
 npm run dev        # start local preview at localhost
+npm run preview    # same local server; kept for npm-script familiarity
 npm run build       # build for production (Vercel does this automatically on push)
 ```
 
-Requires Node.js 22.12.0 or newer.
+Node.js 24 is recommended for local parity with Vercel serverless functions. Node.js 22.12.0 or newer is supported by the project.
+
+## Maintenance notes
+
+- `npm run test:e2e` and `npm run test:a11y` use Playwright against Astro's dev server. The Playwright config sets `ASTRO_DEV_BACKGROUND=1` so Astro 7 stays in the foreground under agent/CI environments.
+- The public contact form imports Formspree's ESM build directly (`@formspree/ajax/dist/index.mjs`) because Astro 7's bundler resolves the package browser entry differently. The local type shim for that import lives in `src/types/formspree-ajax.d.ts`.
+- The Vercel adapter does not support `astro preview` for this server-mode build. `npm run preview` intentionally aliases the Astro dev server; use `npm run build` for production verification.
 
 ## Contacts
 

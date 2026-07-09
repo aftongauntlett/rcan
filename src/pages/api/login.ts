@@ -1,17 +1,29 @@
 import type { APIRoute } from "astro";
+import { createAdminSessionToken } from "../../utils/adminSession";
 
 const COOKIE_NAME = "admin_session";
-const SESSION_VALUE = "rcan-admin-authenticated";
 const ONE_DAY_SECONDS = 60 * 60 * 24;
 
+type LoginPayload = {
+  username?: unknown;
+  password?: unknown;
+};
+
 export const prerender = false;
+
+const isLoginPayload = (value: unknown): value is LoginPayload =>
+  typeof value === "object" && value !== null;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   let username = "";
   let password = "";
 
   try {
-    const body = await request.json();
+    const body: unknown = await request.json();
+    if (!isLoginPayload(body)) {
+      return new Response(JSON.stringify({ ok: false }), { status: 401 });
+    }
+
     username = typeof body.username === "string" ? body.username : "";
     password = typeof body.password === "string" ? body.password : "";
   } catch {
@@ -25,7 +37,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     return new Response(JSON.stringify({ ok: false }), { status: 401 });
   }
 
-  cookies.set(COOKIE_NAME, SESSION_VALUE, {
+  cookies.set(COOKIE_NAME, createAdminSessionToken(adminPass), {
     httpOnly: true,
     secure: true,
     sameSite: "strict",

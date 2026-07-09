@@ -6,11 +6,13 @@ import AdminLogin from "../components/admin/AdminLogin.astro";
 import AdminPortal from "../components/admin/AdminPortal.astro";
 import PageChangeModal from "../components/admin/PageChangeModal.astro";
 import { CHANGE_REQUESTS } from "../data/admin";
+import { isValidAdminSessionToken } from "../utils/adminSession";
 
 export const prerender = false;
 
 const adminSession = Astro.cookies.get("admin_session")?.value;
-const isAuthenticated = adminSession === "rcan-admin-authenticated";
+const adminSecret = String(import.meta.env.ADMIN_PASS ?? "");
+const isAuthenticated = isValidAdminSessionToken(adminSession, adminSecret);
 ---
 
 <!doctype html>

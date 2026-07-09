@@ -32,6 +32,13 @@ npm run build
 
 Node.js 24 is recommended for local parity with Vercel serverless functions. Node.js 22.12.0 or newer is supported by the project.
 
+## Environment Variables
+
+- `ADMIN_USER` — admin portal username. Do not prefix this with `PUBLIC_`.
+- `ADMIN_PASS` — admin portal password. Do not prefix this with `PUBLIC_`.
+- `SITE_URL` — production origin for canonical URLs and sitemap output.
+- `PUBLIC_TURNSTILE_SITE_KEY` — Cloudflare Turnstile site key for the contact form.
+
 ## Release Checks
 
 Run these before publishing meaningful changes:

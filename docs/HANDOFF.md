@@ -26,7 +26,10 @@ This is the important part. A few pieces of this project are **not owned by RCAN
 1. Create a free account at vercel.com.
 2. Ask to be added as a collaborator to the GitHub repo (or have it transferred to you).
 3. In Vercel, "Import Project" from the GitHub repo. Vercel auto-detects Astro — no config needed.
-4. Add a Vercel environment variable named `SITE_URL` with the live site origin, such as `https://rcandc.org`. This keeps canonical URLs, Open Graph URLs, `sitemap.xml`, and `robots.txt` pointed at the real domain.
+4. Add these Vercel environment variables for the Production environment:
+   - `SITE_URL` — the live site origin, such as `https://rcandc.org`. This keeps canonical URLs, Open Graph URLs, `sitemap.xml`, and `robots.txt` pointed at the real domain.
+   - `ADMIN_USER` — the admin portal username. Do not prefix this with `PUBLIC_`.
+   - `ADMIN_PASS` — the admin portal password. Do not prefix this with `PUBLIC_`.
 5. Once it's deploying successfully on your account, ask whoever manages DNS (Wix, via Theo/RCAN) to point the domain at your new Vercel deployment instead of the old one.
 6. Old developer can then remove the project from their Vercel account.
 
@@ -51,7 +54,7 @@ To move these:
 - **`src/pages/`** — one file per page (e.g. `about.astro`, `donate.astro`, `contact.astro`). This is the easiest place to start if you just need to change page content.
 - **`src/components/`** — reusable pieces (buttons, cards, header, footer, etc.) used across pages.
 - **`src/data/admin.ts`** — plain data file. Notably, `CHANGE_REQUESTS` near the top is a manually-maintained list of past site change requests, shown on the admin page as a history log.
-- **`src/pages/admin.astro`** — a simple internal page where RCAN members can view request history and submit new change requests. It is protected by `ADMIN_USER` / `ADMIN_PASS` and a lightweight signed cookie, not a full user-account system.
+- **`src/pages/admin.astro`** — a simple internal page where RCAN members can view request history and submit new change requests. It is protected by `ADMIN_USER` / `ADMIN_PASS` and a lightweight signed cookie, not a full user-account system. If login works locally but returns `401` on the live site, confirm those two variables are set in Vercel's Production environment without the `PUBLIC_` prefix, then redeploy.
 - **`src/styles/global.css`** and **`tailwind.config.ts`** — colors, fonts, spacing. Change these to restyle the whole site at once.
 - **`docs/`** — planning docs and guides from when the site was originally built. Mostly historical context, not required reading.
 

@@ -11,7 +11,8 @@ import { isValidAdminSessionToken } from "../utils/adminSession";
 export const prerender = false;
 
 const adminSession = Astro.cookies.get("admin_session")?.value;
-const adminSecret = String(import.meta.env.ADMIN_PASS ?? "");
+const adminSecret =
+  typeof import.meta.env.ADMIN_PASS === "string" ? import.meta.env.ADMIN_PASS.trim() : "";
 const isAuthenticated = isValidAdminSessionToken(adminSession, adminSecret);
 ---
 

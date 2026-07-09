@@ -14,6 +14,9 @@ export const prerender = false;
 const isLoginPayload = (value: unknown): value is LoginPayload =>
   typeof value === "object" && value !== null;
 
+const normalizeCredential = (value: unknown): string =>
+  typeof value === "string" ? value.trim() : "";
+
 export const POST: APIRoute = async ({ request, cookies }) => {
   let username = "";
   let password = "";
@@ -24,16 +27,29 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       return new Response(JSON.stringify({ ok: false }), { status: 401 });
     }
 
-    username = typeof body.username === "string" ? body.username : "";
-    password = typeof body.password === "string" ? body.password : "";
+    username = normalizeCredential(body.username);
+    password = normalizeCredential(body.password);
   } catch {
     return new Response(JSON.stringify({ ok: false }), { status: 401 });
   }
 
-  const adminUser = String(import.meta.env.ADMIN_USER ?? "");
-  const adminPass = String(import.meta.env.ADMIN_PASS ?? "");
+  const adminUser = normalizeCredential(import.meta.env.ADMIN_USER);
+  const adminPass = normalizeCredential(import.meta.env.ADMIN_PASS);
+  const publicAdminUser = normalizeCredential(import.meta.env.PUBLIC_ADMIN_USER);
+  const publicAdminPass = normalizeCredential(import.meta.env.PUBLIC_ADMIN_PASS);
 
-  if (!adminUser || !adminPass || username !== adminUser || password !== adminPass) {
+  if (!adminUser || !adminPass) {
+    if (publicAdminUser || publicAdminPass) {
+      console.warn(
+        "Admin login rejected: PUBLIC_ADMIN_USER/PUBLIC_ADMIN_PASS are set, but admin credentials must use ADMIN_USER/ADMIN_PASS.",
+      );
+    }
+    console.warn("Admin login rejected: ADMIN_USER or ADMIN_PASS is not configured.");
+    return new Response(JSON.stringify({ ok: false }), { status: 401 });
+  }
+
+  if (username !== adminUser || password !== adminPass) {
+    console.warn("Admin login rejected: submitted credentials did not match configured values.");
     return new Response(JSON.stringify({ ok: false }), { status: 401 });
   }
 

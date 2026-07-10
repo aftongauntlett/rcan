@@ -10,6 +10,7 @@ export const SITE_ROUTES = [
   "/get-involved",
   "/contact",
   "/donate",
+  "/privacy-policy",
 ] as const;
 
 export const buildSitemapXml = (baseSite: URL): string => {

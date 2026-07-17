@@ -6,8 +6,8 @@ Website for the [Returning Citizens Assistance Network](https://www.rcandc.org/)
 
 ## Highlights
 
-- Fully accessible: automated axe-core checks plus manual screen-reader smoke testing
-- Performance-gated: Lighthouse CI thresholds enforced for mobile and desktop on every release
+- Built and tested toward WCAG 2.2 AA, with automated axe-core checks and a manual review guide
+- Lighthouse CI checks are configured for mobile and desktop release reviews
 - Type-safe: Astro + TypeScript in strict mode
 - Cross-browser regression coverage via Playwright
 - Custom admin dashboard for tracking client change requests
@@ -19,7 +19,7 @@ Website for the [Returning Citizens Assistance Network](https://www.rcandc.org/)
 - Tailwind CSS 4
 - ESLint, Prettier
 - Vitest, Playwright
-- Vercel Analytics (`@vercel/analytics`), enabled via Vercel hosting
+- Vercel hosting
 
 ## Local Development
 
